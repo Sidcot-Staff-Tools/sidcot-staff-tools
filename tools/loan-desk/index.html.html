@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LoanDesk — Student Item Loans</title>
+<style>
+  :root{
+    --bg:#f6f7fb; --panel:#ffffff; --panel2:#f8fafc; --ink:#151b2b; --muted:#667085;
+    --line:#e6e8ef; --nav:#111827; --nav2:#20283a; --accent:#4f46e5; --accent2:#eef0ff;
+    --green:#14804a; --greenbg:#eaf8f0; --amber:#a15c00; --amberbg:#fff6df; --red:#b42318;
+    --redbg:#fff0ee; --shadow:0 8px 28px rgba(16,24,40,.08); --r:14px;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;min-height:100%;font-family:"Aptos","Segoe UI Variable Text","Segoe UI Variable",Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink)}
+  button,input,select,textarea{font:inherit}
+  button{cursor:pointer}
+  .app{min-height:100vh;display:grid;grid-template-columns:232px 1fr}
+  .sidebar{background:var(--nav);color:#fff;padding:18px 14px;display:flex;flex-direction:column;gap:18px}
+  .brand{display:flex;align-items:center;gap:11px;padding:3px 7px 8px}
+  .brandmark{width:38px;height:38px;border-radius:11px;background:#fff;display:grid;place-items:center;color:var(--nav);font-weight:900;letter-spacing:-1px}
+  .brand h1{font-size:18px;margin:0;line-height:1.05;letter-spacing:-.025em;font-weight:760}
+  .brand p{font-size:11px;margin:4px 0 0;color:#aeb9cd}
+  .nav{display:grid;gap:6px}
+  .nav button{border:0;background:transparent;color:#c9d2e2;border-radius:10px;padding:10px 11px;text-align:left;display:flex;align-items:center;gap:10px;font-weight:650}
+  .nav button:hover,.nav button.active{background:var(--nav2);color:#fff}
+  .nav svg{width:18px;height:18px;flex:none}
+  .sidebox{margin-top:auto;border-top:1px solid rgba(255,255,255,.11);padding-top:14px}
+  .sidebox .small{color:#aeb9cd;font-size:11px;line-height:1.45;margin:0 4px 8px}
+  .sidebtn{width:100%;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.05);color:#fff;border-radius:10px;padding:9px 10px;text-align:left}
+  .main{min-width:0}
+  .topbar{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px;padding:0 24px;position:sticky;top:0;z-index:20}
+  .mobileMenu{display:none}
+  .topTitle{min-width:0}
+  .topTitle h2{font-size:18px;margin:0;letter-spacing:-.025em;font-weight:760}
+  .topTitle p{font-size:12px;color:var(--muted);margin:3px 0 0}
+  .topActions{margin-left:auto;display:flex;align-items:center;gap:8px}
+  .status{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;font-size:12px;color:var(--muted);max-width:280px}
+  .statusDot{width:8px;height:8px;border-radius:999px;background:#98a2b3;flex:none}
+  .status.connected .statusDot{background:#12b76a}
+  .status.dirty .statusDot{background:#f79009}
+  .btn{border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px 12px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:39px}
+  .btn:hover{background:#f8fafc}
+  .btn.primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+  .btn.primary:hover{filter:brightness(.96)}
+  .btn.danger{color:var(--red)}
+  .btn.ghost{border-color:transparent;background:transparent}
+  .btn.small{padding:6px 9px;min-height:32px;font-size:12px}
+  .btn svg{width:16px;height:16px}
+  .content{padding:24px;max-width:1500px;margin:0 auto}
+  .view{display:none}.view.active{display:block}
+  .hero{display:flex;align-items:flex-start;gap:16px;margin-bottom:18px}
+  .hero h3{font-size:26px;letter-spacing:-.04em;margin:0;font-weight:760}
+  .hero p{color:var(--muted);margin:5px 0 0}
+  .heroActions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:15px}
+  .stat .label{font-size:12px;color:var(--muted);font-weight:700}
+  .stat .value{font-size:26px;font-weight:850;margin-top:4px;letter-spacing:-.03em}
+  .stat .sub{font-size:11px;color:var(--muted);margin-top:2px}
+  .grid2{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);gap:16px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .panelHead{padding:15px 16px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .panelHead h4{margin:0;font-size:14px}
+  .panelHead p{margin:2px 0 0;font-size:11px;color:var(--muted)}
+  .panelHead .spacer{margin-left:auto}
+  .panelBody{padding:16px}
+  .loanComposer{display:grid;grid-template-columns:1.1fr 1.3fr 1fr 80px;gap:10px;align-items:end}
+  .field label{display:block;font-size:11px;color:#475467;font-weight:750;margin:0 0 5px}
+  .field input,.field select,.field textarea{width:100%;border:1px solid #d0d5dd;background:#fff;border-radius:9px;padding:9px 10px;color:var(--ink);outline:none;min-height:40px}
+  .field textarea{min-height:110px;resize:vertical}
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:#84adff;box-shadow:0 0 0 3px rgba(37,99,235,.11)}
+  .composerExtra{display:grid;grid-template-columns:1fr 1fr auto;gap:10px;align-items:end;margin-top:10px}
+  .hint{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.4}
+  .quickItems{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+  .chip{border:1px solid var(--line);background:#fff;border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700}
+  .chip:hover{border-color:#b2c7f5;background:#f6f9ff}
+  .loans{display:grid;gap:9px}
+  .loanRow{border:1px solid var(--line);border-radius:11px;padding:12px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center}
+  .loanMain{min-width:0}
+  .loanName{font-weight:800;font-size:14px}
+  .loanMeta{font-size:12px;color:var(--muted);margin-top:3px;display:flex;gap:8px;flex-wrap:wrap}
+  .tag{display:inline-flex;align-items:center;border-radius:999px;padding:3px 7px;font-size:10px;font-weight:800;background:#f2f4f7;color:#475467}
+  .tag.amber{background:var(--amberbg);color:var(--amber)}
+  .tag.blue{background:var(--accent2);color:#1d4ed8}
+  .tag.green{background:var(--greenbg);color:var(--green)}
+  .empty{padding:28px 16px;text-align:center;color:var(--muted)}
+  .empty strong{display:block;color:var(--ink);font-size:14px;margin-bottom:4px}
+  .searchbar{display:flex;gap:8px;align-items:center}
+  .searchbar input{width:100%;border:1px solid var(--line);border-radius:9px;padding:9px 10px}
+  .groupPills{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px}
+  .groupPills button{border:1px solid var(--line);background:#fff;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:700}
+  .groupPills button.active{background:var(--accent2);border-color:#b7cdfb;color:#1d4ed8}
+  .studentGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .studentCard{border:1px solid var(--line);background:#fff;border-radius:12px;padding:12px;text-align:left}
+  .studentCard:hover{border-color:#b9c9e6;box-shadow:0 2px 10px rgba(16,24,40,.05)}
+  .studentCard .name{font-weight:800}
+  .studentCard .meta{font-size:11px;color:var(--muted);margin-top:4px}
+  .itemGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+  .itemCard{border:1px solid var(--line);background:#fff;border-radius:12px;padding:14px}
+  .itemTop{display:flex;align-items:flex-start;gap:10px}
+  .itemIcon{width:36px;height:36px;border-radius:10px;background:#f2f4f7;display:grid;place-items:center;font-size:18px}
+  .itemCard h5{font-size:14px;margin:0}
+  .itemCard p{font-size:11px;color:var(--muted);margin:4px 0 0}
+  .itemActions{display:flex;gap:6px;margin-top:12px}
+  table{border-collapse:collapse;width:100%}
+  th,td{text-align:left;border-bottom:1px solid var(--line);padding:10px 9px;font-size:12px;vertical-align:top}
+  th{font-size:10px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);background:#fafbfc}
+  tr:last-child td{border-bottom:0}
+  .tableWrap{overflow:auto}
+  .modalBack{position:fixed;inset:0;background:rgba(15,23,42,.44);z-index:80;display:none;align-items:center;justify-content:center;padding:18px}
+  .modalBack.open{display:flex}
+  .modal{width:min(680px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:16px;box-shadow:0 24px 70px rgba(0,0,0,.25)}
+  .modalHead{padding:16px 18px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  .modalHead h4{margin:0;font-size:16px}.modalHead button{margin-left:auto}
+  .modalBody{padding:18px}
+  .modalFoot{padding:14px 18px;border-top:1px solid var(--line);display:flex;justify-content:flex-end;gap:8px}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .individualList{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+  .individualList input{border:1px solid #d0d5dd;border-radius:8px;padding:8px 9px}
+  .divider{height:1px;background:var(--line);margin:16px 0}
+  .filePanel{display:grid;gap:10px}
+  .fileOption{border:1px solid var(--line);border-radius:12px;padding:13px;display:flex;align-items:flex-start;gap:11px}
+  .fileOption .foIcon{width:38px;height:38px;border-radius:10px;background:#f2f4f7;display:grid;place-items:center}
+  .fileOption h5{margin:0;font-size:13px}.fileOption p{font-size:11px;color:var(--muted);margin:3px 0 8px;line-height:1.45}
+  .callout{border:1px solid #f6d68c;background:#fffbeb;border-radius:11px;padding:11px 12px;color:#7a4b00;font-size:11px;line-height:1.5}
+  .toast{position:fixed;right:20px;bottom:20px;z-index:120;background:#101828;color:#fff;border-radius:10px;padding:10px 12px;font-size:12px;box-shadow:var(--shadow);opacity:0;transform:translateY(8px);pointer-events:none;transition:.18s}
+  .toast.show{opacity:1;transform:translateY(0)}
+  .welcome{position:fixed;inset:0;z-index:100;background:linear-gradient(145deg,#f6f8fc,#eef3fb);display:none;align-items:center;justify-content:center;padding:22px}
+  .welcome.open{display:flex}
+  .welcomeCard{width:min(760px,100%);background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:0 28px 80px rgba(16,24,40,.15);overflow:hidden}
+  .welcomeTop{padding:28px 28px 20px}
+  .welcomeBadge{display:inline-flex;border-radius:999px;background:var(--accent2);color:#1d4ed8;font-size:11px;font-weight:800;padding:5px 8px}
+  .welcome h2{font-size:28px;letter-spacing:-.035em;margin:12px 0 7px}
+  .welcome p{color:var(--muted);line-height:1.55;margin:0;max-width:630px}
+  .welcomeChoices{padding:0 28px 28px;display:grid;grid-template-columns:1fr 1fr;gap:11px}
+  .choice{border:1px solid var(--line);background:#fff;border-radius:13px;padding:15px;text-align:left}
+  .choice:hover{border-color:#9ab8f7;background:#fbfdff}
+  .choice strong{display:block;font-size:14px}.choice span{display:block;font-size:11px;color:var(--muted);margin-top:4px;line-height:1.45}
+  .welcomeFoot{border-top:1px solid var(--line);background:#fafbfc;padding:12px 28px;font-size:10px;color:var(--muted)}
+  .subtle{color:var(--muted);font-size:11px}
+  .dangerText{color:var(--red)}
+  .right{margin-left:auto}
+  .kbd{font-size:10px;border:1px solid var(--line);border-bottom-width:2px;padding:1px 5px;border-radius:5px;color:var(--muted)}
+  #studentModal .modal{width:min(840px,100%)}
+  .studentProfileTop{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+  .studentProfileStats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin-bottom:16px}
+  .studentMiniStat{border:1px solid var(--line);background:#fbfcfe;border-radius:11px;padding:11px 12px;min-width:0}
+  .studentMiniStat .smLabel{font-size:10px;text-transform:uppercase;letter-spacing:.055em;color:var(--muted);font-weight:800}
+  .studentMiniStat .smValue{font-size:19px;line-height:1.2;font-weight:820;letter-spacing:-.03em;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .studentMiniStat .smSub{font-size:10px;color:var(--muted);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .studentSectionHead{display:flex;align-items:flex-end;gap:10px;margin:18px 0 9px}
+  .studentSectionHead h5{font-size:13px;margin:0;font-weight:800}
+  .studentSectionHead p{font-size:10px;color:var(--muted);margin:2px 0 0}
+  .repeatSummary{display:flex;gap:7px;flex-wrap:wrap}
+  .repeatChip{border:1px solid var(--line);background:#fff;border-radius:10px;padding:7px 9px;display:inline-flex;align-items:center;gap:7px;font-size:11px}
+  .repeatChip strong{font-size:12px}
+  .repeatChip.frequent{border-color:#f0c36a;background:#fffaf0}
+  .studentHistory{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .studentHistoryRow{display:grid;grid-template-columns:minmax(150px,1.2fr) minmax(145px,.9fr) minmax(145px,.9fr) minmax(120px,1fr);gap:10px;padding:10px 11px;border-bottom:1px solid var(--line);align-items:center}
+  .studentHistoryRow:last-child{border-bottom:0}
+  .studentHistoryRow.head{background:#fafbfc;color:var(--muted);font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.055em;padding-top:8px;padding-bottom:8px}
+  .studentHistoryItem{font-size:12px;font-weight:800;min-width:0}
+  .studentHistoryItem .subtle{display:block;margin-top:2px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .studentHistoryDate{font-size:11px;color:#475467}
+  .studentHistoryNote{font-size:10px;color:var(--muted);line-height:1.35;min-width:0;overflow-wrap:anywhere}
+  .studentHistoryEmpty{padding:20px;text-align:center;color:var(--muted);font-size:11px}
+  .studentHistoryEmpty strong{display:block;color:var(--ink);font-size:13px;margin-bottom:3px}
+  .registerIntro{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px}
+  .registerIntro h3{font-size:28px;letter-spacing:-.045em;margin:0;font-weight:780}
+  .registerIntro p{color:var(--muted);margin:5px 0 0;max-width:720px}
+  .registerActions{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap}
+  .registerToolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;padding:12px 14px;border-bottom:1px solid var(--line);background:#fbfcfe}
+  .registerToolbar .groupPills{margin:0;flex:1}
+  .registerSearch{width:min(260px,100%)}
+  .registerSearch input{width:100%;border:1px solid var(--line);border-radius:10px;padding:9px 11px;background:#fff;outline:none}
+  .registerSearch input:focus{border-color:#aaa7fa;box-shadow:0 0 0 3px rgba(79,70,229,.10)}
+  .registerGuide{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:10px 14px;border-bottom:1px solid var(--line);font-size:11px;color:var(--muted);background:#fff}
+  .legendSwatch{width:15px;height:15px;border-radius:5px;border:1px solid var(--line);display:inline-block;vertical-align:-3px;margin-right:5px;background:#fff}
+  .legendSwatch.out{background:var(--accent2);border-color:#b9b6ff;box-shadow:inset 0 0 0 2px #fff}
+  .registerWrap{overflow:auto;max-width:100%;background:#fff}
+  .registerTable{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%;table-layout:fixed}
+  .registerTable th,.registerTable td{border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:0;background:#fff}
+  .registerTable th:last-child,.registerTable td:last-child{border-right:0}
+  .registerTable tr:last-child td{border-bottom:0}
+  .registerTable thead th{position:sticky;top:0;z-index:4;background:#fafbfe;text-transform:none;letter-spacing:0;color:var(--ink);padding:0}
+  .registerStudentHead{position:sticky!important;left:0;z-index:7!important;width:220px;min-width:220px;text-align:left}
+  .registerStudentHeadInner{padding:12px 14px;font-size:11px;text-transform:uppercase;letter-spacing:.055em;color:var(--muted);font-weight:800}
+  .registerStudentCell{position:sticky;left:0;z-index:3;width:220px;min-width:220px;background:#fff!important}
+  .registerStudentButton{width:100%;border:0;background:transparent;text-align:left;padding:11px 14px;min-height:58px;color:var(--ink)}
+  .registerStudentButton:hover{background:#fafbff}
+  .registerStudentName{font-weight:760;font-size:13px;letter-spacing:-.01em}
+  .registerStudentMeta{font-size:10px;color:var(--muted);margin-top:3px}
+  .registerItemHead{width:112px;min-width:112px;max-width:112px;vertical-align:bottom}
+  .registerItemHeadInner{min-height:88px;padding:10px 7px 9px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;text-align:center;gap:5px}
+  .registerItemIcon{font-size:18px;line-height:1}
+  .registerItemName{font-size:11px;font-weight:760;line-height:1.2;overflow-wrap:anywhere}
+  .registerItemCount{font-size:9px;color:var(--muted);font-weight:650}
+  .registerCell{width:112px;min-width:112px;height:58px}
+  .registerToggle{width:100%;height:100%;min-height:58px;border:0;background:#fff;display:flex;align-items:center;justify-content:center;gap:5px;color:#98a2b3;font-size:11px;font-weight:800;transition:background .12s,border-color .12s,color .12s}
+  .registerToggle:hover{background:#f7f8ff;color:var(--accent)}
+  .registerToggle.isOut{background:var(--accent2);color:#4338ca;box-shadow:inset 0 0 0 2px #c8c6ff}
+  .registerToggle.isOut:hover{background:#e7e9ff}
+  .registerToggle .tick{font-size:15px;line-height:1}
+  .registerAddHead{width:86px;min-width:86px;background:#fbfcfe!important}
+  .registerAddButton{border:0;background:transparent;color:var(--accent);font-weight:800;font-size:11px;width:100%;min-height:88px;padding:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px}
+  .registerAddButton span:first-child{width:28px;height:28px;border:1px dashed #a5a2ef;border-radius:9px;display:grid;place-items:center;font-size:18px;background:#fff}
+  .registerEmpty{padding:42px 20px;text-align:center;color:var(--muted)}
+  .registerEmpty strong{display:block;color:var(--ink);font-size:15px;margin-bottom:5px}
+  .detailsDisclosure{margin-top:16px}
+  .detailsDisclosure summary{cursor:pointer;list-style:none;color:#475467;font-size:12px;font-weight:760;display:inline-flex;align-items:center;gap:6px}
+  .detailsDisclosure summary::-webkit-details-marker{display:none}
+  .detailsDisclosure summary:before{content:'+';width:18px;height:18px;border:1px solid var(--line);border-radius:6px;display:grid;place-items:center;font-size:13px;background:#fff}
+  .detailsDisclosure[open] summary:before{content:'−'}
+  .detailsDisclosure .detailPanel{margin-top:10px}
+  @media(max-width:1050px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .grid2{grid-template-columns:1fr}
+    .studentGrid,.itemGrid{grid-template-columns:repeat(2,1fr)}
+    .registerStudentHead,.registerStudentCell{width:190px;min-width:190px}
+  }
+  @media(max-width:900px){
+    .studentProfileStats{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .studentHistoryRow{grid-template-columns:minmax(130px,1.2fr) minmax(125px,.9fr) minmax(125px,.9fr)}
+    .studentHistoryRow > :last-child{grid-column:1/-1}
+    .studentHistoryRow.head > :last-child{display:none}
+  }
+  @media(max-width:780px){
+    .app{grid-template-columns:1fr}
+    .sidebar{display:none;position:fixed;inset:0 auto 0 0;width:245px;z-index:60}
+    .sidebar.open{display:flex}
+    .topbar{padding:0 12px;height:62px}
+    .mobileMenu{display:inline-flex}
+    .status{display:none}
+    .content{padding:15px}
+    .hero{display:block}.heroActions{margin-top:12px}
+    .loanComposer{grid-template-columns:1fr 1fr}.composerExtra{grid-template-columns:1fr}
+    .studentGrid,.itemGrid{grid-template-columns:1fr}
+    .registerIntro{display:block}.registerActions{margin-top:12px}.registerSearch{width:100%}
+    .registerStudentHead,.registerStudentCell{width:165px;min-width:165px}
+    .registerItemHead,.registerCell{width:96px;min-width:96px;max-width:96px}
+    .welcomeChoices{grid-template-columns:1fr}
+    .row2,.individualList{grid-template-columns:1fr}
+  }
+  @media(max-width:480px){
+    .stats{grid-template-columns:1fr 1fr}
+    .stat{padding:12px}.stat .value{font-size:22px}
+    .loanComposer{grid-template-columns:1fr}
+    .topTitle p{display:none}
+    .topActions .textLabel{display:none}
+    .welcomeTop,.welcomeChoices{padding-left:18px;padding-right:18px}
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brandmark">LD</div>
+      <div><h1>LoanDesk</h1><p>Student item loans</p></div>
+    </div>
+    <nav class="nav" id="nav">
+      <button class="active" data-view="register"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16M4 10h16M4 15h16M4 20h16"/><path d="M9 3v18"/></svg>Lending register</button>
+      <button data-view="dashboard"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</button>
+      <button data-view="students"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>Students & groups</button>
+      <button data-view="items"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="m3.3 7 8.7 5 8.7-5M12 22V12"/></svg>Loan items</button>
+      <button data-view="history"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>History</button>
+    </nav>
+    <div class="sidebox">
+      <p class="small">Your data stays in the JSON file you choose. No account or server is required.</p>
+      <button class="sidebtn" id="openFileSidebar">File & backup options</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="btn ghost mobileMenu" id="mobileMenu" aria-label="Open menu">☰</button>
+      <div class="topTitle"><h2 id="pageTitle">Lending register</h2><p id="pageSubtitle">One-click loans and returns</p></div>
+      <div class="topActions">
+        <div class="status" id="fileStatus"><span class="statusDot"></span><span id="fileStatusText">No data file connected</span></div>
+        <button class="btn" id="saveNow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><path d="M17 21v-8H7v8M7 3v5h8"/></svg><span class="textLabel">Save</span></button>
+        <button class="btn" id="fileButton"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h5l2 2h7a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="textLabel">File</span></button>
+      </div>
+    </header>
+
+    <div class="content">
+      <section class="view active" id="view-register">
+        <div class="registerIntro">
+          <div><h3>Lending register</h3><p>Choose a group, then click the cell where a student and item meet. Empty cells loan the item; highlighted cells return it.</p></div>
+          <div class="registerActions"><button class="btn" id="registerAddGroup">+ Add group</button><button class="btn primary" id="registerAddItem">+ Add lendable item</button></div>
+        </div>
+        <div class="panel">
+          <div class="registerToolbar">
+            <div class="groupPills" id="registerGroupPills"></div>
+            <div class="registerSearch"><input id="registerSearch" placeholder="Find a student…" aria-label="Find a student"></div>
+          </div>
+          <div class="registerGuide"><span><span class="legendSwatch"></span>Click to loan</span><span><span class="legendSwatch out"></span>Currently out — click to return</span><span id="registerSummary" class="right"></span></div>
+          <div class="registerWrap" id="registerWrap"></div>
+        </div>
+        <details class="detailsDisclosure">
+          <summary>Detailed loan / return tools</summary>
+          <div class="detailPanel grid2">
+            <div class="panel">
+              <div class="panelHead"><div><h4>Detailed loan</h4><p>Use this when you need a quantity, textbook number or note.</p></div></div>
+              <div class="panelBody">
+                <form id="registerDetailLoanForm">
+                  <div class="loanComposer">
+                    <div class="field"><label for="registerLoanGroup">Group</label><select id="registerLoanGroup"></select></div>
+                    <div class="field"><label for="registerLoanStudent">Student</label><select id="registerLoanStudent"></select></div>
+                    <div class="field"><label for="registerLoanItem">Item</label><select id="registerLoanItem"></select></div>
+                    <div class="field"><label for="registerLoanQty">Qty</label><input id="registerLoanQty" type="number" min="1" max="99" value="1"></div>
+                  </div>
+                  <div class="composerExtra">
+                    <div class="field"><label for="registerLoanRef">Asset / copy number <span class="subtle">(optional)</span></label><input id="registerLoanRef" placeholder="e.g. Textbook 17"></div>
+                    <div class="field"><label for="registerLoanNote">Note <span class="subtle">(optional)</span></label><input id="registerLoanNote" placeholder="e.g. forgot own lanyard"></div>
+                    <button class="btn primary" type="submit">Loan item</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+            <div class="panel">
+              <div class="panelHead"><div><h4>Current loans</h4><p>For returns that need a little more detail.</p></div></div>
+              <div class="panelBody"><div class="searchbar"><input id="registerReturnSearch" placeholder="Search current loans…"></div><div class="loans" id="registerActiveLoans" style="margin-top:12px"></div></div>
+            </div>
+          </div>
+        </details>
+      </section>
+
+      <section class="view" id="view-dashboard">
+        <div class="hero">
+          <div><h3>Overview</h3><p>A quick summary of current loans, with detailed controls when you need them.</p></div>
+          <div class="heroActions"><button class="btn" id="dashAddGroup">+ Add group</button><button class="btn" id="dashAddItem">+ Add item</button></div>
+        </div>
+
+        <div class="stats">
+          <div class="stat"><div class="label">Items currently out</div><div class="value" id="statOut">0</div><div class="sub">active loan records</div></div>
+          <div class="stat"><div class="label">Students with items</div><div class="value" id="statBorrowers">0</div><div class="sub">unique students</div></div>
+          <div class="stat"><div class="label">Groups</div><div class="value" id="statGroups">0</div><div class="sub">classes / tutor groups</div></div>
+          <div class="stat"><div class="label">Students</div><div class="value" id="statStudents">0</div><div class="sub">across all groups</div></div>
+        </div>
+
+        <div class="grid2">
+          <div class="panel">
+            <div class="panelHead">
+              <div><h4>Detailed loan</h4><p>For quantities, asset numbers and notes. Everyday lending is faster in the register.</p></div>
+            </div>
+            <div class="panelBody">
+              <form id="loanForm">
+                <div class="loanComposer">
+                  <div class="field"><label for="loanGroup">Group</label><select id="loanGroup"></select></div>
+                  <div class="field"><label for="loanStudent">Student</label><select id="loanStudent"></select></div>
+                  <div class="field"><label for="loanItem">Item</label><select id="loanItem"></select></div>
+                  <div class="field"><label for="loanQty">Qty</label><input id="loanQty" type="number" min="1" max="99" value="1"></div>
+                </div>
+                <div class="composerExtra">
+                  <div class="field"><label for="loanRef">Asset / copy number <span class="subtle">(optional)</span></label><input id="loanRef" placeholder="e.g. Textbook 17"></div>
+                  <div class="field"><label for="loanNote">Note <span class="subtle">(optional)</span></label><input id="loanNote" placeholder="e.g. forgot own lanyard"></div>
+                  <button class="btn primary" type="submit">Loan item</button>
+                </div>
+              </form>
+              <div class="quickItems" id="quickItems"></div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panelHead"><div><h4>Quick return</h4><p>Search current loans by student or item.</p></div></div>
+            <div class="panelBody">
+              <div class="searchbar"><input id="returnSearch" placeholder="Search student, group or item…"></div>
+              <div class="loans" id="activeLoans" style="margin-top:12px"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-students">
+        <div class="hero">
+          <div><h3>Students & groups</h3><p>Keep separate tutor groups or classes and add names in bulk.</p></div>
+          <div class="heroActions"><button class="btn primary" id="addGroupBtn">+ Add group</button></div>
+        </div>
+        <div class="groupPills" id="groupPills"></div>
+        <div class="panel">
+          <div class="panelHead">
+            <div><h4 id="studentPanelTitle">Students</h4><p id="studentPanelSub">Choose a group to manage its students.</p></div>
+            <div class="spacer"></div>
+            <div class="searchbar" style="width:min(280px,100%)"><input id="studentSearch" placeholder="Search names…"></div>
+            <button class="btn small" id="addStudentsExisting">+ Add students</button>
+          </div>
+          <div class="panelBody">
+            <div class="studentGrid" id="studentGrid"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-items">
+        <div class="hero">
+          <div><h3>Loan items</h3><p>Add whatever your setting lends out — from lanyards to textbooks and equipment.</p></div>
+          <div class="heroActions"><button class="btn primary" id="addItemBtn">+ Add item</button></div>
+        </div>
+        <div class="itemGrid" id="itemGrid"></div>
+      </section>
+
+      <section class="view" id="view-history">
+        <div class="hero">
+          <div><h3>Loan history</h3><p>A simple audit trail of what was loaned, when, and when it came back.</p></div>
+        </div>
+        <div class="panel">
+          <div class="panelHead">
+            <div class="searchbar" style="width:min(420px,100%)"><input id="historySearch" placeholder="Search student, group, item or note…"></div>
+            <div class="spacer"></div>
+            <button class="btn small" id="exportCsv">Export CSV</button>
+          </div>
+          <div class="tableWrap"><table><thead><tr><th>Student</th><th>Group</th><th>Item</th><th>Qty</th><th>Loaned</th><th>Returned</th><th>Details</th></tr></thead><tbody id="historyBody"></tbody></table></div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<div class="welcome" id="welcome">
+  <div class="welcomeCard">
+    <div class="welcomeTop">
+      <span class="welcomeBadge">Single-file teacher utility</span>
+      <h2>Welcome to LoanDesk</h2>
+      <p>Choose where your data should live. The best experience is to create or open a JSON data file on your computer or a mapped school network drive. LoanDesk will then save changes back to that same file.</p>
+    </div>
+    <div class="welcomeChoices">
+      <button class="choice" id="welcomeCreate"><strong>Create a new data file</strong><span>Choose a folder, name the file, and start with a clean register.</span></button>
+      <button class="choice" id="welcomeOpen"><strong>Open an existing LoanDesk file</strong><span>Use a data file you have already created on this or another computer.</span></button>
+      <button class="choice" id="welcomeReconnect" style="display:none"><strong id="reconnectTitle">Reconnect previous file</strong><span>Re-authorise the file you used last time, then continue where you left off.</span></button>
+      <button class="choice" id="welcomeOffline"><strong>Start without connecting a file</strong><span>Useful for trying the app. You can connect a file later from the File menu.</span></button>
+    </div>
+    <div class="welcomeFoot" id="welcomeFoot">For direct save/open, use a recent Chromium-based browser such as Microsoft Edge or Google Chrome.</div>
+  </div>
+</div>
+
+<div class="modalBack" id="groupModal">
+  <div class="modal">
+    <div class="modalHead"><h4 id="groupModalTitle">Add a group</h4><button class="btn ghost small" data-close="groupModal">✕</button></div>
+    <form id="groupForm">
+      <div class="modalBody">
+        <div class="field"><label for="groupName">Group name</label><input id="groupName" placeholder="e.g. 9ATU, 10C2, Year 12 Chemistry" required></div>
+        <div class="divider"></div>
+        <div class="field">
+          <label for="bulkNames">Paste student names</label>
+          <textarea id="bulkNames" placeholder="One student per line&#10;Amelia Jones&#10;Ben Khan&#10;Cara Williams"></textarea>
+          <div class="hint">You can paste a column straight from Excel, Sheets or your MIS. Blank lines and duplicate names are ignored.</div>
+        </div>
+        <div class="divider"></div>
+        <div>
+          <div style="display:flex;align-items:center;gap:8px"><strong style="font-size:12px">Or enter names individually</strong><button type="button" class="btn small right" id="addMoreNameFields">+ Add more boxes</button></div>
+          <div class="individualList" id="individualList"></div>
+        </div>
+        <div class="divider"></div>
+        <div class="field">
+          <label>Import a simple text or CSV list <span class="subtle">(optional)</span></label>
+          <input id="studentFileInput" type="file" accept=".txt,.csv,text/plain,text/csv">
+          <div class="hint">For CSV files, LoanDesk uses the first non-empty cell on each row as the student name.</div>
+        </div>
+      </div>
+      <div class="modalFoot"><button type="button" class="btn" data-close="groupModal">Cancel</button><button class="btn primary" type="submit">Save group & students</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modalBack" id="addStudentsModal">
+  <div class="modal">
+    <div class="modalHead"><h4>Add students to <span id="addStudentsGroupName"></span></h4><button class="btn ghost small" data-close="addStudentsModal">✕</button></div>
+    <form id="addStudentsForm">
+      <div class="modalBody">
+        <div class="field"><label for="moreBulkNames">Paste names</label><textarea id="moreBulkNames" placeholder="One student per line"></textarea></div>
+        <div class="divider"></div>
+        <div style="display:flex;align-items:center;gap:8px"><strong style="font-size:12px">Individual name boxes</strong><button type="button" class="btn small right" id="moreAddBoxes">+ Add more boxes</button></div>
+        <div class="individualList" id="moreIndividualList"></div>
+      </div>
+      <div class="modalFoot"><button type="button" class="btn" data-close="addStudentsModal">Cancel</button><button class="btn primary" type="submit">Add students</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modalBack" id="itemModal">
+  <div class="modal">
+    <div class="modalHead"><h4 id="itemModalTitle">Add a loan item</h4><button class="btn ghost small" data-close="itemModal">✕</button></div>
+    <form id="itemForm">
+      <div class="modalBody">
+        <input type="hidden" id="itemEditId">
+        <div class="row2">
+          <div class="field"><label for="itemName">Item name</label><input id="itemName" placeholder="e.g. Temporary lanyard" required></div>
+          <div class="field"><label for="itemCategory">Category</label><select id="itemCategory"><option>General</option><option>ID / access</option><option>Stationery</option><option>Textbook</option><option>Equipment</option><option>Other</option></select></div>
+        </div>
+        <div class="row2" style="margin-top:11px">
+          <div class="field"><label for="itemStock">Total stock <span class="subtle">(optional)</span></label><input id="itemStock" type="number" min="0" max="9999" placeholder="Leave blank if not tracked"></div>
+          <div class="field"><label for="itemEmoji">Short icon <span class="subtle">(optional)</span></label><input id="itemEmoji" maxlength="3" placeholder="e.g. 🎫"></div>
+        </div>
+        <div class="hint">Stock is advisory: if entered, LoanDesk shows how many are currently available but will not block a loan.</div>
+      </div>
+      <div class="modalFoot"><button type="button" class="btn" data-close="itemModal">Cancel</button><button class="btn primary" type="submit">Save item</button></div>
+    </form>
+  </div>
+</div>
+
+<div class="modalBack" id="studentModal">
+  <div class="modal">
+    <div class="modalHead"><h4 id="studentModalTitle">Student</h4><button class="btn ghost small" data-close="studentModal">✕</button></div>
+    <div class="modalBody" id="studentModalBody"></div>
+    <div class="modalFoot"><button class="btn" data-close="studentModal">Close</button></div>
+  </div>
+</div>
+
+<div class="modalBack" id="fileModal">
+  <div class="modal">
+    <div class="modalHead"><h4>Data file & backup</h4><button class="btn ghost small" data-close="fileModal">✕</button></div>
+    <div class="modalBody">
+      <div class="filePanel">
+        <div class="fileOption">
+          <div class="foIcon">📄</div><div><h5>Current data file</h5><p id="currentFileDetail">No file is connected.</p><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn small primary" id="fileCreate">Create new file</button><button class="btn small" id="fileOpen">Open existing</button><button class="btn small" id="fileReconnect" style="display:none">Reconnect</button></div></div>
+        </div>
+        <div class="fileOption">
+          <div class="foIcon">↕</div><div><h5>Portable backup</h5><p>Download the current data as JSON or import a JSON backup. This works even when direct file access is unavailable.</p><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="btn small" id="downloadJson">Download JSON</button><label class="btn small" for="importJsonInput">Import JSON</label><input id="importJsonInput" type="file" accept=".json,application/json" style="display:none"></div></div>
+        </div>
+        <div class="fileOption">
+          <div class="foIcon">⚙</div><div style="flex:1"><h5>App details</h5><p>These labels are saved inside the data file and appear only in this copy of LoanDesk.</p>
+            <div class="row2"><div class="field"><label for="teacherName">Teacher / owner</label><input id="teacherName" placeholder="Optional"></div><div class="field"><label for="schoolName">School / department</label><input id="schoolName" placeholder="Optional"></div></div>
+            <div style="margin-top:10px"><button class="btn small" id="saveSettings">Save details</button></div>
+          </div>
+        </div>
+      </div>
+      <div class="callout" id="apiNotice" style="margin-top:12px">Direct read/write requires browser support for the File System Access API. If it is unavailable, use the portable JSON buttons above.</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+'use strict';
+
+const APP_KEY='loandesk_emergency_v1';
+const DB_NAME='LoanDeskHandles';
+const STORE='handles';
+const HANDLE_KEY='primaryDataFile';
+
+const iconByCategory={
+  'General':'📦','ID / access':'🎫','Stationery':'✏️','Textbook':'📘','Equipment':'🔧','Other':'•'
+};
+
+function uid(prefix='id'){ return prefix+'_'+Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,8); }
+function nowISO(){ return new Date().toISOString(); }
+
+function blankData(){
+  return {
+    schema:'LoanDesk', version:1, updatedAt:nowISO(),
+    settings:{teacherName:'',schoolName:''},
+    groups:[],
+    items:[
+      {id:uid('item'),name:'Temporary lanyard',category:'ID / access',stock:null,emoji:'🎫',active:true},
+      {id:uid('item'),name:'Pen',category:'Stationery',stock:null,emoji:'🖊️',active:true},
+      {id:uid('item'),name:'Pencil',category:'Stationery',stock:null,emoji:'✏️',active:true},
+      {id:uid('item'),name:'Textbook',category:'Textbook',stock:null,emoji:'📘',active:true}
+    ],
+    loans:[]
+  };
+}
+
+let data=blankData();
+let fileHandle=null;
+let rememberedHandle=null;
+let dirty=false;
+let selectedGroup='all';
+let currentView='register';
+let registerGroupId=null;
+let saveTimer=null;
+
+const $=id=>document.getElementById(id);
+const els={
+  sidebar:$('sidebar'), nav:$('nav'), pageTitle:$('pageTitle'), pageSubtitle:$('pageSubtitle'),
+  registerGroupPills:$('registerGroupPills'), registerSearch:$('registerSearch'), registerWrap:$('registerWrap'), registerSummary:$('registerSummary'),
+  registerLoanGroup:$('registerLoanGroup'), registerLoanStudent:$('registerLoanStudent'), registerLoanItem:$('registerLoanItem'), registerLoanQty:$('registerLoanQty'), registerLoanRef:$('registerLoanRef'), registerLoanNote:$('registerLoanNote'),
+  registerReturnSearch:$('registerReturnSearch'), registerActiveLoans:$('registerActiveLoans'),
+  fileStatus:$('fileStatus'), fileStatusText:$('fileStatusText'), toast:$('toast'), welcome:$('welcome'),
+  reconnectTitle:$('reconnectTitle'), welcomeReconnect:$('welcomeReconnect'), welcomeFoot:$('welcomeFoot'),
+  loanGroup:$('loanGroup'), loanStudent:$('loanStudent'), loanItem:$('loanItem'), loanQty:$('loanQty'),
+  loanRef:$('loanRef'), loanNote:$('loanNote'), quickItems:$('quickItems'), activeLoans:$('activeLoans'),
+  returnSearch:$('returnSearch'), groupPills:$('groupPills'), studentGrid:$('studentGrid'),
+  studentPanelTitle:$('studentPanelTitle'), studentPanelSub:$('studentPanelSub'), studentSearch:$('studentSearch'),
+  itemGrid:$('itemGrid'), historyBody:$('historyBody'), historySearch:$('historySearch')
+};
+
+function escapeHTML(v){
+  return String(v ?? '').replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+function fmtDate(iso){
+  if(!iso) return '—';
+  const d=new Date(iso);
+  return d.toLocaleString([], {day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+}
+function ageText(iso){
+  const ms=Date.now()-new Date(iso).getTime();
+  const h=Math.floor(ms/3600000), d=Math.floor(h/24);
+  if(d>0) return d+'d '+(h%24)+'h';
+  if(h>0) return h+'h';
+  const m=Math.max(1,Math.floor(ms/60000));
+  return m+'m';
+}
+function groupById(id){return data.groups.find(g=>g.id===id);}
+function itemById(id){return data.items.find(i=>i.id===id);}
+function studentById(groupId,studentId){
+  const g=groupById(groupId); return g ? g.students.find(s=>s.id===studentId) : null;
+}
+function activeLoans(){return data.loans.filter(l=>!l.returnedAt);}
+function outstandingForItem(itemId){return activeLoans().filter(l=>l.itemId===itemId).reduce((a,l)=>a+(Number(l.quantity)||1),0);}
+
+function toast(msg){
+  els.toast.textContent=msg; els.toast.classList.add('show');
+  clearTimeout(toast._t); toast._t=setTimeout(()=>els.toast.classList.remove('show'),2200);
+}
+function openModal(id){ $(id).classList.add('open'); }
+function closeModal(id){ $(id).classList.remove('open'); }
+
+function setDirty(reason=''){
+  data.updatedAt=nowISO();
+  dirty=true;
+  emergencyBackup();
+  updateFileStatus();
+  if(fileHandle){
+    clearTimeout(saveTimer);
+    saveTimer=setTimeout(()=>saveToHandle(false),350);
+  }
+}
+function emergencyBackup(){
+  try{ localStorage.setItem(APP_KEY, JSON.stringify(data)); }catch(e){}
+}
+function loadEmergency(){
+  try{
+    const raw=localStorage.getItem(APP_KEY);
+    if(raw){ const parsed=JSON.parse(raw); if(validData(parsed)) return parsed; }
+  }catch(e){}
+  return null;
+}
+function validData(x){
+  return x && x.schema==='LoanDesk' && Array.isArray(x.groups) && Array.isArray(x.items) && Array.isArray(x.loans);
+}
+function normaliseData(x){
+  x.settings=x.settings||{teacherName:'',schoolName:''};
+  x.groups=Array.isArray(x.groups)?x.groups:[];
+  x.items=Array.isArray(x.items)?x.items:[];
+  x.loans=Array.isArray(x.loans)?x.loans:[];
+  x.groups.forEach(g=>{g.students=Array.isArray(g.students)?g.students:[];});
+  return x;
+}
+
+function updateFileStatus(){
+  const s=els.fileStatus;
+  s.classList.remove('connected','dirty');
+  if(fileHandle){
+    s.classList.add(dirty?'dirty':'connected');
+    els.fileStatusText.textContent=(dirty?'Saving… ':'Connected: ')+fileHandle.name;
+  }else if(rememberedHandle){
+    els.fileStatusText.textContent='Previous file needs access';
+  }else{
+    if(dirty) s.classList.add('dirty');
+    els.fileStatusText.textContent=dirty?'Not connected — changes in browser backup':'No data file connected';
+  }
+  $('currentFileDetail').textContent=fileHandle
+    ? 'Connected to '+fileHandle.name+'. Changes are saved back to this file.'
+    : rememberedHandle
+      ? 'Previous file remembered: '+rememberedHandle.name+'. Reconnect to read and write it.'
+      : 'No file is connected. Create or open a JSON data file for direct saving.';
+  $('fileReconnect').style.display=rememberedHandle && !fileHandle ? '' : 'none';
+  $('teacherName').value=data.settings?.teacherName||'';
+  $('schoolName').value=data.settings?.schoolName||'';
+}
+
+async function openHandleDB(){
+  return new Promise((resolve,reject)=>{
+    const req=indexedDB.open(DB_NAME,1);
+    req.onupgradeneeded=()=>{ if(!req.result.objectStoreNames.contains(STORE)) req.result.createObjectStore(STORE); };
+    req.onsuccess=()=>resolve(req.result); req.onerror=()=>reject(req.error);
+  });
+}
+async function rememberHandle(handle){
+  try{
+    const db=await openHandleDB();
+    await new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE,'readwrite');
+      tx.objectStore(STORE).put(handle,HANDLE_KEY);
+      tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error);
+    });
+    db.close();
+  }catch(e){}
+}
+async function getRememberedHandle(){
+  try{
+    const db=await openHandleDB();
+    const result=await new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE,'readonly');
+      const req=tx.objectStore(STORE).get(HANDLE_KEY);
+      req.onsuccess=()=>resolve(req.result||null); req.onerror=()=>reject(req.error);
+    });
+    db.close(); return result;
+  }catch(e){ return null; }
+}
+async function clearRememberedHandle(){
+  try{
+    const db=await openHandleDB();
+    await new Promise((resolve,reject)=>{
+      const tx=db.transaction(STORE,'readwrite');
+      tx.objectStore(STORE).delete(HANDLE_KEY);
+      tx.oncomplete=resolve; tx.onerror=()=>reject(tx.error);
+    });
+    db.close();
+  }catch(e){}
+}
+
+async function verifyPermission(handle, write=true, request=false){
+  if(!handle) return false;
+  const opts={mode:write?'readwrite':'read'};
+  try{
+    if(typeof handle.queryPermission==='function'){
+      const q=await handle.queryPermission(opts);
+      if(q==='granted') return true;
+      if(q==='denied') return false;
+    }
+    if(request && typeof handle.requestPermission==='function'){
+      return (await handle.requestPermission(opts))==='granted';
+    }
+    return !request ? false : true;
+  }catch(e){ return false; }
+}
+
+async function readFromHandle(handle){
+  const f=await handle.getFile();
+  const txt=await f.text();
+  if(!txt.trim()) return blankData();
+  const parsed=JSON.parse(txt);
+  if(!validData(parsed)) throw new Error('This does not appear to be a LoanDesk data file.');
+  return normaliseData(parsed);
+}
+async function writeToHandle(handle){
+  const writable=await handle.createWritable();
+  await writable.write(JSON.stringify(data,null,2));
+  await writable.close();
+}
+
+async function createDataFile(){
+  if(!('showSaveFilePicker' in window)){
+    downloadJSON(); toast('Direct save is unavailable in this browser'); return;
+  }
+  try{
+    const h=await window.showSaveFilePicker({
+      id:'loandesk-data',
+      suggestedName:'LoanDesk-data.json',
+      types:[{description:'LoanDesk data file',accept:{'application/json':['.json']}}],
+      excludeAcceptAllOption:false
+    });
+    fileHandle=h; rememberedHandle=h; await rememberHandle(h);
+    await writeToHandle(h); dirty=false; updateFileStatus(); closeModal('fileModal'); els.welcome.classList.remove('open');
+    toast('Data file connected');
+  }catch(e){ if(e.name!=='AbortError') toast('Could not create file: '+e.message); }
+}
+async function openDataFile(){
+  if(!('showOpenFilePicker' in window)){
+    $('importJsonInput').click(); return;
+  }
+  try{
+    const [h]=await window.showOpenFilePicker({
+      id:'loandesk-data',
+      multiple:false,
+      types:[{description:'LoanDesk data file',accept:{'application/json':['.json']}}],
+      excludeAcceptAllOption:false
+    });
+    const loaded=await readFromHandle(h);
+    data=loaded; fileHandle=h; rememberedHandle=h; await rememberHandle(h); dirty=false; emergencyBackup();
+    renderAll(); updateFileStatus(); closeModal('fileModal'); els.welcome.classList.remove('open'); toast('LoanDesk file opened');
+  }catch(e){ if(e.name!=='AbortError') toast(e.message||'Could not open file'); }
+}
+async function reconnectRemembered(){
+  if(!rememberedHandle){ toast('No previous file is remembered'); return; }
+  try{
+    const ok=await verifyPermission(rememberedHandle,true,true);
+    if(!ok){ toast('File access was not granted'); return; }
+    const loaded=await readFromHandle(rememberedHandle);
+    data=loaded; fileHandle=rememberedHandle; dirty=false; emergencyBackup(); renderAll(); updateFileStatus();
+    els.welcome.classList.remove('open'); closeModal('fileModal'); toast('Reconnected to '+fileHandle.name);
+  }catch(e){ toast('Could not reconnect: '+e.message); }
+}
+async function saveToHandle(userInitiated=true){
+  if(!fileHandle){
+    if(userInitiated) openModal('fileModal');
+    return;
+  }
+  try{
+    let ok=await verifyPermission(fileHandle,true,false);
+    if(!ok && userInitiated) ok=await verifyPermission(fileHandle,true,true);
+    if(!ok){ dirty=true; updateFileStatus(); if(userInitiated) toast('Click Reconnect to grant file access'); return; }
+    await writeToHandle(fileHandle); dirty=false; updateFileStatus();
+    if(userInitiated) toast('Saved to '+fileHandle.name);
+  }catch(e){ dirty=true; updateFileStatus(); if(userInitiated) toast('Save failed: '+e.message); }
+}
+
+function downloadJSON(){
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='LoanDesk-backup.json';
+  document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+function downloadCSV(){
+  const rows=[['Student','Group','Item','Quantity','Loaned','Returned','Asset/reference','Note']];
+  data.loans.slice().sort((a,b)=>new Date(b.loanedAt)-new Date(a.loanedAt)).forEach(l=>{
+    const g=groupById(l.groupId), s=studentById(l.groupId,l.studentId), i=itemById(l.itemId);
+    rows.push([s?.name||'Unknown',g?.name||'',i?.name||'',l.quantity||1,fmtDate(l.loanedAt),l.returnedAt?fmtDate(l.returnedAt):'',l.assetRef||'',l.note||'']);
+  });
+  const csv=rows.map(r=>r.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='LoanDesk-history.csv';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),1000);
+}
+
+function getAllStudents(){
+  return data.groups.flatMap(g=>g.students.map(s=>({...s,groupId:g.id,groupName:g.name})));
+}
+function renderAll(){
+  renderRegister(); renderStats(); renderLoanForm(); renderActiveLoans(); renderGroups(); renderItems(); renderHistory(); updateFileStatus();
+}
+function ensureRegisterGroup(){
+  if(registerGroupId && data.groups.some(g=>g.id===registerGroupId)) return;
+  registerGroupId=data.groups[0]?.id||null;
+}
+function registerLoansFor(groupId,studentId,itemId){
+  return activeLoans().filter(l=>l.groupId===groupId&&l.studentId===studentId&&l.itemId===itemId);
+}
+function renderRegister(){
+  ensureRegisterGroup();
+  const activeItems=data.items.filter(i=>i.active!==false);
+  els.registerGroupPills.innerHTML=data.groups.length
+    ? data.groups.map(g=>`<button data-register-group="${g.id}" class="${registerGroupId===g.id?'active':''}">${escapeHTML(g.name)} · ${g.students.length}</button>`).join('')
+    : '<span class="subtle">No groups yet</span>';
+  els.registerGroupPills.querySelectorAll('[data-register-group]').forEach(b=>b.addEventListener('click',()=>{registerGroupId=b.dataset.registerGroup;renderRegister();}));
+
+  const g=groupById(registerGroupId);
+  renderRegisterDetailForm();
+  renderRegisterActiveLoans();
+  if(!g){
+    els.registerSummary.textContent='';
+    els.registerWrap.innerHTML='<div class="registerEmpty"><strong>Add your first group to begin</strong>Paste a class or tutor list, then the one-click register will appear here.<div style="margin-top:12px"><button class="btn primary" id="registerEmptyAddGroup">+ Add group</button></div></div>';
+    const b=$('registerEmptyAddGroup');if(b)b.addEventListener('click',openGroupModal);return;
+  }
+  const q=els.registerSearch.value.trim().toLowerCase();
+  const students=g.students.filter(st=>!q||st.name.toLowerCase().includes(q)).slice().sort((a,b)=>a.name.localeCompare(b.name));
+  const outCount=activeLoans().filter(l=>l.groupId===g.id).reduce((n,l)=>n+(Number(l.quantity)||1),0);
+  els.registerSummary.textContent=`${students.length} student${students.length===1?'':'s'} · ${outCount} item${outCount===1?'':'s'} out`;
+  if(!activeItems.length){
+    els.registerWrap.innerHTML='<div class="registerEmpty"><strong>No lendable items yet</strong>Add an item such as a lanyard, pen or textbook.<div style="margin-top:12px"><button class="btn primary" id="registerEmptyAddItem">+ Add item</button></div></div>';
+    const b=$('registerEmptyAddItem');if(b)b.addEventListener('click',()=>openItemModal());return;
+  }
+  const headItems=activeItems.map(i=>{
+    const count=activeLoans().filter(l=>l.groupId===g.id&&l.itemId===i.id).reduce((n,l)=>n+(Number(l.quantity)||1),0);
+    return `<th class="registerItemHead"><div class="registerItemHeadInner"><div class="registerItemIcon">${escapeHTML(i.emoji||iconByCategory[i.category]||'•')}</div><div class="registerItemName">${escapeHTML(i.name)}</div><div class="registerItemCount">${count?count+' out':'none out'}</div></div></th>`;
+  }).join('');
+  const rows=students.map(st=>{
+    const totalStudent=activeLoans().filter(l=>l.groupId===g.id&&l.studentId===st.id).reduce((n,l)=>n+(Number(l.quantity)||1),0);
+    const cells=activeItems.map(i=>{
+      const loans=registerLoansFor(g.id,st.id,i.id);
+      const qty=loans.reduce((n,l)=>n+(Number(l.quantity)||1),0);
+      const isOut=loans.length>0;
+      const label=isOut?`Return ${i.name} from ${st.name}`:`Loan ${i.name} to ${st.name}`;
+      return `<td class="registerCell"><button class="registerToggle ${isOut?'isOut':''}" data-register-cell="${st.id}|${i.id}" aria-label="${escapeHTML(label)}" title="${escapeHTML(label)}">${isOut?`<span class="tick">✓</span><span>${qty>1?'×'+qty:'OUT'}</span>`:'<span>+</span>'}</button></td>`;
+    }).join('');
+    return `<tr><td class="registerStudentCell"><button class="registerStudentButton" data-register-student="${st.id}"><div class="registerStudentName">${escapeHTML(st.name)}</div><div class="registerStudentMeta">${totalStudent?totalStudent+' item'+(totalStudent===1?'':'s')+' currently out':'Nothing out'}</div></button></td>${cells}</tr>`;
+  }).join('');
+  const emptyRow=students.length?'':`<tr><td colspan="${activeItems.length+2}"><div class="registerEmpty"><strong>No matching students</strong>Try a different name.</div></td></tr>`;
+  els.registerWrap.innerHTML=`<table class="registerTable"><thead><tr><th class="registerStudentHead"><div class="registerStudentHeadInner">${escapeHTML(g.name)} students</div></th>${headItems}<th class="registerAddHead"><button class="registerAddButton" id="registerHeaderAddItem"><span>+</span><span>Add item</span></button></th></tr></thead><tbody>${rows}${emptyRow}</tbody></table>`;
+  const add=$('registerHeaderAddItem');if(add)add.addEventListener('click',()=>openItemModal());
+  els.registerWrap.querySelectorAll('[data-register-cell]').forEach(b=>b.addEventListener('click',()=>{
+    const [studentId,itemId]=b.dataset.registerCell.split('|');toggleRegisterLoan(g.id,studentId,itemId);
+  }));
+  els.registerWrap.querySelectorAll('[data-register-student]').forEach(b=>b.addEventListener('click',()=>openStudent(g.id,b.dataset.registerStudent)));
+}
+function toggleRegisterLoan(groupId,studentId,itemId){
+  const loans=registerLoansFor(groupId,studentId,itemId);
+  const st=studentById(groupId,studentId),item=itemById(itemId);
+  if(loans.length){
+    loans.forEach(l=>l.returnedAt=nowISO());
+    setDirty();renderAll();toast(`${item?.name||'Item'} returned from ${st?.name||'student'}`);
+  }else{
+    data.loans.push({id:uid('loan'),groupId,studentId,itemId,quantity:1,assetRef:'',note:'',loanedAt:nowISO(),returnedAt:null});
+    setDirty();renderAll();toast(`${item?.name||'Item'} loaned to ${st?.name||'student'}`);
+  }
+}
+function renderRegisterDetailForm(){
+  fillSelect(els.registerLoanGroup,data.groups.map(g=>({value:g.id,label:g.name})),data.groups.length?'Choose group':'No groups yet');
+  if(registerGroupId && [...els.registerLoanGroup.options].some(o=>o.value===registerGroupId)) els.registerLoanGroup.value=registerGroupId;
+  else if(!els.registerLoanGroup.value&&data.groups[0]) els.registerLoanGroup.value=data.groups[0].id;
+  renderRegisterDetailStudents();
+  fillSelect(els.registerLoanItem,data.items.filter(i=>i.active!==false).map(i=>({value:i.id,label:i.name})),data.items.length?'Choose item':'No items');
+  if(!els.registerLoanItem.value&&data.items[0]) els.registerLoanItem.value=data.items[0].id;
+}
+function renderRegisterDetailStudents(){
+  const g=groupById(els.registerLoanGroup.value);
+  fillSelect(els.registerLoanStudent,(g?.students||[]).map(s=>({value:s.id,label:s.name})),g?.students?.length?'Choose student':'No students in this group');
+}
+function registerDetailedLoan(){
+  const groupId=els.registerLoanGroup.value,studentId=els.registerLoanStudent.value,itemId=els.registerLoanItem.value;
+  const quantity=Math.max(1,Math.min(99,Number(els.registerLoanQty.value)||1));
+  if(!groupId||!studentId||!itemId){toast('Choose a group, student and item');return;}
+  data.loans.push({id:uid('loan'),groupId,studentId,itemId,quantity,assetRef:els.registerLoanRef.value.trim(),note:els.registerLoanNote.value.trim(),loanedAt:nowISO(),returnedAt:null});
+  const st=studentById(groupId,studentId),i=itemById(itemId);
+  els.registerLoanRef.value='';els.registerLoanNote.value='';els.registerLoanQty.value='1';setDirty();renderAll();toast(`${i?.name||'Item'} loaned to ${st?.name||'student'}`);
+}
+function renderRegisterActiveLoans(){
+  const q=els.registerReturnSearch.value.trim().toLowerCase();
+  const list=activeLoans().filter(l=>{
+    const g=groupById(l.groupId),st=studentById(l.groupId,l.studentId),i=itemById(l.itemId);
+    return !q||[g?.name,st?.name,i?.name,l.note,l.assetRef].join(' ').toLowerCase().includes(q);
+  }).sort((a,b)=>new Date(a.loanedAt)-new Date(b.loanedAt)).slice(0,50);
+  els.registerActiveLoans.innerHTML=list.length?list.map(l=>{
+    const g=groupById(l.groupId),st=studentById(l.groupId,l.studentId),i=itemById(l.itemId);
+    return `<div class="loanRow"><div class="loanMain"><div class="loanName">${escapeHTML(st?.name||'Unknown')} · ${escapeHTML(i?.name||'Item')}${Number(l.quantity)>1?' × '+l.quantity:''}</div><div class="loanMeta"><span>${escapeHTML(g?.name||'')}</span><span>Out ${ageText(l.loanedAt)}</span>${l.assetRef?`<span class="tag blue">${escapeHTML(l.assetRef)}</span>`:''}</div></div><button class="btn small" data-register-return="${l.id}">Return</button></div>`;
+  }).join(''):'<div class="empty"><strong>Nothing is currently out</strong>Active loans will appear here.</div>';
+  els.registerActiveLoans.querySelectorAll('[data-register-return]').forEach(b=>b.addEventListener('click',()=>returnLoan(b.dataset.registerReturn)));
+}
+
+function renderStats(){
+  const act=activeLoans();
+  $('statOut').textContent=act.reduce((n,l)=>n+(Number(l.quantity)||1),0);
+  $('statBorrowers').textContent=new Set(act.map(l=>l.groupId+'|'+l.studentId)).size;
+  $('statGroups').textContent=data.groups.length;
+  $('statStudents').textContent=getAllStudents().length;
+}
+function fillSelect(select, options, placeholder){
+  const prior=select.value;
+  select.innerHTML='';
+  if(placeholder){ const o=document.createElement('option');o.value='';o.textContent=placeholder;select.appendChild(o); }
+  options.forEach(x=>{const o=document.createElement('option');o.value=x.value;o.textContent=x.label;select.appendChild(o);});
+  if([...select.options].some(o=>o.value===prior)) select.value=prior;
+}
+function renderLoanForm(){
+  fillSelect(els.loanGroup,data.groups.map(g=>({value:g.id,label:g.name})),data.groups.length?'Choose group':'No groups yet');
+  if(!els.loanGroup.value && data.groups[0]) els.loanGroup.value=data.groups[0].id;
+  renderLoanStudents();
+  fillSelect(els.loanItem,data.items.filter(i=>i.active!==false).map(i=>({value:i.id,label:i.name})),data.items.length?'Choose item':'No items');
+  if(!els.loanItem.value && data.items[0]) els.loanItem.value=data.items[0].id;
+  els.quickItems.innerHTML=data.items.filter(i=>i.active!==false).slice(0,8).map(i=>`<button class="chip" type="button" data-quick-item="${i.id}">${escapeHTML(i.emoji||iconByCategory[i.category]||'•')} ${escapeHTML(i.name)}</button>`).join('');
+  els.quickItems.querySelectorAll('[data-quick-item]').forEach(b=>b.addEventListener('click',()=>{els.loanItem.value=b.dataset.quickItem;els.loanItem.focus();}));
+}
+function renderLoanStudents(){
+  const g=groupById(els.loanGroup.value);
+  fillSelect(els.loanStudent,(g?.students||[]).map(s=>({value:s.id,label:s.name})),g?.students?.length?'Choose student':'No students in this group');
+}
+function renderActiveLoans(){
+  const q=els.returnSearch.value.trim().toLowerCase();
+  const list=activeLoans().filter(l=>{
+    const g=groupById(l.groupId), s=studentById(l.groupId,l.studentId), i=itemById(l.itemId);
+    const hay=[g?.name,s?.name,i?.name,l.note,l.assetRef].join(' ').toLowerCase();
+    return !q||hay.includes(q);
+  }).sort((a,b)=>new Date(a.loanedAt)-new Date(b.loanedAt));
+  if(!list.length){
+    els.activeLoans.innerHTML=`<div class="empty"><strong>${q?'No matching loans':'Nothing is currently out'}</strong>${q?'Try a different search.':'Loans will appear here ready to return.'}</div>`;return;
+  }
+  els.activeLoans.innerHTML=list.map(l=>{
+    const g=groupById(l.groupId), s=studentById(l.groupId,l.studentId), i=itemById(l.itemId);
+    const old=(Date.now()-new Date(l.loanedAt).getTime())>24*3600000;
+    return `<div class="loanRow">
+      <div class="loanMain">
+        <div class="loanName">${escapeHTML(s?.name||'Unknown student')} · ${escapeHTML(i?.name||'Unknown item')}${Number(l.quantity)>1?' × '+l.quantity:''}</div>
+        <div class="loanMeta"><span>${escapeHTML(g?.name||'Unknown group')}</span><span>Out ${ageText(l.loanedAt)}</span>${old?'<span class="tag amber">Over 1 day</span>':''}${l.assetRef?`<span class="tag blue">${escapeHTML(l.assetRef)}</span>`:''}</div>
+        ${l.note?`<div class="subtle" style="margin-top:5px">${escapeHTML(l.note)}</div>`:''}
+      </div>
+      <button class="btn small" data-return="${l.id}">Return</button>
+    </div>`;
+  }).join('');
+  els.activeLoans.querySelectorAll('[data-return]').forEach(b=>b.addEventListener('click',()=>returnLoan(b.dataset.return)));
+}
+function renderGroups(){
+  const allCount=getAllStudents().length;
+  els.groupPills.innerHTML=`<button data-group="all" class="${selectedGroup==='all'?'active':''}">All students · ${allCount}</button>`+
+    data.groups.map(g=>`<button data-group="${g.id}" class="${selectedGroup===g.id?'active':''}">${escapeHTML(g.name)} · ${g.students.length}</button>`).join('');
+  els.groupPills.querySelectorAll('[data-group]').forEach(b=>b.addEventListener('click',()=>{selectedGroup=b.dataset.group;renderGroups();}));
+  const q=els.studentSearch.value.trim().toLowerCase();
+  let students=getAllStudents();
+  if(selectedGroup!=='all') students=students.filter(s=>s.groupId===selectedGroup);
+  if(q) students=students.filter(s=>s.name.toLowerCase().includes(q)||s.groupName.toLowerCase().includes(q));
+  const g=selectedGroup==='all'?null:groupById(selectedGroup);
+  els.studentPanelTitle.textContent=g?g.name:'All students';
+  els.studentPanelSub.textContent=g?`${g.students.length} students in this group`:`${allCount} students across ${data.groups.length} groups`;
+  $('addStudentsExisting').disabled=!g;
+  els.studentGrid.innerHTML=students.length?students.sort((a,b)=>a.name.localeCompare(b.name)).map(s=>{
+    const count=activeLoans().filter(l=>l.groupId===s.groupId&&l.studentId===s.id).length;
+    return `<button class="studentCard" data-student="${s.groupId}|${s.id}">
+      <div class="name">${escapeHTML(s.name)}</div>
+      <div class="meta">${escapeHTML(s.groupName)} · ${count?`<span class="dangerText">${count} item${count>1?'s':''} out</span>`:'Nothing out'}</div>
+    </button>`;
+  }).join(''):`<div class="empty" style="grid-column:1/-1"><strong>No students to show</strong>Add a group or paste student names in bulk.</div>`;
+  els.studentGrid.querySelectorAll('[data-student]').forEach(b=>b.addEventListener('click',()=>{const [g,s]=b.dataset.student.split('|');openStudent(g,s);}));
+}
+function renderItems(){
+  if(!data.items.length){els.itemGrid.innerHTML='<div class="empty"><strong>No loan items yet</strong>Add your first item to start lending.</div>';return;}
+  els.itemGrid.innerHTML=data.items.map(i=>{
+    const out=outstandingForItem(i.id), avail=i.stock===null||i.stock===''||typeof i.stock==='undefined'?null:Math.max(0,Number(i.stock)-out);
+    return `<div class="itemCard">
+      <div class="itemTop"><div class="itemIcon">${escapeHTML(i.emoji||iconByCategory[i.category]||'•')}</div><div><h5>${escapeHTML(i.name)}</h5><p>${escapeHTML(i.category||'General')} · ${out} currently out${avail===null?'':` · ${avail} available`}</p></div></div>
+      <div class="itemActions"><button class="btn small" data-edit-item="${i.id}">Edit</button><button class="btn small danger" data-delete-item="${i.id}">Remove</button></div>
+    </div>`;
+  }).join('');
+  els.itemGrid.querySelectorAll('[data-edit-item]').forEach(b=>b.addEventListener('click',()=>editItem(b.dataset.editItem)));
+  els.itemGrid.querySelectorAll('[data-delete-item]').forEach(b=>b.addEventListener('click',()=>deleteItem(b.dataset.deleteItem)));
+}
+function renderHistory(){
+  const q=els.historySearch.value.trim().toLowerCase();
+  const list=data.loans.slice().sort((a,b)=>new Date(b.loanedAt)-new Date(a.loanedAt)).filter(l=>{
+    const g=groupById(l.groupId),s=studentById(l.groupId,l.studentId),i=itemById(l.itemId);
+    return !q||[g?.name,s?.name,i?.name,l.note,l.assetRef].join(' ').toLowerCase().includes(q);
+  });
+  els.historyBody.innerHTML=list.length?list.map(l=>{
+    const g=groupById(l.groupId),s=studentById(l.groupId,l.studentId),i=itemById(l.itemId);
+    return `<tr><td><strong>${escapeHTML(s?.name||'Unknown')}</strong></td><td>${escapeHTML(g?.name||'')}</td><td>${escapeHTML(i?.name||'')}</td><td>${l.quantity||1}</td><td>${fmtDate(l.loanedAt)}</td><td>${l.returnedAt?fmtDate(l.returnedAt):'<span class="tag amber">Still out</span>'}</td><td>${escapeHTML([l.assetRef,l.note].filter(Boolean).join(' · '))}</td></tr>`;
+  }).join(''):`<tr><td colspan="7"><div class="empty"><strong>No history yet</strong>Loan activity will appear here.</div></td></tr>`;
+}
+
+function loanItem(){
+  const groupId=els.loanGroup.value, studentId=els.loanStudent.value, itemId=els.loanItem.value;
+  const quantity=Math.max(1,Math.min(99,Number(els.loanQty.value)||1));
+  if(!groupId||!studentId||!itemId){toast('Choose a group, student and item');return;}
+  data.loans.push({id:uid('loan'),groupId,studentId,itemId,quantity,assetRef:els.loanRef.value.trim(),note:els.loanNote.value.trim(),loanedAt:nowISO(),returnedAt:null});
+  const s=studentById(groupId,studentId),i=itemById(itemId);
+  els.loanRef.value='';els.loanNote.value='';els.loanQty.value='1';
+  setDirty();renderAll();toast(`${i?.name||'Item'} loaned to ${s?.name||'student'}`);
+}
+function returnLoan(id){
+  const l=data.loans.find(x=>x.id===id);if(!l)return;
+  l.returnedAt=nowISO();setDirty();renderAll();toast('Item returned');
+}
+function returnAllForStudent(groupId,studentId){
+  let n=0;activeLoans().forEach(l=>{if(l.groupId===groupId&&l.studentId===studentId){l.returnedAt=nowISO();n++;}});
+  if(n){setDirty();renderAll();openStudent(groupId,studentId);toast(`Returned ${n} loan${n>1?'s':''}`);}
+}
+
+function namesFromText(text){
+  const names=[];
+  text.split(/\r?\n/).forEach(line=>{
+    const clean=line.trim(); if(!clean)return;
+    let val=clean;
+    if(clean.includes('\t')) val=clean.split('\t').map(x=>x.trim()).find(Boolean)||'';
+    else if(clean.includes(',')){
+      const cells=clean.split(',').map(x=>x.replace(/^"|"$/g,'').trim()).filter(Boolean);
+      val=cells[0]||'';
+    }
+    if(val) names.push(val);
+  });
+  const seen=new Set();
+  return names.filter(n=>{const k=n.toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});
+}
+function collectIndividual(containerId){
+  return [...$(containerId).querySelectorAll('input')].map(i=>i.value.trim()).filter(Boolean);
+}
+function addNameBoxes(containerId,n=6){
+  const c=$(containerId);for(let i=0;i<n;i++){const inp=document.createElement('input');inp.placeholder='Student name';c.appendChild(inp);}
+}
+function openGroupModal(){
+  $('groupName').value='';$('bulkNames').value='';$('studentFileInput').value='';$('individualList').innerHTML='';addNameBoxes('individualList',6);openModal('groupModal');setTimeout(()=>$('groupName').focus(),80);
+}
+function saveGroup(){
+  const name=$('groupName').value.trim();
+  if(!name){toast('Enter a group name');return;}
+  if(data.groups.some(g=>g.name.toLowerCase()===name.toLowerCase())){toast('A group with that name already exists');return;}
+  const names=[...namesFromText($('bulkNames').value),...collectIndividual('individualList')];
+  const seen=new Set(), uniq=names.filter(n=>{const k=n.toLowerCase();if(seen.has(k))return false;seen.add(k);return true;});
+  const g={id:uid('group'),name,students:uniq.map(n=>({id:uid('student'),name:n}))};
+  data.groups.push(g);selectedGroup=g.id;registerGroupId=g.id;setDirty();renderAll();closeModal('groupModal');toast(`${name} added with ${uniq.length} students`);
+}
+function openAddStudents(){
+  const g=groupById(selectedGroup);if(!g)return;
+  $('addStudentsGroupName').textContent=g.name;$('moreBulkNames').value='';$('moreIndividualList').innerHTML='';addNameBoxes('moreIndividualList',6);openModal('addStudentsModal');
+}
+function saveMoreStudents(){
+  const g=groupById(selectedGroup);if(!g)return;
+  const existing=new Set(g.students.map(s=>s.name.toLowerCase()));
+  const names=[...namesFromText($('moreBulkNames').value),...collectIndividual('moreIndividualList')];
+  let added=0;names.forEach(n=>{const k=n.toLowerCase();if(!existing.has(k)){existing.add(k);g.students.push({id:uid('student'),name:n});added++;}});
+  setDirty();renderAll();closeModal('addStudentsModal');toast(`${added} student${added===1?'':'s'} added`);
+}
+function openStudent(groupId,studentId){
+  const g=groupById(groupId),s=studentById(groupId,studentId);if(!g||!s)return;
+  $('studentModalTitle').textContent=s.name;
+
+  const studentLoans=data.loans
+    .filter(l=>l.groupId===groupId&&l.studentId===studentId)
+    .sort((a,b)=>new Date(b.loanedAt)-new Date(a.loanedAt));
+  const loans=studentLoans.filter(l=>!l.returnedAt);
+  const previousLoans=studentLoans.filter(l=>l.returnedAt);
+  const thirtyDaysAgo=Date.now()-(30*24*60*60*1000);
+  const recentCount=studentLoans.filter(l=>new Date(l.loanedAt).getTime()>=thirtyDaysAgo).length;
+  const totalQty=studentLoans.reduce((n,l)=>n+(Number(l.quantity)||1),0);
+
+  const counts=new Map();
+  studentLoans.forEach(l=>{
+    const i=itemById(l.itemId), key=l.itemId||'unknown';
+    const existing=counts.get(key)||{name:i?.name||'Removed item',count:0,quantity:0};
+    existing.count+=1;existing.quantity+=(Number(l.quantity)||1);counts.set(key,existing);
+  });
+  const patterns=[...counts.values()].sort((a,b)=>b.count-a.count||b.quantity-a.quantity||a.name.localeCompare(b.name));
+  const mostBorrowed=patterns[0]||null;
+  const lastLoan=studentLoans[0]||null;
+
+  const patternHTML=patterns.length
+    ? patterns.map(x=>`<div class="repeatChip ${x.count>=5?'frequent':''}"><span>${escapeHTML(x.name)}</span><strong>× ${x.count}</strong>${x.quantity>x.count?`<span class="subtle">${x.quantity} items</span>`:''}</div>`).join('')
+    : '<span class="subtle">No borrowing pattern yet.</span>';
+
+  const historyHTML=previousLoans.length
+    ? `<div class="studentHistory">
+        <div class="studentHistoryRow head"><div>Item</div><div>Loaned</div><div>Returned</div><div>Details</div></div>
+        ${previousLoans.map(l=>{
+          const i=itemById(l.itemId);
+          const detail=[l.assetRef,l.note].filter(Boolean).join(' · ');
+          return `<div class="studentHistoryRow">
+            <div class="studentHistoryItem">${escapeHTML(i?.name||'Removed item')}${Number(l.quantity)>1?' × '+l.quantity:''}${l.assetRef?`<span class="subtle">${escapeHTML(l.assetRef)}</span>`:''}</div>
+            <div class="studentHistoryDate">${fmtDate(l.loanedAt)}</div>
+            <div class="studentHistoryDate">${fmtDate(l.returnedAt)}</div>
+            <div class="studentHistoryNote">${detail?escapeHTML(detail):'—'}</div>
+          </div>`;
+        }).join('')}
+      </div>`
+    : '<div class="studentHistoryEmpty"><strong>No previous loans yet</strong>Returned items will build a dated history here.</div>';
+
+  $('studentModalBody').innerHTML=`
+    <div class="studentProfileTop"><span class="tag blue">${escapeHTML(g.name)}</span><span class="subtle">${loans.length} current loan${loans.length===1?'':'s'} · ${studentLoans.length} recorded loan${studentLoans.length===1?'':'s'}</span></div>
+
+    <div class="studentProfileStats">
+      <div class="studentMiniStat"><div class="smLabel">Currently out</div><div class="smValue">${loans.reduce((n,l)=>n+(Number(l.quantity)||1),0)}</div><div class="smSub">item${loans.reduce((n,l)=>n+(Number(l.quantity)||1),0)===1?'':'s'} now</div></div>
+      <div class="studentMiniStat"><div class="smLabel">Loan occasions</div><div class="smValue">${studentLoans.length}</div><div class="smSub">${totalQty} item${totalQty===1?'':'s'} issued</div></div>
+      <div class="studentMiniStat"><div class="smLabel">Last 30 days</div><div class="smValue">${recentCount}</div><div class="smSub">recent loan${recentCount===1?'':'s'}</div></div>
+      <div class="studentMiniStat"><div class="smLabel">Most borrowed</div><div class="smValue" title="${escapeHTML(mostBorrowed?.name||'—')}">${escapeHTML(mostBorrowed?.name||'—')}</div><div class="smSub">${mostBorrowed?mostBorrowed.count+' occasion'+(mostBorrowed.count===1?'':'s'):(lastLoan?'No repeat pattern':'No history')}</div></div>
+    </div>
+
+    <div class="studentSectionHead"><div><h5>Currently loaned</h5><p>Return individual items here, or clear all current loans at once.</p></div></div>
+    ${loans.length?`<div class="loans">${loans.map(l=>{const i=itemById(l.itemId);return `<div class="loanRow"><div><div class="loanName">${escapeHTML(i?.name||'Item')}${Number(l.quantity)>1?' × '+l.quantity:''}</div><div class="loanMeta">Loaned ${fmtDate(l.loanedAt)} ${l.assetRef?' · '+escapeHTML(l.assetRef):''}</div>${l.note?`<div class="subtle" style="margin-top:4px">${escapeHTML(l.note)}</div>`:''}</div><button class="btn small" data-student-return="${l.id}">Return</button></div>`}).join('')}</div><button class="btn small" style="margin-top:10px" id="returnAllStudent">Return all</button>`:'<div class="empty" style="padding:18px"><strong>Nothing currently out</strong>This student has no active loans.</div>'}
+
+    <div class="studentSectionHead"><div><h5>Repeat borrowing</h5><p>Number of separate loan occasions recorded for each item.</p></div></div>
+    <div class="repeatSummary">${patternHTML}</div>
+
+    <div class="studentSectionHead"><div><h5>Previous loan history</h5><p>Most recent returned loans first. Counts above include current and returned loans.</p></div></div>
+    ${historyHTML}
+
+    <div class="divider"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn small primary" id="loanToStudent">Loan an item</button><button class="btn small danger" id="removeStudent">Remove student</button></div>
+  `;
+  $('studentModalBody').querySelectorAll('[data-student-return]').forEach(b=>b.addEventListener('click',()=>{returnLoan(b.dataset.studentReturn);openStudent(groupId,studentId);}));
+  const ra=$('returnAllStudent');if(ra)ra.addEventListener('click',()=>returnAllForStudent(groupId,studentId));
+  $('loanToStudent').addEventListener('click',()=>{closeModal('studentModal');registerGroupId=groupId;switchView('register');renderRegister();els.registerLoanGroup.value=groupId;renderRegisterDetailStudents();els.registerLoanStudent.value=studentId;const d=document.querySelector('.detailsDisclosure');if(d)d.open=true;els.registerLoanItem.focus();});
+  $('removeStudent').addEventListener('click',()=>removeStudent(groupId,studentId));
+  openModal('studentModal');
+}
+
+function removeStudent(groupId,studentId){
+  if(activeLoans().some(l=>l.groupId===groupId&&l.studentId===studentId)){toast('Return this student’s active items before removing them');return;}
+  const g=groupById(groupId),s=studentById(groupId,studentId);if(!g||!s)return;
+  if(!confirm(`Remove ${s.name} from ${g.name}? Their past loan history will remain.`))return;
+  g.students=g.students.filter(x=>x.id!==studentId);setDirty();renderAll();closeModal('studentModal');toast('Student removed');
+}
+
+function openItemModal(id=null){
+  const i=id?itemById(id):null;
+  $('itemEditId').value=i?.id||'';$('itemName').value=i?.name||'';$('itemCategory').value=i?.category||'General';$('itemStock').value=i?.stock===null||typeof i?.stock==='undefined'?'':i.stock;$('itemEmoji').value=i?.emoji||'';
+  $('itemModalTitle').textContent=i?'Edit loan item':'Add a loan item';openModal('itemModal');setTimeout(()=>$('itemName').focus(),80);
+}
+function saveItem(){
+  const id=$('itemEditId').value,name=$('itemName').value.trim();if(!name){toast('Enter an item name');return;}
+  const stockRaw=$('itemStock').value.trim();const stock=stockRaw===''?null:Math.max(0,Math.min(9999,Number(stockRaw)||0));
+  const obj={name,category:$('itemCategory').value,stock,emoji:$('itemEmoji').value.trim(),active:true};
+  if(id){const i=itemById(id);Object.assign(i,obj);}else data.items.push({id:uid('item'),...obj});
+  setDirty();renderAll();closeModal('itemModal');toast(id?'Item updated':'Item added');
+}
+function editItem(id){openItemModal(id);}
+function deleteItem(id){
+  const i=itemById(id);if(!i)return;
+  if(activeLoans().some(l=>l.itemId===id)){toast('Return all current loans of this item before removing it');return;}
+  if(!confirm(`Remove "${i.name}" from the active item list? Past history will remain.`))return;
+  data.items=data.items.filter(x=>x.id!==id);setDirty();renderAll();toast('Item removed');
+}
+
+function switchView(view){
+  currentView=view;
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id==='view-'+view));
+  document.querySelectorAll('#nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+  const map={
+    register:['Lending register','One-click loans and returns'],
+    dashboard:['Dashboard','Fast lending and returns for your students'],
+    students:['Students & groups','Manage class and tutor-group lists'],
+    items:['Loan items','Customise the things you lend out'],
+    history:['History','Review and export the loan record']
+  };
+  els.pageTitle.textContent=map[view][0];els.pageSubtitle.textContent=map[view][1];els.sidebar.classList.remove('open');
+}
+
+function setupEvents(){
+  els.nav.addEventListener('click',e=>{const b=e.target.closest('[data-view]');if(b)switchView(b.dataset.view);});
+  $('registerAddGroup').addEventListener('click',openGroupModal);$('registerAddItem').addEventListener('click',()=>openItemModal());
+  els.registerSearch.addEventListener('input',renderRegister);
+  els.registerLoanGroup.addEventListener('change',()=>{registerGroupId=els.registerLoanGroup.value;renderRegisterDetailStudents();renderRegister();});
+  $('registerDetailLoanForm').addEventListener('submit',e=>{e.preventDefault();registerDetailedLoan();});
+  els.registerReturnSearch.addEventListener('input',renderRegisterActiveLoans);
+  $('mobileMenu').addEventListener('click',()=>els.sidebar.classList.toggle('open'));
+  $('loanGroup').addEventListener('change',renderLoanStudents);
+  $('loanForm').addEventListener('submit',e=>{e.preventDefault();loanItem();});
+  els.returnSearch.addEventListener('input',renderActiveLoans);
+  els.studentSearch.addEventListener('input',renderGroups);
+  els.historySearch.addEventListener('input',renderHistory);
+  $('dashAddGroup').addEventListener('click',openGroupModal);$('addGroupBtn').addEventListener('click',openGroupModal);
+  $('dashAddItem').addEventListener('click',()=>openItemModal());$('addItemBtn').addEventListener('click',()=>openItemModal());
+  $('groupForm').addEventListener('submit',e=>{e.preventDefault();saveGroup();});
+  $('addStudentsForm').addEventListener('submit',e=>{e.preventDefault();saveMoreStudents();});
+  $('itemForm').addEventListener('submit',e=>{e.preventDefault();saveItem();});
+  $('addMoreNameFields').addEventListener('click',()=>addNameBoxes('individualList',4));
+  $('moreAddBoxes').addEventListener('click',()=>addNameBoxes('moreIndividualList',4));
+  $('addStudentsExisting').addEventListener('click',openAddStudents);
+  $('studentFileInput').addEventListener('change',async e=>{
+    const f=e.target.files?.[0];if(!f)return;const txt=await f.text();const names=namesFromText(txt);$('bulkNames').value=[$('bulkNames').value,...names].filter(Boolean).join('\n');toast(`${names.length} names read from file`);
+  });
+  document.querySelectorAll('[data-close]').forEach(b=>b.addEventListener('click',()=>closeModal(b.dataset.close)));
+  document.querySelectorAll('.modalBack').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)closeModal(m.id);}));
+  $('fileButton').addEventListener('click',()=>openModal('fileModal'));$('openFileSidebar').addEventListener('click',()=>openModal('fileModal'));
+  $('saveNow').addEventListener('click',()=>saveToHandle(true));
+  $('fileCreate').addEventListener('click',createDataFile);$('fileOpen').addEventListener('click',openDataFile);$('fileReconnect').addEventListener('click',reconnectRemembered);
+  $('welcomeCreate').addEventListener('click',createDataFile);$('welcomeOpen').addEventListener('click',openDataFile);$('welcomeReconnect').addEventListener('click',reconnectRemembered);
+  $('welcomeOffline').addEventListener('click',()=>{els.welcome.classList.remove('open');toast('Running without a connected file');});
+  $('downloadJson').addEventListener('click',downloadJSON);
+  $('importJsonInput').addEventListener('change',async e=>{
+    const f=e.target.files?.[0];if(!f)return;
+    try{const parsed=JSON.parse(await f.text());if(!validData(parsed))throw new Error('Not a LoanDesk file');data=normaliseData(parsed);fileHandle=null;dirty=true;emergencyBackup();renderAll();els.welcome.classList.remove('open');toast('Backup imported — connect a file to save directly');}
+    catch(err){toast('Import failed: '+err.message);}
+    e.target.value='';
+  });
+  $('saveSettings').addEventListener('click',()=>{data.settings.teacherName=$('teacherName').value.trim();data.settings.schoolName=$('schoolName').value.trim();setDirty();updateFileStatus();toast('App details saved');});
+  $('exportCsv').addEventListener('click',downloadCSV);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modalBack.open').forEach(m=>m.classList.remove('open'));});
+}
+
+async function init(){
+  setupEvents();
+  const emergency=loadEmergency();if(emergency)data=normaliseData(emergency);
+  const supported=('showOpenFilePicker' in window)&&('showSaveFilePicker' in window);
+  $('apiNotice').textContent=supported
+    ? 'Direct file access is available in this browser. You can save to a local folder or a user-accessible network location shown in the file picker.'
+    : 'Direct file access is not available here. You can still use LoanDesk with JSON import/download, or open the HTML in a recent Microsoft Edge or Google Chrome.';
+  els.welcomeFoot.textContent=supported?'Direct file access detected. Your browser can open and save a LoanDesk JSON file.':'Direct file access not detected. JSON import/export fallback is available.';
+  rememberedHandle=await getRememberedHandle();
+  if(rememberedHandle){
+    els.reconnectTitle.textContent='Reconnect '+rememberedHandle.name;
+    els.welcomeReconnect.style.display='';
+    const granted=await verifyPermission(rememberedHandle,true,false);
+    if(granted){
+      try{
+        data=await readFromHandle(rememberedHandle);fileHandle=rememberedHandle;dirty=false;emergencyBackup();
+      }catch(e){}
+    }
+  }
+  renderAll();
+  if(!fileHandle) els.welcome.classList.add('open');
+}
+
+init();
+})();
+</script>
+</body>
+</html>
