@@ -1,0 +1,3943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Concern Insights</title>
+  <!-- Behaviour & Academic Minors Tool V3.3 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <style>
+    :root{
+      --bg:#f6f8fb;
+      --surface:#ffffff;
+      --surface-soft:#f9fbff;
+      --ink:#182230;
+      --muted:#667085;
+      --faint:#98a2b3;
+      --line:#e4e7ec;
+      --blue:#2563eb;
+      --blue-soft:#eff6ff;
+      --blue-line:#bfdbfe;
+      --green:#059669;
+      --green-soft:#ecfdf3;
+      --amber:#d97706;
+      --amber-soft:#fffbeb;
+      --red:#dc2626;
+      --red-soft:#fef2f2;
+      --purple:#7c3aed;
+      --purple-soft:#f5f3ff;
+      --shadow:0 12px 35px rgba(16,24,40,.08);
+      --shadow-soft:0 6px 18px rgba(16,24,40,.06);
+      --radius:18px;
+      --radius-sm:12px;
+      --max:1480px;
+    }
+
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37,99,235,.08), transparent 34rem),
+        linear-gradient(180deg, #fbfdff 0%, var(--bg) 32rem);
+      color:var(--ink);
+    }
+
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+    .app-shell{min-height:100vh}
+
+    .top-nav{
+      position:sticky;
+      top:0;
+      z-index:30;
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(228,231,236,.85);
+    }
+
+    .top-nav-inner{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:14px 22px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:240px;
+    }
+
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:linear-gradient(135deg,#2563eb,#60a5fa);
+      display:grid;
+      place-items:center;
+      color:white;
+      font-weight:900;
+      box-shadow:0 10px 22px rgba(37,99,235,.28);
+    }
+
+    .brand-title{
+      font-weight:850;
+      font-size:18px;
+      line-height:1.05;
+    }
+
+    .brand-subtitle{
+      color:var(--muted);
+      font-size:12px;
+      margin-top:2px;
+    }
+
+    .nav-tabs{
+      display:flex;
+      gap:6px;
+      background:#f2f4f7;
+      padding:5px;
+      border-radius:999px;
+      overflow:auto;
+    }
+
+    .nav-tab{
+      border:0;
+      background:transparent;
+      color:#475467;
+      font-weight:750;
+      padding:9px 14px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+
+    .nav-tab.active{
+      background:white;
+      color:var(--blue);
+      box-shadow:0 2px 8px rgba(16,24,40,.08);
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width:230px;
+      justify-content:flex-end;
+    }
+
+    .btn{
+      border:0;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:800;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      justify-content:center;
+      transition:.15s ease;
+      text-decoration:none;
+    }
+
+    .btn-primary{
+      background:var(--blue);
+      color:white;
+      box-shadow:0 8px 18px rgba(37,99,235,.22);
+    }
+
+    .btn-primary:hover{background:#1d4ed8;transform:translateY(-1px)}
+    .btn-secondary{background:#eef2f7;color:#344054}
+    .btn-secondary:hover{background:#e4e7ec}
+    .btn-ghost{background:transparent;color:#475467}
+    .btn-danger{background:var(--red-soft);color:#991b1b}
+    .btn-small{padding:7px 10px;border-radius:10px;font-size:13px}
+    .btn-block{width:100%}
+
+    .main{
+      max-width:var(--max);
+      margin:0 auto;
+      padding:26px 22px 50px;
+    }
+
+    .welcome{
+      min-height:calc(100vh - 92px);
+      display:grid;
+      align-items:center;
+    }
+
+    .welcome-card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:28px;
+      box-shadow:var(--shadow);
+      padding:42px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:34px;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .welcome-card:after{
+      content:"";
+      position:absolute;
+      right:-110px;
+      top:-140px;
+      width:380px;
+      height:380px;
+      border-radius:50%;
+      background:rgba(37,99,235,.08);
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      color:var(--blue);
+      background:var(--blue-soft);
+      border:1px solid var(--blue-line);
+      font-weight:800;
+      border-radius:999px;
+      padding:7px 11px;
+      font-size:13px;
+      margin-bottom:16px;
+    }
+
+    h1,h2,h3,p{margin-top:0}
+    .welcome h1{
+      font-size:46px;
+      line-height:1.02;
+      letter-spacing:-.04em;
+      margin-bottom:14px;
+    }
+
+    .lead{
+      font-size:18px;
+      line-height:1.55;
+      color:var(--muted);
+      max-width:720px;
+    }
+
+    .steps{
+      display:grid;
+      gap:12px;
+      margin:25px 0;
+    }
+
+    .step{
+      display:flex;
+      gap:13px;
+      align-items:flex-start;
+      padding:14px;
+      border:1px solid var(--line);
+      background:var(--surface-soft);
+      border-radius:16px;
+    }
+
+    .step-num{
+      width:30px;
+      height:30px;
+      border-radius:10px;
+      display:grid;
+      place-items:center;
+      background:white;
+      color:var(--blue);
+      font-weight:900;
+      box-shadow:var(--shadow-soft);
+      flex:0 0 auto;
+    }
+
+    .step strong{display:block;margin-bottom:2px}
+    .step span{color:var(--muted);font-size:14px}
+
+    .welcome-side{
+      position:relative;
+      z-index:1;
+      background:linear-gradient(180deg,#f8fbff,#eef6ff);
+      border:1px solid #dbeafe;
+      border-radius:24px;
+      padding:24px;
+      align-self:stretch;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+
+    .mock-card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:16px;
+      padding:16px;
+      box-shadow:var(--shadow-soft);
+      margin-bottom:13px;
+    }
+
+    .mock-title{font-size:13px;color:var(--muted);font-weight:800;margin-bottom:8px}
+    .mock-value{font-size:30px;font-weight:900}
+    .mock-bar{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden;margin-top:8px}
+    .mock-fill{height:100%;background:var(--blue);border-radius:999px}
+    .mock-fill.purple{background:var(--purple)}
+    .mock-fill.green{background:var(--green)}
+
+    .workspace-header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:18px;
+    }
+
+    .workspace-title h1{
+      font-size:30px;
+      letter-spacing:-.03em;
+      margin-bottom:5px;
+    }
+
+    .workspace-meta{
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .report-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:white;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:10px 13px;
+      color:#344054;
+      box-shadow:var(--shadow-soft);
+      font-size:14px;
+      font-weight:700;
+    }
+
+    .quick-bar{
+      background:white;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
+      border-radius:var(--radius);
+      padding:12px;
+      margin-bottom:16px;
+      display:flex;
+      gap:9px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .quick-label{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+      padding:0 5px;
+    }
+
+    .chip{
+      border:1px solid var(--line);
+      background:#fff;
+      color:#344054;
+      padding:9px 12px;
+      border-radius:999px;
+      font-weight:780;
+    }
+
+    .chip:hover,.chip.active{
+      color:var(--blue);
+      background:var(--blue-soft);
+      border-color:var(--blue-line);
+    }
+
+    .filter-panel{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      padding:18px;
+      margin-bottom:16px;
+    }
+
+    .filter-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      margin-bottom:14px;
+    }
+
+    .filter-head h2{font-size:18px;margin:0}
+    .filter-grid{
+      display:grid;
+      grid-template-columns:repeat(4,minmax(150px,1fr));
+      gap:12px;
+    }
+
+    .field label{
+      display:block;
+      font-weight:800;
+      font-size:12px;
+      color:#344054;
+      margin-bottom:6px;
+    }
+
+    .field input,.field select,.field textarea{
+      width:100%;
+      border:1px solid #d0d5dd;
+      border-radius:12px;
+      padding:11px 12px;
+      background:white;
+      color:var(--ink);
+      outline:none;
+    }
+
+    .field input:focus,.field select:focus,.field textarea:focus{
+      border-color:#93c5fd;
+      box-shadow:0 0 0 4px rgba(37,99,235,.12);
+    }
+
+    .insight-banner{
+      display:grid;
+      grid-template-columns:auto 1fr auto;
+      gap:14px;
+      align-items:center;
+      background:linear-gradient(135deg,#eff6ff,#ffffff);
+      border:1px solid #dbeafe;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      padding:18px;
+      margin-bottom:16px;
+    }
+
+    .insight-icon{
+      width:46px;height:46px;border-radius:15px;
+      display:grid;place-items:center;
+      background:white;color:var(--blue);
+      font-weight:950;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .insight-banner h2{font-size:16px;margin-bottom:3px}
+    .insight-banner p{color:#475467;margin:0;line-height:1.45}
+
+    .metric-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-bottom:16px;
+    }
+
+    .metric-card{
+      background:white;
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
+      border-radius:var(--radius);
+      padding:18px;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .metric-card:after{
+      content:"";
+      position:absolute;
+      width:90px;height:90px;border-radius:50%;
+      background:rgba(37,99,235,.06);
+      right:-34px;top:-34px;
+    }
+
+    .metric-label{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:800;
+      margin-bottom:10px;
+      position:relative;
+      z-index:1;
+    }
+
+    .metric-value{
+      font-size:34px;
+      font-weight:950;
+      letter-spacing:-.03em;
+      position:relative;
+      z-index:1;
+    }
+
+    .metric-note{
+      color:var(--muted);
+      margin-top:7px;
+      font-size:12px;
+      position:relative;
+      z-index:1;
+    }
+
+    .dashboard-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    .panel-card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      padding:20px;
+      min-width:0;
+    }
+
+    .panel-card.wide{grid-column:1/-1}
+    .panel-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:12px;
+      margin-bottom:14px;
+    }
+
+    .panel-head h2{
+      margin:0 0 4px;
+      font-size:20px;
+      letter-spacing:-.015em;
+    }
+
+    .panel-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .action-link{
+      border:0;
+      background:var(--blue-soft);
+      color:var(--blue);
+      border-radius:999px;
+      padding:8px 11px;
+      font-weight:850;
+      white-space:nowrap;
+    }
+
+    .bars{display:grid;gap:10px}
+    .bar-row{
+      display:grid;
+      grid-template-columns:minmax(110px,160px) 1fr 44px;
+      gap:10px;
+      align-items:center;
+      font-size:13px;
+    }
+
+    .bar-label{
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+      font-weight:750;
+      color:#344054;
+    }
+
+    .bar-track{
+      height:14px;
+      background:#eef2f7;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .bar-fill{
+      height:100%;
+      background:linear-gradient(90deg,#60a5fa,#2563eb);
+      border-radius:999px;
+    }
+
+    .bar-fill.academic{background:linear-gradient(90deg,#a78bfa,#7c3aed)}
+    .bar-fill.behaviour{background:linear-gradient(90deg,#f87171,#dc2626)}
+    .bar-count{text-align:right;color:#344054;font-weight:900}
+
+    .student-watch{
+      display:grid;
+      gap:10px;
+    }
+
+    .watch-item{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px;
+      border:1px solid var(--line);
+      background:var(--surface-soft);
+      border-radius:14px;
+    }
+
+    .watch-item strong{display:block}
+    .watch-meta{font-size:12px;color:var(--muted);margin-top:2px}
+    .count-pill{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:6px 10px;
+      font-weight:900;
+      color:var(--blue);
+      white-space:nowrap;
+    }
+
+    .weekday-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+    }
+
+    .weekday-card{
+      border:1px solid var(--line);
+      background:var(--surface-soft);
+      border-radius:16px;
+      padding:14px;
+      min-height:112px;
+    }
+
+    .weekday-card .day{font-weight:900;color:#344054}
+    .weekday-card .num{font-size:31px;font-weight:950;margin-top:8px}
+    .weekday-card .share{font-size:12px;color:var(--muted)}
+
+    .line-chart-wrap{
+      overflow-x:auto;
+      padding:4px 0 0;
+    }
+
+    svg.line-chart{
+      width:100%;
+      min-width:640px;
+      height:280px;
+      display:block;
+    }
+
+    .page{display:none}
+    .page.active{display:block}
+
+    .students-layout{
+      display:grid;
+      grid-template-columns:minmax(280px,360px) 1fr;
+      gap:16px;
+      min-height:560px;
+    }
+
+    .scroll-pane{
+      max-height:calc(100vh - 240px);
+      min-height:430px;
+      overflow:auto;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      background:white;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .student-list-head{
+      position:sticky;
+      top:0;
+      z-index:2;
+      background:white;
+      border-bottom:1px solid var(--line);
+      padding:14px;
+    }
+
+    .student-list-items{padding:8px}
+    .student-item{
+      padding:12px;
+      border-radius:14px;
+      cursor:pointer;
+      border:1px solid transparent;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:center;
+    }
+
+    .student-item:hover{background:#f8fafc}
+    .student-item.active{
+      background:var(--blue-soft);
+      border-color:var(--blue-line);
+    }
+
+    .student-name{font-weight:850}
+    .student-detail{color:var(--muted);font-size:12px;margin-top:2px}
+
+    .timeline-pane{
+      max-height:calc(100vh - 240px);
+      min-height:430px;
+      overflow:auto;
+      background:white;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      padding:18px;
+    }
+
+    .timeline-head{
+      position:sticky;
+      top:-18px;
+      background:white;
+      z-index:3;
+      padding:0 0 14px;
+      margin-bottom:8px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .timeline-head h2{margin-bottom:4px}
+    .timeline-item{
+      border-left:4px solid var(--blue);
+      background:#f8fafc;
+      border-radius:0 14px 14px 0;
+      padding:12px 14px;
+      margin:12px 0;
+    }
+
+    .timeline-item.behaviour{border-left-color:var(--red)}
+    .timeline-item.academic{border-left-color:var(--purple)}
+    .timeline-item h3{font-size:15px;margin:0 0 5px}
+    .timeline-item p{margin:0;color:#344054}
+    .timeline-meta{color:var(--muted);font-size:12px;margin-top:7px}
+
+    .table-card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+    }
+
+    .table-toolbar{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:center;
+      padding:16px;
+      border-bottom:1px solid var(--line);
+    }
+
+    .table-wrap{
+      overflow:auto;
+      max-height:calc(100vh - 280px);
+    }
+
+    table{
+      width:100%;
+      min-width:1050px;
+      border-collapse:collapse;
+      font-size:13px;
+    }
+
+    th,td{
+      padding:11px 12px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
+      vertical-align:top;
+    }
+
+    th{
+      position:sticky;
+      top:0;
+      z-index:2;
+      background:#f8fafc;
+      color:#344054;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
+    tr:hover td{background:#f9fafb}
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:5px 9px;
+      font-size:12px;
+      font-weight:900;
+      border:1px solid transparent;
+      white-space:nowrap;
+    }
+
+    .pill.behaviour{background:var(--red-soft);color:#991b1b;border-color:#fecaca}
+    .pill.academic{background:var(--purple-soft);color:#5b21b6;border-color:#ddd6fe}
+    .pill.unknown{background:#eef2f7;color:#475467;border-color:#e4e7ec}
+
+    .staff-page{
+      display:grid;
+      grid-template-columns:minmax(300px,420px) 1fr;
+      gap:16px;
+    }
+
+    .form-card,.list-card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      padding:20px;
+    }
+
+    .staff-group-list{
+      display:grid;
+      gap:12px;
+    }
+
+    .staff-group-card{
+      border:1px solid var(--line);
+      background:var(--surface-soft);
+      border-radius:16px;
+      padding:15px;
+    }
+
+    .staff-group-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
+      margin-bottom:10px;
+    }
+
+    .staff-group-top h3{margin:0 0 3px}
+    .staff-members{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+      margin-bottom:12px;
+    }
+
+    .staff-picker{
+      border:1px solid var(--line);
+      border-radius:16px;
+      background:var(--surface-soft);
+      overflow:hidden;
+      margin-top:12px;
+    }
+
+    .staff-picker-toolbar{
+      padding:12px;
+      border-bottom:1px solid var(--line);
+      background:white;
+      display:grid;
+      gap:8px;
+    }
+
+    .staff-picker-actions{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .staff-picker-list{
+      max-height:310px;
+      overflow:auto;
+      padding:8px;
+      display:grid;
+      gap:6px;
+    }
+
+    .staff-check{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 11px;
+      border:1px solid transparent;
+      border-radius:12px;
+      background:white;
+      cursor:pointer;
+      transition:.12s ease;
+    }
+
+    .staff-check:hover{
+      border-color:var(--blue-line);
+      background:var(--blue-soft);
+    }
+
+    .staff-check input{
+      width:18px;
+      height:18px;
+      accent-color:var(--blue);
+      flex:0 0 auto;
+    }
+
+    .staff-check span{
+      font-weight:750;
+      color:#344054;
+    }
+
+    .staff-check.hidden-by-search{
+      display:none;
+    }
+
+    .staff-selected-count{
+      color:var(--muted);
+      font-size:13px;
+      font-weight:750;
+    }
+
+    .staff-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .reports-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+
+    .report-card{
+      background:white;
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow-soft);
+      padding:20px;
+    }
+
+    .report-card h2{font-size:19px;margin-bottom:8px}
+    .report-card p{color:var(--muted);line-height:1.45}
+
+    .modal-backdrop{
+      position:fixed;
+      inset:0;
+      background:rgba(15,23,42,.45);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      z-index:100;
+    }
+
+    .modal{
+      width:min(1120px,100%);
+      max-height:92vh;
+      overflow:auto;
+      background:white;
+      border-radius:26px;
+      box-shadow:0 25px 70px rgba(15,23,42,.25);
+      border:1px solid rgba(255,255,255,.6);
+    }
+
+    .modal-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:16px;
+      padding:24px 26px;
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(180deg,#fbfdff,#ffffff);
+      position:sticky;
+      top:0;
+      z-index:4;
+    }
+
+    .modal-head h2{margin:0 0 4px}
+    .modal-head p{margin:0;color:var(--muted)}
+    .modal-body{padding:24px 26px}
+
+    .wizard-steps{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-bottom:18px;
+    }
+
+    .wizard-step{
+      border:1px solid var(--line);
+      background:var(--surface-soft);
+      border-radius:16px;
+      padding:12px;
+    }
+
+    .wizard-step.active{
+      background:var(--blue-soft);
+      border-color:var(--blue-line);
+      color:var(--blue);
+    }
+
+    .wizard-step strong{display:block}
+    .wizard-step span{font-size:12px;color:var(--muted)}
+
+    .dropzone{
+      border:2px dashed #93c5fd;
+      background:#eff6ff;
+      border-radius:18px;
+      padding:30px;
+      text-align:center;
+      cursor:pointer;
+      margin-bottom:16px;
+    }
+
+    .dropzone.dragover{
+      background:#dbeafe;
+      border-color:var(--blue);
+    }
+
+    .mapping-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:12px;
+      margin:14px 0 18px;
+    }
+
+    .preview-wrap{
+      border:1px solid var(--line);
+      border-radius:16px;
+      overflow:auto;
+      max-height:260px;
+      margin-top:12px;
+    }
+
+    .preview-wrap table{min-width:900px}
+    .required{color:var(--red);font-weight:900}
+
+    .empty{
+      border:2px dashed #d0d5dd;
+      border-radius:18px;
+      padding:30px;
+      text-align:center;
+      color:var(--muted);
+      background:#fcfcfd;
+    }
+
+    .empty strong{
+      display:block;
+      color:#344054;
+      font-size:17px;
+      margin-bottom:6px;
+    }
+
+    .muted{color:var(--muted)}
+    .small{font-size:12px}
+    .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    .spacer{flex:1}
+    .mt-8{margin-top:8px}
+    .mt-12{margin-top:12px}
+    .mt-16{margin-top:16px}
+    .mb-0{margin-bottom:0}
+
+    @media(max-width:1120px){
+      .top-nav-inner{align-items:flex-start;flex-wrap:wrap}
+      .brand,.nav-actions{min-width:0}
+      .nav-tabs{order:3;width:100%}
+      .welcome-card{grid-template-columns:1fr}
+      .metric-grid{grid-template-columns:repeat(2,1fr)}
+      .dashboard-grid{grid-template-columns:1fr}
+      .filter-grid{grid-template-columns:repeat(2,1fr)}
+      .students-layout,.staff-page{grid-template-columns:1fr}
+      .reports-grid{grid-template-columns:1fr}
+      .mapping-grid{grid-template-columns:repeat(2,1fr)}
+    }
+
+    @media(max-width:720px){
+      .main{padding:18px 14px 36px}
+      .top-nav-inner{padding:12px 14px}
+      .welcome-card{padding:25px}
+      .welcome h1{font-size:34px}
+      .metric-grid{grid-template-columns:1fr}
+      .filter-grid,.mapping-grid{grid-template-columns:1fr}
+      .weekday-grid{grid-template-columns:1fr}
+      .workspace-header{flex-direction:column}
+      .nav-actions{width:100%;justify-content:stretch}
+      .nav-actions .btn{flex:1}
+    }
+
+    @media print{
+      body{background:white}
+      .top-nav,.quick-bar,.filter-panel,.modal-backdrop,.no-print{display:none!important}
+      .main{max-width:none;padding:0}
+      .panel-card,.metric-card,.insight-banner,.table-card{box-shadow:none}
+      .page{display:none!important}
+      .page.active{display:block!important}
+    }
+
+    /* ------------------------------------------------------------------
+       Final visual polish layer
+       Keeps the standalone HTML structure, but gives the app a more
+       modern product feel: calmer surfaces, better typography, improved
+       affordances and less visual noise.
+    ------------------------------------------------------------------ */
+
+    :root{
+      --bg:#f7f9fc;
+      --surface:#ffffff;
+      --surface-soft:#f8fbff;
+      --ink:#121926;
+      --muted:#667085;
+      --faint:#98a2b3;
+      --line:#e6eaf0;
+      --blue:#2563eb;
+      --blue-soft:#eef5ff;
+      --blue-line:#cfe1ff;
+      --green:#079455;
+      --green-soft:#ecfdf3;
+      --amber:#dc6803;
+      --amber-soft:#fffaeb;
+      --red:#d92d20;
+      --red-soft:#fef3f2;
+      --purple:#6941c6;
+      --purple-soft:#f4f3ff;
+      --shadow:0 18px 48px rgba(16,24,40,.08);
+      --shadow-soft:0 10px 28px rgba(16,24,40,.06);
+      --ring:0 0 0 4px rgba(37,99,235,.12);
+    }
+
+    html{ scroll-behavior:smooth; }
+
+    body{
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      background:
+        radial-gradient(circle at 12% -10%, rgba(37,99,235,.10), transparent 30rem),
+        radial-gradient(circle at 95% 4%, rgba(105,65,198,.07), transparent 26rem),
+        linear-gradient(180deg,#ffffff 0%,#f8fbff 18rem,var(--bg) 100%);
+    }
+
+    .top-nav{
+      background:rgba(255,255,255,.82);
+      border-bottom:1px solid rgba(230,234,240,.9);
+      box-shadow:0 1px 0 rgba(16,24,40,.02);
+    }
+
+    .top-nav-inner{ padding-top:12px; padding-bottom:12px; }
+
+    .brand-mark{
+      background:linear-gradient(135deg,#2563eb 0%,#4f46e5 52%,#7c3aed 100%);
+      box-shadow:0 12px 24px rgba(37,99,235,.24);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .brand-mark:after{
+      content:"";
+      position:absolute;
+      inset:5px;
+      border-radius:10px;
+      border:1px solid rgba(255,255,255,.35);
+    }
+
+    .brand-title{ letter-spacing:-.02em; }
+    .brand-subtitle{ color:#667085; }
+
+    .nav-tabs{
+      background:rgba(242,244,247,.9);
+      border:1px solid rgba(228,231,236,.9);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.65);
+    }
+
+    .nav-tab{
+      transition:background .16s ease,color .16s ease,box-shadow .16s ease,transform .16s ease;
+    }
+
+    .nav-tab:hover{
+      color:#1d4ed8;
+      background:rgba(255,255,255,.55);
+    }
+
+    .nav-tab.active{
+      color:#1d4ed8;
+      box-shadow:0 6px 14px rgba(16,24,40,.08);
+    }
+
+    .btn{
+      transition:transform .16s ease, box-shadow .16s ease, background .16s ease, border-color .16s ease;
+      border:1px solid transparent;
+    }
+
+    .btn:focus-visible,
+    .chip:focus-visible,
+    .nav-tab:focus-visible,
+    .action-link:focus-visible{
+      outline:none;
+      box-shadow:var(--ring);
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg,#2563eb,#4f46e5);
+      box-shadow:0 10px 22px rgba(37,99,235,.22);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-1px);
+      box-shadow:0 14px 28px rgba(37,99,235,.25);
+    }
+
+    .btn-secondary{
+      background:#f2f4f7;
+      border-color:#e4e7ec;
+      color:#344054;
+    }
+
+    .btn-secondary:hover{
+      background:#eaf0f7;
+      transform:translateY(-1px);
+    }
+
+    .btn-danger{ border-color:#fecaca; }
+    .main{ padding-top:30px; }
+
+    .welcome-card,
+    .metric-card,
+    .panel-card,
+    .table-card,
+    .form-card,
+    .list-card,
+    .report-card,
+    .filter-panel,
+    .quick-bar,
+    .insight-banner{
+      border-color:rgba(230,234,240,.95);
+      box-shadow:var(--shadow-soft);
+    }
+
+    .welcome-card{
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      box-shadow:0 24px 70px rgba(16,24,40,.10);
+    }
+
+    .welcome h1,
+    .workspace-title h1,
+    .panel-head h2,
+    .metric-value{
+      letter-spacing:-.04em;
+    }
+
+    .lead{ color:#475467; }
+
+    .eyebrow{
+      background:linear-gradient(135deg,#eef5ff,#f8fbff);
+      border-color:#cfe1ff;
+      box-shadow:0 6px 16px rgba(37,99,235,.08);
+    }
+
+    .step{
+      background:#ffffff;
+      border-color:#edf0f5;
+      box-shadow:0 6px 16px rgba(16,24,40,.04);
+    }
+
+    .welcome-side{
+      background:
+        linear-gradient(180deg,rgba(255,255,255,.72),rgba(238,245,255,.85)),
+        radial-gradient(circle at top right,rgba(37,99,235,.16),transparent 14rem);
+    }
+
+    .workspace-header{ align-items:center; }
+    .workspace-title h1{ font-weight:900; }
+    .workspace-meta{ color:#667085; }
+
+    .report-pill{
+      background:rgba(255,255,255,.82);
+      border-color:#e6eaf0;
+    }
+
+    .quick-bar{
+      padding:10px;
+      background:rgba(255,255,255,.86);
+      backdrop-filter:blur(10px);
+    }
+
+    .quick-label{
+      color:#667085;
+      margin-right:2px;
+    }
+
+    .chip{
+      font-size:14px;
+      background:#ffffff;
+      border-color:#e6eaf0;
+      box-shadow:0 2px 8px rgba(16,24,40,.035);
+      transition:.16s ease;
+    }
+
+    .chip:hover,
+    .chip.active{
+      transform:translateY(-1px);
+      box-shadow:0 8px 18px rgba(37,99,235,.10);
+      background:var(--blue-soft);
+      color:#1d4ed8;
+    }
+
+    .filter-panel{ background:rgba(255,255,255,.92); }
+
+    .field label{
+      color:#344054;
+      letter-spacing:.01em;
+    }
+
+    .field input,
+    .field select,
+    .field textarea,
+    .staff-picker-toolbar input{
+      background:#ffffff;
+      border-color:#d8dee8;
+      transition:border-color .16s ease, box-shadow .16s ease, background .16s ease;
+    }
+
+    .field input:hover,
+    .field select:hover,
+    .field textarea:hover,
+    .staff-picker-toolbar input:hover{
+      border-color:#b8c2d2;
+    }
+
+    .insight-banner{
+      background:
+        linear-gradient(135deg,#eef5ff 0%,#ffffff 58%,#f7fbff 100%);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .insight-banner:after{
+      content:"";
+      position:absolute;
+      right:-36px;
+      top:-45px;
+      width:135px;
+      height:135px;
+      border-radius:50%;
+      background:rgba(37,99,235,.075);
+    }
+
+    .insight-icon{
+      background:linear-gradient(135deg,#ffffff,#eef5ff);
+      color:#1d4ed8;
+    }
+
+    .metric-grid{ gap:16px; }
+
+    .metric-card{
+      background:linear-gradient(180deg,#ffffff 0%,#fbfdff 100%);
+      min-height:126px;
+    }
+
+    .metric-card:after{
+      background:linear-gradient(135deg,rgba(37,99,235,.08),rgba(105,65,198,.06));
+    }
+
+    .metric-label{
+      color:#667085;
+      text-transform:none;
+    }
+
+    .metric-value{
+      font-weight:900;
+      color:#101828;
+    }
+
+    .metric-note{ color:#667085; }
+
+    .panel-card{
+      background:linear-gradient(180deg,#ffffff 0%,#fcfdff 100%);
+    }
+
+    .panel-head h2{
+      font-weight:850;
+      color:#182230;
+    }
+
+    .panel-head p{ color:#667085; }
+
+    .action-link{
+      background:#f4f7fb;
+      color:#1d4ed8;
+      border:1px solid #e6eaf0;
+      transition:.16s ease;
+    }
+
+    .action-link:hover{
+      background:var(--blue-soft);
+      border-color:var(--blue-line);
+      transform:translateY(-1px);
+    }
+
+    .bar-track{
+      background:#eef2f7;
+      box-shadow:inset 0 1px 2px rgba(16,24,40,.05);
+    }
+
+    .bar-fill{ background:linear-gradient(90deg,#93c5fd,#2563eb); }
+    .bar-fill.academic{ background:linear-gradient(90deg,#a78bfa,#6941c6); }
+    .bar-fill.behaviour{ background:linear-gradient(90deg,#f97066,#d92d20); }
+
+    .watch-item,
+    .weekday-card,
+    .staff-group-card{
+      background:#ffffff;
+      border-color:#edf0f5;
+      box-shadow:0 4px 12px rgba(16,24,40,.035);
+    }
+
+    .watch-item:hover,
+    .staff-group-card:hover{
+      border-color:#dbe7ff;
+      box-shadow:0 8px 20px rgba(16,24,40,.06);
+    }
+
+    .count-pill{
+      background:#f8fbff;
+      border-color:#dbeafe;
+      color:#1d4ed8;
+    }
+
+    .weekday-card{ background:linear-gradient(180deg,#ffffff,#f8fbff); }
+
+    .weekday-card .num{
+      color:#182230;
+      letter-spacing:-.04em;
+    }
+
+    .line-chart-wrap{
+      border-radius:16px;
+      background:#ffffff;
+    }
+
+    .scroll-pane,
+    .timeline-pane{
+      border-color:#e6eaf0;
+      box-shadow:var(--shadow-soft);
+    }
+
+    .student-list-head,
+    .timeline-head{
+      background:rgba(255,255,255,.96);
+      backdrop-filter:blur(10px);
+    }
+
+    .student-item{ transition:.14s ease; }
+    .student-item:hover{ background:#f7faff; }
+
+    .student-item.active{
+      background:linear-gradient(135deg,#eef5ff,#ffffff);
+      border-color:#cfe1ff;
+      box-shadow:0 6px 14px rgba(37,99,235,.08);
+    }
+
+    .timeline-item{
+      background:#ffffff;
+      border-top:1px solid #edf0f5;
+      border-right:1px solid #edf0f5;
+      border-bottom:1px solid #edf0f5;
+      box-shadow:0 4px 12px rgba(16,24,40,.035);
+      padding:16px 18px 15px;
+      margin:12px 0;
+      text-align:left;
+    }
+
+    .timeline-topline{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+
+    .timeline-date{
+      color:#475467;
+      font-size:13px;
+      font-weight:800;
+      letter-spacing:.01em;
+    }
+
+    .timeline-type{
+      display:inline-flex;
+      align-items:center;
+      border-radius:999px;
+      padding:5px 9px;
+      font-size:11px;
+      line-height:1;
+      font-weight:850;
+      border:1px solid #e4e7ec;
+      background:#f8fafc;
+      color:#475467;
+      white-space:nowrap;
+    }
+
+    .timeline-item.academic .timeline-type{
+      background:var(--purple-soft);
+      border-color:#ddd6fe;
+      color:#5b21b6;
+    }
+
+    .timeline-item.behaviour .timeline-type{
+      background:var(--red-soft);
+      border-color:#fecaca;
+      color:#991b1b;
+    }
+
+    .timeline-concern{
+      margin:0;
+      color:#182230;
+      font-size:15px;
+      line-height:1.58;
+      max-width:88ch;
+      overflow-wrap:anywhere;
+    }
+
+    .timeline-footer{
+      display:flex;
+      align-items:center;
+      gap:8px 14px;
+      flex-wrap:wrap;
+      margin-top:13px;
+      padding-top:11px;
+      border-top:1px solid #eef2f6;
+      color:#667085;
+      font-size:12px;
+    }
+
+    .timeline-recorded strong{
+      color:#344054;
+      font-weight:800;
+    }
+
+    .timeline-context{
+      display:flex;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+
+    .timeline-context-chip{
+      display:inline-flex;
+      align-items:center;
+      border:1px solid #e6eaf0;
+      background:#f8fafc;
+      color:#475467;
+      border-radius:999px;
+      padding:4px 8px;
+      line-height:1.1;
+    }
+
+    @media(max-width:720px){
+      .timeline-item{ padding:14px 15px; }
+      .timeline-topline{ align-items:flex-start; }
+      .timeline-concern{ font-size:14px; }
+      .timeline-footer{ align-items:flex-start; }
+    }
+
+    .table-card{ background:#ffffff; }
+
+    .table-toolbar{ background:linear-gradient(180deg,#ffffff,#fbfdff); }
+
+    th{
+      background:#f8fafc;
+      color:#475467;
+      font-weight:800;
+    }
+
+    td{ color:#344054; }
+    tr:hover td{ background:#fbfdff; }
+
+    .pill{
+      border-radius:999px;
+      font-weight:800;
+    }
+
+    .staff-picker{
+      background:#ffffff;
+      border-color:#e6eaf0;
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.8);
+    }
+
+    .staff-picker-toolbar{ background:#fbfdff; }
+    .staff-picker-list{ background:#ffffff; }
+
+    .staff-check{
+      border-color:#edf0f5;
+      box-shadow:0 2px 8px rgba(16,24,40,.025);
+    }
+
+    .staff-check:hover{ transform:translateY(-1px); }
+
+    .report-card{ background:linear-gradient(180deg,#ffffff,#fbfdff); }
+
+    .modal-backdrop{
+      background:rgba(15,23,42,.42);
+      backdrop-filter:blur(5px);
+    }
+
+    .modal{
+      border-radius:28px;
+      box-shadow:0 30px 90px rgba(15,23,42,.28);
+    }
+
+    .modal-head{ background:linear-gradient(180deg,#ffffff,#fbfdff); }
+
+    .wizard-step{
+      background:#ffffff;
+      border-color:#e6eaf0;
+      box-shadow:0 4px 12px rgba(16,24,40,.035);
+    }
+
+    .wizard-step.active{
+      background:linear-gradient(135deg,#eef5ff,#ffffff);
+      border-color:#cfe1ff;
+      color:#1d4ed8;
+    }
+
+    .dropzone{
+      background:linear-gradient(135deg,#eef5ff,#ffffff);
+      border-color:#bcd5ff;
+      transition:.16s ease;
+    }
+
+    .dropzone:hover,
+    .dropzone.dragover{
+      transform:translateY(-1px);
+      box-shadow:0 12px 28px rgba(37,99,235,.12);
+    }
+
+    .empty{
+      background:linear-gradient(180deg,#ffffff,#fbfdff);
+      border-color:#d8dee8;
+      color:#667085;
+    }
+
+    .empty strong{ color:#182230; }
+
+    /* Small icon cues without adding another dependency */
+    #openUploadBtn::before,
+    #welcomeUploadBtn::before{content:"↥";font-weight:900}
+    #loadDemoBtn::before{content:"◌"}
+    #clearDataBtn::before{content:"×"}
+    #exportCsvBtn::before,
+    #exportFromTableBtn::before{content:"↓"}
+    #copySummaryBtn::before{content:"⧉"}
+    #printBtn::before{content:"⌘"}
+
+    @media(max-width:720px){
+      .brand-mark{ width:38px; height:38px; }
+      .quick-bar{ align-items:stretch; }
+      .chip{ flex:1 1 calc(50% - 8px); }
+      .report-pill{ width:100%; justify-content:center; }
+    }
+
+
+    /* V3.2 usability refinements */
+    .quick-bar{
+      position:relative;
+      gap:8px;
+      padding:10px 12px;
+    }
+    .quick-tutor{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      padding:5px 7px 5px 10px;
+      background:#f8fafc;
+      border:1px solid var(--line);
+      border-radius:14px;
+      margin-right:4px;
+    }
+    .quick-tutor label{
+      font-size:12px;
+      font-weight:850;
+      color:#344054;
+      white-space:nowrap;
+    }
+    .quick-tutor select{
+      min-width:145px;
+      border:0;
+      background:transparent;
+      color:#182230;
+      font-weight:800;
+      outline:none;
+      padding:4px 24px 4px 4px;
+    }
+    .quick-divider{width:1px;height:28px;background:var(--line);margin:0 2px;}
+    .upload-status-card{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:13px 15px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:#f8fafc;
+      margin-top:14px;
+    }
+    .upload-status-dot{width:9px;height:9px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--blue-soft);}
+    @media(max-width:720px){
+      .quick-tutor{width:100%;margin-right:0;}
+      .quick-tutor select{flex:1;min-width:0;}
+      .quick-divider{display:none;}
+    }
+
+
+    /* V3.4 — restrained professional application styling */
+    :root{
+      --bg:#f4f6f9;
+      --surface:#ffffff;
+      --surface-soft:#f8fafc;
+      --ink:#172033;
+      --muted:#667085;
+      --faint:#98a2b3;
+      --line:#dfe5ec;
+      --blue:#2457d6;
+      --blue-soft:#eef4ff;
+      --blue-line:#cbdcff;
+      --green:#16794b;
+      --green-soft:#edf8f2;
+      --amber:#a85d00;
+      --amber-soft:#fff7e8;
+      --red:#c9362b;
+      --red-soft:#fff1f0;
+      --purple:#6b4cc2;
+      --purple-soft:#f4f1ff;
+      --shadow:0 8px 28px rgba(23,32,51,.08);
+      --shadow-soft:0 1px 3px rgba(23,32,51,.07);
+      --radius:14px;
+      --radius-sm:9px;
+    }
+
+    body{
+      background:#f4f6f9;
+      color:var(--ink);
+    }
+
+    .top-nav{
+      background:#ffffff;
+      backdrop-filter:none;
+      border-bottom:1px solid #e3e8ef;
+      box-shadow:0 1px 2px rgba(23,32,51,.035);
+    }
+
+    .top-nav-inner{padding-top:11px;padding-bottom:11px;}
+    .brand{gap:10px;}
+    .brand-mark{
+      width:38px;height:38px;
+      border-radius:9px;
+      background:#214fb5;
+      box-shadow:none;
+      font-size:13px;
+      letter-spacing:.02em;
+    }
+    .brand-mark:after{display:none;}
+    .brand-title{font-size:17px;font-weight:800;letter-spacing:-.015em;}
+    .brand-subtitle{font-size:11px;color:#7b8798;}
+
+    .nav-tabs{
+      background:#f1f3f7;
+      border:0;
+      border-radius:11px;
+      padding:3px;
+      gap:2px;
+      box-shadow:none;
+    }
+    .nav-tab{
+      border-radius:8px;
+      padding:8px 12px;
+      font-size:13px;
+      font-weight:700;
+      color:#596579;
+    }
+    .nav-tab:hover{background:#f8fafc;color:#294d9d;}
+    .nav-tab.active{
+      background:#ffffff;
+      color:#214fb5;
+      box-shadow:0 1px 3px rgba(23,32,51,.10);
+    }
+
+    .btn{
+      border-radius:9px;
+      padding:9px 13px;
+      font-weight:700;
+      box-shadow:none;
+      letter-spacing:0;
+    }
+    .btn-primary{background:#2457d6;box-shadow:none;}
+    .btn-primary:hover{background:#1f4fc4;box-shadow:none;transform:none;}
+    .btn-secondary{background:#f4f6f8;border-color:#dfe5ec;}
+    .btn-secondary:hover{background:#eaf0f5;transform:none;}
+    .btn-danger{background:#fff4f3;border-color:#f5cfcc;}
+
+    .main{padding-top:24px;}
+    .workspace-header{margin-bottom:14px;}
+    .workspace-title h1{font-size:27px;font-weight:800;letter-spacing:-.025em;}
+    .workspace-meta{font-size:13px;}
+    .report-pill{
+      border-radius:9px;
+      box-shadow:none;
+      padding:8px 11px;
+      background:#fff;
+      font-size:12px;
+    }
+
+    .quick-bar{
+      border-radius:12px;
+      box-shadow:none;
+      border:1px solid #dfe5ec;
+      background:#ffffff;
+      padding:9px 10px;
+      margin-bottom:14px;
+    }
+    .quick-tutor{
+      border-radius:9px;
+      background:#f6f8fb;
+      border-color:#e2e7ee;
+      padding:4px 6px 4px 9px;
+    }
+    .quick-tutor select{font-weight:700;color:#253047;}
+    .chip{
+      border-radius:8px;
+      padding:8px 10px;
+      font-size:12px;
+      font-weight:700;
+      box-shadow:none;
+      border-color:#e3e8ef;
+    }
+    .chip:hover,.chip.active{
+      transform:none;
+      box-shadow:none;
+      color:#214fb5;
+      background:#eef4ff;
+      border-color:#cbdcff;
+    }
+
+    .filter-panel,
+    .panel-card,
+    .metric-card,
+    .table-card,
+    .form-card,
+    .list-card,
+    .report-card,
+    .scroll-pane,
+    .timeline-pane,
+    .welcome-card,
+    .insight-banner{
+      border-radius:13px;
+      border-color:#dfe5ec;
+      box-shadow:0 1px 3px rgba(23,32,51,.06);
+      background:#ffffff;
+    }
+
+    .welcome-card{
+      border-radius:18px;
+      box-shadow:0 8px 28px rgba(23,32,51,.08);
+      background:#ffffff;
+    }
+    .welcome-card:after,.metric-card:after,.insight-banner:after{display:none;}
+    .welcome-side{
+      border-radius:14px;
+      background:#f6f8fc;
+      border-color:#dbe4f1;
+    }
+    .mock-card{border-radius:11px;box-shadow:none;}
+
+    .filter-panel{padding:16px;}
+    .field input,.field select,.field textarea{
+      border-radius:9px;
+      padding:9px 10px;
+      border-color:#d8dee7;
+    }
+
+    .insight-banner{
+      grid-template-columns:auto 1fr auto;
+      border-left:3px solid #2457d6;
+      padding:15px 16px;
+      background:#ffffff;
+    }
+    .insight-icon{
+      width:36px;height:36px;border-radius:9px;
+      box-shadow:none;
+      background:#eef4ff;
+      font-size:14px;
+    }
+
+    .metric-grid{
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:11px;
+      margin-bottom:14px;
+    }
+    .metric-card{min-height:108px;padding:15px 16px;}
+    .metric-label{font-size:12px;margin-bottom:7px;font-weight:700;}
+    .metric-value{font-size:30px;font-weight:800;letter-spacing:-.025em;}
+    .metric-value-text{font-size:22px;line-height:1.2;margin-top:5px;}
+    .metric-note{font-size:11px;margin-top:5px;}
+    .metric-card-action{cursor:pointer;transition:border-color .15s ease,box-shadow .15s ease,transform .15s ease;}
+    .metric-card-action:hover,.metric-card-action:focus-visible{
+      border-color:#b9ccf5;
+      box-shadow:0 4px 12px rgba(36,87,214,.09);
+      outline:none;
+      transform:translateY(-1px);
+    }
+
+    .dashboard-grid{gap:13px;}
+    .panel-card{padding:17px;}
+    .panel-head{margin-bottom:12px;}
+    .panel-head h2{font-size:18px;font-weight:800;letter-spacing:-.01em;}
+    .panel-head p{font-size:12px;}
+    .action-link{border-radius:8px;font-size:12px;background:#f4f6f9;}
+    .watch-item,.weekday-card,.staff-group-card{box-shadow:none;border-radius:10px;}
+    .count-pill{border-radius:7px;font-size:11px;padding:5px 8px;}
+
+    .students-layout{grid-template-columns:minmax(260px,330px) 1fr;gap:13px;}
+    .scroll-pane,.timeline-pane{box-shadow:none;}
+    .student-list-head{padding:12px;border-radius:13px 13px 0 0;}
+    .student-list-items{padding:7px;}
+    .student-item{padding:10px 11px;border-radius:9px;}
+    .student-item.active{
+      background:#eef4ff;
+      border-color:#c8d9fb;
+      box-shadow:none;
+    }
+    .student-name{font-size:13px;font-weight:800;}
+    .student-detail{font-size:11px;}
+
+    .student-review-bar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:12px;
+      padding:12px 14px;
+      background:#ffffff;
+      border:1px solid #dfe5ec;
+      border-radius:12px;
+      box-shadow:0 1px 3px rgba(23,32,51,.05);
+    }
+    .student-review-copy{display:grid;gap:2px;min-width:0;}
+    .student-review-copy strong{font-size:13px;color:#253047;}
+    .student-review-copy span{font-size:11px;color:#758196;line-height:1.35;}
+    .conversation-tabs{
+      display:inline-flex;
+      gap:3px;
+      padding:3px;
+      background:#f1f3f7;
+      border-radius:9px;
+      flex:0 0 auto;
+    }
+    .conversation-tab{
+      border:0;
+      background:transparent;
+      color:#5f6b7d;
+      border-radius:7px;
+      padding:7px 9px;
+      font-size:11px;
+      font-weight:750;
+      display:inline-flex;
+      gap:6px;
+      align-items:center;
+    }
+    .conversation-tab span{
+      min-width:20px;
+      padding:2px 5px;
+      border-radius:6px;
+      background:rgba(255,255,255,.75);
+      color:#465268;
+      text-align:center;
+      font-variant-numeric:tabular-nums;
+    }
+    .conversation-tab.active{
+      background:#ffffff;
+      color:#214fb5;
+      box-shadow:0 1px 3px rgba(23,32,51,.09);
+    }
+    .conversation-tab[data-conversation-view="outstanding"].active{color:#965500;}
+    .conversation-tab[data-conversation-view="completed"].active{color:#16794b;}
+
+    .timeline-pane{padding:15px;}
+    .timeline-head{top:-15px;padding:0 0 12px;margin-bottom:7px;}
+    .timeline-head h2{font-size:18px;margin-bottom:3px;}
+    .timeline-item{
+      border-radius:10px;
+      border:1px solid #e2e7ee;
+      border-left:3px solid #8492a6;
+      box-shadow:none;
+      padding:14px 15px 13px;
+      margin:9px 0;
+    }
+    .timeline-item.academic{border-left-color:#7658c9;}
+    .timeline-item.behaviour{border-left-color:#d64b41;}
+    .timeline-item.conversation-complete{
+      background:#fbfefc;
+      border-top-color:#d9e8df;
+      border-right-color:#d9e8df;
+      border-bottom-color:#d9e8df;
+    }
+    .timeline-date{font-size:12px;color:#5c687b;}
+    .timeline-type{border-radius:7px;padding:5px 7px;font-size:10px;font-weight:800;}
+    .timeline-concern{font-size:14px;line-height:1.55;max-width:92ch;}
+    .timeline-footer{
+      justify-content:space-between;
+      align-items:flex-end;
+      margin-top:12px;
+      padding-top:10px;
+      gap:10px 16px;
+    }
+    .timeline-meta-wrap{display:grid;gap:6px;min-width:0;}
+    .timeline-context-chip{border-radius:6px;padding:3px 6px;font-size:10px;}
+
+    .conversation-control{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:9px;
+      flex:0 0 auto;
+    }
+    .conversation-button{
+      border:1px solid #cbdcff;
+      background:#eef4ff;
+      color:#214fb5;
+      border-radius:8px;
+      padding:7px 9px;
+      font-size:11px;
+      font-weight:800;
+      cursor:pointer;
+    }
+    .conversation-button:hover{background:#e3edff;border-color:#b6ccfa;}
+    .conversation-done{
+      display:flex;
+      align-items:center;
+      gap:7px;
+      color:#17633f;
+      font-size:11px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .conversation-done-mark{
+      width:22px;height:22px;border-radius:50%;
+      display:grid;place-items:center;
+      background:#e5f5ec;
+      color:#16794b;
+      border:1px solid #bfdfcc;
+      font-size:12px;
+    }
+    .conversation-done small{display:block;color:#718078;font-weight:600;margin-top:1px;}
+    .conversation-undo{
+      border:0;background:transparent;color:#758196;
+      padding:5px 3px;font-size:10px;font-weight:700;cursor:pointer;
+    }
+    .conversation-undo:hover{color:#344054;text-decoration:underline;}
+    .student-outstanding{color:#9a5a05;font-weight:750;}
+    .student-completed{color:#16794b;font-weight:750;}
+
+    .conversation-table-status{
+      display:inline-flex;align-items:center;border-radius:7px;padding:4px 7px;
+      font-size:10px;font-weight:800;white-space:nowrap;
+      border:1px solid #e2e7ee;background:#f7f9fb;color:#667085;
+    }
+    .conversation-table-status.done{background:#edf8f2;border-color:#cfe6d8;color:#16794b;}
+    .conversation-table-status.pending{background:#fff7e8;border-color:#f0dfbd;color:#965500;}
+
+    .reports-grid{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:13px;}
+    .report-card{padding:18px;}
+    .report-card h2{font-size:17px;}
+    .report-card p{font-size:12px;}
+    .report-card-kicker{
+      display:inline-block;
+      margin-bottom:7px;
+      text-transform:uppercase;
+      letter-spacing:.08em;
+      font-size:9px;
+      font-weight:850;
+      color:#6d7890;
+    }
+    .local-data-card{grid-column:span 2;background:#fbfcfe;}
+
+    .modal{border-radius:16px;box-shadow:0 20px 60px rgba(23,32,51,.20);}
+    .modal-head{background:#ffffff;}
+    .dropzone{border-radius:12px;background:#f4f7fd;border-color:#b9cdf4;box-shadow:none;}
+    .dropzone:hover,.dropzone.dragover{transform:none;box-shadow:none;background:#edf3ff;}
+
+    @media(max-width:1120px){
+      .student-review-bar{align-items:flex-start;flex-direction:column;}
+      .conversation-tabs{width:100%;}
+      .conversation-tab{flex:1;justify-content:center;}
+      .local-data-card{grid-column:auto;}
+    }
+    @media(max-width:720px){
+      .main{padding:16px 12px 32px;}
+      .workspace-title h1{font-size:24px;}
+      .metric-grid{grid-template-columns:repeat(2,minmax(0,1fr));}
+      .metric-card{min-height:96px;padding:13px;}
+      .metric-value{font-size:27px;}
+      .students-layout{grid-template-columns:1fr;}
+      .conversation-tabs{overflow-x:auto;}
+      .conversation-tab{white-space:nowrap;}
+      .timeline-footer{align-items:flex-start;}
+      .conversation-control{width:100%;justify-content:flex-start;}
+    }
+
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="top-nav">
+      <div class="top-nav-inner">
+        <div class="brand">
+          <div class="brand-mark">CI</div>
+          <div>
+            <div class="brand-title">Concern Insights</div>
+            <div class="brand-subtitle">Behaviour & academic concern analysis</div>
+          </div>
+        </div>
+
+        <nav class="nav-tabs" id="mainNav">
+          <button class="nav-tab active" data-page="dashboardPage">Dashboard</button>
+          <button class="nav-tab" data-page="studentsPage">Students</button>
+          <button class="nav-tab" data-page="concernsPage">Concerns</button>
+          <button class="nav-tab" data-page="staffGroupsPage">Staff Groups</button>
+          <button class="nav-tab" data-page="reportsPage">Reports</button>
+        </nav>
+
+        <div class="nav-actions">
+          <button class="btn btn-secondary" id="clearDataBtn" title="Clear imported data">Clear</button>
+          <button class="btn btn-primary" id="openUploadBtn">Upload data</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="welcome" id="welcomeScreen">
+        <div class="welcome-card">
+          <div>
+            <div class="eyebrow">Simple pastoral data insight</div>
+            <h1>Turn concern exports into clear actions.</h1>
+            <p class="lead">
+              Upload your standard concern export and quickly identify patterns in behaviour and academic concerns without manually sorting through rows of data.
+            </p>
+
+            <div class="steps">
+              <div class="step"><div class="step-num">1</div><div><strong>Upload your report</strong><span>Use CSV, XLS or XLSX files from your behaviour/concern system.</span></div></div>
+              <div class="step"><div class="step-num">2</div><div><strong>Explore the insight</strong><span>Your standard export is recognised automatically, so you can go straight to tutor groups, student timelines and patterns.</span></div></div>
+            </div>
+
+            <div class="row">
+              <button class="btn btn-primary" id="welcomeUploadBtn">Upload spreadsheet</button>
+              <button class="btn btn-secondary" id="loadDemoBtn">Try demo data</button>
+            </div>
+          </div>
+
+          <aside class="welcome-side">
+            <div>
+              <div class="mock-card">
+                <div class="mock-title">Key insight</div>
+                <div class="muted">Repeat students, concern hotspots and tutor follow-up appear automatically after import.</div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-title">Students involved</div>
+                <div class="mock-value">42</div>
+                <div class="mock-bar"><div class="mock-fill" style="width:72%"></div></div>
+              </div>
+              <div class="mock-card">
+                <div class="mock-title">Behaviour concerns</div>
+                <div class="mock-value">68%</div>
+                <div class="mock-bar"><div class="mock-fill purple" style="width:68%"></div></div>
+              </div>
+            </div>
+            <p class="small muted mb-0">Designed for heads of year, heads of department, tutors and pastoral teams.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="workspace" class="hidden">
+        <div class="workspace-header">
+          <div class="workspace-title">
+            <h1 id="pageHeading">Dashboard</h1>
+            <div class="workspace-meta" id="workspaceMeta">No records loaded.</div>
+          </div>
+          <div class="report-pill" id="reportDatePill">Report date: —</div>
+        </div>
+
+        <div class="quick-bar no-print">
+          <div class="quick-tutor">
+            <label for="quickTutorFilter">Tutor group</label>
+            <select id="quickTutorFilter" aria-label="Select tutor group"></select>
+          </div>
+          <div class="quick-divider" aria-hidden="true"></div>
+          <span class="quick-label">Quick views</span>
+          <button class="chip" data-view="thisWeek">This week</button>
+          <button class="chip" data-view="lastWeek">Last week</button>
+          <button class="chip" data-view="behaviourOnly">Behaviour</button>
+          <button class="chip" data-view="academicOnly">Academic</button>
+          <button class="chip" data-view="repeatStudents">Repeat students</button>
+          <button class="chip" data-view="ks3">KS3</button>
+          <button class="chip" data-view="ks4">KS4</button>
+          <button class="chip" data-view="sixthForm">Sixth Form</button>
+          <button class="chip" id="toggleFiltersBtn">More filters</button>
+        </div>
+
+        <section class="filter-panel hidden no-print" id="filterPanel">
+          <div class="filter-head">
+            <div>
+              <h2>More filters</h2>
+              <p class="muted small mb-0">Use these when you need a more precise view.</p>
+            </div>
+            <button class="btn btn-secondary btn-small" id="resetFiltersBtn">Reset filters</button>
+          </div>
+          <div class="filter-grid">
+            <div class="field"><label for="dateFrom">Date from</label><input type="date" id="dateFrom"></div>
+            <div class="field"><label for="dateTo">Date to</label><input type="date" id="dateTo"></div>
+            <div class="field"><label for="yearFilter">Year group</label><select id="yearFilter"></select></div>
+            <div class="field"><label for="tutorFilter">Tutor / Reg group</label><select id="tutorFilter"></select></div>
+            <div class="field"><label for="phaseFilter">Phase</label><select id="phaseFilter">
+              <option value="All">All phases</option>
+              <option value="KS3">KS3 — Years 7, 8 and 9</option>
+              <option value="KS4">KS4 — Years 10 and 11</option>
+              <option value="Sixth Form">Sixth Form — 12I, 12A, 13I and 13A</option>
+            </select></div>
+            <div class="field"><label for="typeFilter">Concern type</label><select id="typeFilter"></select></div>
+            <div class="field"><label for="recordedByFilter">Recorded by</label><select id="recordedByFilter"></select></div>
+            <div class="field"><label for="staffGroupFilter">Staff group</label><select id="staffGroupFilter"></select></div>
+            <div class="field"><label for="searchBox">Search</label><input id="searchBox" placeholder="Student, concern, staff, subject..."></div>
+          </div>
+        </section>
+
+        <section class="page active" id="dashboardPage">
+          <div class="insight-banner">
+            <div class="insight-icon">↗</div>
+            <div>
+              <h2>Key insight</h2>
+              <p id="keyInsightText">Upload data to see a plain-English summary of the main pattern.</p>
+            </div>
+            <button class="btn btn-secondary btn-small no-print" id="goStudentsFromInsight">View students</button>
+          </div>
+
+          <div class="metric-grid">
+            <div class="metric-card">
+              <div class="metric-label">Total concerns</div>
+              <div class="metric-value" id="metricTotal">0</div>
+              <div class="metric-note">Currently visible records</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Students involved</div>
+              <div class="metric-value" id="metricStudents">0</div>
+              <div class="metric-note">Unique student names</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Repeat students</div>
+              <div class="metric-value" id="metricRepeat">0</div>
+              <div class="metric-note">Students with 2+ concerns</div>
+            </div>
+            <div class="metric-card metric-card-action" id="metricConversationCard" role="button" tabindex="0" aria-label="Open logs not yet marked as discussed">
+              <div class="metric-label">Not yet discussed</div>
+              <div class="metric-value" id="metricOutstanding">0</div>
+              <div class="metric-note" id="metricOutstandingNote">Conversation tracking</div>
+            </div>
+            <div class="metric-card">
+              <div class="metric-label">Main concern type</div>
+              <div class="metric-value metric-value-text" id="metricMainType">—</div>
+              <div class="metric-note" id="metricMainTypeNote">No data yet</div>
+            </div>
+          </div>
+
+          <div class="dashboard-grid">
+            <article class="panel-card">
+              <div class="panel-head">
+                <div><h2>Who needs attention?</h2><p>Students appearing most often in the current view.</p></div>
+                <button class="action-link no-print" data-goto="studentsPage">Open</button>
+              </div>
+              <div id="studentsToWatch" class="student-watch"></div>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-head">
+                <div><h2>What type of concerns?</h2><p>Behaviour, academic and any other categories in the report.</p></div>
+              </div>
+              <div id="concernProfileBars" class="bars"></div>
+            </article>
+
+            <article class="panel-card wide">
+              <div class="panel-head">
+                <div><h2>When are concerns happening?</h2><p>Weekly trend in chronological order.</p></div>
+              </div>
+              <div class="line-chart-wrap" id="trendLineChart"></div>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-head">
+                <div><h2>Weekday hotspots</h2><p>School-day pattern for the current view.</p></div>
+              </div>
+              <div id="weekdayHotspots" class="weekday-grid"></div>
+            </article>
+
+            <article class="panel-card">
+              <div class="panel-head">
+                <div><h2>Where are concerns coming from?</h2><p>Departments, subjects or inferred areas.</p></div>
+                <button class="action-link no-print" data-goto="concernsPage">Table</button>
+              </div>
+              <div id="departmentBars" class="bars"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="studentsPage">
+          <div class="student-review-bar no-print">
+            <div class="student-review-copy">
+              <strong>Conversation review</strong>
+              <span>Mark each concern when it has been discussed with the student. Progress is saved on this browser.</span>
+            </div>
+            <div class="conversation-tabs" role="group" aria-label="Filter conversation status">
+              <button class="conversation-tab active" data-conversation-view="all" aria-pressed="true">All <span id="conversationAllCount">0</span></button>
+              <button class="conversation-tab" data-conversation-view="outstanding" aria-pressed="false">To discuss <span id="conversationOutstandingCount">0</span></button>
+              <button class="conversation-tab" data-conversation-view="completed" aria-pressed="false">Discussed <span id="conversationCompletedCount">0</span></button>
+            </div>
+          </div>
+          <div class="students-layout">
+            <div class="scroll-pane">
+              <div class="student-list-head">
+                <div class="field">
+                  <label for="studentSearch">Search students</label>
+                  <input id="studentSearch" placeholder="Type a name...">
+                </div>
+              </div>
+              <div class="student-list-items" id="studentList"></div>
+            </div>
+            <div class="timeline-pane" id="timelinePane">
+              <div class="timeline-head">
+                <h2 id="timelineTitle">Student timeline</h2>
+                <p class="muted mb-0" id="timelineSubtitle">Select a student to view their concerns.</p>
+              </div>
+              <div id="studentTimeline" class="empty"><strong>No student selected</strong>Select a student from the list on the left.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="concernsPage">
+          <div class="table-card">
+            <div class="table-toolbar">
+              <div>
+                <h2 class="mb-0">Concern records</h2>
+                <p class="muted small mb-0">Full filtered table for checking individual entries.</p>
+              </div>
+              <button class="btn btn-secondary btn-small no-print" id="exportFromTableBtn">Export CSV</button>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Date</th><th>Student</th><th>Year</th><th>Tutor / Reg</th><th>Type</th>
+                    <th>Concern</th><th>Recorded by</th><th>Subject</th><th>Lesson</th><th>Department</th><th>Conversation</th>
+                  </tr>
+                </thead>
+                <tbody id="concernsTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="staffGroupsPage">
+          <div class="staff-page">
+            <div class="form-card">
+              <h2 id="staffFormTitle">Create a staff group</h2>
+              <p class="muted">Save teams locally on this device, then use them as quick filters.</p>
+              <input type="hidden" id="editingStaffGroupId">
+              <div class="field mt-12">
+                <label for="staffGroupName">Group name</label>
+                <input id="staffGroupName" placeholder="e.g. Science department">
+              </div>
+              <div class="field mt-12">
+                <label>Select staff from the imported report</label>
+                <div class="staff-picker">
+                  <div class="staff-picker-toolbar">
+                    <input id="staffPickerSearch" placeholder="Search staff names...">
+                    <div class="staff-picker-actions">
+                      <span class="staff-selected-count" id="staffSelectedCount">0 staff selected</span>
+                      <div class="row">
+                        <button type="button" class="btn btn-secondary btn-small" id="selectVisibleStaffBtn">Select visible</button>
+                        <button type="button" class="btn btn-secondary btn-small" id="clearSelectedStaffBtn">Clear</button>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="staff-picker-list" id="staffPickerList">
+                    <div class="empty"><strong>No staff found yet</strong>Upload and import a report with a “Recorded by” column to select staff.</div>
+                  </div>
+                </div>
+                <p class="small muted">The list is built from the names found in the “Recorded by” column of the imported data.</p>
+              </div>
+              <div class="row mt-12">
+                <button class="btn btn-primary" id="saveStaffGroupBtn">Save group</button>
+                <button class="btn btn-secondary" id="cancelStaffEditBtn">Cancel</button>
+              </div>
+            </div>
+            <div class="list-card">
+              <div class="panel-head">
+                <div><h2>Saved staff groups</h2><p>Groups are stored locally in this browser only.</p></div>
+              </div>
+              <div id="staffGroupsList" class="staff-group-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="page" id="reportsPage">
+          <div class="reports-grid">
+            <div class="report-card">
+              <h2>Export filtered CSV</h2>
+              <p>Download the current filtered data so it can be shared or analysed further.</p>
+              <button class="btn btn-primary" id="exportCsvBtn">Export CSV</button>
+            </div>
+            <div class="report-card">
+              <h2>Copy summary</h2>
+              <p>Copy a short plain-English summary for an email, meeting note or pastoral update.</p>
+              <button class="btn btn-secondary" id="copySummaryBtn">Copy summary</button>
+              <p class="small muted" id="copyStatus"></p>
+            </div>
+            <div class="report-card">
+              <h2>Print dashboard</h2>
+              <p>Print the current dashboard or save it as a PDF using your browser.</p>
+              <button class="btn btn-secondary" id="printBtn">Print / Save PDF</button>
+            </div>
+            <div class="report-card local-data-card">
+              <div class="report-card-kicker">Local data</div>
+              <h2>Back up tutor progress</h2>
+              <p>Conversation progress and saved staff groups are stored on this browser. Download a small backup if you need to move computers or protect against browser data being cleared.</p>
+              <div class="row">
+                <button class="btn btn-primary" id="backupLocalDataBtn">Download backup</button>
+                <button class="btn btn-secondary" id="restoreLocalDataBtn">Restore backup</button>
+              </div>
+              <input type="file" id="restoreLocalDataInput" accept=".json,application/json" class="hidden">
+              <p class="small muted mb-0" id="backupStatus">The uploaded concern spreadsheet itself is not included in the backup.</p>
+            </div>
+          </div>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal-backdrop hidden" id="uploadModal">
+    <div class="modal" style="width:min(720px,100%)">
+      <div class="modal-head">
+        <div>
+          <h2>Upload concern data</h2>
+          <p>Select your standard CSV, XLS or XLSX export. It will be recognised and loaded automatically.</p>
+        </div>
+        <button class="btn btn-secondary btn-small" id="closeUploadBtn">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="dropzone" id="dropzone">
+          <strong>Drop your spreadsheet here</strong><br>
+          <span class="muted">or click to choose a CSV, XLS or XLSX file</span>
+        </div>
+        <input type="file" id="fileInput" accept=".csv,.xlsx,.xls,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="hidden">
+        <div class="upload-status-card">
+          <span class="upload-status-dot" aria-hidden="true"></span>
+          <span class="muted small" id="wizardStatus">Waiting for a file.</span>
+        </div>
+
+        <!-- Hidden automatic field mapping. Standard exports require no teacher confirmation. -->
+        <div class="hidden" aria-hidden="true">
+          <div id="sheetChoiceWrap"><select id="sheetSelect"></select></div>
+          <div id="mappingWrap">
+            <select id="mapStudent"></select><select id="mapFirstName"></select><select id="mapSurname"></select>
+            <select id="mapDate"></select><select id="mapYear"></select><select id="mapTutor"></select>
+            <select id="mapType"></select><select id="mapConcern"></select><select id="mapRecordedBy"></select>
+            <select id="mapSubject"></select><select id="mapLesson"></select><select id="mapDepartment"></select>
+            <button id="autoMapBtn" type="button"></button><button id="importMappedBtn" type="button"></button>
+            <div id="previewTable"></div><div id="matchStep"></div><div id="importStep"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const STORAGE_KEY = 'concernInsights.staffGroups.cleanUX.v1';
+    const CONVERSATION_STORAGE_KEY = 'concernInsights.conversations.v1';
+
+    const demoData = [
+      { date:'2026-06-01', student:'Alex Brown', year:'9', tutor:'9T', type:'Behaviour', concern:'Disruption in lesson', recordedBy:'Mr Smith', subject:'Science', lesson:'Chemistry', department:'Science' },
+      { date:'2026-06-02', student:'Mia Jones', year:'10', tutor:'10R', type:'Academic', concern:'Homework not completed', recordedBy:'Ms Jones', subject:'English', lesson:'Literature', department:'English' },
+      { date:'2026-06-03', student:'Sam Patel', year:'8', tutor:'8B', type:'Behaviour', concern:'Talking over others', recordedBy:'Mrs Patel', subject:'Geography', lesson:'Development', department:'Humanities' },
+      { date:'2026-06-04', student:'Alex Brown', year:'9', tutor:'9T', type:'Academic', concern:'Lack of equipment', recordedBy:'Mr Smith', subject:'Science', lesson:'Physics', department:'Science' },
+      { date:'2026-06-04', student:'Olivia Green', year:'11', tutor:'11M', type:'Behaviour', concern:'Late to lesson', recordedBy:'Ms Green', subject:'Maths', lesson:'Algebra', department:'Maths' },
+      { date:'2026-06-05', student:'Theo Miller', year:'7', tutor:'7K', type:'Academic', concern:'Incomplete classwork', recordedBy:'Mr Brown', subject:'History', lesson:'Normans', department:'Humanities' },
+      { date:'2026-06-05', student:'Alex Brown', year:'9', tutor:'9T', type:'Behaviour', concern:'Poor attitude', recordedBy:'Mrs Patel', subject:'Geography', lesson:'Urban Issues', department:'Humanities' },
+      { date:'2026-06-05', student:'Mia Jones', year:'10', tutor:'10R', type:'Academic', concern:'Assessment below target', recordedBy:'Mr Smith', subject:'Science', lesson:'Biology', department:'Science' }
+    ];
+
+    let allRows = [];
+    let filteredRows = [];
+    let selectedStudent = null;
+    let selectedStaffGroupId = 'All';
+    let staffGroups = [];
+    let conversationLog = {};
+    let conversationView = 'all';
+    let pendingSheets = {};
+    let pendingSheetName = '';
+    let pendingRawRows = [];
+    let pendingHeaders = [];
+
+    const $ = id => document.getElementById(id);
+
+    const mappingSelectIds = [
+      'mapStudent','mapFirstName','mapSurname','mapDate','mapYear','mapTutor',
+      'mapType','mapConcern','mapRecordedBy','mapSubject','mapLesson','mapDepartment'
+    ];
+
+    function init(){
+      loadStaffGroups();
+      loadConversationLog();
+      bindEvents();
+      populateFilters();
+      renderAll();
+      showDataState();
+    }
+
+    function bindEvents(){
+      $('openUploadBtn').addEventListener('click', openUpload);
+      $('welcomeUploadBtn').addEventListener('click', openUpload);
+      $('closeUploadBtn').addEventListener('click', closeUpload);
+      $('dropzone').addEventListener('click', () => $('fileInput').click());
+      $('fileInput').addEventListener('change', e => handleFile(e.target.files[0]));
+
+      $('dropzone').addEventListener('dragover', e => {
+        e.preventDefault();
+        $('dropzone').classList.add('dragover');
+      });
+      $('dropzone').addEventListener('dragleave', () => $('dropzone').classList.remove('dragover'));
+      $('dropzone').addEventListener('drop', e => {
+        e.preventDefault();
+        $('dropzone').classList.remove('dragover');
+        handleFile(e.dataTransfer.files[0]);
+      });
+
+      $('sheetSelect').addEventListener('change', () => {
+        pendingSheetName = $('sheetSelect').value;
+        setupWizardFromRows(pendingSheets[pendingSheetName], pendingSheetName);
+      });
+
+      $('autoMapBtn').addEventListener('click', () => {
+        autoMapColumns();
+        $('wizardStatus').textContent = 'Automatic field recognition refreshed.';
+      });
+      $('importMappedBtn').addEventListener('click', importMappedData);
+      $('loadDemoBtn').addEventListener('click', () => loadRows(demoData, 'demo data'));
+      $('clearDataBtn').addEventListener('click', clearData);
+
+      document.querySelectorAll('.nav-tab').forEach(btn => {
+        btn.addEventListener('click', () => showPage(btn.dataset.page));
+      });
+
+      document.querySelectorAll('[data-goto]').forEach(btn => {
+        btn.addEventListener('click', () => showPage(btn.dataset.goto));
+      });
+
+      $('goStudentsFromInsight').addEventListener('click', () => showPage('studentsPage'));
+      $('toggleFiltersBtn').addEventListener('click', () => $('filterPanel').classList.toggle('hidden'));
+      $('resetFiltersBtn').addEventListener('click', resetFilters);
+
+      document.querySelectorAll('[data-view]').forEach(btn => {
+        btn.addEventListener('click', () => applyQuickView(btn.dataset.view));
+      });
+
+      ['dateFrom','dateTo','yearFilter','tutorFilter','phaseFilter','typeFilter','recordedByFilter','staffGroupFilter','searchBox'].forEach(id => {
+        $(id).addEventListener('input', applyFilters);
+        $(id).addEventListener('change', () => {
+          if(id === 'tutorFilter' && $('quickTutorFilter')) $('quickTutorFilter').value = $('tutorFilter').value;
+          applyFilters();
+        });
+      });
+
+      $('quickTutorFilter').addEventListener('change', () => {
+        $('tutorFilter').value = $('quickTutorFilter').value;
+        clearQuickActive();
+        applyFilters();
+      });
+
+      $('studentSearch').addEventListener('input', renderStudents);
+
+      document.querySelectorAll('[data-conversation-view]').forEach(btn => {
+        btn.addEventListener('click', () => setConversationView(btn.dataset.conversationView));
+      });
+
+      $('metricConversationCard').addEventListener('click', openOutstandingConversations);
+      $('metricConversationCard').addEventListener('keydown', e => {
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          openOutstandingConversations();
+        }
+      });
+
+      $('saveStaffGroupBtn').addEventListener('click', saveStaffGroupFromForm);
+      $('cancelStaffEditBtn').addEventListener('click', resetStaffGroupForm);
+      $('staffPickerSearch').addEventListener('input', filterStaffPicker);
+      $('selectVisibleStaffBtn').addEventListener('click', selectVisibleStaff);
+      $('clearSelectedStaffBtn').addEventListener('click', clearSelectedStaff);
+
+      $('exportCsvBtn').addEventListener('click', exportCSV);
+      $('exportFromTableBtn').addEventListener('click', exportCSV);
+      $('copySummaryBtn').addEventListener('click', copySummary);
+      $('printBtn').addEventListener('click', () => window.print());
+      $('backupLocalDataBtn').addEventListener('click', downloadLocalBackup);
+      $('restoreLocalDataBtn').addEventListener('click', () => $('restoreLocalDataInput').click());
+      $('restoreLocalDataInput').addEventListener('change', e => {
+        const file = e.target.files && e.target.files[0];
+        if(file) restoreLocalBackup(file);
+        e.target.value = '';
+      });
+    }
+
+    function openUpload(){
+      $('uploadModal').classList.remove('hidden');
+    }
+
+    function closeUpload(){
+      $('uploadModal').classList.add('hidden');
+    }
+
+    function showPage(pageId){
+      document.querySelectorAll('.page').forEach(p => p.classList.toggle('active', p.id === pageId));
+      document.querySelectorAll('.nav-tab').forEach(b => b.classList.toggle('active', b.dataset.page === pageId));
+
+      const labels = {
+        dashboardPage:'Dashboard',
+        studentsPage:'Students',
+        concernsPage:'Concerns',
+        staffGroupsPage:'Staff Groups',
+        reportsPage:'Reports'
+      };
+      $('pageHeading').textContent = labels[pageId] || 'Dashboard';
+
+      if(pageId === 'studentsPage') {
+        renderStudents();
+        setTimeout(() => $('timelinePane').scrollTop = 0, 0);
+      }
+    }
+
+    function showDataState(){
+      const hasData = allRows.length > 0;
+      $('welcomeScreen').classList.toggle('hidden', hasData);
+      $('workspace').classList.toggle('hidden', !hasData);
+      if(!hasData){
+        document.querySelectorAll('.nav-tab').forEach(btn => btn.disabled = true);
+      } else {
+        document.querySelectorAll('.nav-tab').forEach(btn => btn.disabled = false);
+      }
+    }
+
+    function clearData(){
+      if(!allRows.length) return;
+      const ok = confirm('Clear the imported data? Your saved staff groups and conversation progress will stay on this device.');
+      if(!ok) return;
+      allRows = [];
+      filteredRows = [];
+      selectedStudent = null;
+      selectedStaffGroupId = 'All';
+      resetFilters(false);
+      renderAll();
+      showDataState();
+    }
+
+    function handleFile(file){
+      if(!file) return;
+      const ext = file.name.split('.').pop().toLowerCase();
+      $('wizardStatus').textContent = 'Reading file...';
+
+      if(ext === 'csv'){
+        const reader = new FileReader();
+        reader.onload = e => {
+          pendingSheets = { [file.name]: parseCSVToObjects(e.target.result) };
+          pendingSheetName = file.name;
+          setupWizardFromRows(pendingSheets[pendingSheetName], file.name);
+        };
+        reader.readAsText(file);
+        return;
+      }
+
+      if(ext === 'xlsx' || ext === 'xls'){
+        const reader = new FileReader();
+        reader.onload = e => {
+          const workbook = XLSX.read(e.target.result, { type:'array', cellDates:false });
+          pendingSheets = {};
+          workbook.SheetNames.forEach(name => {
+            pendingSheets[name] = XLSX.utils.sheet_to_json(workbook.Sheets[name], { defval:'', raw:true });
+          });
+          pendingSheetName = workbook.SheetNames[0];
+          populateSheetSelector();
+          setupWizardFromRows(pendingSheets[pendingSheetName], file.name);
+        };
+        reader.readAsArrayBuffer(file);
+        return;
+      }
+
+      alert('Please upload a CSV, XLS or XLSX file.');
+    }
+
+    function parseCSVToObjects(text){
+      const lines = text.split(/\r?\n/).filter(line => line.trim() !== '');
+      if(!lines.length) return [];
+      const headers = parseCsvLine(lines[0]).map((h,i) => h || `Column ${i+1}`);
+      return lines.slice(1).map(line => {
+        const values = parseCsvLine(line);
+        const obj = {};
+        headers.forEach((h,i) => obj[h] = values[i] || '');
+        return obj;
+      });
+    }
+
+    function parseCsvLine(line){
+      const result = [];
+      let current = '';
+      let inQuotes = false;
+      for(let i=0;i<line.length;i++){
+        const char = line[i];
+        const next = line[i+1];
+        if(char === '"' && inQuotes && next === '"'){
+          current += '"';
+          i++;
+        } else if(char === '"'){
+          inQuotes = !inQuotes;
+        } else if(char === ',' && !inQuotes){
+          result.push(current);
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      result.push(current);
+      return result.map(v => v.trim());
+    }
+
+    function populateSheetSelector(){
+      const names = Object.keys(pendingSheets);
+      if(names.length <= 1){
+        $('sheetChoiceWrap').classList.add('hidden');
+        return;
+      }
+      $('sheetChoiceWrap').classList.remove('hidden');
+      $('sheetSelect').innerHTML = names.map(n => `<option value="${escapeAttr(n)}">${escapeHtml(n)}</option>`).join('');
+      $('sheetSelect').value = pendingSheetName;
+    }
+
+    function setupWizardFromRows(rows, sourceLabel){
+      pendingRawRows = rows || [];
+      pendingHeaders = pendingRawRows.length ? Object.keys(pendingRawRows[0]) : [];
+      if(!pendingRawRows.length){
+        $('wizardStatus').textContent = 'No rows were found in this file.';
+        return;
+      }
+      populateMappingSelects();
+      autoMapColumns();
+      $('wizardStatus').textContent = `${pendingRawRows.length} rows found. Loading dashboard…`;
+      importMappedData();
+    }
+
+    function populateMappingSelects(){
+      mappingSelectIds.forEach(id => {
+        const select = $(id);
+        select.innerHTML = `<option value="">-- Not used --</option>` + pendingHeaders.map(h => `<option value="${escapeAttr(h)}">${escapeHtml(h)}</option>`).join('');
+      });
+    }
+
+    function normaliseHeader(header){
+      return String(header || '').trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+    }
+
+    function findHeader(possible){
+      const normalised = pendingHeaders.map(h => ({ original:h, n:normaliseHeader(h) }));
+      for(const p of possible){
+        const target = normaliseHeader(p);
+        const exact = normalised.find(h => h.n === target);
+        if(exact) return exact.original;
+      }
+      for(const p of possible){
+        const target = normaliseHeader(p);
+        const partial = normalised.find(h => h.n.includes(target) || target.includes(h.n));
+        if(partial) return partial.original;
+      }
+      return '';
+    }
+
+    function autoMapColumns(){
+      const map = {
+        mapStudent:['Full Name','Full student name','Student Full Name','Student Name','Pupil Name','Learner Name'],
+        mapFirstName:['First Name','Forename','Given Name','Preferred First Name','Student First Name'],
+        mapSurname:['Surname','Last Name','Family Name','Student Surname'],
+        mapDate:['Date','Created Date','Incident Date','Recorded Date','Date Recorded'],
+        mapYear:['Year','Year Group','YearGroup'],
+        mapTutor:['Reg','Registration','Reg Group','RegGroup','Registration Group','Tutor','Tutor Group','TutorGroup','Form'],
+        mapType:['Type','Concern Type','Category','Behaviour or Academic','Event Type'],
+        mapConcern:['Concern','Description','Comment','Incident','Details','Reason','Behaviour','Academic Minor'],
+        mapRecordedBy:['Recorded By','Teacher','Staff','RecordedBy','Created By','Issued By','Awarded By'],
+        mapSubject:['Subject','Class Subject','Course'],
+        mapLesson:['Lesson','Class','Period'],
+        mapDepartment:['Department','Faculty']
+      };
+
+      Object.entries(map).forEach(([selectId, candidates]) => {
+        const header = findHeader(candidates);
+        if(header) $(selectId).value = header;
+      });
+    }
+
+    function getMapped(row, selectId){
+      const key = $(selectId).value;
+      return key ? row[key] : '';
+    }
+
+    function importMappedData(){
+      if(!pendingRawRows.length){
+        alert('No spreadsheet rows are ready to import.');
+        return;
+      }
+
+      if(!$('mapStudent').value && !($('mapFirstName').value && $('mapSurname').value)){
+        alert('The student name columns were not recognised in this file. Please use the standard school export format and try again.');
+        return;
+      }
+
+      if(!$('mapConcern').value){
+        alert('The concern/description column was not recognised in this file. Please use the standard school export format and try again.');
+        return;
+      }
+
+      const rows = pendingRawRows.map((row,index) => {
+        const fullName = String(getMapped(row,'mapStudent') || '').trim();
+        const firstName = String(getMapped(row,'mapFirstName') || '').trim();
+        const surname = String(getMapped(row,'mapSurname') || '').trim();
+        const studentName = fullName || [firstName, surname].filter(Boolean).join(' ').trim();
+        const typeRaw = getMapped(row,'mapType');
+        const concernText = getMapped(row,'mapConcern');
+        const subject = getMapped(row,'mapSubject');
+        const recordedBy = getMapped(row,'mapRecordedBy');
+        return {
+          id:index+1,
+          date:formatDate(getMapped(row,'mapDate')),
+          student:studentName,
+          firstName:firstName,
+          surname:surname,
+          year:cleanYear(getMapped(row,'mapYear')),
+          tutor:String(getMapped(row,'mapTutor') || '').trim(),
+          type:inferType(typeRaw, concernText),
+          concern:String(concernText || '').trim(),
+          recordedBy:String(recordedBy || '').trim(),
+          subject:String(subject || '').trim(),
+          lesson:String(getMapped(row,'mapLesson') || '').trim(),
+          department:String(getMapped(row,'mapDepartment') || '').trim() || inferDepartment(subject)
+        };
+      }).filter(r => r.student || r.concern || r.recordedBy);
+
+      loadRows(rows, pendingSheetName || 'spreadsheet');
+      $('importStep').classList.add('active');
+      $('wizardStatus').textContent = `${rows.length} rows imported.`;
+      closeUpload();
+    }
+
+    function renderPreview(){
+      if(!pendingHeaders.length || !pendingRawRows.length){
+        $('previewTable').innerHTML = '<div class="empty"><strong>No preview available</strong>The selected sheet appears to be empty.</div>';
+        return;
+      }
+      const rows = pendingRawRows.slice(0,8);
+      $('previewTable').innerHTML = `
+        <table>
+          <thead><tr>${pendingHeaders.map(h => `<th>${escapeHtml(h)}</th>`).join('')}</tr></thead>
+          <tbody>${rows.map(r => `<tr>${pendingHeaders.map(h => `<td>${escapeHtml(r[h])}</td>`).join('')}</tr>`).join('')}</tbody>
+        </table>
+      `;
+    }
+
+    function formatDate(value){
+      if(!value) return '';
+      if(typeof value === 'number'){
+        const utcDays = Math.floor(value - 25569);
+        const dateInfo = new Date(utcDays * 86400 * 1000);
+        return isNaN(dateInfo) ? '' : formatLocalDate(dateInfo);
+      }
+      const raw = String(value).trim();
+      if(/^\d{4}-\d{2}-\d{2}/.test(raw)) return raw.slice(0,10);
+      const uk = raw.match(/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})/);
+      if(uk){
+        const dd = uk[1].padStart(2,'0');
+        const mm = uk[2].padStart(2,'0');
+        let yyyy = uk[3];
+        if(yyyy.length === 2) yyyy = '20' + yyyy;
+        return `${yyyy}-${mm}-${dd}`;
+      }
+      const parsed = new Date(raw);
+      if(!isNaN(parsed)) return formatLocalDate(parsed);
+      return raw;
+    }
+
+    function formatLocalDate(date){
+      const y = date.getFullYear();
+      const m = String(date.getMonth()+1).padStart(2,'0');
+      const d = String(date.getDate()).padStart(2,'0');
+      return `${y}-${m}-${d}`;
+    }
+
+    function cleanYear(value){
+      return String(value || '').replace(/^Year\s+/i,'').trim();
+    }
+
+    function inferType(typeRaw, concernText){
+      const combined = String(typeRaw + ' ' + concernText).toLowerCase();
+      if(combined.includes('academic') || combined.includes('homework') || combined.includes('classwork') || combined.includes('equipment') || combined.includes('assessment')) return 'Academic';
+      if(combined.includes('behaviour') || combined.includes('behavior') || combined.includes('disruption') || combined.includes('late') || combined.includes('attitude') || combined.includes('talking')) return 'Behaviour';
+      return typeRaw ? String(typeRaw).trim() : 'Unknown';
+    }
+
+    function inferDepartment(subject){
+      const s = String(subject || '').toLowerCase();
+      if(s.includes('science') || s.includes('chem') || s.includes('bio') || s.includes('phys')) return 'Science';
+      if(s.includes('english')) return 'English';
+      if(s.includes('geography') || s.includes('history') || s.includes('religion')) return 'Humanities';
+      if(s.includes('math')) return 'Maths';
+      if(s.includes('art') || s.includes('music') || s.includes('drama')) return 'Creative Arts';
+      if(s.includes('pe') || s.includes('sport')) return 'PE';
+      return '';
+    }
+
+    function loadRows(rows, sourceLabel){
+      allRows = rows.map((r,i) => ({ id:i+1, ...r }));
+      selectedStudent = null;
+      selectedStaffGroupId = 'All';
+      conversationView = 'all';
+
+      populateFilters();
+      resetFilters(false);
+
+      // Important: after importing, immediately apply the default filters
+      // and render the workspace. Without this, the wizard can report success
+      // while the dashboard still shows the previous empty state.
+      filteredRows = allRows.filter(passesFilters);
+
+      showDataState();
+      showPage('dashboardPage');
+      renderAll();
+      updateWorkspaceMeta(sourceLabel);
+    }
+
+    function updateWorkspaceMeta(sourceLabel){
+      const range = getDateRange(allRows);
+      const rangeText = range ? `${humanDate(range.min)} to ${humanDate(range.max)}` : 'No dates found';
+      $('workspaceMeta').textContent = `${allRows.length} records loaded${sourceLabel ? ` from ${sourceLabel}` : ''}. Showing ${rangeText}.`;
+      const reportDate = getReportDate();
+      $('reportDatePill').textContent = reportDate ? `Report date: ${humanDate(formatLocalDate(reportDate))}` : 'Report date: —';
+    }
+
+    function populateFilters(){
+      fillSelect('yearFilter', uniqueValues(allRows,'year'));
+      fillSelect('tutorFilter', uniqueValues(allRows,'tutor'));
+      fillSelect('quickTutorFilter', uniqueValues(allRows,'tutor'));
+      fillSelect('typeFilter', uniqueValues(allRows,'type'));
+      fillSelect('recordedByFilter', uniqueValues(allRows,'recordedBy'));
+      renderStaffGroupFilter();
+    }
+
+    function uniqueValues(rows,key){
+      return ['All', ...Array.from(new Set(rows.map(r => r[key]).filter(Boolean))).sort((a,b) => String(a).localeCompare(String(b), undefined, { numeric:true }))];
+    }
+
+    function fillSelect(id, values){
+      const select = $(id);
+      const current = select.value || 'All';
+      select.innerHTML = values.map(v => `<option value="${escapeAttr(v)}">${escapeHtml(v)}</option>`).join('');
+      select.value = values.includes(current) ? current : 'All';
+    }
+
+    function renderStaffGroupFilter(){
+      const select = $('staffGroupFilter');
+      const current = selectedStaffGroupId || 'All';
+      select.innerHTML = `<option value="All">All staff</option>` + staffGroups.map(g => `<option value="${escapeAttr(g.id)}">${escapeHtml(g.name)}</option>`).join('');
+      select.value = staffGroups.some(g => g.id === current) ? current : 'All';
+      selectedStaffGroupId = select.value;
+    }
+
+    function resetFilters(render = true){
+      $('dateFrom').value = '';
+      $('dateTo').value = '';
+      $('searchBox').value = '';
+      $('studentSearch').value = '';
+      $('yearFilter').value = 'All';
+      $('tutorFilter').value = 'All';
+      $('quickTutorFilter').value = 'All';
+      $('phaseFilter').value = 'All';
+      $('typeFilter').value = 'All';
+      $('recordedByFilter').value = 'All';
+      selectedStaffGroupId = 'All';
+      $('staffGroupFilter').value = 'All';
+      clearQuickActive();
+      if(render) applyFilters();
+    }
+
+    function applyFilters(){
+      selectedStaffGroupId = $('staffGroupFilter').value;
+      filteredRows = allRows.filter(passesFilters);
+      renderAll();
+    }
+
+    function passesFilters(row){
+      const from = $('dateFrom').value;
+      const to = $('dateTo').value;
+      const year = $('yearFilter').value;
+      const tutor = $('tutorFilter').value;
+      const phase = $('phaseFilter').value;
+      const type = $('typeFilter').value;
+      const recordedBy = $('recordedByFilter').value;
+      const search = $('searchBox').value.toLowerCase().trim();
+      const staffGroupId = $('staffGroupFilter').value;
+
+      if(from && row.date < from) return false;
+      if(to && row.date > to) return false;
+      if(year !== 'All' && row.year !== year) return false;
+      if(tutor !== 'All' && row.tutor !== tutor) return false;
+      if(phase !== 'All' && !matchesPhase(row, phase)) return false;
+      if(type !== 'All' && row.type !== type) return false;
+      if(recordedBy !== 'All' && row.recordedBy !== recordedBy) return false;
+
+      if(staffGroupId !== 'All'){
+        const group = staffGroups.find(g => g.id === staffGroupId);
+        const members = group ? group.members : [];
+        const match = members.some(name => normaliseText(row.recordedBy).includes(normaliseText(name)));
+        if(!match) return false;
+      }
+
+      if(search && !Object.values(row).join(' ').toLowerCase().includes(search)) return false;
+      return true;
+    }
+
+    function applyQuickView(view){
+      resetFilters(false);
+      clearQuickActive();
+      const button = document.querySelector(`[data-view="${view}"]`);
+      if(button) button.classList.add('active');
+
+      if(view === 'thisWeek' || view === 'lastWeek'){
+        const reportDate = getReportDate() || new Date();
+        reportDate.setHours(12,0,0,0);
+        const day = reportDate.getDay();
+        const daysSinceMonday = (day + 6) % 7;
+        const currentMonday = new Date(reportDate);
+        currentMonday.setDate(reportDate.getDate() - daysSinceMonday);
+
+        if(view === 'thisWeek'){
+          $('dateFrom').value = formatLocalDate(currentMonday);
+          $('dateTo').value = formatLocalDate(reportDate);
+        } else {
+          const previousMonday = new Date(currentMonday);
+          previousMonday.setDate(currentMonday.getDate() - 7);
+          const previousSunday = new Date(currentMonday);
+          previousSunday.setDate(currentMonday.getDate() - 1);
+          $('dateFrom').value = formatLocalDate(previousMonday);
+          $('dateTo').value = formatLocalDate(previousSunday);
+        }
+      }
+
+      if(view === 'behaviourOnly') $('typeFilter').value = 'Behaviour';
+      if(view === 'academicOnly') $('typeFilter').value = 'Academic';
+      if(view === 'ks3') $('phaseFilter').value = 'KS3';
+      if(view === 'ks4') $('phaseFilter').value = 'KS4';
+      if(view === 'sixthForm') $('phaseFilter').value = 'Sixth Form';
+
+      if(view === 'repeatStudents'){
+        const repeatNames = getRepeatStudents(allRows).map(([name]) => name);
+        filteredRows = allRows.filter(r => repeatNames.includes(r.student));
+        renderAll();
+        showPage('studentsPage');
+        return;
+      }
+
+      applyFilters();
+    }
+
+    function clearQuickActive(){
+      document.querySelectorAll('[data-view]').forEach(btn => btn.classList.remove('active'));
+    }
+
+    function renderAll(){
+      renderMetrics();
+      renderKeyInsight();
+      renderStudentsToWatch();
+      renderConcernProfile();
+      renderTrendLineChart();
+      renderWeekdayHotspots();
+      renderDepartmentBars();
+      renderStudents();
+      renderTable();
+      renderStaffPicker();
+      renderStaffGroups();
+      updateConversationReviewControls();
+      updateWorkspaceMeta('');
+    }
+
+    function renderMetrics(){
+      $('metricTotal').textContent = filteredRows.length;
+      $('metricStudents').textContent = new Set(filteredRows.map(r => r.student).filter(Boolean)).size;
+      $('metricRepeat').textContent = getRepeatStudents(filteredRows).length;
+
+      const completed = filteredRows.filter(isConversationCompleted).length;
+      const outstanding = Math.max(0, filteredRows.length - completed);
+      $('metricOutstanding').textContent = outstanding;
+      $('metricOutstandingNote').textContent = completed
+        ? `${completed} marked as discussed`
+        : 'No conversations marked yet';
+
+      const typeCounts = countBy(filteredRows,'type');
+      const top = topEntry(typeCounts);
+      $('metricMainType').textContent = top ? top[0] : '—';
+      $('metricMainTypeNote').textContent = top ? `${top[1]} records in this view` : 'No data yet';
+    }
+
+    function renderKeyInsight(){
+      if(!filteredRows.length){
+        $('keyInsightText').textContent = 'No records match the current filters. Try resetting the filters or uploading a different report.';
+        return;
+      }
+
+      const repeat = getRepeatStudents(filteredRows);
+      const yearTop = topEntry(countBy(filteredRows,'year'));
+      const typeTop = topEntry(countBy(filteredRows,'type'));
+      const dayTop = topEntry(countByWeekday(filteredRows));
+
+      const parts = [];
+      const outstanding = filteredRows.filter(r => !isConversationCompleted(r)).length;
+      if($('tutorFilter').value !== 'All' && outstanding){
+        parts.push(`${outstanding} concern log${outstanding === 1 ? '' : 's'} ${outstanding === 1 ? 'is' : 'are'} not yet marked as discussed`);
+      }
+      if(repeat.length) parts.push(`${repeat.length} student${repeat.length === 1 ? '' : 's'} appear more than once`);
+      if(yearTop && yearTop[0] !== 'Unknown') parts.push(`Year ${yearTop[0]} has the highest number of concerns`);
+      if(typeTop) parts.push(`${typeTop[0]} is the most common concern type`);
+      if(dayTop) parts.push(`${dayTop[0]} is the busiest weekday`);
+
+      $('keyInsightText').textContent = parts.length ? parts.join('. ') + '.' : 'The current view is small, so no strong pattern stands out yet.';
+    }
+
+    function renderStudentsToWatch(){
+      const repeat = getRepeatStudents(filteredRows).slice(0,6);
+      const container = $('studentsToWatch');
+      if(!repeat.length){
+        container.innerHTML = '<div class="empty"><strong>No repeat students in this view</strong>Use the quick filters or widen the date range to check for patterns.</div>';
+        return;
+      }
+
+      container.innerHTML = repeat.map(([name,count]) => {
+        const records = filteredRows.filter(r => r.student === name);
+        const last = records.map(r => r.date).filter(Boolean).sort().pop() || 'No date';
+        const types = Object.entries(countBy(records,'type')).map(([type,n]) => `${type}: ${n}`).join(' · ');
+        return `<div class="watch-item">
+          <div><strong>${escapeHtml(name)}</strong><div class="watch-meta">${escapeHtml(types)} · latest ${escapeHtml(humanDate(last))}</div></div>
+          <span class="count-pill">${count}</span>
+        </div>`;
+      }).join('');
+    }
+
+    function renderConcernProfile(){
+      renderBars('concernProfileBars', countBy(filteredRows,'type'), { Behaviour:'behaviour', Academic:'academic' });
+    }
+
+    function renderDepartmentBars(){
+      renderBars('departmentBars', countBy(filteredRows,'department'), {});
+    }
+
+    function renderBars(containerId, counts, classMap = {}){
+      const entries = Object.entries(counts).filter(([label]) => label && label !== 'Unknown').sort((a,b) => b[1] - a[1]).slice(0,8);
+      const container = $(containerId);
+
+      if(!entries.length){
+        container.innerHTML = '<div class="empty"><strong>No data to show</strong>This field may not be included in the uploaded report.</div>';
+        return;
+      }
+
+      const max = Math.max(...entries.map(e => e[1]), 1);
+      container.innerHTML = entries.map(([label,count]) => {
+        const width = Math.max(4, count / max * 100);
+        const cls = classMap[label] || '';
+        return `<div class="bar-row">
+          <div class="bar-label" title="${escapeAttr(label)}">${escapeHtml(label)}</div>
+          <div class="bar-track"><div class="bar-fill ${cls}" style="width:${width}%"></div></div>
+          <div class="bar-count">${count}</div>
+        </div>`;
+      }).join('');
+    }
+
+    function renderTrendLineChart(){
+      const data = weeklyCounts(filteredRows);
+      const container = $('trendLineChart');
+
+      if(!data.length){
+        container.innerHTML = '<div class="empty"><strong>No dated records</strong>Upload or map a date column to see the trend over time.</div>';
+        return;
+      }
+
+      if(data.length === 1){
+        container.innerHTML = `<div class="empty"><strong>Only one week in view</strong>${escapeHtml(data[0].label)} has ${data[0].count} concern${data[0].count === 1 ? '' : 's'}.</div>`;
+        return;
+      }
+
+      const width = 900, height = 280, padL = 52, padR = 28, padT = 26, padB = 58;
+      const chartW = width - padL - padR;
+      const chartH = height - padT - padB;
+      const maxY = Math.max(...data.map(d => d.count), 1);
+      const yMax = Math.ceil(maxY / 5) * 5 || 5;
+      const x = i => padL + (data.length === 1 ? chartW / 2 : i * chartW / (data.length - 1));
+      const y = v => padT + chartH - (v / yMax) * chartH;
+      const points = data.map((d,i) => `${x(i)},${y(d.count)}`).join(' ');
+      const grid = [0,.25,.5,.75,1].map(frac => {
+        const gy = padT + chartH * frac;
+        const value = Math.round(yMax * (1 - frac));
+        return `<line x1="${padL}" y1="${gy}" x2="${width-padR}" y2="${gy}" stroke="#e4e7ec"/><text x="${padL-12}" y="${gy+4}" text-anchor="end" font-size="11" fill="#667085">${value}</text>`;
+      }).join('');
+
+      const labels = data.map((d,i) => {
+        const xi = x(i);
+        const rotate = data.length > 7 ? `transform="rotate(-35 ${xi} ${height-24})"` : '';
+        return `<text x="${xi}" y="${height-24}" ${rotate} text-anchor="${data.length > 7 ? 'end' : 'middle'}" font-size="11" fill="#667085">${escapeHtml(d.label)}</text>`;
+      }).join('');
+
+      const circles = data.map((d,i) => `<circle cx="${x(i)}" cy="${y(d.count)}" r="5" fill="#2563eb"><title>${escapeHtml(d.label)}: ${d.count}</title></circle>`).join('');
+
+      container.innerHTML = `<svg class="line-chart" viewBox="0 0 ${width} ${height}" role="img" aria-label="Weekly concern trend">
+        <rect x="0" y="0" width="${width}" height="${height}" rx="18" fill="#ffffff"/>
+        ${grid}
+        <line x1="${padL}" y1="${padT}" x2="${padL}" y2="${padT+chartH}" stroke="#d0d5dd"/>
+        <line x1="${padL}" y1="${padT+chartH}" x2="${width-padR}" y2="${padT+chartH}" stroke="#d0d5dd"/>
+        <polyline points="${points}" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        ${circles}
+        ${labels}
+      </svg>`;
+    }
+
+    function renderWeekdayHotspots(){
+      const counts = countByWeekday(filteredRows);
+      const days = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
+      const total = days.reduce((sum,d) => sum + (counts[d] || 0), 0);
+      $('weekdayHotspots').innerHTML = days.map(day => {
+        const n = counts[day] || 0;
+        const share = total ? Math.round(n / total * 100) : 0;
+        return `<div class="weekday-card">
+          <div class="day">${day}</div>
+          <div class="num">${n}</div>
+          <div class="share">${share}% of school-week concerns</div>
+        </div>`;
+      }).join('');
+    }
+
+    function renderStudents(){
+      const search = $('studentSearch').value.toLowerCase().trim();
+      const viewRows = filteredRows.filter(matchesConversationView);
+      const counts = countBy(viewRows,'student');
+      const students = Object.entries(counts)
+        .filter(([name]) => name && name.toLowerCase().includes(search))
+        .sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+
+      const list = $('studentList');
+      if(!students.length){
+        const viewLabel = conversationView === 'outstanding' ? 'logs still to discuss' : conversationView === 'completed' ? 'completed conversations' : 'student records';
+        list.innerHTML = `<div class="empty"><strong>No ${viewLabel}</strong>Try changing the conversation view, search or filters.</div>`;
+        $('studentTimeline').innerHTML = '<div class="empty"><strong>No timeline</strong>No matching student records are available.</div>';
+        $('timelineTitle').textContent = 'Student timeline';
+        $('timelineSubtitle').textContent = 'No matching records.';
+        selectedStudent = null;
+        return;
+      }
+
+      if(!selectedStudent || !students.some(([name]) => name === selectedStudent)){
+        selectedStudent = students[0][0];
+      }
+
+      list.innerHTML = students.map(([name,count]) => {
+        const allStudentRows = filteredRows.filter(r => r.student === name);
+        const year = mostCommon(allStudentRows,'year');
+        const tutor = mostCommon(allStudentRows,'tutor');
+        const outstanding = allStudentRows.filter(r => !isConversationCompleted(r)).length;
+        const completed = allStudentRows.length - outstanding;
+        const statusText = conversationView === 'completed'
+          ? `${completed} discussed`
+          : outstanding
+            ? `${outstanding} to discuss`
+            : `${completed} discussed`;
+        const statusClass = outstanding && conversationView !== 'completed' ? 'student-outstanding' : 'student-completed';
+        return `<div class="student-item ${name === selectedStudent ? 'active' : ''}" data-student="${escapeAttr(name)}">
+          <div>
+            <div class="student-name">${escapeHtml(name)}</div>
+            <div class="student-detail">${escapeHtml([year ? 'Year ' + year : '', tutor].filter(Boolean).join(' · '))}${(year || tutor) ? ' · ' : ''}<span class="${statusClass}">${escapeHtml(statusText)}</span></div>
+          </div>
+          <span class="count-pill">${count}</span>
+        </div>`;
+      }).join('');
+
+      document.querySelectorAll('.student-item').forEach(item => {
+        item.addEventListener('click', () => {
+          selectedStudent = item.dataset.student;
+          renderStudents();
+          setTimeout(() => {
+            $('timelinePane').scrollTop = 0;
+          }, 0);
+        });
+      });
+
+      renderTimeline();
+    }
+
+    function cleanConcernForDisplay(value){
+      let text = String(value || '').trim();
+      if(!text) return 'No concern detail';
+
+      // MIS/ClassCharts exports can append internal source references to the
+      // teacher's note. Keep those in the raw imported data for exports, but
+      // remove them from the tutor-facing student timeline.
+      text = text
+        .replace(/\s*\(added\s+in\s+ClassCharts[^)]*\)\s*/gi, ' ')
+        .replace(/\s*\[Wonde:[^\]]+\]\s*/gi, ' ')
+        .replace(/\s{2,}/g, ' ')
+        .trim();
+
+      return text || 'No concern detail';
+    }
+
+    function stableHash(value){
+      const str = String(value || '');
+      let h1 = 0x811c9dc5;
+      let h2 = 0x9e3779b9;
+      for(let i=0;i<str.length;i++){
+        const code = str.charCodeAt(i);
+        h1 ^= code;
+        h1 = Math.imul(h1, 0x01000193);
+        h2 ^= code + (i & 255);
+        h2 = Math.imul(h2, 0x85ebca6b);
+      }
+      return `${(h1>>>0).toString(36)}${(h2>>>0).toString(36)}`;
+    }
+
+    function normaliseFingerprintPart(value){
+      return String(value || '').trim().toLowerCase().replace(/\s+/g,' ');
+    }
+
+    function getConcernKey(row){
+      const rawConcern = String(row.concern || '');
+      const classCharts = rawConcern.match(/added\s+in\s+ClassCharts\s*,\s*([^\)\]]+)/i);
+      if(classCharts && classCharts[1]){
+        const token = classCharts[1].trim().replace(/[^a-z0-9_-]/gi,'');
+        if(token) return `cc:${token}`;
+      }
+
+      // Wonde references may identify the student rather than the individual
+      // concern, so they are included in the fallback fingerprint rather than
+      // used as a record key on their own.
+      const wonde = rawConcern.match(/\[Wonde:([^\]]+)\]/i);
+      const fingerprint = [
+        row.student,
+        row.date,
+        row.type,
+        cleanConcernForDisplay(rawConcern),
+        row.recordedBy,
+        row.subject,
+        row.lesson,
+        row.department,
+        wonde ? wonde[1] : ''
+      ].map(normaliseFingerprintPart).join('|');
+
+      return `fp:${stableHash(fingerprint)}`;
+    }
+
+    function getConversationRecord(row){
+      return conversationLog[getConcernKey(row)] || null;
+    }
+
+    function isConversationCompleted(row){
+      return !!getConversationRecord(row);
+    }
+
+    function setConversationCompleted(row, completed){
+      if(!row) return;
+      const key = getConcernKey(row);
+      if(completed){
+        conversationLog[key] = { completedAt:new Date().toISOString() };
+      } else {
+        delete conversationLog[key];
+      }
+      persistConversationLog();
+      renderAll();
+    }
+
+    function matchesConversationView(row){
+      if(conversationView === 'completed') return isConversationCompleted(row);
+      if(conversationView === 'outstanding') return !isConversationCompleted(row);
+      return true;
+    }
+
+    function setConversationView(view){
+      if(!['all','outstanding','completed'].includes(view)) return;
+      conversationView = view;
+      updateConversationReviewControls();
+      renderStudents();
+    }
+
+    function openOutstandingConversations(){
+      conversationView = 'outstanding';
+      showPage('studentsPage');
+      updateConversationReviewControls();
+      renderStudents();
+    }
+
+    function updateConversationReviewControls(){
+      const completed = filteredRows.filter(isConversationCompleted).length;
+      const outstanding = Math.max(0, filteredRows.length - completed);
+      if($('conversationAllCount')) $('conversationAllCount').textContent = filteredRows.length;
+      if($('conversationOutstandingCount')) $('conversationOutstandingCount').textContent = outstanding;
+      if($('conversationCompletedCount')) $('conversationCompletedCount').textContent = completed;
+
+      document.querySelectorAll('[data-conversation-view]').forEach(btn => {
+        const active = btn.dataset.conversationView === conversationView;
+        btn.classList.toggle('active', active);
+        btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+      });
+    }
+
+    function renderTimelineContext(row){
+      const items = [];
+      const seen = new Set();
+
+      [row.subject, row.lesson, row.department].forEach(value => {
+        const label = String(value || '').trim();
+        if(!label) return;
+        const key = label.toLowerCase();
+        if(seen.has(key)) return;
+        seen.add(key);
+        items.push(`<span class="timeline-context-chip">${escapeHtml(label)}</span>`);
+      });
+
+      return items.join('');
+    }
+
+    function renderTimeline(){
+      const allStudentRecords = filteredRows
+        .filter(r => r.student === selectedStudent)
+        .sort((a,b) => String(b.date).localeCompare(String(a.date)));
+      const records = allStudentRecords.filter(matchesConversationView);
+      const completedCount = allStudentRecords.filter(isConversationCompleted).length;
+      const outstandingCount = Math.max(0, allStudentRecords.length - completedCount);
+
+      $('timelineTitle').textContent = selectedStudent || 'Student timeline';
+      $('timelineSubtitle').textContent = allStudentRecords.length
+        ? `${records.length} of ${allStudentRecords.length} log${allStudentRecords.length === 1 ? '' : 's'} shown · ${outstandingCount} to discuss · ${completedCount} discussed.`
+        : 'No matching records.';
+
+      if(!records.length){
+        $('studentTimeline').innerHTML = '<div class="empty"><strong>No logs in this view</strong>Try switching between All, To discuss and Discussed above.</div>';
+        return;
+      }
+
+      $('studentTimeline').innerHTML = records.map(r => {
+        const context = renderTimelineContext(r);
+        const recordedBy = String(r.recordedBy || '').trim();
+        const conversation = getConversationRecord(r);
+        const key = getConcernKey(r);
+        const metadata = (recordedBy || context) ? `<div class="timeline-meta-wrap">
+          ${recordedBy ? `<span class="timeline-recorded">Recorded by <strong>${escapeHtml(recordedBy)}</strong></span>` : ''}
+          ${context ? `<span class="timeline-context">${context}</span>` : ''}
+        </div>` : '<div></div>';
+
+        const conversationControl = conversation
+          ? `<div class="conversation-control">
+              <span class="conversation-done">
+                <span class="conversation-done-mark">✓</span>
+                <span>Discussed with student<small>${escapeHtml(humanDate(conversation.completedAt))}</small></span>
+              </span>
+              <button class="conversation-undo" type="button" data-conversation-undo="${escapeAttr(key)}">Undo</button>
+            </div>`
+          : `<div class="conversation-control">
+              <button class="conversation-button" type="button" data-conversation-complete="${escapeAttr(key)}">✓ Mark as discussed</button>
+            </div>`;
+
+        return `<article class="timeline-item ${pillClass(r.type)} ${conversation ? 'conversation-complete' : ''}">
+          <div class="timeline-topline">
+            <span class="timeline-date">${escapeHtml(humanDate(r.date))}</span>
+            <span class="timeline-type">${escapeHtml(r.type || 'Unknown')}</span>
+          </div>
+          <p class="timeline-concern">${escapeHtml(cleanConcernForDisplay(r.concern))}</p>
+          <div class="timeline-footer">
+            ${metadata}
+            ${conversationControl}
+          </div>
+        </article>`;
+      }).join('');
+
+      document.querySelectorAll('[data-conversation-complete]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = allRows.find(r => getConcernKey(r) === btn.dataset.conversationComplete);
+          setConversationCompleted(row, true);
+        });
+      });
+      document.querySelectorAll('[data-conversation-undo]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const row = allRows.find(r => getConcernKey(r) === btn.dataset.conversationUndo);
+          setConversationCompleted(row, false);
+        });
+      });
+    }
+
+    function renderTable(){
+      const body = $('concernsTableBody');
+      if(!filteredRows.length){
+        body.innerHTML = '<tr><td colspan="11"><div class="empty"><strong>No matching concerns</strong>Try resetting filters or importing more data.</div></td></tr>';
+        return;
+      }
+
+      body.innerHTML = filteredRows.map(r => `<tr>
+        <td>${escapeHtml(humanDate(r.date))}</td>
+        <td><strong>${escapeHtml(r.student)}</strong></td>
+        <td>${escapeHtml(r.year)}</td>
+        <td>${escapeHtml(r.tutor)}</td>
+        <td><span class="pill ${pillClass(r.type)}">${escapeHtml(r.type)}</span></td>
+        <td>${escapeHtml(r.concern)}</td>
+        <td>${escapeHtml(r.recordedBy)}</td>
+        <td>${escapeHtml(r.subject)}</td>
+        <td>${escapeHtml(r.lesson)}</td>
+        <td>${escapeHtml(r.department)}</td>
+        <td><span class="conversation-table-status ${isConversationCompleted(r) ? 'done' : 'pending'}">${isConversationCompleted(r) ? 'Discussed' : 'To discuss'}</span></td>
+      </tr>`).join('');
+    }
+
+    function loadStaffGroups(){
+      try{
+        staffGroups = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+        if(!Array.isArray(staffGroups)) staffGroups = [];
+      } catch(e){
+        staffGroups = [];
+      }
+    }
+
+    function persistStaffGroups(){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(staffGroups));
+    }
+
+    function loadConversationLog(){
+      try{
+        const parsed = JSON.parse(localStorage.getItem(CONVERSATION_STORAGE_KEY) || '{}');
+        conversationLog = parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {};
+      } catch(e){
+        conversationLog = {};
+      }
+    }
+
+    function persistConversationLog(){
+      try{
+        localStorage.setItem(CONVERSATION_STORAGE_KEY, JSON.stringify(conversationLog));
+      } catch(e){
+        console.warn('Conversation progress could not be saved locally.', e);
+      }
+    }
+
+    function getRecordedByStaffNames(){
+      const fromData = allRows.map(r => r.recordedBy).filter(Boolean);
+      const editingId = $('editingStaffGroupId').value;
+      const editingGroup = staffGroups.find(g => g.id === editingId);
+      const fromEditingGroup = editingGroup ? editingGroup.members : [];
+      return Array.from(new Set([...fromData, ...fromEditingGroup].map(name => String(name).trim()).filter(Boolean)))
+        .sort((a,b) => a.localeCompare(b, undefined, { sensitivity:'base' }));
+    }
+
+    function getSelectedStaffFromPicker(){
+      return Array.from(document.querySelectorAll('.staff-picker-checkbox:checked'))
+        .map(input => input.value)
+        .filter(Boolean);
+    }
+
+    function updateStaffSelectedCount(){
+      const count = getSelectedStaffFromPicker().length;
+      $('staffSelectedCount').textContent = `${count} staff selected`;
+    }
+
+    function renderStaffPicker(preselectedMembers = null){
+      const list = $('staffPickerList');
+      const staffNames = getRecordedByStaffNames();
+      const selected = new Set(preselectedMembers || getSelectedStaffFromPicker());
+
+      if(!staffNames.length){
+        list.innerHTML = '<div class="empty"><strong>No staff found yet</strong>Upload and import a report with a “Recorded by” column to select staff.</div>';
+        updateStaffSelectedCount();
+        return;
+      }
+
+      list.innerHTML = staffNames.map(name => {
+        const checked = selected.has(name) ? 'checked' : '';
+        return `<label class="staff-check" data-staff-name="${escapeAttr(name)}">
+          <input type="checkbox" class="staff-picker-checkbox" value="${escapeAttr(name)}" ${checked}>
+          <span>${escapeHtml(name)}</span>
+        </label>`;
+      }).join('');
+
+      document.querySelectorAll('.staff-picker-checkbox').forEach(input => {
+        input.addEventListener('change', updateStaffSelectedCount);
+      });
+
+      filterStaffPicker();
+      updateStaffSelectedCount();
+    }
+
+    function filterStaffPicker(){
+      const search = $('staffPickerSearch').value.toLowerCase().trim();
+      document.querySelectorAll('.staff-check').forEach(row => {
+        const name = row.dataset.staffName.toLowerCase();
+        row.classList.toggle('hidden-by-search', search && !name.includes(search));
+      });
+    }
+
+    function selectVisibleStaff(){
+      document.querySelectorAll('.staff-check:not(.hidden-by-search) .staff-picker-checkbox').forEach(input => {
+        input.checked = true;
+      });
+      updateStaffSelectedCount();
+    }
+
+    function clearSelectedStaff(){
+      document.querySelectorAll('.staff-picker-checkbox').forEach(input => {
+        input.checked = false;
+      });
+      updateStaffSelectedCount();
+    }
+
+    function saveStaffGroupFromForm(){
+      const name = $('staffGroupName').value.trim();
+      const members = getSelectedStaffFromPicker();
+      const editingId = $('editingStaffGroupId').value;
+
+      if(!name){
+        alert('Please enter a group name.');
+        return;
+      }
+
+      if(!members.length){
+        alert('Please select at least one member of staff.');
+        return;
+      }
+
+      if(editingId){
+        const group = staffGroups.find(g => g.id === editingId);
+        if(group){
+          group.name = name;
+          group.members = members;
+        }
+      } else {
+        staffGroups.push({
+          id:'group_' + Date.now(),
+          name,
+          members
+        });
+      }
+
+      persistStaffGroups();
+      resetStaffGroupForm();
+      renderStaffGroupFilter();
+      renderStaffGroups();
+      applyFilters();
+    }
+
+    function resetStaffGroupForm(){
+      $('editingStaffGroupId').value = '';
+      $('staffGroupName').value = '';
+      $('staffPickerSearch').value = '';
+      $('staffFormTitle').textContent = 'Create a staff group';
+      renderStaffPicker([]);
+    }
+
+    function editStaffGroup(id){
+      const group = staffGroups.find(g => g.id === id);
+      if(!group) return;
+      $('editingStaffGroupId').value = group.id;
+      $('staffGroupName').value = group.name;
+      $('staffPickerSearch').value = '';
+      $('staffFormTitle').textContent = 'Edit staff group';
+      renderStaffPicker(group.members);
+      showPage('staffGroupsPage');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function deleteStaffGroup(id){
+      const group = staffGroups.find(g => g.id === id);
+      if(!group) return;
+      if(!confirm(`Delete the staff group "${group.name}"?`)) return;
+      staffGroups = staffGroups.filter(g => g.id !== id);
+      if(selectedStaffGroupId === id){
+        selectedStaffGroupId = 'All';
+        $('staffGroupFilter').value = 'All';
+      }
+      persistStaffGroups();
+      renderStaffGroupFilter();
+      renderStaffGroups();
+      applyFilters();
+    }
+
+    function applyStaffGroup(id){
+      selectedStaffGroupId = id;
+      $('staffGroupFilter').value = id;
+      applyFilters();
+      showPage('dashboardPage');
+      $('filterPanel').classList.remove('hidden');
+    }
+
+    function renderStaffGroups(){
+      const list = $('staffGroupsList');
+      if(!staffGroups.length){
+        list.innerHTML = '<div class="empty"><strong>No staff groups saved yet</strong>Create a group for a department, year team or pastoral team, then apply it as a filter.</div>';
+        return;
+      }
+
+      list.innerHTML = staffGroups.map(group => `<div class="staff-group-card">
+        <div class="staff-group-top">
+          <div>
+            <h3>${escapeHtml(group.name)}</h3>
+            <p class="small muted mb-0">${group.members.length} staff member${group.members.length === 1 ? '' : 's'}</p>
+          </div>
+        </div>
+        <div class="staff-members">${escapeHtml(group.members.join(', '))}</div>
+        <div class="staff-actions">
+          <button class="btn btn-primary btn-small" data-apply-group="${escapeAttr(group.id)}">Apply filter</button>
+          <button class="btn btn-secondary btn-small" data-edit-group="${escapeAttr(group.id)}">Edit</button>
+          <button class="btn btn-danger btn-small" data-delete-group="${escapeAttr(group.id)}">Delete</button>
+        </div>
+      </div>`).join('');
+
+      document.querySelectorAll('[data-apply-group]').forEach(btn => btn.addEventListener('click', () => applyStaffGroup(btn.dataset.applyGroup)));
+      document.querySelectorAll('[data-edit-group]').forEach(btn => btn.addEventListener('click', () => editStaffGroup(btn.dataset.editGroup)));
+      document.querySelectorAll('[data-delete-group]').forEach(btn => btn.addEventListener('click', () => deleteStaffGroup(btn.dataset.deleteGroup)));
+    }
+
+    function extractYearNumber(value){
+      const match = String(value || '').match(/\d+/);
+      return match ? Number(match[0]) : null;
+    }
+
+    function normaliseGroupCode(value){
+      return String(value || '').trim().toUpperCase().replace(/\s+/g, '');
+    }
+
+    function matchesPhase(row, phase){
+      const yearNumber = extractYearNumber(row.year);
+      const tutorCode = normaliseGroupCode(row.tutor);
+
+      if(phase === 'KS3'){
+        return [7,8,9].includes(yearNumber);
+      }
+
+      if(phase === 'KS4'){
+        return [10,11].includes(yearNumber);
+      }
+
+      if(phase === 'Sixth Form'){
+        const sixthFormTutorGroups = ['12I','12A','13I','13A'];
+        return sixthFormTutorGroups.includes(tutorCode) || [12,13].includes(yearNumber);
+      }
+
+      return true;
+    }
+
+    function exportCSV(){
+      if(!filteredRows.length){
+        alert('There is no filtered data to export.');
+        return;
+      }
+
+      const headers = ['Date','Student','Year','Tutor / Reg','Type','Concern','Recorded By','Subject','Lesson','Department','Conversation Status','Conversation Completed'];
+      const csvRows = filteredRows.map(row => {
+        const conversation = getConversationRecord(row);
+        const values = [
+          row.date,row.student,row.year,row.tutor,row.type,row.concern,row.recordedBy,row.subject,row.lesson,row.department,
+          conversation ? 'Discussed' : 'To discuss',
+          conversation ? humanDate(conversation.completedAt) : ''
+        ];
+        return values.map(csvEscape).join(',');
+      });
+      const csv = [headers.join(','), ...csvRows].join('\n');
+      const blob = new Blob([csv], { type:'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'concern-insights-filtered.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function copySummary(){
+      if(!filteredRows.length){
+        $('copyStatus').textContent = 'No data to summarise.';
+        return;
+      }
+
+      const repeat = getRepeatStudents(filteredRows).slice(0,5).map(([name,count]) => `${name} (${count})`).join(', ') || 'None';
+      const typeTop = topEntry(countBy(filteredRows,'type'));
+      const yearTop = topEntry(countBy(filteredRows,'year'));
+
+      const summary = `Concern Insights summary:
+Total concerns: ${filteredRows.length}
+Students involved: ${new Set(filteredRows.map(r => r.student).filter(Boolean)).size}
+Repeat students: ${repeat}
+Most common concern type: ${typeTop ? `${typeTop[0]} (${typeTop[1]})` : 'None'}
+Highest year group: ${yearTop ? `${yearTop[0]} (${yearTop[1]})` : 'None'}
+Not yet marked as discussed: ${filteredRows.filter(r => !isConversationCompleted(r)).length}`;
+
+      navigator.clipboard.writeText(summary).then(() => {
+        $('copyStatus').textContent = 'Summary copied to clipboard.';
+      }).catch(() => {
+        $('copyStatus').textContent = summary;
+      });
+    }
+
+    function downloadLocalBackup(){
+      const backup = {
+        app:'Concern Insights',
+        version:1,
+        exportedAt:new Date().toISOString(),
+        staffGroups,
+        conversations:conversationLog
+      };
+      const blob = new Blob([JSON.stringify(backup, null, 2)], { type:'application/json;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `concern-insights-backup-${formatLocalDate(new Date())}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      $('backupStatus').textContent = 'Backup downloaded. Keep it somewhere secure.';
+    }
+
+    function restoreLocalBackup(file){
+      const reader = new FileReader();
+      reader.onload = e => {
+        try{
+          const backup = JSON.parse(e.target.result);
+          if(!backup || backup.app !== 'Concern Insights' || typeof backup.conversations !== 'object'){
+            throw new Error('This is not a valid Concern Insights backup.');
+          }
+          if(!confirm('Restore this backup? Current saved conversation progress and staff groups on this browser will be replaced.')) return;
+
+          conversationLog = backup.conversations && !Array.isArray(backup.conversations) ? backup.conversations : {};
+          staffGroups = Array.isArray(backup.staffGroups) ? backup.staffGroups : [];
+          persistConversationLog();
+          persistStaffGroups();
+          renderStaffGroupFilter();
+          renderStaffGroups();
+          applyFilters();
+          $('backupStatus').textContent = 'Backup restored successfully.';
+        } catch(err){
+          $('backupStatus').textContent = err && err.message ? err.message : 'That backup could not be restored.';
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function countBy(rows,key){
+      const map = {};
+      rows.forEach(row => {
+        const value = row[key] || 'Unknown';
+        map[value] = (map[value] || 0) + 1;
+      });
+      return map;
+    }
+
+    function countByWeekday(rows){
+      const map = {};
+      rows.forEach(row => {
+        const d = parseLocalDate(row.date);
+        if(!d) return;
+        const day = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][d.getDay()];
+        map[day] = (map[day] || 0) + 1;
+      });
+      return map;
+    }
+
+    function getRepeatStudents(rows){
+      return Object.entries(countBy(rows,'student')).filter(([name,count]) => name && name !== 'Unknown' && count >= 2).sort((a,b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+    }
+
+    function topEntry(counts){
+      const entries = Object.entries(counts).filter(([label]) => label && label !== 'Unknown').sort((a,b) => b[1] - a[1]);
+      return entries[0] || null;
+    }
+
+    function mostCommon(rows,key){
+      const top = topEntry(countBy(rows,key));
+      return top ? top[0] : '';
+    }
+
+    function weeklyCounts(rows){
+      const map = {};
+      rows.forEach(row => {
+        const d = parseLocalDate(row.date);
+        if(!d) return;
+        const monday = startOfWeekMonday(d);
+        const key = formatLocalDate(monday);
+        map[key] = (map[key] || 0) + 1;
+      });
+
+      return Object.entries(map).sort((a,b) => a[0].localeCompare(b[0])).map(([key,count]) => ({
+        key,
+        count,
+        label:'w/c ' + shortDate(key)
+      }));
+    }
+
+    function startOfWeekMonday(date){
+      const d = new Date(date);
+      d.setHours(12,0,0,0);
+      const day = d.getDay();
+      const daysSinceMonday = (day + 6) % 7;
+      d.setDate(d.getDate() - daysSinceMonday);
+      return d;
+    }
+
+    function getReportDate(){
+      const dates = allRows.map(r => parseLocalDate(r.date)).filter(Boolean).sort((a,b) => a - b);
+      return dates.length ? new Date(dates[dates.length - 1]) : null;
+    }
+
+    function getDateRange(rows){
+      const dates = rows.map(r => r.date).filter(Boolean).sort();
+      if(!dates.length) return null;
+      return { min:dates[0], max:dates[dates.length - 1] };
+    }
+
+    function parseLocalDate(value){
+      if(!value) return null;
+      const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})/);
+      if(match){
+        const d = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]), 12, 0, 0);
+        return isNaN(d) ? null : d;
+      }
+      const d = new Date(value);
+      return isNaN(d) ? null : d;
+    }
+
+    function humanDate(value){
+      if(!value) return 'No date';
+      const d = parseLocalDate(value);
+      if(!d) return value;
+      return d.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' });
+    }
+
+    function shortDate(value){
+      const d = parseLocalDate(value);
+      if(!d) return value;
+      return d.toLocaleDateString('en-GB', { day:'numeric', month:'short' });
+    }
+
+    function csvEscape(value){
+      const str = String(value ?? '');
+      return /[",\n]/.test(str) ? `"${str.replace(/"/g,'""')}"` : str;
+    }
+
+    function escapeHtml(value){
+      return String(value ?? '').replace(/[&<>"']/g, c => ({
+        '&':'&amp;',
+        '<':'&lt;',
+        '>':'&gt;',
+        '"':'&quot;',
+        "'":'&#039;'
+      }[c]));
+    }
+
+    function escapeAttr(value){
+      return escapeHtml(value).replace(/"/g,'&quot;');
+    }
+
+    function normaliseText(value){
+      return String(value || '').trim().toLowerCase();
+    }
+
+    function pillClass(type){
+      const t = String(type || '').toLowerCase();
+      if(t.includes('behaviour') || t.includes('behavior')) return 'behaviour';
+      if(t.includes('academic')) return 'academic';
+      return 'unknown';
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>
