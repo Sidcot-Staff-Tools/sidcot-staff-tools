@@ -604,9 +604,9 @@
         icon: "utility"
       },
       {
-        name: "Timetable Tools",
-        description: "Useful timetable utilities for viewing, organising and preparing staff schedules.",
-        category: "Administration",
+        name: "Behaviour & Acadmic Concern Tracking & Monitoring",
+        description: "Track & Monitor students' behaviour points and academic concerns and log your conversations with them.",
+        category: "Pastoral",
         url: "#",
         icon: "admin"
       },
@@ -679,7 +679,10 @@
 
     let activeCategory = "All";
 
-    const categories = ["All", ...new Set(tools.map(tool => tool.category))];
+    const categories = [
+  "All",
+  ...new Set(tools.flatMap(tool => tool.categories))
+  ];
 
     categories.forEach(category => {
       const button = document.createElement("button");
@@ -698,12 +701,13 @@
     function renderTools() {
       const term = search.value.trim().toLowerCase();
 
-      const filtered = tools.filter(tool => {
-        const categoryMatch = activeCategory === "All" || tool.category === activeCategory;
+      const categoryMatch =
+  activeCategory === "All" ||
+  tool.categories.includes(activeCategory);
         const searchMatch =
           tool.name.toLowerCase().includes(term) ||
           tool.description.toLowerCase().includes(term) ||
-          tool.category.toLowerCase().includes(term);
+          tool.categories.join(" ").toLowerCase().includes(term);
 
         return categoryMatch && searchMatch;
       });
@@ -719,7 +723,7 @@
           card.href = tool.url;
           card.innerHTML = `
             <div class="tool-icon">${icons[tool.icon] || icons.utility}</div>
-            <div class="category">${tool.category}</div>
+            <div class="category">${tool.categories.join(" · ")}</div>
             <h3>${tool.name}</h3>
             <p>${tool.description}</p>
             <div class="open-row">
