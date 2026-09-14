@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="A collection of useful digital tools for Sidcot staff.">
   <meta name="theme-color" content="#21314d">
-
   <title>Sidcot Staff Tools</title>
 
   <style>
@@ -20,13 +19,8 @@
       --ink: #1f2937;
       --muted: #667085;
       --line: #e7eaf0;
-
-      --shadow:
-        0 12px 30px rgba(33, 49, 77, 0.10);
-
-      --shadow-hover:
-        0 18px 40px rgba(33, 49, 77, 0.16);
-
+      --shadow: 0 12px 30px rgba(33, 49, 77, 0.10);
+      --shadow-hover: 0 18px 40px rgba(33, 49, 77, 0.16);
       --radius: 18px;
     }
 
@@ -40,31 +34,11 @@
 
     body {
       margin: 0;
-
-      font-family:
-        Inter,
-        ui-sans-serif,
-        system-ui,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       color: var(--ink);
-
       background:
-        radial-gradient(
-          circle at 10% 0%,
-          rgba(246, 168, 0, 0.12),
-          transparent 28rem
-        ),
-        linear-gradient(
-          180deg,
-          #fffaf0 0,
-          var(--cream) 320px,
-          #f8f9fb 100%
-        );
-
+        radial-gradient(circle at 10% 0%, rgba(246,168,0,.12), transparent 28rem),
+        linear-gradient(180deg, #fffaf0 0, var(--cream) 320px, #f8f9fb 100%);
       min-height: 100vh;
     }
 
@@ -77,29 +51,21 @@
       margin: 0 auto;
     }
 
-
-    /* ================================
-       HEADER
-       ================================ */
-
+    /* HEADER */
     header {
-      background: rgba(255, 255, 255, 0.92);
-      border-bottom: 1px solid rgba(33, 49, 77, 0.08);
-
+      background: rgba(255,255,255,.92);
+      border-bottom: 1px solid rgba(33,49,77,.08);
       position: sticky;
       top: 0;
       z-index: 20;
-
       backdrop-filter: blur(12px);
     }
 
     .topbar {
       min-height: 82px;
-
       display: flex;
       align-items: center;
       justify-content: space-between;
-
       gap: 24px;
     }
 
@@ -107,7 +73,6 @@
       display: flex;
       align-items: center;
       gap: 18px;
-
       min-width: 0;
     }
 
@@ -115,36 +80,29 @@
       width: 185px;
       max-width: 43vw;
       height: auto;
-
       display: block;
     }
 
     .brand-divider {
       width: 1px;
       height: 36px;
-
       background: var(--line);
     }
 
     .site-name {
       font-weight: 800;
       color: var(--navy);
-
       letter-spacing: -0.02em;
       font-size: 1rem;
-
       white-space: nowrap;
     }
 
     .header-link {
       color: var(--navy);
-
       text-decoration: none;
       font-weight: 700;
-      font-size: 0.92rem;
-
+      font-size: .92rem;
       padding: 10px 14px;
-
       border-radius: 999px;
     }
 
@@ -152,141 +110,93 @@
       background: var(--gold-soft);
     }
 
-
-    /* ================================
-       HERO
-       ================================ */
-
+    /* HERO */
     .hero {
       padding: 76px 0 46px;
     }
 
     .hero-grid {
       display: grid;
-      grid-template-columns: 1.25fr 0.75fr;
-
+      grid-template-columns: 1.25fr .75fr;
       gap: 48px;
-
       align-items: center;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-
       gap: 9px;
-
       color: var(--navy);
       background: var(--gold-soft);
-
-      border: 1px solid rgba(246, 168, 0, 0.24);
-
+      border: 1px solid rgba(246,168,0,.24);
       font-weight: 800;
-
       border-radius: 999px;
-
       padding: 8px 12px;
-
-      font-size: 0.84rem;
-
+      font-size: .84rem;
       margin-bottom: 18px;
     }
 
     .eyebrow-dot {
       width: 9px;
       height: 9px;
-
       background: var(--gold);
-
       border-radius: 50%;
     }
 
     h1 {
       color: var(--navy);
-
       font-size: clamp(2.45rem, 5vw, 4.7rem);
-      line-height: 0.98;
-
+      line-height: .98;
       letter-spacing: -0.055em;
-
       margin: 0;
-
       max-width: 790px;
     }
 
     .hero p {
       max-width: 690px;
-
       font-size: clamp(1.05rem, 2vw, 1.2rem);
-
       line-height: 1.65;
-
       color: var(--muted);
-
       margin: 22px 0 0;
     }
 
     .hero-mark {
       justify-self: end;
-
       width: min(330px, 100%);
-
       aspect-ratio: 1;
-
       border-radius: 50%;
-
       background: var(--gold);
-
       display: grid;
       place-items: center;
-
       box-shadow: var(--shadow);
-
       position: relative;
-
       overflow: hidden;
     }
 
     .hero-mark::after {
       content: "";
-
       position: absolute;
-
       width: 73%;
       height: 73%;
-
       background: white;
-
       border-radius: 50%;
     }
 
     .hero-mark img {
       width: 88%;
       height: 88%;
-
       object-fit: cover;
-
       border-radius: 50%;
-
       z-index: 1;
     }
 
-
-    /* ================================
-       SEARCH AND FILTERS
-       ================================ */
-
+    /* SEARCH + FILTERS */
     .finder {
       background: white;
-
-      border: 1px solid rgba(33, 49, 77, 0.08);
-
+      border: 1px solid rgba(33,49,77,.08);
       border-radius: 22px;
-
       padding: 20px;
-
       box-shadow: var(--shadow);
-
       margin-top: 12px;
     }
 
@@ -296,192 +206,124 @@
 
     .search-wrap svg {
       position: absolute;
-
       left: 18px;
       top: 50%;
-
       transform: translateY(-50%);
-
       width: 21px;
-
       color: var(--navy-soft);
     }
 
     #toolSearch {
       width: 100%;
-
       border: 1px solid #dfe4eb;
-
       border-radius: 14px;
-
       min-height: 54px;
-
       padding: 0 16px 0 50px;
-
       font-size: 1rem;
-
       color: var(--ink);
-
       outline: none;
-
       background: #fbfcfd;
     }
 
     #toolSearch:focus {
       border-color: var(--gold);
-
-      box-shadow:
-        0 0 0 4px rgba(246, 168, 0, 0.14);
-
+      box-shadow: 0 0 0 4px rgba(246,168,0,.14);
       background: white;
     }
 
     .filters {
       display: flex;
-
       gap: 9px;
-
       flex-wrap: wrap;
-
       margin-top: 14px;
     }
 
     .filter-btn {
       border: 1px solid #e0e4ea;
-
       background: white;
-
       color: var(--navy);
-
       border-radius: 999px;
-
       padding: 9px 13px;
-
       font: inherit;
-
       font-weight: 750;
-
-      font-size: 0.88rem;
-
+      font-size: .88rem;
       cursor: pointer;
     }
 
     .filter-btn:hover {
       border-color: var(--gold);
-
       background: #fffbf2;
     }
 
     .filter-btn.active {
       color: var(--navy-deep);
-
       background: var(--gold);
-
       border-color: var(--gold);
     }
 
-
-    /* ================================
-       TOOL CARDS
-       ================================ */
-
+    /* TOOL CARDS */
     main {
       padding: 22px 0 76px;
     }
 
     .section-head {
       display: flex;
-
       justify-content: space-between;
       align-items: end;
-
       gap: 20px;
-
       margin: 30px 0 18px;
     }
 
     .section-head h2 {
       margin: 0;
-
       color: var(--navy);
-
       font-size: 1.6rem;
-
       letter-spacing: -0.025em;
     }
 
     #resultCount {
       color: var(--muted);
-
-      font-size: 0.92rem;
+      font-size: .92rem;
     }
 
     .tool-grid {
       display: grid;
-
-      grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 18px;
     }
 
     .tool-card {
       background: white;
-
-      border:
-        1px solid rgba(33, 49, 77, 0.09);
-
+      border: 1px solid rgba(33,49,77,.09);
       border-radius: var(--radius);
-
       padding: 22px;
-
       min-height: 230px;
-
       display: flex;
       flex-direction: column;
-
-      box-shadow:
-        0 7px 18px rgba(33, 49, 77, 0.055);
-
-      transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        border-color 0.18s ease;
-
+      box-shadow: 0 7px 18px rgba(33,49,77,.055);
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
       text-decoration: none;
-
       position: relative;
-
       overflow: hidden;
     }
 
     .tool-card::before {
       content: "";
-
       position: absolute;
-
       top: 0;
       left: 0;
-
       width: 100%;
       height: 4px;
-
       background: var(--gold);
-
-      transform: scaleX(0.2);
-
+      transform: scaleX(.2);
       transform-origin: left;
-
-      transition: transform 0.18s ease;
+      transition: transform .18s ease;
     }
 
     .tool-card:hover {
       transform: translateY(-4px);
-
       box-shadow: var(--shadow-hover);
-
-      border-color:
-        rgba(246, 168, 0, 0.38);
+      border-color: rgba(246,168,0,.38);
     }
 
     .tool-card:hover::before {
@@ -491,16 +333,11 @@
     .tool-icon {
       width: 46px;
       height: 46px;
-
       border-radius: 13px;
-
       background: var(--gold-soft);
-
       display: grid;
       place-items: center;
-
       color: var(--navy);
-
       margin-bottom: 18px;
     }
 
@@ -511,70 +348,47 @@
 
     .category {
       color: #8a6200;
-
       font-weight: 850;
-
       text-transform: uppercase;
-
-      letter-spacing: 0.085em;
-
-      font-size: 0.68rem;
-
+      letter-spacing: .085em;
+      font-size: .68rem;
       margin-bottom: 7px;
     }
 
     .tool-card h3 {
       margin: 0;
-
       color: var(--navy);
-
       font-size: 1.13rem;
-
       letter-spacing: -0.015em;
     }
 
     .tool-card p {
       color: var(--muted);
-
       line-height: 1.55;
-
-      font-size: 0.92rem;
-
+      font-size: .92rem;
       margin: 10px 0 20px;
-
       flex-grow: 1;
     }
 
     .open-row {
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
-
       color: var(--navy);
-
       font-weight: 800;
-
-      font-size: 0.9rem;
-
+      font-size: .9rem;
       gap: 16px;
     }
 
     .arrow {
       width: 31px;
       height: 31px;
-
       border-radius: 50%;
-
       background: var(--navy);
-
       color: white;
-
       display: grid;
       place-items: center;
-
-      transition: transform 0.18s ease;
+      transition: transform .18s ease;
     }
 
     .tool-card:hover .arrow {
@@ -583,88 +397,54 @@
 
     .empty {
       grid-column: 1 / -1;
-
       text-align: center;
-
       background: white;
-
       border: 1px dashed #cfd5df;
-
       border-radius: var(--radius);
-
       padding: 44px 20px;
-
       color: var(--muted);
     }
 
-
-    /* ================================
-       FOOTER
-       ================================ */
-
+    /* FOOTER */
     footer {
       background: var(--navy);
-
       color: white;
-
       border-top: 5px solid var(--gold);
     }
 
     .footer-inner {
       display: flex;
-
       align-items: center;
-
       justify-content: space-between;
-
       gap: 24px;
-
       padding: 28px 0;
     }
 
     .footer-inner strong {
       display: block;
-
-      font-size: 0.95rem;
+      font-size: .95rem;
     }
 
     .footer-inner span {
       display: block;
-
-      color: rgba(255, 255, 255, 0.68);
-
+      color: rgba(255,255,255,.68);
       margin-top: 5px;
-
-      font-size: 0.82rem;
+      font-size: .82rem;
     }
 
     .footer-mark {
       width: 46px;
       height: 46px;
-
       object-fit: cover;
-
       border-radius: 50%;
     }
 
-
-    /* ================================
-       ACCESSIBILITY
-       ================================ */
-
     :focus-visible {
       outline: 3px solid var(--gold);
-
       outline-offset: 3px;
     }
 
-
-    /* ================================
-       RESPONSIVE DESIGN
-       ================================ */
-
     @media (max-width: 900px) {
-
       .hero-grid {
         grid-template-columns: 1fr;
       }
@@ -674,14 +454,11 @@
       }
 
       .tool-grid {
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
 
-
     @media (max-width: 640px) {
-
       .shell {
         width: min(100% - 28px, 1180px);
       }
@@ -721,9 +498,7 @@
       }
     }
 
-
     @media (prefers-reduced-motion: reduce) {
-
       *,
       *::before,
       *::after {
@@ -731,59 +506,29 @@
         transition: none !important;
       }
     }
-
   </style>
 </head>
-
 
 <body>
 
 <header>
-
   <div class="shell topbar">
-
     <div class="brand">
-
-      <img
-        src="assets/sidcot-logo.png"
-        alt="Sidcot — Live Adventurously"
-      >
-
-      <div
-        class="brand-divider"
-        aria-hidden="true">
-      </div>
-
-      <div class="site-name">
-        Staff Tools
-      </div>
-
+      <img src="assets/sidcot-logo.png" alt="Sidcot — Live Adventurously">
+      <div class="brand-divider" aria-hidden="true"></div>
+      <div class="site-name">Staff Tools</div>
     </div>
 
-    <a
-      class="header-link"
-      href="#tools">
-      Browse tools ↓
-    </a>
-
+    <a class="header-link" href="#tools">Browse tools ↓</a>
   </div>
-
 </header>
 
-
-
 <section class="hero">
-
   <div class="shell hero-grid">
-
     <div>
-
       <div class="eyebrow">
-
         <span class="eyebrow-dot"></span>
-
         Made for Sidcot staff
-
       </div>
 
       <h1>
@@ -792,706 +537,269 @@
       </h1>
 
       <p>
-        A growing collection of simple digital tools
-        to make everyday school tasks quicker,
-        easier and more consistent.
+        A growing collection of simple digital tools to make everyday school tasks
+        quicker, easier and more consistent.
       </p>
-
     </div>
 
-
-    <div
-      class="hero-mark"
-      aria-hidden="true">
-
-      <img
-        src="assets/sidcot-mark.png"
-        alt=""
-      >
-
+    <div class="hero-mark" aria-hidden="true">
+      <img src="assets/sidcot-mark.png" alt="">
     </div>
-
   </div>
-
 </section>
 
-
-
-<section
-  class="shell"
-  aria-label="Find a tool">
-
+<section class="shell" aria-label="Find a tool">
   <div class="finder">
 
     <div class="search-wrap">
-
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        aria-hidden="true">
-
-        <circle
-          cx="11"
-          cy="11"
-          r="7">
-        </circle>
-
-        <path
-          d="m20 20-3.8-3.8">
-        </path>
-
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="m20 20-3.8-3.8"></path>
       </svg>
 
-
-      <label
-        for="toolSearch"
-        style="
-          position:absolute;
-          width:1px;
-          height:1px;
-          padding:0;
-          margin:-1px;
-          overflow:hidden;
-          clip:rect(0,0,0,0);
-          white-space:nowrap;
-          border:0;
-        ">
-
+      <label for="toolSearch" style="position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;">
         Search tools
-
       </label>
 
-
-      <input
-        id="toolSearch"
-        type="search"
-        placeholder="Search tools…"
-        autocomplete="off">
-
+      <input id="toolSearch" type="search" placeholder="Search tools…" autocomplete="off">
     </div>
 
-
-    <div
-      class="filters"
-      id="filters"
-      aria-label="Filter tools by category">
-    </div>
+    <div class="filters" id="filters" aria-label="Filter tools by category"></div>
 
   </div>
-
 </section>
 
-
-
-<main
-  class="shell"
-  id="tools">
+<main class="shell" id="tools">
 
   <div class="section-head">
-
-    <h2>
-      Staff tools
-    </h2>
-
-    <div
-      id="resultCount"
-      aria-live="polite">
-    </div>
-
+    <h2>Staff tools</h2>
+    <div id="resultCount" aria-live="polite"></div>
   </div>
 
-
-  <div
-    class="tool-grid"
-    id="toolGrid">
-  </div>
+  <div class="tool-grid" id="toolGrid"></div>
 
 </main>
 
-
-
 <footer>
-
   <div class="shell footer-inner">
-
     <div>
-
-      <strong>
-        Sidcot Staff Tools
-      </strong>
-
-      <span>
-        Tools and resources created to support staff.
-      </span>
-
+      <strong>Sidcot Staff Tools</strong>
+      <span>Tools and resources created to support staff.</span>
     </div>
 
-
-    <img
-      class="footer-mark"
-      src="assets/sidcot-mark.png"
-      alt="">
-
+    <img class="footer-mark" src="assets/sidcot-mark.png" alt="">
   </div>
-
 </footer>
-
 
 
 <script>
 
   /*
-  ============================================================
-  TOOL LIST
-  ============================================================
+    ===============================================================
+    TOOL LIST
+    ===============================================================
 
-  Every tool now uses:
+    Single category:
+    categories: ["Academic"]
 
-  categories: ["Academic", "Pastoral"]
+    Multiple categories:
+    categories: ["Academic", "Pastoral"]
 
-  rather than:
+    Older cards using:
+    category: "Academic"
 
-  category: "Academic"
-
-  A tool can have ONE category:
-
-  categories: ["Academic"]
-
-  or several:
-
-  categories: ["Academic", "Pastoral", "Administration"]
-
-  ============================================================
+    will also continue to work.
+    ===============================================================
   */
-
 
   const tools = [
 
     {
       name: "Loan Desk",
-
-      description:
-        "Keep track of the equipment you've loaned out to students and view their loan history.",
-
-      categories: [
-        "Academic"
-      ],
-
-      url:
-        "tools/loan-desk/",
-
-      icon:
-        "utility"
+      description: "Keep track of the equipment you've loaned out to students and view their loan history.",
+      categories: ["Academic", "Pastoral"],
+      url: "tools/loan-desk/",
+      icon: "utility"
     },
 
-
     {
-      name:
-        "Random Picker",
-
-      description:
-        "Quickly select students, groups or items at random for lessons and activities.",
-
-      categories: [
-        "Academic"
-      ],
-
-      url:
-        "#",
-
-      icon:
-        "people"
+      name: "Random Picker",
+      description: "Quickly select students, groups or items at random for lessons and activities.",
+      categories: ["Academic"],
+      url: "#",
+      icon: "people"
     },
 
-
     {
-      name:
-        "Timetable Tools",
-
-      description:
-        "Useful timetable utilities for viewing, organising and preparing staff schedules.",
-
-      categories: [
-        "Academic",
-        "Administration"
-      ],
-
-      url:
-        "#",
-
-      icon:
-        "admin"
+      name: "Timetable Tools",
+      description: "Useful timetable utilities for viewing, organising and preparing staff schedules.",
+      categories: ["Academic", "Administration"],
+      url: "#",
+      icon: "admin"
     },
 
-
     {
-      name:
-        "Resource Generator",
-
-      description:
-        "Create simple classroom resources and activities more quickly.",
-
-      categories: [
-        "Academic"
-      ],
-
-      url:
-        "#",
-
-      icon:
-        "teaching"
+      name: "Resource Generator",
+      description: "Create simple classroom resources and activities more quickly.",
+      categories: ["Academic"],
+      url: "#",
+      icon: "teaching"
     },
 
-
     {
-      name:
-        "Pastoral Tools",
-
-      description:
-        "Quick-access utilities designed to support tutor and pastoral routines.",
-
-      categories: [
-        "Pastoral"
-      ],
-
-      url:
-        "#",
-
-      icon:
-        "people"
+      name: "Pastoral Tools",
+      description: "Quick-access utilities designed to support tutor and pastoral routines.",
+      categories: ["Pastoral"],
+      url: "#",
+      icon: "people"
     },
 
-
     {
-      name:
-        "Data Tools",
-
-      description:
-        "Small utilities for sorting, checking and presenting school data.",
-
-      categories: [
-        "Academic",
-        "Administration"
-      ],
-
-      url:
-        "#",
-
-      icon:
-        "data"
+      name: "Data Tools",
+      description: "Small utilities for sorting, checking and presenting school data.",
+      categories: ["Academic", "Administration"],
+      url: "#",
+      icon: "data"
     },
 
-
     {
-      name:
-        "Staff Utilities",
-
-      description:
-        "General-purpose tools for everyday staff and support-staff tasks.",
-
-      categories: [
-        "Administration",
-        "Support Staff"
-      ],
-
-      url:
-        "#",
-
-      icon:
-        "utility"
+      name: "Staff Utilities",
+      description: "General-purpose tools for everyday staff and support-staff tasks.",
+      categories: ["Administration", "Support Staff"],
+      url: "#",
+      icon: "utility"
     }
 
   ];
 
 
-
   /*
-  ============================================================
-  ICONS
-  ============================================================
+    Allows both:
+    categories: ["Academic", "Pastoral"]
+
+    and older:
+    category: "Academic"
   */
+
+  function getCategories(tool) {
+    if (Array.isArray(tool.categories)) return tool.categories;
+    if (tool.category) return [tool.category];
+    return [];
+  }
+
 
   const icons = {
 
     teaching: `
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        aria-hidden="true">
-
-        <path
-          d="
-            M4 5.5
-            A2.5 2.5 0 0 1 6.5 3
-            H20
-            v16
-            H6.5
-            A2.5 2.5 0 0 0 4 21.5
-            z
-          ">
-        </path>
-
-        <path
-          d="
-            M4 5.5v16
-            M8 7h8
-            M8 11h6
-          ">
-        </path>
-
-      </svg>
-    `,
-
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v16H6.5A2.5 2.5 0 0 0 4 21.5z"/>
+        <path d="M4 5.5v16M8 7h8M8 11h6"/>
+      </svg>`,
 
     admin: `
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        aria-hidden="true">
-
-        <rect
-          x="3"
-          y="5"
-          width="18"
-          height="16"
-          rx="2">
-        </rect>
-
-        <path
-          d="
-            M7 3v4
-            M17 3v4
-            M3 10h18
-            M7 14h3
-            M14 14h3
-            M7 18h3
-          ">
-        </path>
-
-      </svg>
-    `,
-
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <rect x="3" y="5" width="18" height="16" rx="2"/>
+        <path d="M7 3v4M17 3v4M3 10h18M7 14h3M14 14h3M7 18h3"/>
+      </svg>`,
 
     pastoral: `
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        aria-hidden="true">
-
-        <path
-          d="
-            M12 21
-            s-7-4.4-7-10.2
-            A4.2 4.2 0 0 1 12 7.6
-            a4.2 4.2 0 0 1 7 3.2
-            C19 16.6 12 21 12 21z
-          ">
-        </path>
-
-      </svg>
-    `,
-
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M12 21s-7-4.4-7-10.2A4.2 4.2 0 0 1 12 7.6a4.2 4.2 0 0 1 7 3.2C19 16.6 12 21 12 21z"/>
+      </svg>`,
 
     data: `
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        aria-hidden="true">
-
-        <path
-          d="
-            M4 20V10
-            M10 20V4
-            M16 20v-7
-            M22 20H2
-          ">
-        </path>
-
-      </svg>
-    `,
-
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>
+      </svg>`,
 
     people: `
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        aria-hidden="true">
-
-        <circle
-          cx="9"
-          cy="8"
-          r="3">
-        </circle>
-
-        <path
-          d="
-            M3.5 20v-1.5
-            A5.5 5.5 0 0 1 9 13
-            h0
-            a5.5 5.5 0 0 1 5.5 5.5
-            V20
-          ">
-        </path>
-
-        <path
-          d="
-            M16 5.5
-            a3 3 0 0 1 0 5.8
-
-            M17.5 14
-            a4.5 4.5 0 0 1 3 4.3
-            V20
-          ">
-        </path>
-
-      </svg>
-    `,
-
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <circle cx="9" cy="8" r="3"/>
+        <path d="M3.5 20v-1.5A5.5 5.5 0 0 1 9 13h0a5.5 5.5 0 0 1 5.5 5.5V20"/>
+        <path d="M16 5.5a3 3 0 0 1 0 5.8M17.5 14a4.5 4.5 0 0 1 3 4.3V20"/>
+      </svg>`,
 
     utility: `
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="1.8"
-        aria-hidden="true">
-
-        <path
-          d="
-            M14.7 6.3
-            a4 4 0 0 0-5-5
-            L12 3.6
-            9.6 6
-            7.3 3.7
-            a4 4 0 0 0 5 5
-            L20 16.4
-            a2.1 2.1 0 0 1-3 3
-            l-7.7-7.7
-          ">
-        </path>
-
-        <path
-          d="
-            M6.5 13.5
-            3 17
-            l4 4
-            3.5-3.5
-          ">
-        </path>
-
-      </svg>
-    `
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+        <path d="M14.7 6.3a4 4 0 0 0-5-5L12 3.6 9.6 6 7.3 3.7a4 4 0 0 0 5 5L20 16.4a2.1 2.1 0 0 1-3 3l-7.7-7.7"/>
+        <path d="M6.5 13.5 3 17l4 4 3.5-3.5"/>
+      </svg>`
 
   };
 
 
+  const toolGrid = document.getElementById("toolGrid");
+  const search = document.getElementById("toolSearch");
+  const filters = document.getElementById("filters");
+  const resultCount = document.getElementById("resultCount");
 
-  /*
-  ============================================================
-  PAGE ELEMENTS
-  ============================================================
-  */
-
-  const toolGrid =
-    document.getElementById("toolGrid");
-
-
-  const search =
-    document.getElementById("toolSearch");
-
-
-  const filters =
-    document.getElementById("filters");
-
-
-  const resultCount =
-    document.getElementById("resultCount");
-
-
-  let activeCategory =
-    "All";
-
+  let activeCategory = "All";
 
 
   /*
-  ============================================================
-  BUILD CATEGORY FILTERS
-
-  flatMap is important here because every tool may have
-  several categories.
-  ============================================================
+    Build the filter buttons from every category used by every tool.
   */
 
   const categories = [
-
     "All",
-
-    ...new Set(
-      tools.flatMap(
-        tool => tool.categories
-      )
-    )
-
+    ...new Set(tools.flatMap(tool => getCategories(tool)))
   ];
-
 
 
   categories.forEach(category => {
 
-    const button =
-      document.createElement("button");
+    const button = document.createElement("button");
 
+    button.className = "filter-btn" + (category === "All" ? " active" : "");
+    button.type = "button";
+    button.textContent = category;
 
-    button.className =
-      "filter-btn" +
-      (category === "All"
-        ? " active"
-        : "");
+    button.addEventListener("click", () => {
 
+      activeCategory = category;
 
-    button.type =
-      "button";
+      document.querySelectorAll(".filter-btn").forEach(btn => {
+        btn.classList.remove("active");
+      });
 
+      button.classList.add("active");
 
-    button.textContent =
-      category;
+      renderTools();
 
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        activeCategory =
-          category;
-
-
-        document
-          .querySelectorAll(".filter-btn")
-          .forEach(
-            btn =>
-              btn.classList.remove("active")
-          );
-
-
-        button
-          .classList
-          .add("active");
-
-
-        renderTools();
-
-      }
-    );
-
+    });
 
     filters.appendChild(button);
 
   });
 
 
-
   /*
-  ============================================================
-  DISPLAY TOOL CARDS
-  ============================================================
+    Display the cards.
   */
 
   function renderTools() {
 
-    const term =
-      search
-        .value
-        .trim()
-        .toLowerCase();
+    const term = search.value.trim().toLowerCase();
+
+    const filtered = tools.filter(tool => {
+
+      const toolCategories = getCategories(tool);
+
+      const categoryMatch =
+        activeCategory === "All" ||
+        toolCategories.includes(activeCategory);
+
+      const searchMatch =
+        tool.name.toLowerCase().includes(term) ||
+        tool.description.toLowerCase().includes(term) ||
+        toolCategories.join(" ").toLowerCase().includes(term);
+
+      return categoryMatch && searchMatch;
+
+    });
 
 
-
-    const filtered =
-      tools.filter(tool => {
-
-
-        /*
-        CATEGORY FILTER
-
-        The tool appears if:
-
-        - All is selected
-
-        OR
-
-        - its categories array contains the selected category
-        */
-
-        const categoryMatch =
-
-          activeCategory === "All"
-
-          ||
-
-          tool.categories.includes(
-            activeCategory
-          );
-
-
-
-        /*
-        SEARCH
-
-        Search checks:
-
-        - tool name
-        - description
-        - every category
-        */
-
-        const searchMatch =
-
-          tool
-            .name
-            .toLowerCase()
-            .includes(term)
-
-          ||
-
-          tool
-            .description
-            .toLowerCase()
-            .includes(term)
-
-          ||
-
-          tool
-            .categories
-            .join(" ")
-            .toLowerCase()
-            .includes(term);
-
-
-
-        return (
-          categoryMatch &&
-          searchMatch
-        );
-
-      });
-
-
-
-    toolGrid.innerHTML =
-      "";
-
+    toolGrid.innerHTML = "";
 
 
     if (!filtered.length) {
@@ -1502,89 +810,27 @@
         </div>
       `;
 
-    }
-
-    else {
+    } else {
 
       filtered.forEach(tool => {
 
+        const toolCategories = getCategories(tool);
+        const card = document.createElement("a");
 
-        const card =
-          document.createElement("a");
-
-
-        card.className =
-          "tool-card";
-
-
-        card.href =
-          tool.url;
-
-
-
-        /*
-        Categories are displayed on the card like:
-
-        ACADEMIC · PASTORAL
-        */
-
-        const categoryText =
-          tool.categories.join(" · ");
-
-
+        card.className = "tool-card";
+        card.href = tool.url;
 
         card.innerHTML = `
-
-          <div class="tool-icon">
-
-            ${
-              icons[tool.icon]
-              ||
-              icons.utility
-            }
-
-          </div>
-
-
-          <div class="category">
-
-            ${categoryText}
-
-          </div>
-
-
-          <h3>
-
-            ${tool.name}
-
-          </h3>
-
-
-          <p>
-
-            ${tool.description}
-
-          </p>
-
+          <div class="tool-icon">${icons[tool.icon] || icons.utility}</div>
+          <div class="category">${toolCategories.join(" · ")}</div>
+          <h3>${tool.name}</h3>
+          <p>${tool.description}</p>
 
           <div class="open-row">
-
-            <span>
-              Open tool
-            </span>
-
-            <span
-              class="arrow"
-              aria-hidden="true">
-
-              →
-
-            </span>
-
+            <span>Open tool</span>
+            <span class="arrow" aria-hidden="true">→</span>
           </div>
-
         `;
-
 
         toolGrid.appendChild(card);
 
@@ -1593,35 +839,13 @@
     }
 
 
-
     resultCount.textContent =
-
-      `${filtered.length} ${
-        filtered.length === 1
-          ? "tool"
-          : "tools"
-      }`;
+      `${filtered.length} ${filtered.length === 1 ? "tool" : "tools"}`;
 
   }
 
 
-
-  /*
-  ============================================================
-  SEARCH
-  ============================================================
-  */
-
-  search.addEventListener(
-    "input",
-    renderTools
-  );
-
-
-
-  /*
-  INITIAL PAGE LOAD
-  */
+  search.addEventListener("input", renderTools);
 
   renderTools();
 
