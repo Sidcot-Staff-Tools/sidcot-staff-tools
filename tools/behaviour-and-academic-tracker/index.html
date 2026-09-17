@@ -39,7 +39,7 @@ dialog{width:min(950px,calc(100% - 32px));padding:0;border:1px solid #dce3ef;bor
       <div class="filter-header"><h2>Build your view</h2><button class="text-btn small" id="resetFilters">Reset filters</button></div>
       <div class="scope-tabs" role="group" aria-label="Who are you looking at?"><button data-scope="department" aria-pressed="true"><span data-icon="team"></span>Department</button><button data-scope="pastoral" aria-pressed="false"><span data-icon="school"></span>Pastoral</button><button data-scope="tutor" aria-pressed="false"><span data-icon="users"></span>Tutor group</button><button data-scope="school" aria-pressed="false"><span data-icon="grid"></span>Whole school</button></div>
       <div class="scope-controls" id="scopeControls"></div>
-      <div class="filter-main"><div class="field"><label id="typeLabel">Concern type</label><div class="segmented" role="group" aria-labelledby="typeLabel" id="typeButtons"></div></div><div class="field"><label for="categoryFilter">Category</label><select id="categoryFilter" data-filter="category"></select></div><div class="field"><label for="periodFilter">Date range</label><select id="periodFilter" data-filter="period"><option value="all">All imported dates</option><option value="thisWeek">This week</option><option value="lastWeek">Last week</option><option value="last28">Last 28 days</option><option value="custom">Choose dates…</option></select></div></div>
+      <div class="filter-main"><div class="field"><label id="typeLabel">Concern type</label><div class="segmented" role="group" aria-labelledby="typeLabel" id="typeButtons"></div></div><div class="field"><label for="categoryFilter">Concern code</label><select id="categoryFilter" data-filter="category"></select></div><div class="field"><label for="periodFilter">Date range</label><select id="periodFilter" data-filter="period"><option value="all">All imported dates</option><option value="thisWeek">This week</option><option value="lastWeek">Last week</option><option value="last28">Last 28 days</option><option value="custom">Choose dates…</option></select></div></div>
       <div class="date-controls fields" id="customDates" hidden><div class="field"><label for="dateFrom">From (inclusive)</label><input type="date" id="dateFrom" data-filter="from"></div><div class="field"><label for="dateTo">To (inclusive)</label><input type="date" id="dateTo" data-filter="to"></div></div>
       <p class="date-note" id="dateNote" hidden></p>
       <details class="refine" id="moreFilters"><summary><span data-icon="sliders"></span>Refine this view <span class="small muted" id="refineCount"></span></summary><div class="fields" id="advancedFields"></div><div class="refine-end"><div class="field"><label for="recordSearch">Search across records</label><input id="recordSearch" data-filter="search" placeholder="Student, staff or concern details…" type="search"></div><label class="check-line"><input type="checkbox" id="repeatFilter" data-filter="repeat">Only students with 2+ matching concerns</label></div></details>
@@ -170,8 +170,8 @@ function fieldOptions(key){
  const prop=key==='staff'?'recordedBy':key;
  return unique(rows.map(r=>key==='year'?schoolYear(r)||r.year:r[prop])).map(v=>[v,key==='year'?`Year ${v}`:v]);
 }
-const fieldLabels={group:'Staff group',phase:'Key stage',year:'Year group',house:'House',tutor:'Tutor / Reg group',staff:'Recorded by',subject:'Subject',department:'Department',category:'Category'};
-const optionLabels={group:'All staff — no team selected',phase:'All key stages',year:'All year groups',house:'All houses',tutor:'All tutor groups',staff:'All staff',subject:'All subjects',department:'All departments',category:'All categories'};
+const fieldLabels={group:'Staff group',phase:'Key stage',year:'Year group',house:'House',tutor:'Tutor / Reg group',staff:'Recorded by',subject:'Subject',department:'Department',category:'Concern code'};
+const optionLabels={group:'All staff — no team selected',phase:'All key stages',year:'All year groups',house:'All houses',tutor:'All tutor groups',staff:'All staff',subject:'All subjects',department:'All departments',category:'All concern codes'};
 function selectMarkup(key){const list=fieldOptions(key);let note='';if(!list.length){note=key==='group'?'Create a team using the staff in your report.':`No ${fieldLabels[key].toLowerCase()} values imported.`;}
  return `<div class="field"><label for="f-${key}">${fieldLabels[key]}</label><select id="f-${key}" data-filter="${key}" ${!list.length?'disabled':''}><option value="">${esc(list.length?optionLabels[key]:key==='group'?'No groups saved yet':'Not in this report')}</option>${list.map(([v,l])=>`<option value="${esc(v)}" ${String(state.filters[key])===String(v)?'selected':''}>${esc(l)}</option>`).join('')}</select>${note?`<small>${esc(note)}</small>`:''}</div>`;
 }
@@ -197,7 +197,7 @@ function renderFilters(){
  $('scopeControls').innerHTML=f.scope==='department'?`<div class="team-control">${selectMarkup('group')}<button class="btn" data-action="manage-groups">${icon('team')}Manage teams</button><div class="team-hint">${f.group?'Team selected. Switch type or dates without losing it.':'All staff are included until you choose a team.'}</div></div>`:primary.length?`<div class="fields">${primary.map(selectMarkup).join('')}</div>`:'<p class="small muted">All imported students and staff are included. Use the controls below to narrow the view.</p>';
  $('advancedFields').innerHTML=['group','phase','year','house','tutor','staff','subject','department'].filter(k=>!primary.includes(k)).map(selectMarkup).join('');
  $('typeButtons').innerHTML=['','Behaviour','Academic'].map(v=>`<button data-type="${v}" aria-pressed="${f.type===v}">${v||'All concerns'}</button>`).join('');
- const categories=fieldOptions('category');$('categoryFilter').innerHTML=`<option value="">${categories.length?'All categories':'No categories imported'}</option>`+categories.map(([v,l])=>`<option value="${esc(v)}">${esc(l)}</option>`).join('');$('categoryFilter').disabled=!categories.length;$('categoryFilter').value=f.category;
+ const categories=fieldOptions('category');$('categoryFilter').innerHTML=`<option value="">${categories.length?'All concern codes':'No concern codes imported'}</option>`+categories.map(([v,l])=>`<option value="${esc(v)}">${esc(l)}</option>`).join('');$('categoryFilter').disabled=!categories.length;$('categoryFilter').value=f.category;
  $('periodFilter').value=f.period;$('customDates').hidden=f.period!=='custom';$('dateFrom').value=f.from;$('dateTo').value=f.to;$('recordSearch').value=f.search;$('repeatFilter').checked=f.repeat;
  const bounds=dateBounds();$('dateNote').hidden=f.period==='all';$('dateNote').textContent=f.period==='custom'?'Both dates are inclusive. Undated records are excluded when a date limit is set.':`${displayDate(bounds.from)} to ${displayDate(bounds.to)} · Based on today in the UK, not the latest row in the file.`;
  const refined=['group','phase','year','house','tutor','staff','subject','department'].filter(k=>!primary.includes(k)&&f[k]).length+(f.repeat?1:0)+(f.search?1:0);$('refineCount').textContent=refined?`(${refined} active)`:'';
@@ -246,7 +246,7 @@ function renderTrend(){const data=weeklySeries();if(!data.length)return empty('N
  const series=[['total','#315edf',2.8,''],['Behaviour','#117d80',2,'5 4'],['Academic','#7653bb',2,'2 4']].map(([key,color,stroke,dash])=>`<polyline points="${data.map((d,i)=>`${x(i)},${y(d[key])}`).join(' ')}" fill="none" stroke="${color}" stroke-width="${stroke}" ${dash?`stroke-dasharray="${dash}"`:''}/>${data.length<=60?data.map((d,i)=>`<circle cx="${x(i)}" cy="${y(d[key])}" r="${key==='total'?3.5:2}" fill="${color}"><title>${esc(displayDate(d.key))} · ${key}: ${d[key]}</title></circle>`).join(''):''}`).join('');
  return `<div class="subhead"><div><h2>Concerns over time</h2><p>Weekly totals, in calendar order. Each date is a Monday.</p></div><div class="legend"><span><i></i>All types</span><span><i class="behaviour"></i>Behaviour</span><span><i class="academic"></i>Academic</span></div></div><div class="chart-wrap"><svg class="line-chart" viewBox="0 0 ${w} ${h}" role="img" aria-labelledby="trendTitle trendDesc"><title id="trendTitle">Weekly recorded concerns</title><desc id="trendDesc">${data.length} weeks, from ${esc(displayDate(data[0].key))} to ${esc(displayDate(data[data.length-1].key))}. Exact values follow in the data table.</desc>${grid}${series}${labels}</svg></div><p class="chart-note">A zero means no matching rows in this report, not confirmed absence of incidents. Partial weeks, school holidays and incomplete exports can affect the pattern.${data.length===1?' Only one week is present, so a point is shown rather than a trend.':''}</p><details class="chart-data"><summary>View weekly figures</summary><div class="table-wrap"><table class="data-table"><thead><tr><th>Week starting</th><th>All types</th><th>Behaviour</th><th>Academic</th></tr></thead><tbody>${data.map(d=>`<tr><td>${displayDate(d.key)}</td><td>${d.total}</td><td>${d.Behaviour}</td><td>${d.Academic}</td></tr>`).join('')}</tbody></table></div></details>`;
 }
-function renderBreakdown(){const cats=countBy(state.filtered,'category');return `<div class="subhead"><div><h2>What is being recorded?</h2><p>Concern type and category are separate, so you can filter either or both.</p></div></div><div class="analysis-split"><div><h3>Concern type</h3>${bars(countBy(state.filtered,'type'))}</div><div><h3>Categories</h3>${bars(cats)}</div></div><p class="chart-note">Academic-labelled concerns are Academic; all other concerns are Behaviour. The original specific concern category is kept separately for detailed filtering. “Not recorded” means the corresponding field is blank.</p>`;}
+function renderBreakdown(){const cats=countBy(state.filtered,'category');return `<div class="subhead"><div><h2>What is being recorded?</h2><p>Concern type and category are separate, so you can filter either or both.</p></div></div><div class="analysis-split"><div><h3>Concern type</h3>${bars(countBy(state.filtered,'type'))}</div><div><h3>Concern codes</h3>${bars(cats)}</div></div><p class="chart-note">Concern type comes from the report’s Type of concern field. Academic concerns are Academic; all other types are Behaviour. The detailed concern code is kept separately for granular filtering. Description remains teacher-written detail only.</p>`;}
 function renderWeekdays(){const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];const counts=Array(7).fill(0);let valid=0;for(const row of state.filtered){const d=dateObject(row.date);if(d){counts[(d.getUTCDay()+6)%7]++;valid++;}}if(!valid)return empty('No valid dates','Map a date column to see which days have recorded concerns.');const max=Math.max(...counts),peaks=days.filter((d,i)=>counts[i]===max);
  return `<div class="subhead"><div><h2>When are records logged?</h2><p>${peaks.length===1?`${peaks[0]} has the most recorded concerns in this view.`:'More than one day shares the highest count.'}</p></div></div><div class="weekdays">${days.map((d,i)=>`<div class="day-card ${counts[i]===max?'peak':''}"><b>${d}</b><strong>${num(counts[i])}</strong><div class="bar-track"><div class="bar-fill" style="width:${counts[i]/max*100}%"></div></div><span>${Math.round(counts[i]/valid*100)}% of dated records</span></div>`).join('')}</div><div class="callout">These are totals, not rates per school day. Weekend records are included rather than hidden. The pattern may reflect when staff enter concerns, not when incidents happened.</div>`;
 }
@@ -293,9 +293,9 @@ function summaryText(){const rows=state.filtered,students=studentGroups(rows),ra
 function renderReport(){$('reportSummary').textContent=summaryText();}
 function download(content,name,type){const url=URL.createObjectURL(new Blob([content],{type})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);}
 function csvCell(value){let s=String(value??'');if(/^[\s\u0000-\u001f]*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"';}
-function exportRecords(){if(!state.filtered.length){notify('There are no matching records to export.');return;}const cols=[['Date','date'],['Student','student'],['Student ID','studentId'],['Year','year'],['Tutor / Reg','tutor'],['House','house'],['Concern Type','type'],['Original Type','originalType'],['Category','category'],['Concern','concern'],['Recorded By','recordedBy'],['Subject','subject'],['Lesson','lesson'],['Department','department']];const csv='\uFEFF'+[cols.map(([h])=>csvCell(h)).join(','),...state.filtered.map(r=>cols.map(([,k])=>csvCell(r[k])).join(','))].join('\r\n');download(csv,`concern-insights-${todayISO()}.csv`,'text/csv;charset=utf-8');}
+function exportRecords(){if(!state.filtered.length){notify('There are no matching records to export.');return;}const cols=[['Date','date'],['Student','student'],['Student ID','studentId'],['Year','year'],['Tutor / Reg','tutor'],['House','house'],['Concern Type','type'],['Original Type','originalType'],['Concern Code','category'],['Concern','concern'],['Recorded By','recordedBy'],['Subject','subject'],['Lesson','lesson'],['Department','department']];const csv='\uFEFF'+[cols.map(([h])=>csvCell(h)).join(','),...state.filtered.map(r=>cols.map(([,k])=>csvCell(r[k])).join(','))].join('\r\n');download(csv,`concern-insights-${todayISO()}.csv`,'text/csv;charset=utf-8');}
 async function copySummary(){try{if(!navigator.clipboard?.writeText)throw new Error();await navigator.clipboard.writeText(summaryText());notify('Summary copied.');}catch(error){navigate('reports');const r=document.createRange();r.selectNodeContents($('reportSummary'));const selection=window.getSelection();selection.removeAllRanges();selection.addRange(r);notify('Automatic copy is blocked here. The summary is selected; copy it using your browser or keyboard.');}}
-function buildPrint(){const rows=state.filtered;const types=countBy(rows,'type'),cats=countBy(rows,'category').slice(0,12),weekly=weeklySeries();$('printArea').innerHTML=`<h1>Concern Insights</h1><p>${esc(viewName())} · ${esc(state.source)}${state.demo?' · Sample data':''}</p><p>${esc(activeFilters().map(([,l])=>l).join(' · ')||'All imported records')}</p><div class="print-stats"><div><b>${num(rows.length)}</b><span>Concerns</span></div><div><b>${num(studentGroups(rows).length)}</b><span>Students</span></div><div><b>${num(studentGroups(rows).filter(s=>s.rows.length>1).length)}</b><span>Students with repeated records</span></div></div><h2>Concern types</h2><table><thead><tr><th>Type</th><th>Records</th></tr></thead><tbody>${types.map(([l,c])=>`<tr><td>${esc(l)}</td><td>${c}</td></tr>`).join('')}</tbody></table><h2>Categories</h2><table><thead><tr><th>Category</th><th>Records</th></tr></thead><tbody>${cats.map(([l,c])=>`<tr><td>${esc(l)}</td><td>${c}</td></tr>`).join('')}</tbody></table>${weekly.length?`<h2>Weekly figures</h2><table><thead><tr><th>Week starting</th><th>All types</th><th>Behaviour</th><th>Academic</th></tr></thead><tbody>${weekly.map(d=>`<tr><td>${displayDate(d.key)}</td><td>${d.total}</td><td>${d.Behaviour}</td><td>${d.Academic}</td></tr>`).join('')}</tbody></table>`:''}<p style="margin-top:22px">Counts describe what was recorded, not the seriousness of incidents or the performance of staff. Zero weeks mean no matching rows in the imported report. Prepared ${displayDate(todayISO())}.</p>`;}
+function buildPrint(){const rows=state.filtered;const types=countBy(rows,'type'),cats=countBy(rows,'category').slice(0,12),weekly=weeklySeries();$('printArea').innerHTML=`<h1>Concern Insights</h1><p>${esc(viewName())} · ${esc(state.source)}${state.demo?' · Sample data':''}</p><p>${esc(activeFilters().map(([,l])=>l).join(' · ')||'All imported records')}</p><div class="print-stats"><div><b>${num(rows.length)}</b><span>Concerns</span></div><div><b>${num(studentGroups(rows).length)}</b><span>Students</span></div><div><b>${num(studentGroups(rows).filter(s=>s.rows.length>1).length)}</b><span>Students with repeated records</span></div></div><h2>Concern types</h2><table><thead><tr><th>Type</th><th>Records</th></tr></thead><tbody>${types.map(([l,c])=>`<tr><td>${esc(l)}</td><td>${c}</td></tr>`).join('')}</tbody></table><h2>Concern codes</h2><table><thead><tr><th>Concern code</th><th>Records</th></tr></thead><tbody>${cats.map(([l,c])=>`<tr><td>${esc(l)}</td><td>${c}</td></tr>`).join('')}</tbody></table>${weekly.length?`<h2>Weekly figures</h2><table><thead><tr><th>Week starting</th><th>All types</th><th>Behaviour</th><th>Academic</th></tr></thead><tbody>${weekly.map(d=>`<tr><td>${displayDate(d.key)}</td><td>${d.total}</td><td>${d.Behaviour}</td><td>${d.Academic}</td></tr>`).join('')}</tbody></table>`:''}<p style="margin-top:22px">Counts describe what was recorded, not the seriousness of incidents or the performance of staff. Zero weeks mean no matching rows in the imported report. Prepared ${displayDate(todayISO())}.</p>`;}
 
 // IMPORT — array-based mapping avoids duplicate-heading collisions and unsafe substring guesses.
 const mapFields=[
@@ -307,9 +307,9 @@ const mapFields=[
  ['tutor','Tutor / Reg group',['Reg','Registration','Reg group','RegGroup','Registration group','Tutor','Tutor group','Form','Form group','Tutor / Reg'],'identity'],
  ['house','House',['House','House name','School house','House group','Student house','Pupil house','House(s)'],'identity'],
  ['date','Date',['Date','Date recorded','Recorded date','Created date','Incident date','Date of incident'],'concern'],
- ['type','Concern type',['Concern type','Minor type','Behaviour or academic','Academic / Behaviour','Behaviour / Academic','Incident type','Event type','Record type','Behaviour type','Behavior type','Type'],'concern'],
- ['category','Category',['Category','Concern category','Subcategory','Sub category','Behaviour category','Behavior category','Reason','Behaviour','Behavior','Event','Concern name','Behaviour name','Behavior name','Event name'],'concern'],
- ['concern','Description / detail',['Concern','Description','Comment','Comments','Details','Incident','Notes','Reason','Concern description','Incident description'],'concern'],
+ ['type','Concern type',['Type of concern','Concern type','Minor type','Behaviour or academic','Academic / Behaviour','Behaviour / Academic','Incident type','Event type','Record type','Behaviour type','Behavior type','Type'],'concern'],
+ ['category','Concern code / category',['Concern code','Concern Code','ConcernCode','Code','Category','Concern category','Subcategory','Sub category','Behaviour category','Behavior category'],'concern'],
+ ['concern','Description / detail',['Description','Description / detail','Concern description','Incident description','Details','Detail','Comment','Comments','Notes'],'concern'],
  ['recordedBy','Recorded by',['Recorded by','Teacher','Staff','Staff name','Created by','Issued by','Awarded by','Reported by'],'staff'],
  ['subject','Subject',['Subject','Class subject','Course'],'staff'],
  ['lesson','Lesson / class',['Lesson','Class','Period'],'staff'],
@@ -344,23 +344,14 @@ function labelHintColumns(p){
  return p.headers.map((h,i)=>({i,h,n:normHeader(h)})).filter(c=>safeHeaders.has(c.n)&&!excluded.has(c.i));
 }
 function typeForSource(source,hints=[]){
- // School reporting rule: Academic-labelled concerns are Academic;
- // EVERY other imported concern is Behaviour. Category remains separate.
+ // School report structure: the mapped Concern type column (column F in the
+ // standard export) is the ONLY source used for the broad Academic/Behaviour
+ // classification. Description is free text and must never affect type.
  const explicit=text(mappedValue(source,'type'));
- const category=text(mappedValue(source,'category'));
- const detail=text(mappedValue(source,'concern'));
- const candidates=[
-  {label:explicit,source:'Concern type',options:{allowCode:true}},
-  {label:category,source:'Category',options:{}}
- ];
- for(const c of hints){
-  if([state.map.type,state.map.category,state.map.concern].some(i=>i!==''&&i!==undefined&&Number(i)===c.i))continue;
-  candidates.push({label:text(source[c.i]),source:c.h,options:{titleOnly:['concern','description','reason'].includes(c.n),allowCode:/type$/.test(c.n)}});
- }
- candidates.push({label:detail,source:'Concern / description',options:{titleOnly:true}});
- const academic=candidates.find(c=>recognisedType(c.label,c.options)==='Academic');
- if(academic)return {type:'Academic',source:academic.source,label:academic.label.split(/\r?\n/)[0].slice(0,200)};
- return {type:'Behaviour',source:'School rule: all non-academic concerns',label:(category||explicit||detail||'').split(/\r?\n/)[0].slice(0,200)};
+ const recognised=recognisedType(explicit,{allowCode:true});
+ if(recognised==='Academic')return {type:'Academic',source:'Concern type',label:explicit};
+ // In this report, any non-academic concern type is Behaviour.
+ return {type:'Behaviour',source:'Concern type',label:explicit||'Behaviour'};
 }
 
 function broadTypeOnly(value){
@@ -381,38 +372,12 @@ function cleanCategoryLabel(value){
 }
 
 function categoryForSource(source,hints=[]){
- const mappedCategory=text(mappedValue(source,'category'));
- const mappedType=text(mappedValue(source,'type'));
- const concern=text(mappedValue(source,'concern'));
- const candidates=[];
-
- // Prefer the explicitly mapped Category when it contains a real subcategory.
- if(mappedCategory)candidates.push(mappedCategory);
- // Some school exports put the granular event name in the Type column while
- // another column simply says Behaviour/Academic.
- if(mappedType)candidates.push(mappedType);
-
- // Consider other likely label columns that were not already mapped.
- for(const c of hints){
-  if([state.map.type,state.map.category].some(i=>i!==''&&i!==undefined&&Number(i)===c.i))continue;
-  const v=text(source[c.i]);
-  if(v)candidates.push(v);
- }
-
- // Finally use the concern/reason/name field. This is important for exports
- // where Category only contains "Behaviour" but Concern contains labels such
- // as "Missed After School Detention" or "Lack of Kindness".
- if(concern)candidates.push(concern);
-
- for(const value of candidates){
-  const cleaned=cleanCategoryLabel(value);
-  if(cleaned && !broadTypeOnly(cleaned))return cleaned;
- }
-
- // If the export genuinely has no more specific label, retain what it supplied
- // rather than inventing a category.
- return cleanCategoryLabel(mappedCategory || mappedType || concern);
+ // The detailed concern code/category comes ONLY from the mapped Concern code
+ // column (column G in the standard export). Do not substitute Description:
+ // that field is teacher-written free text, not a classification field.
+ return cleanCategoryLabel(text(mappedValue(source,'category')));
 }
+
 function importDate(value,date1904=false){if(value===null||value===undefined||value==='')return '';if(typeof value==='number'){
   if(!Number.isFinite(value)||value<1||value>2958465)return '';if(window.XLSX?.SSF?.parse_date_code){const d=XLSX.SSF.parse_date_code(value,{date1904});return d?isoDate(d.y,d.m,d.d):'';}
   if(value===60&&!date1904)return '';const base=Date.UTC(date1904?1904:1899,date1904?0:11,date1904?1:30);const d=new Date(base+Math.floor(value)*86400000);return isoDate(d.getUTCFullYear(),d.getUTCMonth()+1,d.getUTCDate());
@@ -478,10 +443,17 @@ function prepareHeader(){const p=state.pending;if(!p)return;p.headerIndex=Number
 function suggestMapping(){const p=state.pending;if(!p)return;const headers=p.headers.map(normHeader);for(const [key,,aliases] of mapFields){state.map[key]='';for(const a of aliases){const i=headers.indexOf(normHeader(a));if(i!==-1){state.map[key]=String(i);break;}}}
  // Do not auto-map a surname into full name. Prefer separate names when both exist.
  if(state.map.firstName!==''&&state.map.surname!==''&&['name','student','pupil'].includes(headers[Number(state.map.student)]))state.map.student='';
- // Category remains a separate field even when it also contains a type label.
- // This preserves the category filter and lets per-row detection use both sources.
+
+ // Standard school export fallback: F (index 5) = Concern type, G (index 6) = Concern code.
+ // Header names still take priority, but these fallbacks stop Description being mistaken
+ // for either classification field when the export uses unfamiliar headings.
+ if(state.map.type===''&&p.headers.length>5)state.map.type='5';
+ if(state.map.category===''&&p.headers.length>6)state.map.category='6';
+
+ // Description is free text. Never allow it to share the Type or Concern code column.
+ if(state.map.concern===state.map.type||state.map.concern===state.map.category)state.map.concern='';
 }
-function renderMapping(){const p=state.pending;const sections=[['identity','Student details','Use a full name, or map both first name and surname. Student ID helps distinguish identical names.'],['concern','Concern details','Academic labels in Type, Category or a Concern title are Academic. Every other concern is Behaviour. The original category is preserved.'],['staff','Staff & lesson','Recorded by supplies the staff-group picker. House and lesson details are optional.']];
+function renderMapping(){const p=state.pending;const sections=[['identity','Student details','Use a full name, or map both first name and surname. Student ID helps distinguish identical names.'],['concern','Concern details','Concern type is read from the report’s Type of concern field (column F). Concern code/category is read separately from column G. Description is teacher-written detail only.'],['staff','Staff & lesson','Recorded by supplies the staff-group picker. House and lesson details are optional.']];
  $('mappingFields').innerHTML=sections.map(([section,title,note])=>`<div class="mapping-section"><h3>${title}</h3><p class="small muted" style="margin-bottom:13px">${note}</p><div class="mapping-grid">${mapFields.filter(f=>f[3]===section).map(([key,label])=>`<div class="field"><label for="map-${key}">${label}</label><select id="map-${key}" data-map="${key}"><option value="">Not included</option>${p.headers.map((h,i)=>`<option value="${i}" ${state.map[key]===String(i)?'selected':''}>${esc(h)} · ${i+1}</option>`).join('')}</select></div>`).join('')}</div></div>`).join('');
  $('rawPreview').innerHTML=`<table class="data-table"><thead><tr>${p.headers.slice(0,20).map(h=>`<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${p.rows.slice(0,5).map(r=>`<tr>${p.headers.slice(0,20).map((h,i)=>`<td>${esc(r[i])}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
 }
@@ -493,13 +465,13 @@ function mappedRows(){const p=state.pending;if(!p)return {rows:[],skipped:0,inva
  rows.push({id:i+1,student,studentId:text(mappedValue(source,'studentId')),firstName:first,surname:last,year:text(mappedValue(source,'year')).replace(/^year\s+/i,''),tutor:text(mappedValue(source,'tutor')),house:text(mappedValue(source,'house')),date,type,originalType,typeSource:classification.source,typeLabel:classification.label,category,concern:text(mappedValue(source,'concern')),recordedBy:text(mappedValue(source,'recordedBy')),subject:text(mappedValue(source,'subject')),lesson:text(mappedValue(source,'lesson')),department:text(mappedValue(source,'department'))});}
  return {rows,skipped,invalidDates};
 }
-function mappingProblem(){const m=state.map;if(!(m.student!==''&&m.student!==undefined)&&!(m.firstName!==''&&m.firstName!==undefined&&m.surname!==''&&m.surname!==undefined))return 'Map a full student name, or both first name and surname.';if(m.firstName!==''&&m.firstName===m.surname)return 'First name and surname must use different columns.';if(!['concern','category','type'].some(k=>m[k]!==''&&m[k]!==undefined))return 'Map a description, category or concern type so the rows represent concern records.';return '';}
+function mappingProblem(){const m=state.map;if(!(m.student!==''&&m.student!==undefined)&&!(m.firstName!==''&&m.firstName!==undefined&&m.surname!==''&&m.surname!==undefined))return 'Map a full student name, or both first name and surname.';if(m.firstName!==''&&m.firstName===m.surname)return 'First name and surname must use different columns.';if(m.type===''||m.type===undefined)return 'Map the Type of concern field (column F).';if(m.category===''||m.category===undefined)return 'Map the Concern code field (column G).';return '';}
 function updateImportReview(){const problem=mappingProblem(),result=mappedRows();const notes=[];
  if(problem)notes.push(problem);else notes.push(`${num(result.rows.length)} records.`);
  if(result.skipped)notes.push(`${num(result.skipped)} rows without a student name omitted.`);
  if(result.invalidDates)notes.push(`${num(result.invalidDates)} unreadable dates; those records remain undated.`);
  $('importReview').textContent=notes.join(' ');$('confirmImport').disabled=!!problem||!result.rows.length;$('confirmImport').textContent='Apply changes';$('importNote').textContent='Optional changes are applied to this report. Your saved staff groups are not changed.';
- $('mappedPreview').innerHTML=`<table class="data-table"><thead><tr><th>Student</th><th>Year</th><th>Tutor</th><th>House</th><th>Date</th><th>Type</th><th>Category</th><th>Recorded by</th></tr></thead><tbody>${result.rows.slice(0,5).map(r=>`<tr><td>${esc(r.student)}</td><td>${esc(r.year)}</td><td>${esc(r.tutor)}</td><td>${esc(r.house)}</td><td>${displayDate(r.date)}</td><td>${esc(r.type)}</td><td>${esc(r.category)}</td><td>${esc(r.recordedBy)}</td></tr>`).join('')}</tbody></table>`;
+ $('mappedPreview').innerHTML=`<table class="data-table"><thead><tr><th>Student</th><th>Year</th><th>Tutor</th><th>House</th><th>Date</th><th>Type</th><th>Concern code</th><th>Recorded by</th></tr></thead><tbody>${result.rows.slice(0,5).map(r=>`<tr><td>${esc(r.student)}</td><td>${esc(r.year)}</td><td>${esc(r.tutor)}</td><td>${esc(r.house)}</td><td>${displayDate(r.date)}</td><td>${esc(r.type)}</td><td>${esc(r.category)}</td><td>${esc(r.recordedBy)}</td></tr>`).join('')}</tbody></table>`;
  const groups=new Map();for(const r of result.rows){const key=JSON.stringify([r.typeLabel,r.typeSource,r.type]);if(!groups.has(key))groups.set(key,{label:r.typeLabel,source:r.typeSource,type:r.type,count:0});groups.get(key).count++;}
  const labels=[...groups.values()].sort((a,b)=>b.count-a.count);
  $('typeDiagnostics').innerHTML=`<table class="data-table"><thead><tr><th>Source label</th><th>Read from</th><th>Used as</th><th>Records</th></tr></thead><tbody>${labels.slice(0,100).map(r=>`<tr><td>${esc(r.label||'No explicit label')}</td><td>${esc(r.source)}</td><td>${esc(r.type)}</td><td>${num(r.count)}</td></tr>`).join('')}</tbody></table>${labels.length>100?'<p class="small muted">Showing the 100 most frequent source labels.</p>':''}`;
