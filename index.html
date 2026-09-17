@@ -110,6 +110,45 @@
       background: var(--gold-soft);
     }
 
+    /* STAFF NOTICE */
+    .staff-notice {
+      background: var(--gold);
+      color: var(--navy-deep);
+      border-bottom: 1px solid rgba(33,49,77,.12);
+    }
+
+    .staff-notice-inner {
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-top: 9px;
+      padding-bottom: 9px;
+    }
+
+    .notice-icon {
+      width: 27px;
+      height: 27px;
+      flex: 0 0 27px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      font-weight: 900;
+      font-size: .9rem;
+    }
+
+    .staff-notice strong {
+      display: inline;
+      margin-right: 7px;
+      font-size: .91rem;
+    }
+
+    .staff-notice span:not(.notice-icon) {
+      font-size: .88rem;
+    }
+
     /* HERO */
     .hero {
       padding: 76px 0 46px;
@@ -392,7 +431,7 @@
     }
 
     .tool-card:hover .arrow {
-      transform: translateX(3px);
+      transform: translate(2px, -2px);
     }
 
     .empty {
@@ -477,6 +516,10 @@
         display: none;
       }
 
+      .staff-notice-inner {
+        align-items: flex-start;
+      }
+
       .hero {
         padding: 48px 0 28px;
       }
@@ -522,6 +565,16 @@
     <a class="header-link" href="#tools">Browse tools ↓</a>
   </div>
 </header>
+
+<div class="staff-notice">
+  <div class="shell staff-notice-inner">
+    <span class="notice-icon" aria-hidden="true">!</span>
+    <div>
+      <strong>For Sidcot staff use</strong>
+      <span>Please do not share this website address with anyone outside the organisation.</span>
+    </div>
+  </div>
+</div>
 
 <section class="hero">
   <div class="shell hero-grid">
@@ -591,7 +644,6 @@
   </div>
 </footer>
 
-
 <script>
 
   /*
@@ -605,10 +657,13 @@
     Multiple categories:
     categories: ["Academic", "Pastoral"]
 
-    Older cards using:
-    category: "Academic"
+    Internal link:
+    url: "tools/loan-desk/"
 
-    will also continue to work.
+    External link:
+    url: "https://example.com/"
+
+    All tools open in a new tab/window.
     ===============================================================
   */
 
@@ -623,27 +678,27 @@
     },
 
     {
-      name: "Behaviour & Academic Concern Tracking & Monitoring",
-      description: "Track and monitor students' behaviour points and academic concerns and log your conversations with them.",
-      categories: ["Academic", "Pastoral"],
-      url: "tools/behaviour-and-academic-tracker/",
+      name: "Random Picker",
+      description: "Quickly select students, groups or items at random for lessons and activities.",
+      categories: ["Academic"],
+      url: "#",
       icon: "people"
     },
 
     {
-      name: "Day Duty Rota",
-      description: "See the whole day duty rota for the week.",
-      categories: ["Academic"],
-      url: "https://day-duty-planner.lovable.app/m/r46bpwnp2b",
+      name: "Timetable Tools",
+      description: "Useful timetable utilities for viewing, organising and preparing staff schedules.",
+      categories: ["Academic", "Administration"],
+      url: "#",
       icon: "admin"
     },
 
     {
-      name: "Attendance Tracker",
-      description: "Choose your year or tutor group, see exactly when attendance changed, and prepare for conversations.",
-      categories: ["Pastoral"],
-      url: "tools/attendance-tracker/",
-      icon: "people"
+      name: "Resource Generator",
+      description: "Create simple classroom resources and activities more quickly.",
+      categories: ["Academic"],
+      url: "#",
+      icon: "teaching"
     },
 
     {
@@ -672,13 +727,12 @@
 
   ];
 
-
   /*
-    Allows both:
-    categories: ["Academic", "Pastoral"]
-
-    and older:
+    This keeps old cards using:
     category: "Academic"
+
+    working as well as newer cards using:
+    categories: ["Academic", "Pastoral"]
   */
 
   function getCategories(tool) {
@@ -686,7 +740,6 @@
     if (tool.category) return [tool.category];
     return [];
   }
-
 
   const icons = {
 
@@ -727,7 +780,6 @@
 
   };
 
-
   const toolGrid = document.getElementById("toolGrid");
   const search = document.getElementById("toolSearch");
   const filters = document.getElementById("filters");
@@ -735,19 +787,12 @@
 
   let activeCategory = "All";
 
-
-  /*
-    Build the filter buttons from every category used by every tool.
-  */
-
   const categories = [
     "All",
     ...new Set(tools.flatMap(tool => getCategories(tool)))
   ];
 
-
   categories.forEach(category => {
-
     const button = document.createElement("button");
 
     button.className = "filter-btn" + (category === "All" ? " active" : "");
@@ -755,7 +800,6 @@
     button.textContent = category;
 
     button.addEventListener("click", () => {
-
       activeCategory = category;
 
       document.querySelectorAll(".filter-btn").forEach(btn => {
@@ -763,26 +807,16 @@
       });
 
       button.classList.add("active");
-
       renderTools();
-
     });
 
     filters.appendChild(button);
-
   });
 
-
-  /*
-    Display the cards.
-  */
-
   function renderTools() {
-
     const term = search.value.trim().toLowerCase();
 
     const filtered = tools.filter(tool => {
-
       const toolCategories = getCategories(tool);
 
       const categoryMatch =
@@ -795,30 +829,27 @@
         toolCategories.join(" ").toLowerCase().includes(term);
 
       return categoryMatch && searchMatch;
-
     });
-
 
     toolGrid.innerHTML = "";
 
-
     if (!filtered.length) {
-
       toolGrid.innerHTML = `
         <div class="empty">
           No tools match that search yet.
         </div>
       `;
-
     } else {
-
       filtered.forEach(tool => {
-
         const toolCategories = getCategories(tool);
         const card = document.createElement("a");
 
         card.className = "tool-card";
         card.href = tool.url;
+
+        /* Opens ALL tools in a new tab/window */
+        card.target = "_blank";
+        card.rel = "noopener noreferrer";
 
         card.innerHTML = `
           <div class="tool-icon">${icons[tool.icon] || icons.utility}</div>
@@ -828,22 +859,17 @@
 
           <div class="open-row">
             <span>Open tool</span>
-            <span class="arrow" aria-hidden="true">→</span>
+            <span class="arrow" aria-hidden="true">↗</span>
           </div>
         `;
 
         toolGrid.appendChild(card);
-
       });
-
     }
-
 
     resultCount.textContent =
       `${filtered.length} ${filtered.length === 1 ? "tool" : "tools"}`;
-
   }
-
 
   search.addEventListener("input", renderTools);
 
