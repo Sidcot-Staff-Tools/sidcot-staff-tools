@@ -246,7 +246,7 @@ function renderTrend(){const data=weeklySeries();if(!data.length)return empty('N
  const series=[['total','#315edf',2.8,''],['Behaviour','#117d80',2,'5 4'],['Academic','#7653bb',2,'2 4']].map(([key,color,stroke,dash])=>`<polyline points="${data.map((d,i)=>`${x(i)},${y(d[key])}`).join(' ')}" fill="none" stroke="${color}" stroke-width="${stroke}" ${dash?`stroke-dasharray="${dash}"`:''}/>${data.length<=60?data.map((d,i)=>`<circle cx="${x(i)}" cy="${y(d[key])}" r="${key==='total'?3.5:2}" fill="${color}"><title>${esc(displayDate(d.key))} · ${key}: ${d[key]}</title></circle>`).join(''):''}`).join('');
  return `<div class="subhead"><div><h2>Concerns over time</h2><p>Weekly totals, in calendar order. Each date is a Monday.</p></div><div class="legend"><span><i></i>All types</span><span><i class="behaviour"></i>Behaviour</span><span><i class="academic"></i>Academic</span></div></div><div class="chart-wrap"><svg class="line-chart" viewBox="0 0 ${w} ${h}" role="img" aria-labelledby="trendTitle trendDesc"><title id="trendTitle">Weekly recorded concerns</title><desc id="trendDesc">${data.length} weeks, from ${esc(displayDate(data[0].key))} to ${esc(displayDate(data[data.length-1].key))}. Exact values follow in the data table.</desc>${grid}${series}${labels}</svg></div><p class="chart-note">A zero means no matching rows in this report, not confirmed absence of incidents. Partial weeks, school holidays and incomplete exports can affect the pattern.${data.length===1?' Only one week is present, so a point is shown rather than a trend.':''}</p><details class="chart-data"><summary>View weekly figures</summary><div class="table-wrap"><table class="data-table"><thead><tr><th>Week starting</th><th>All types</th><th>Behaviour</th><th>Academic</th></tr></thead><tbody>${data.map(d=>`<tr><td>${displayDate(d.key)}</td><td>${d.total}</td><td>${d.Behaviour}</td><td>${d.Academic}</td></tr>`).join('')}</tbody></table></div></details>`;
 }
-function renderBreakdown(){const cats=countBy(state.filtered,'category');return `<div class="subhead"><div><h2>What is being recorded?</h2><p>Concern type and category are separate, so you can filter either or both.</p></div></div><div class="analysis-split"><div><h3>Concern type</h3>${bars(countBy(state.filtered,'type'))}</div><div><h3>Categories</h3>${bars(cats)}</div></div><p class="chart-note">Academic-labelled concerns are Academic; all other concerns are Behaviour. Original categories are unchanged. “Not recorded” means the corresponding field is blank.</p>`;}
+function renderBreakdown(){const cats=countBy(state.filtered,'category');return `<div class="subhead"><div><h2>What is being recorded?</h2><p>Concern type and category are separate, so you can filter either or both.</p></div></div><div class="analysis-split"><div><h3>Concern type</h3>${bars(countBy(state.filtered,'type'))}</div><div><h3>Categories</h3>${bars(cats)}</div></div><p class="chart-note">Academic-labelled concerns are Academic; all other concerns are Behaviour. The original specific concern category is kept separately for detailed filtering. “Not recorded” means the corresponding field is blank.</p>`;}
 function renderWeekdays(){const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];const counts=Array(7).fill(0);let valid=0;for(const row of state.filtered){const d=dateObject(row.date);if(d){counts[(d.getUTCDay()+6)%7]++;valid++;}}if(!valid)return empty('No valid dates','Map a date column to see which days have recorded concerns.');const max=Math.max(...counts),peaks=days.filter((d,i)=>counts[i]===max);
  return `<div class="subhead"><div><h2>When are records logged?</h2><p>${peaks.length===1?`${peaks[0]} has the most recorded concerns in this view.`:'More than one day shares the highest count.'}</p></div></div><div class="weekdays">${days.map((d,i)=>`<div class="day-card ${counts[i]===max?'peak':''}"><b>${d}</b><strong>${num(counts[i])}</strong><div class="bar-track"><div class="bar-fill" style="width:${counts[i]/max*100}%"></div></div><span>${Math.round(counts[i]/valid*100)}% of dated records</span></div>`).join('')}</div><div class="callout">These are totals, not rates per school day. Weekend records are included rather than hidden. The pattern may reflect when staff enter concerns, not when incidents happened.</div>`;
 }
@@ -257,11 +257,11 @@ function renderStudents(){const q=normal($('studentSearch').value),all=studentGr
 function selectStudent(key){const changed=state.selectedStudent!==key;state.selectedStudent=key;$('studentSearch').value='';if(state.page!=='students'){navigate('students');}else{document.querySelectorAll('.student-button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.studentKey===key)));renderTimeline(changed);}if(changed)$('timelineList').scrollTop=0;}
 function renderTimeline(reset=false){const s=studentGroups(state.filtered).find(x=>x.key===state.selectedStudent);if(!s){$('timelineHead').innerHTML='<h2>Student timeline</h2><p>No student selected.</p>';$('timelineList').innerHTML=empty('No matching timeline','Choose a student from the list.');return;}
  $('timelineHead').innerHTML=`<div class="row between"><h2>${esc(s.name)}</h2><span class="tag">${num(s.rows.length)} matching records</span></div><p>${esc([s.year?`Year ${s.year}`:'',s.tutor,s.house?`${s.house} house`:''].filter(Boolean).join(' · '))}</p>`;
- $('timelineList').innerHTML=[...s.rows].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).map(r=>`<article class="timeline-entry ${typeClass(r.type)}"><div class="row between"><h3>${displayDate(r.date)}</h3><span class="badge ${typeClass(r.type)}">${esc(r.type)}</span></div>${r.category?`<p><strong>${esc(r.category)}</strong></p>`:''}<p>${esc(r.concern||'No additional detail recorded.')}</p><div class="meta">${esc([r.recordedBy||'Staff not recorded',r.subject,r.lesson].filter(Boolean).join(' · '))}</div></article>`).join('');if(reset)$('timelineList').scrollTop=0;
+ $('timelineList').innerHTML=[...s.rows].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id).map(r=>`<article class="timeline-entry ${typeClass(r.type)}"><div class="row between"><h3>${displayDate(r.date)}</h3><span class="badge ${typeClass(r.type)}">${esc(r.type)}</span></div>${r.category?`<p><strong>${esc(r.category)}</strong></p>`:''}${r.concern&&normal(r.concern)!==normal(r.category)?`<p>${esc(r.concern)}</p>`:!r.category?'<p>No additional detail recorded.</p>':''}<div class="meta">${esc([r.recordedBy||'Staff not recorded',r.subject,r.lesson].filter(Boolean).join(' · '))}</div></article>`).join('');if(reset)$('timelineList').scrollTop=0;
 }
 function renderRecords(){const rows=[...state.filtered].sort((a,b)=>b.date.localeCompare(a.date)||b.id-a.id),pages=Math.max(1,Math.ceil(rows.length/PAGE_SIZE));state.recordPage=Math.min(state.recordPage,pages-1);const from=state.recordPage*PAGE_SIZE;
  $('recordTableNote').textContent=`${num(rows.length)} matching records · newest first · all pages included in export`;
- $('recordBody').innerHTML=rows.length?rows.slice(from,from+PAGE_SIZE).map(r=>`<tr><td>${displayDate(r.date)}</td><td class="name"><button class="table-link" data-student-key="${esc(studentKey(r))}">${esc(r.student)}</button></td><td>${esc([schoolYear(r)?`Year ${schoolYear(r)}`:r.year,r.tutor].filter(Boolean).join(' · '))}</td><td>${esc(r.house||'—')}</td><td><span class="badge ${typeClass(r.type)}">${esc(r.type)}</span></td><td class="description">${r.category?`<strong>${esc(r.category)}</strong><br>`:''}${esc(r.concern||'—')}</td><td>${esc(r.recordedBy||'—')}</td><td>${esc(r.subject||'—')}</td></tr>`).join(''):'<tr><td colspan="8">'+empty('No matching records','Change or reset the filters to see the report.',true)+'</td></tr>';
+ $('recordBody').innerHTML=rows.length?rows.slice(from,from+PAGE_SIZE).map(r=>`<tr><td>${displayDate(r.date)}</td><td class="name"><button class="table-link" data-student-key="${esc(studentKey(r))}">${esc(r.student)}</button></td><td>${esc([schoolYear(r)?`Year ${schoolYear(r)}`:r.year,r.tutor].filter(Boolean).join(' · '))}</td><td>${esc(r.house||'—')}</td><td><span class="badge ${typeClass(r.type)}">${esc(r.type)}</span></td><td class="description">${r.category?`<strong>${esc(r.category)}</strong>`:''}${r.concern&&normal(r.concern)!==normal(r.category)?`${r.category?'<br>':''}${esc(r.concern)}`:!r.category?'—':''}</td><td>${esc(r.recordedBy||'—')}</td><td>${esc(r.subject||'—')}</td></tr>`).join(''):'<tr><td colspan="8">'+empty('No matching records','Change or reset the filters to see the report.',true)+'</td></tr>';
  $('pageCount').textContent=rows.length?`${num(from+1)}–${num(Math.min(from+PAGE_SIZE,rows.length))} of ${num(rows.length)}`:'0 records';$('prevRecords').disabled=state.recordPage===0;$('nextRecords').disabled=state.recordPage>=pages-1;
 }
 
@@ -345,9 +345,7 @@ function labelHintColumns(p){
 }
 function typeForSource(source,hints=[]){
  // School reporting rule: Academic-labelled concerns are Academic;
- // EVERY other imported concern is Behaviour. Keep the original category.
- // Academic takes priority even if a report uses a generic Behaviour type
- // for all rows and distinguishes Academic in its category/concern label.
+ // EVERY other imported concern is Behaviour. Category remains separate.
  const explicit=text(mappedValue(source,'type'));
  const category=text(mappedValue(source,'category'));
  const detail=text(mappedValue(source,'concern'));
@@ -359,14 +357,61 @@ function typeForSource(source,hints=[]){
   if([state.map.type,state.map.category,state.map.concern].some(i=>i!==''&&i!==undefined&&Number(i)===c.i))continue;
   candidates.push({label:text(source[c.i]),source:c.h,options:{titleOnly:['concern','description','reason'].includes(c.n),allowCode:/type$/.test(c.n)}});
  }
- // A title such as "Academic Minor: ..." can identify an academic record.
- // A passing mention of academic work in a narrative comment does not.
  candidates.push({label:detail,source:'Concern / description',options:{titleOnly:true}});
  const academic=candidates.find(c=>recognisedType(c.label,c.options)==='Academic');
  if(academic)return {type:'Academic',source:academic.source,label:academic.label.split(/\r?\n/)[0].slice(0,200)};
- const behaviour=candidates.find(c=>recognisedType(c.label,c.options)==='Behaviour');
- if(behaviour)return {type:'Behaviour',source:behaviour.source,label:behaviour.label.split(/\r?\n/)[0].slice(0,200)};
- return {type:'Behaviour',source:'School rule: all other concerns',label:(category||explicit||detail||'').split(/\r?\n/)[0].slice(0,200)};
+ return {type:'Behaviour',source:'School rule: all non-academic concerns',label:(category||explicit||detail||'').split(/\r?\n/)[0].slice(0,200)};
+}
+
+function broadTypeOnly(value){
+ const raw=text(value).normalize('NFKC').trim();
+ if(!raw)return false;
+ const compact=normal(raw).replace(/[^a-z]/g,'');
+ return /^(?:minor|major|negative|concern)?academic(?:minor|major|concern|concerns|incident|issue|warning|record)?$/.test(compact)
+   || /^(?:minor|major|negative|concern)?behaviou?r(?:al)?(?:minor|major|concern|concerns|incident|issue|warning|record)?$/.test(compact)
+   || /^(?:am|bm)$/.test(compact);
+}
+
+function cleanCategoryLabel(value){
+ let s=text(value).trim();
+ if(!s)return '';
+ // Remove a broad prefix only when a specific label follows it.
+ s=s.replace(/^\s*(?:academic|behaviou?r(?:al)?)(?:\s+(?:minor|major|concern|incident|record))?\s*[:|–—-]\s*/i,'').trim();
+ return s;
+}
+
+function categoryForSource(source,hints=[]){
+ const mappedCategory=text(mappedValue(source,'category'));
+ const mappedType=text(mappedValue(source,'type'));
+ const concern=text(mappedValue(source,'concern'));
+ const candidates=[];
+
+ // Prefer the explicitly mapped Category when it contains a real subcategory.
+ if(mappedCategory)candidates.push(mappedCategory);
+ // Some school exports put the granular event name in the Type column while
+ // another column simply says Behaviour/Academic.
+ if(mappedType)candidates.push(mappedType);
+
+ // Consider other likely label columns that were not already mapped.
+ for(const c of hints){
+  if([state.map.type,state.map.category].some(i=>i!==''&&i!==undefined&&Number(i)===c.i))continue;
+  const v=text(source[c.i]);
+  if(v)candidates.push(v);
+ }
+
+ // Finally use the concern/reason/name field. This is important for exports
+ // where Category only contains "Behaviour" but Concern contains labels such
+ // as "Missed After School Detention" or "Lack of Kindness".
+ if(concern)candidates.push(concern);
+
+ for(const value of candidates){
+  const cleaned=cleanCategoryLabel(value);
+  if(cleaned && !broadTypeOnly(cleaned))return cleaned;
+ }
+
+ // If the export genuinely has no more specific label, retain what it supplied
+ // rather than inventing a category.
+ return cleanCategoryLabel(mappedCategory || mappedType || concern);
 }
 function importDate(value,date1904=false){if(value===null||value===undefined||value==='')return '';if(typeof value==='number'){
   if(!Number.isFinite(value)||value<1||value>2958465)return '';if(window.XLSX?.SSF?.parse_date_code){const d=XLSX.SSF.parse_date_code(value,{date1904});return d?isoDate(d.y,d.m,d.d):'';}
@@ -444,7 +489,7 @@ function mappedValue(row,key){const index=state.map[key];return index!==''&&inde
 function mappedRows(){const p=state.pending;if(!p)return {rows:[],skipped:0,invalidDates:0};let skipped=0,invalidDates=0;const rows=[],hints=labelHintColumns(p);
  for(let i=0;i<p.rows.length;i++){const source=p.rows[i],first=text(mappedValue(source,'firstName')),last=text(mappedValue(source,'surname')),full=text(mappedValue(source,'student'));const student=(first&&last?`${first} ${last}`:full||[first,last].filter(Boolean).join(' ')).replace(/\s+/g,' ');if(!student){skipped++;continue;}
  const rawDate=mappedValue(source,'date'),date=importDate(rawDate,p.date1904);if(text(rawDate)&&!date)invalidDates++;
- const originalType=text(mappedValue(source,'type')),category=text(mappedValue(source,'category')),classification=typeForSource(source,hints),type=classification.type;
+ const originalType=text(mappedValue(source,'type')),classification=typeForSource(source,hints),type=classification.type,category=categoryForSource(source,hints);
  rows.push({id:i+1,student,studentId:text(mappedValue(source,'studentId')),firstName:first,surname:last,year:text(mappedValue(source,'year')).replace(/^year\s+/i,''),tutor:text(mappedValue(source,'tutor')),house:text(mappedValue(source,'house')),date,type,originalType,typeSource:classification.source,typeLabel:classification.label,category,concern:text(mappedValue(source,'concern')),recordedBy:text(mappedValue(source,'recordedBy')),subject:text(mappedValue(source,'subject')),lesson:text(mappedValue(source,'lesson')),department:text(mappedValue(source,'department'))});}
  return {rows,skipped,invalidDates};
 }
