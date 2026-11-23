@@ -47,10 +47,11 @@
   .mark i:nth-child(1) { height: 10px; opacity: .6; }
   .mark i:nth-child(2) { height: 17px; opacity: .8; }
   .mark i:nth-child(3) { height: 26px; }
-  .brand-name { font-family: var(--serif); font-size: 20px; font-weight: 600; line-height: 1.1; }
+  .brand { flex-shrink: 0; }
+  .brand-name { white-space: nowrap; font-family: var(--serif); font-size: 20px; font-weight: 600; line-height: 1.1; }
   .brand-sub { font-size: 12px; color: #a8bbcc; }
   .file-state { display: flex; align-items: center; gap: 14px; font-size: 12.5px; color: #c9d6e2; min-width: 0; }
-  .file-name { max-width: 240px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; font-weight: 600; }
+  .file-name { max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #fff; font-weight: 600; }
   .save-state { display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
   .save-state::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #7f93a6; }
   .save-state[data-state="saved"]::before { background: #6fcf97; }
@@ -269,6 +270,24 @@
   .rep .type.t-6am { background: #e3f0f0; color: #0c6870; } .rep .type.t-lu { background: #fbf3e1; color: #8f6210; }
 
 
+
+  /* Target examples picker */
+  .slot-tools { display: flex; justify-content: flex-end; margin-top: 2px; }
+  .modal.picker { width: min(760px, 100%); display: flex; flex-direction: column; max-height: 88vh; overflow: hidden; }
+  .picker-head { padding: 18px 22px 12px; border-bottom: 1px solid var(--line-2); display: grid; gap: 10px; }
+  .picker-head-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .picker-head h2 { margin: 0; }
+  .picker-cats { display: flex; gap: 6px; flex-wrap: wrap; }
+  .picker-list { overflow-y: auto; padding: 4px 22px 18px; }
+  .picker-cat-h { font-size: 12.5px; font-weight: 700; color: var(--ink-3); margin: 16px 0 6px; }
+  .preset { display: flex; align-items: flex-start; gap: 8px; }
+  .preset-pick { flex: 1; text-align: left; background: none; border: 1px solid var(--line-2); border-radius: 6px; padding: 9px 12px; margin: 0 0 6px; color: var(--ink); line-height: 1.5; font-size: 13.5px; }
+  .preset-pick:hover, .preset-pick:focus-visible { border-color: var(--teal); background: var(--teal-soft); }
+  .preset-pick mark { background: var(--gold-soft); color: var(--part); border-radius: 3px; padding: 0 2px; font-weight: 600; }
+  .picker-own { border-top: 1px solid var(--line-2); padding: 14px 22px 18px; display: grid; gap: 8px; }
+  .picker-own-row { display: flex; gap: 8px; align-items: flex-start; }
+  .picker-own-row textarea { min-height: 44px; }
+
   /* Help */
   .help-wrap { position: fixed; inset: 0; z-index: 75; background: rgba(8, 20, 32, .6); display: flex; justify-content: center; align-items: stretch; padding: clamp(0px, 3vw, 32px); }
   .help-box { background: var(--surface); width: min(1000px, 100%); border-radius: 10px; display: grid; grid-template-columns: 230px minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,.35); }
@@ -298,10 +317,11 @@
 
   .toast { position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%); z-index: 90; background: var(--navy); color: #fff; padding: 11px 16px; border-radius: 6px; font-size: 13.5px; font-weight: 550; box-shadow: 0 10px 30px rgba(0,0,0,.25); max-width: min(560px, 92vw); }
 
+  @media (max-width: 1360px) { .file-state .autosave { display: none; } .bar-actions .btn { padding: 8px 12px; } }
+  @media (max-width: 1180px) { .file-state .file-name { display: none; } }
   @media (max-width: 1080px) {
     .work { grid-template-columns: 1fr; }
     .share { position: static; }
-    .file-state .autosave { display: none; }
   }
   @media (max-width: 860px) {
     .home { grid-template-columns: 1fr; }
@@ -438,10 +458,11 @@
 
       <div class="group">
         <h2 id="targetsTitle">Targets</h2>
+        <p class="sub"><button type="button" class="link-btn" data-examples="0" style="padding-left:0">Browse example targets</button> <span class="help" style="display:inline">if the student is stuck. Words in [brackets] are for you to fill in.</span></p>
         <p class="sub" id="targetsSub">Specific actions the student can complete and show evidence of by the next meeting.</p>
-        <div class="target"><span class="target-n">1</span><div><textarea id="t1" data-slot placeholder="For example, complete and self-mark two 30-minute organic chemistry question sets before Friday"></textarea></div></div>
-        <div class="target"><span class="target-n">2</span><div><textarea id="t2" data-slot></textarea></div></div>
-        <div class="target"><span class="target-n">3</span><div><textarea id="t3" data-slot></textarea></div></div>
+        <div class="target"><span class="target-n">1</span><div><textarea id="t1" data-slot placeholder="For example, complete and self-mark two 30-minute organic chemistry question sets before Friday"></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="1">Choose an example</button></div></div></div>
+        <div class="target"><span class="target-n">2</span><div><textarea id="t2" data-slot></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="2">Choose an example</button></div></div></div>
+        <div class="target"><span class="target-n">3</span><div><textarea id="t3" data-slot></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="3">Choose an example</button></div></div></div>
       </div>
 
       <div class="group">
@@ -552,6 +573,24 @@
 </div>
 
 
+
+<!-- Example targets -->
+<div class="modal-wrap" id="picker" role="dialog" aria-modal="true" aria-labelledby="pickerTitle" hidden>
+  <div class="modal picker">
+    <div class="picker-head">
+      <div class="picker-head-top"><h2 id="pickerTitle">Example targets</h2><button type="button" class="btn btn-line" id="pickerClose">Close</button></div>
+      <p class="help" id="pickerFor"></p>
+      <input type="text" id="pickerSearch" placeholder="Search, for example “revision”, “UCAS”, “late”" aria-label="Search example targets">
+      <div class="picker-cats" id="pickerCats" role="group" aria-label="Areas"></div>
+    </div>
+    <div class="picker-list" id="pickerList"></div>
+    <div class="picker-own">
+      <span class="legend">Add your own example</span>
+      <div class="picker-own-row"><textarea id="ownPreset" placeholder="Saved on this computer. Use [brackets] for parts to fill in."></textarea><button type="button" class="btn btn-line" id="ownAdd">Add</button></div>
+    </div>
+  </div>
+</div>
+
 <!-- Help -->
 <div class="help-wrap" id="helpPanel" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden>
   <div class="help-box">
@@ -561,6 +600,7 @@
       <a href="#h-start" data-hnav="start">Before you start</a>
       <a href="#h-new" data-hnav="new">New student record</a>
       <a href="#h-meeting" data-hnav="meeting">Running a meeting</a>
+      <a href="#h-examples" data-hnav="examples">Example targets</a>
       <a href="#h-save" data-hnav="save">Saving</a>
       <a href="#h-share" data-hnav="share">Teams and email home</a>
       <a href="#h-next" data-hnav="next">The next meeting</a>
@@ -603,6 +643,16 @@
           <li><strong>Optional:</strong> open <strong>Staff-only notes and next meeting date</strong> for notes that never leave the record.</li>
         </ol>
         <p class="help-tip"><strong>A good target</strong> names the action, the evidence and when it’s due. Instead of “revise Chemistry more”, write “complete and self-mark two 30-minute organic chemistry question sets before Friday, and bring corrections to the next meeting”.</p>
+      </section>
+      <section id="h-examples"><h3>Example targets</h3>
+        <p>If a student is stuck, click <strong>Choose an example</strong> under a target box, or <strong>Browse example targets</strong> above them.</p>
+        <ol>
+          <li>Pick an area, such as revision, deadlines or careers, or type a word in the search box.</li>
+          <li>Click a target. It goes into the box, with the first word in [brackets] selected.</li>
+          <li>Type over each [bracketed] part with the student’s details, such as the subject, topic or day, then adjust the wording together.</li>
+        </ol>
+        <p>The share panel warns you if a target still has [brackets] in it. To keep a target you use often, type it into <strong>Add your own example</strong> at the bottom of the list; it’s saved on that computer.</p>
+        <p class="help-tip">Give students the <strong>Setting your targets</strong> guide before their meetings. It explains how to write a target and has the same examples, so they can arrive with ideas ready.</p>
       </section>
       <section id="h-save"><h3>Saving the record</h3>
         <ul>
@@ -1018,15 +1068,16 @@
     const rec = teamsRecipients();
     $('teamsTo').innerHTML = rec.length ? `To: <b>${esc(rec.join(', '))}</b>` : 'No Teams recipients yet. <button type="button" class="link-btn" data-action="settings">Add them in sharing settings</button>';
     $('teamsMsg').textContent = teamsText(d, $('teamsNotes').checked);
-    $('teamsWarn').hidden = hasTargets;
-    $('teamsWarn').textContent = 'Add at least one target to share.';
+    const unfilled = d.m.targets.some((t) => /\[[^\]]+\]/.test(t.text));
+    $('teamsWarn').hidden = hasTargets && !unfilled;
+    $('teamsWarn').textContent = hasTargets ? 'A target still has words in [brackets] to fill in.' : 'Add at least one target to share.';
     $('copyTeams').disabled = !hasTargets;
     $('openTeams').disabled = !hasTargets || !rec.length;
 
     $('emailTo').innerHTML = d.parentEmail ? `To: <b>${esc(d.parentEmail)}</b><br>Subject: ${esc(emailSubject(d))}` : `Subject: ${esc(emailSubject(d))}<br>No parent/carer email saved. <button type="button" class="link-btn" data-action="student">Add it in student details</button>`;
     $('emailMsg').textContent = hasTargets ? emailText(d, $('emailNotes').checked) : '';
-    $('emailWarn').hidden = hasTargets;
-    $('emailWarn').textContent = 'Add at least one target to write the email.';
+    $('emailWarn').hidden = hasTargets && !unfilled;
+    $('emailWarn').textContent = hasTargets ? 'A target still has words in [brackets] to fill in.' : 'Add at least one target to write the email.';
     $('copyEmail').disabled = !hasTargets;
     $('openEmail').disabled = !hasTargets;
   }
@@ -1357,12 +1408,136 @@
   $('overlay').addEventListener('click', (e) => { if (e.target === $('overlay')) $('overlay').hidden = true; });
   $('settings').addEventListener('click', (e) => { if (e.target === $('settings')) $('settings').hidden = true; });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { $('overlay').hidden = true; $('settings').hidden = true; $('helpPanel').hidden = true; }
+    if (e.key === 'Escape') { $('overlay').hidden = true; $('settings').hidden = true; $('helpPanel').hidden = true; $('picker').hidden = true; }
     if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); if (!$('workspace').hidden) save(); }
   });
   window.addEventListener('beforeprint', () => { if ($('overlay').hidden && record) { previewId = null; commit(); syncPreview(); } });
   window.addEventListener('beforeunload', (e) => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
+
+
+  // ---------- Example targets ----------
+  const PRESETS = {
+    'Independent study and revision': [
+      'Complete two 30-minute past-paper questions in [subject] on [topic], self-mark them in a different colour, and bring them to my next meeting.',
+      'Make flashcards for [topic] in [subject] and test myself three times this week, noting my score each time.',
+      'Use my free periods on [days] to study in the study area, and keep a log of what I did in each session.',
+      'Make a revision timetable for the next two weeks covering all my subjects, and show it to my tutor by [day].',
+      'Turn my notes on [topic] into a one-page summary or mind map by [day].'
+    ],
+    'Homework, coursework and deadlines': [
+      'Hand in my [subject] homework on [task] by [day], and show my tutor that it’s been submitted.',
+      'Catch up on the missing [subject] work on [task] and hand it in by [day].',
+      'Complete a full draft of [section] of my [subject] coursework and send it to my teacher by [date].',
+      'Write every homework task and deadline in my planner at the end of each lesson this week, and show it at my next meeting.'
+    ],
+    'Using feedback and exam technique': [
+      'Redo [question or paragraph] in [subject] using my teacher’s feedback, and bring both versions by [day].',
+      'Read the mark scheme for [paper] and write down three things examiners look for, to bring to my next meeting.',
+      'Do one timed [number]-mark [subject] question under exam conditions and mark it against the mark scheme.',
+      'List the three topics I lost most marks on in my [subject] mock, and plan one revision session for each.'
+    ],
+    'Organisation and time management': [
+      'Plan my week every Sunday, including lessons, work shifts and study time, and show the plan on [day].',
+      'Pack my bag and check my timetable the night before each school day this week.',
+      'Sort my [subject] folder into topics with dividers and show my tutor by [day].',
+      'Turn off phone notifications during every independent study session this week, and note how much I got done.'
+    ],
+    'Attendance and engagement': [
+      'Be in registration on time every day this week.',
+      'Attend every [subject] lesson this week, and catch up on anything I miss by [day].',
+      'Ask or answer at least one question in every [subject] lesson this week.',
+      'Keep my [subject] notes complete and up to date after every lesson this week.'
+    ],
+    'Getting help': [
+      'Go to the [subject] support session on [day] and bring a question I’m stuck on.',
+      'Email my [subject] teacher by [day] to ask about [topic or feedback] I don’t understand.',
+      'Book an appointment with [the careers adviser / study support / my head of year] by [day].',
+      'Ask a classmate who understands [topic] to go through one question with me this week.'
+    ],
+    'Wellbeing and balance': [
+      'Take a 10-minute break away from screens after every 45 minutes of study this week.',
+      'Go to bed by [time] on school nights this week.',
+      'Keep my part-time work to [number] hours this week so I have time for my [subject] deadline.',
+      'Plan one evening off this week for something I enjoy, and still meet my deadlines.'
+    ],
+    'University, apprenticeships and careers': [
+      'Research three [courses or apprenticeships] in [area] and note the entry requirements for each by [day].',
+      'Write a 150-word draft of the opening of my personal statement and email it to my tutor by [day].',
+      'Attend [open day or careers event] on [date] and write down three things I learned.',
+      'Shortlist [number] options on the school’s careers platform and bring the list to my next meeting.'
+    ]
+  };
+  const OWN_KEY = 'sixth-form-meetings-own-targets';
+  const OWN_CAT = 'Your examples';
+  let pickerSlot = 0, pickerCat = 'All';
+  function ownPresets() { try { return JSON.parse(localStorage.getItem(OWN_KEY) || '[]'); } catch { return []; } }
+  function setOwnPresets(list) { try { localStorage.setItem(OWN_KEY, JSON.stringify(list)); } catch { showToast('Your examples can’t be saved in this browser.'); } }
+  const highlight = (t) => esc(t).replace(/\[([^\]]+)\]/g, '<mark>[$1]</mark>');
+  function allPresets() {
+    const own = ownPresets();
+    return own.length ? { [OWN_CAT]: own, ...PRESETS } : PRESETS;
+  }
+  function renderPicker() {
+    const groups = allPresets();
+    const cats = ['All', ...Object.keys(groups)];
+    if (!cats.includes(pickerCat)) pickerCat = 'All';
+    $('pickerCats').innerHTML = cats.map((c) => `<button type="button" class="chip" data-pcat="${esc(c)}" aria-pressed="${c === pickerCat}">${esc(c)}</button>`).join('');
+    const q = $('pickerSearch').value.trim().toLowerCase();
+    let html = '';
+    for (const [cat, items] of Object.entries(groups)) {
+      if (pickerCat !== 'All' && cat !== pickerCat) continue;
+      const hits = items.map((t, i) => [t, i]).filter(([t]) => !q || t.toLowerCase().includes(q) || cat.toLowerCase().includes(q));
+      if (!hits.length) continue;
+      html += `<div class="picker-cat-h">${esc(cat)}</div>` + hits.map(([t, i]) => `<div class="preset"><button type="button" class="preset-pick" data-preset="${esc(t)}">${highlight(t)}</button>${cat === OWN_CAT ? `<button type="button" class="link-btn danger" data-own-remove="${i}" aria-label="Remove this example">Remove</button>` : ''}</div>`).join('');
+    }
+    $('pickerList').innerHTML = html || '<p class="empty-list" style="padding-top:16px">No examples match. Try another word.</p>';
+  }
+  function openPicker(slot) {
+    const empty = slots().findIndex((el) => !el.value.trim());
+    pickerSlot = slot || (empty >= 0 ? empty + 1 : 0);
+    $('pickerFor').textContent = pickerSlot
+      ? `Choosing for Target ${pickerSlot}. Pick one, then replace the words in [brackets].`
+      : 'All three target boxes are full. Clear one, or choose “Choose an example” under a target to replace it.';
+    $('pickerSearch').value = '';
+    renderPicker();
+    $('picker').hidden = false;
+    $('pickerSearch').focus();
+  }
+  function usePreset(text) {
+    if (!pickerSlot) { showToast('Clear a target box first.'); return; }
+    const el = $('t' + pickerSlot);
+    if (el.value.trim() && !window.confirm(`Replace what’s in Target ${pickerSlot}?`)) return;
+    el.value = text; el.dataset.carried = '';
+    $('picker').hidden = true;
+    changed();
+    el.focus();
+    const a = text.indexOf('['), b = text.indexOf(']', a);
+    if (a >= 0 && b > a) el.setSelectionRange(a, b + 1);
+  }
+  document.addEventListener('click', (e) => {
+    const t = e.target.closest('button');
+    if (!t) return;
+    if (t.dataset.examples != null) { openPicker(+t.dataset.examples); return; }
+    if (t.dataset.preset) { usePreset(t.dataset.preset); return; }
+    if (t.dataset.pcat) { pickerCat = t.dataset.pcat; renderPicker(); return; }
+    if (t.dataset.ownRemove != null) {
+      const list = ownPresets(); list.splice(+t.dataset.ownRemove, 1); setOwnPresets(list); renderPicker();
+    }
+  });
+  $('pickerSearch').addEventListener('input', renderPicker);
+  $('pickerClose').addEventListener('click', () => { $('picker').hidden = true; });
+  $('picker').addEventListener('click', (e) => { if (e.target === $('picker')) $('picker').hidden = true; });
+  $('ownAdd').addEventListener('click', () => {
+    const v = $('ownPreset').value.trim();
+    if (!v) return;
+    const list = ownPresets();
+    if (!list.includes(v)) list.unshift(v);
+    setOwnPresets(list);
+    $('ownPreset').value = '';
+    pickerCat = OWN_CAT; renderPicker();
+    showToast('Example saved on this computer.');
+  });
 
   // ---------- Help ----------
   function openHelp(topic) {
