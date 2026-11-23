@@ -616,6 +616,138 @@ details.more.card>summary{font-size:14px}
 .signals{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
 @media (max-width:1100px){.kpis.kk5,.kpis.kk6{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (max-width:760px){.srcs{grid-template-columns:1fr}.kpis.kk3,.kpis.kk4,.kpis.kk5,.kpis.kk6{grid-template-columns:repeat(2,minmax(0,1fr))}.daypair{grid-template-columns:repeat(2,1fr)}.mrow{grid-template-columns:1fr}.marrow{display:none}.mpick{grid-column:auto}}
+/* ===== Pupil Insights 2.0 ===== */
+.top-in{gap:12px}
+.tabs{margin-left:4px}
+.top-right{gap:6px}
+.gsearch{position:relative;display:flex;align-items:center}
+.gsearch>svg{position:absolute;left:10px;width:15px;height:15px;color:var(--muted);pointer-events:none}
+.gsearch input{width:210px;padding:7px 30px 7px 31px;border:1px solid var(--line);border-radius:9px;background:var(--surface-2);font-size:14px}
+.gsearch input:focus{background:var(--surface);width:260px}
+.gsearch kbd{position:absolute;right:8px;font:600 11px/1 inherit;color:var(--muted);border:1px solid var(--line);border-radius:5px;padding:3px 6px;background:var(--surface);pointer-events:none}
+.gsearch input:focus~kbd{display:none}
+.gres{position:absolute;top:calc(100% + 6px);right:0;width:340px;max-width:92vw;background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 40px rgba(0,0,0,.18);padding:5px;z-index:40}
+.gr{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:10px;align-items:center;width:100%;border:0;background:none;text-align:left;padding:7px 9px;border-radius:8px}
+.gr:hover,.gr.on{background:var(--brand-soft)}
+.gr strong{display:block;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gr small{font-size:12px;color:var(--muted)}
+#namesBtn.attn{border-color:color-mix(in srgb,var(--crit) 45%,var(--line))}
+#namesBtn[aria-current="page"],.top-right .btn[aria-current="page"]{background:var(--brand-soft);color:var(--brand);border-color:transparent}
+.srcbar{gap:8px;margin:0 0 12px}
+.srcbar button{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px 4px 10px;font-size:12.5px;color:var(--muted);max-width:100%}
+.srcbar button:hover{border-color:color-mix(in srgb,var(--brand) 40%,var(--line))}
+.srcbar button b{color:var(--ink-2);font-weight:650}
+.srcbar button span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:260px}
+.srcbar .sdates{color:var(--ink-2)}
+.srcbar button.missing{border-style:dashed;border-color:color-mix(in srgb,var(--warn) 60%,var(--line));background:color-mix(in srgb,var(--b-95) 7%,var(--surface))}
+.srcbar u{color:var(--brand);text-decoration:none;font-weight:600}
+.filters{position:sticky;top:58px;z-index:15;padding:10px 14px;box-shadow:var(--shadow)}
+.filters .summary{font-size:13.5px}.filters .summary strong{color:var(--ink)}
+.pagelead{font-size:15px;color:var(--ink-2);margin:2px 2px 14px;max-width:900px}
+.grid.g2f{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr)}
+.grid.g3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kpi .kfoot>span:not(.delta):not(.meter){color:var(--muted)}
+.ptable .pills{min-width:250px}.ptable td,.ptable th{padding-left:9px;padding-right:9px}.ptable td:first-child,.ptable th:first-child{padding-left:18px}.ptable td:first-child{white-space:nowrap}.ptable .name{white-space:nowrap}
+.delta{white-space:nowrap}
+/* key findings */
+.findings{display:grid;gap:8px}
+.finding{display:grid;grid-template-columns:10px minmax(0,1fr) auto;gap:12px;align-items:center;border:1px solid var(--line);border-left:4px solid var(--muted);border-radius:10px;padding:10px 12px 10px 14px;background:var(--surface)}
+.finding p{font-size:14.5px;color:var(--ink-2);line-height:1.45}
+.finding p strong{color:var(--ink)}
+.finding .fdot{width:9px;height:9px;border-radius:50%;background:var(--muted)}
+.finding.crit{border-left-color:var(--b-sev);background:color-mix(in srgb,var(--b-sev) 5%,var(--surface))}.finding.crit .fdot{background:var(--b-sev)}
+.finding.warn{border-left-color:var(--b-95);background:color-mix(in srgb,var(--b-95) 6%,var(--surface))}.finding.warn .fdot{background:var(--b-95)}
+.finding.good{border-left-color:var(--b-ok);background:color-mix(in srgb,var(--b-ok) 6%,var(--surface))}.finding.good .fdot{background:var(--b-ok)}
+.finding.info{border-left-color:var(--k-auth)}.finding.info .fdot{background:var(--k-auth)}
+.finding .btn{white-space:nowrap}
+/* pupils table */
+.ptool{align-items:flex-start}
+.chipgroups{display:grid;gap:7px;min-width:0;flex:1}
+.cg{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cgl{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);width:84px;flex:none}
+.ptable tbody tr{cursor:pointer}
+.ptable thead th{position:sticky;top:0;background:var(--surface);z-index:1}
+tr[data-pupil]{cursor:pointer}
+/* effect cards */
+.effect .card-h p{min-height:54px}
+.eh{font-size:30px;font-weight:700;letter-spacing:-.01em;line-height:1.15;margin:2px 0 12px;color:var(--ink)}
+.eh small{display:block;font-size:13.5px;font-weight:550;color:var(--ink-2);letter-spacing:0;margin-top:2px}
+.eh.mute{font-size:18px;color:var(--muted);font-weight:600;padding:8px 0}
+.erow{display:grid;grid-template-columns:110px minmax(0,1fr) 52px;gap:10px;align-items:center;font-size:13.5px;color:var(--ink-2);margin-top:7px}
+.erow .track{height:10px;background:var(--surface-2);border-radius:5px;overflow:hidden}
+.erow .track span{display:block;height:100%;border-radius:5px}
+.erow strong{text-align:right;color:var(--ink)}
+.bandt td,.bandt th{padding:10px 8px}
+.bandt .bsq{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px}
+.bandt{table-layout:fixed}.bandt th:nth-child(2),.bandt td:nth-child(2){width:64px}.bandt th{white-space:normal}.bandt .att{min-width:0}.bandt .att b{min-width:30px}.bandt .att .mini{min-width:30px}
+.rtiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.rtile{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 14px;align-items:center;text-align:left;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:12px 14px}
+.rtile:hover{border-color:color-mix(in srgb,var(--brand) 45%,var(--line));background:var(--brand-soft)}
+.rtile strong{font-size:30px;grid-row:1/3;min-width:44px;text-align:center}
+.rtile span{font-size:13px;color:var(--muted)}.rtile span b{display:block;font-size:14.5px;color:var(--ink)}
+.rtile i{grid-column:2;font-style:normal;font-size:12.5px;font-weight:600;color:var(--brand)}
+/* group heatmap */
+.heatT{border-collapse:separate;border-spacing:3px;width:auto;min-width:100%}
+.heatT th{font-size:11.5px;text-transform:none;letter-spacing:0;border:0;padding:2px 4px;text-align:center;font-weight:600;color:var(--muted);white-space:nowrap}
+.heatT tbody th{text-align:left;padding-right:10px;font-size:13.5px;position:sticky;left:0;background:var(--surface);z-index:1}
+.heatT td{border:0}
+.heatT tbody tr:hover{background:none}
+.hc{min-width:46px;height:30px;text-align:center;font-size:12.5px;font-weight:650;border-radius:6px;padding:0 4px;color:var(--ink)}
+.hc.none{color:var(--muted);font-weight:400}.hc.zero{background:var(--surface-2);color:var(--muted);font-weight:500}
+.heat-key{flex-wrap:wrap}.heat-key span{margin-left:8px}
+.card-h .seg{flex:none}
+/* profile */
+.pnav{display:inline-flex;align-items:center;gap:2px;border:1px solid var(--line);border-radius:9px;padding:2px;background:var(--surface)}
+.pnav button{border:0;background:none;width:30px;height:28px;border-radius:7px;font-size:19px;line-height:1;color:var(--ink-2)}
+.pnav button:hover:not(:disabled){background:var(--surface-2)}
+.pnav button:disabled{opacity:.3;cursor:default}
+.pnav span{font-size:12.5px;color:var(--muted);padding:0 6px;white-space:nowrap}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 18px}
+.fact{display:flex;align-items:baseline;gap:7px;border:1px solid var(--line);border-radius:999px;padding:4px 13px;background:var(--surface-2);font-size:13px;color:var(--ink-2)}
+.fact strong{font-size:15px;color:var(--ink)}
+.ttag{display:inline-block;font-size:11px;font-weight:650;border-radius:999px;padding:0 8px;margin-left:4px;background:color-mix(in srgb,var(--b-95) 18%,var(--surface));color:var(--warn);white-space:nowrap}
+.tile small{line-height:1.35}
+.dc .col span{background:var(--k-auth)}
+.mixt{background:var(--surface-2)}.mixt .stackbar{height:100%;border-radius:5px}
+.page-foot .btn.link{padding:0}
+@media (max-width:1180px){.gsearch input{width:150px}.gsearch input:focus{width:190px}.gsearch kbd{display:none}}
+@media (max-width:1000px){.grid.g3,.grid.g2f{grid-template-columns:1fr}.effect .card-h p{min-height:0}}
+@media (max-width:900px){.filters{position:static}.top-right{margin-left:0;width:100%;order:2}.gsearch{flex:1}.gsearch input,.gsearch input:focus{width:100%}.gres{left:0;right:auto}.cgl{width:100%}}
+@media print{.pnav,.gsearch{display:none}.finding,.rtile,.effect{break-inside:avoid;-webkit-print-color-adjust:exact;print-color-adjust:exact}.filters{position:static}}
+/* ===== Your files (2.1) ===== */
+.start.wide{max-width:1000px;padding-top:40px}
+.start-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.start-head .lead{margin-bottom:22px;max-width:720px}
+.fsgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fcard2{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:10px;box-shadow:var(--shadow);transition:border-color .15s,box-shadow .15s}
+.fcard2.on{border-color:color-mix(in srgb,var(--brand) 55%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--brand) 14%,transparent)}
+.fcard2.empty{border-style:dashed;box-shadow:none}
+.fc-top{display:flex;align-items:center;gap:10px;cursor:pointer}
+.fc-top input{width:19px;height:19px;accent-color:var(--brand);margin:0}
+.fc-top input:disabled{opacity:.35}
+.fc-top .sd{margin:0;width:11px;height:11px}
+.fc-top span b{display:block;font-size:16px}.fc-top span small{font-size:12.5px;color:var(--muted)}
+.fc-name{font-weight:650;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fc-st{font-size:13.5px;color:var(--ink-2);margin-top:2px}
+.fc-st.muted{color:var(--muted)}.fc-st.warn{color:var(--warn)}.fc-st.bad{color:var(--crit)}
+.fc-body{flex:1}
+.fc-act{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.btn.link.muted{color:var(--muted)}
+.openrow{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:16px}
+.btn.big{padding:11px 26px;font-size:16px;border-radius:11px}
+.btn:disabled{opacity:.45;cursor:default}
+.setup{margin-top:20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+.setup>summary{cursor:pointer;font-weight:650;font-size:15px}
+.steps{margin:12px 0 10px;padding-left:22px;display:grid;gap:9px;color:var(--ink-2);font-size:14.5px}
+.steps b{color:var(--ink)}
+.drop.minor{padding:18px 20px;margin-top:20px;border-width:1.5px;text-align:left;display:grid;grid-template-columns:auto 1fr auto;gap:2px 14px;align-items:center}
+.drop.minor svg.big{width:26px;height:26px;grid-row:1/3}
+.drop.minor h2{font-size:15px;margin:0}.drop.minor p{margin:0;font-size:13px}
+.drop.minor .btn{grid-row:1/3;grid-column:3}
+.drop:not(.minor){margin-top:20px}
+#busy{margin:14px 0 0}
+.srcbar .fresh{color:var(--ink-2)}.srcbar .fresh.old{color:var(--warn);font-weight:600}
+@media (max-width:760px){.fsgrid{grid-template-columns:1fr}.start-head{flex-direction:column}.drop.minor{grid-template-columns:1fr}.drop.minor svg.big,.drop.minor .btn{grid-row:auto;grid-column:auto}}
 </style>
 </head>
 <body>
@@ -627,39 +759,47 @@ details.more.card>summary{font-size:14px}
    <button data-tab="pupils">Pupils</button>
    <button data-tab="attendance">Attendance</button>
    <button data-tab="behaviour">Behaviour</button>
-   <button data-tab="groups">Compare groups</button>
-   <button data-tab="matching">Name matching <span class="tbadge hidden" id="matchBadge"></span></button>
+   <button data-tab="connections">Connections</button>
+   <button data-tab="groups">Groups</button>
   </nav>
   <div class="top-right">
-   <button class="btn small hidden" id="aboutBtn" data-act="about">About this data</button>
-   <button class="btn small hidden" id="openBtn" data-act="open">Add / replace files</button>
+   <div class="gsearch hidden" id="gsearchWrap"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="gsearch" type="search" placeholder="Find a pupil" autocomplete="off" aria-label="Find a pupil (press / to jump here)"><kbd>/</kbd><div id="gresults" class="gres hidden"></div></div>
+   <button class="btn small hidden" id="namesBtn" data-tab="matching">Names <span class="tbadge hidden" id="matchBadge"></span></button>
+   <button class="btn small hidden" id="openBtn" data-act="files">Files</button>
+   <button class="btn small hidden" id="aboutBtn" data-act="about" aria-label="About this data">About</button>
   </div>
  </div>
 </header>
 
-<main id="start" class="start">
- <h1>Attendance and behaviour, together</h1>
- <p class="lead">Open the latest <strong>iSAMS attendance</strong> export and the latest <strong>Class Charts</strong> behaviour export. Pupils are matched across the two automatically, so you can see each pupil's attendance and behaviour side by side. Nothing is uploaded or saved.</p>
+<main id="start" class="start wide">
+ <div class="start-head"><div><h1>Your files</h1><p class="lead">Pupil Insights reads the latest <strong>iSAMS attendance</strong> and <strong>Class Charts</strong> exports straight from your synced SharePoint folder. Link them once – after that, just click <b>Open</b>. Nothing is uploaded or copied; the tool only remembers where the files are.</p></div><button class="btn hidden" id="backBtn" data-act="back">← Back to the tool</button></div>
+ <div id="fsBox"><p class="hint">Checking your files…</p></div>
+ <div class="busy hidden" id="busy"><span class="spin"></span><span id="busyText">Reading…</span></div>
+ <details class="setup" id="setup"><summary>First time? Link your files from SharePoint <span class="hint">· about 2 minutes, once</span></summary>
+  <ol class="steps">
+   <li><b>Put the exports in one SharePoint folder.</b> Each week, save the new iSAMS and Class Charts exports <em>over the old ones, with the same file names</em>. That keeps the link working – if a name changes, the tool will simply ask you to find the file again.</li>
+   <li><b>Make the folder appear on your computer.</b> In SharePoint, open the folder and choose <b>Add shortcut to My files</b> (or <b>Sync</b>) from the toolbar. After a minute it shows up in File Explorer under <b>OneDrive – Sidcot School</b>. You only do this once per computer.</li>
+   <li><b>Open this tool in Microsoft Edge or Google Chrome</b>, from a desktop shortcut or the synced folder – not inside SharePoint's preview, Teams, an InPrivate/Incognito window, Safari, Firefox or a phone, none of which can keep links to files.</li>
+   <li><b>Click “Find the file…”</b> on the Attendance and Behaviour cards above and browse to the OneDrive folder. (You can also drag the two files onto this page.)</li>
+   <li><b>When the browser asks, choose “Allow on every visit”</b> if it's offered. Next time the tool will remember both files – tick one or both and click <b>Open</b>.</li>
+  </ol>
+  <p class="hint">The link is stored only in this browser on this computer. Each member of staff links the files once on each computer they use.</p>
+ </details>
  <div class="drop" id="drop">
   <svg class="big" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m-5 5 5-5 5 5M4 15v4a2 2 0 002 2h12a2 2 0 002-2v-4"/></svg>
-  <h2>Drop one or both files here</h2>
-  <p>Each file is recognised automatically – you can add the second one later</p>
-  <button class="btn primary" data-act="open">Choose files</button>
-  <div class="busy hidden" id="busy"><span class="spin"></span><span id="busyText">Reading…</span></div>
- </div>
- <div class="srcs">
-  <div class="srccard"><i class="sd sd-att"></i><div><strong>Attendance · iSAMS</strong><p>Registration Certificate by Week, year to date, exported to Excel (.xls or .xlsx).</p></div></div>
-  <div class="srccard"><i class="sd sd-beh"></i><div><strong>Behaviour · Class Charts</strong><p>Behaviour export including academic minors and, if you like, positive points (.xlsx or .csv).</p></div></div>
+  <h2>Or drop the files here</h2>
+  <p>Each file is recognised automatically. In Edge or Chrome, dropped files are linked too.</p>
+  <button class="btn" data-act="pick">Choose files</button>
  </div>
  <div class="start-foot">
   <button class="btn link" data-act="demo">Try it with example data (fictional pupils)</button>
-  <span>Version 1.0 · works offline · runs entirely in your browser</span>
+  <span>Version 2.1 · works offline · runs entirely in your browser</span>
  </div>
 </main>
 
 <div id="app" class="hidden">
  <div class="wrap">
-  <div class="srcbar"><span id="srcAtt"></span><span id="srcBeh"></span></div>
+  <div class="srcbar"><button id="srcAtt" data-act="files" data-tip="Your files – reload the latest, change or untick a file"></button><button id="srcBeh" data-act="files" data-tip="Your files – reload the latest, change or untick a file"></button></div>
   <section class="filters" id="filters" aria-label="Filters">
    <label>Year group<select id="fYear"></select></label>
    <label>Tutor group<select id="fReg"></select></label>
@@ -670,7 +810,7 @@ details.more.card>summary{font-size:14px}
   </section>
   <div id="content"></div>
  </div>
- <footer class="page-foot"><span id="footRange"></span><span>Data stays in this tab only. Close it to clear it.</span></footer>
+ <footer class="page-foot"><span id="footRange"></span><span><button class="btn link small" data-act="print">Print this page</button> · Data stays in this tab only. Close it to clear it.</span></footer>
 </div>
 
 <dialog id="pupilDlg" aria-labelledby="pupilTitle"><div id="pupilBody"></div></dialog>
@@ -808,10 +948,10 @@ async function parseCertificate(file){const sheets=await parseSpreadsheetDetaile
 function sheetToArray(s){let max=0;for(const r of s.rows.keys())if(r>max)max=r;const out=[];for(let r=1;r<=max;r++){const row=s.rows.get(r)||[],a=[];for(let c=0;c<row.length;c++)a[c]=row[c]?.v??'';for(let c=0;c<a.length;c++)if(a[c]===undefined)a[c]='';out.push(a)}return out}
 
 /* ---- Pupil Insights ---- */
-/* PUPIL INSIGHTS 1.0 — iSAMS attendance + Class Charts behaviour in one place.
+/* PUPIL INSIGHTS 2.1 — iSAMS attendance + Class Charts behaviour in one place.
    Both reports are read in this browser tab only. The only things remembered on this computer are
    name-matching decisions (stored as codes, not names). */
-const VERSION='1.0';
+const VERSION='2.1';
 const DAYS=['Mon','Tue','Wed','Thu','Fri'],DAYNAMES={Mon:'Mondays',Tue:'Tuesdays',Wed:'Wednesdays',Thu:'Thursdays',Fri:'Fridays'};
 const low=v=>String(v??'').trim().replace(/\s+/g,' ').toLocaleLowerCase('en-GB');
 const text=v=>String(v??'').trim();
@@ -828,12 +968,16 @@ function tallyB(rows){const t={Behaviour:0,Academic:0,Reward:0,total:rows.length
 
 /* ---------- Data ---------- */
 const A={att:null,beh:null,pupils:[],byId:new Map(),match:null,links:{}};
-const S={page:'overview',year:'',reg:'',house:'',period:'ytd',chip:'all',search:'',sort:'score',dir:-1,groupBy:'reg',btab:'summary',btype:'',bcat:'',bstaff:'',bsubj:'',recPage:0,band:null};
+const S={page:'overview',year:'',reg:'',house:'',period:'ytd',chip:'all',search:'',sort:'score',dir:-1,groupBy:'reg',gsort:'name',gdir:1,heat:'att',btab:'summary',btype:'',bcat:'',bstaff:'',bsubj:'',recPage:0,band:null};
 let ROWS=null,ROWS_KEY='';
 const hasAtt=()=>!!A.att,hasBeh=()=>!!A.beh;
 function END(){const a=A.att?.end||'',b=A.beh?.max||'';return a>b?a:b||a}
 function START(){const a=A.att?.start||'',b=A.beh?.min||'';return a&&b?(a<b?a:b):a||b}
-function rangeFor(period){const e=END();if(period==='w4')return {start:addDays(e,-27),end:e};if(period==='w2')return {start:addDays(e,-13),end:e};return {start:'',end:''}}
+let SD=[];
+function schoolDays(){const s=new Set();if(A.att)for(const p of A.att.pupils)for(const q of p.sessions)if(isPossible(q.k))s.add(q.d);const last=A.att?[...s].sort().at(-1)||'':'';if(A.beh)for(const r of A.beh.rows){if(!r.date||(A.att&&r.date<=last))continue;const wd=dt(r.date).getUTCDay();if(wd!==0&&wd!==6)s.add(r.date)}SD=[...s].sort()}
+/* The last n school days (optionally skipping the most recent `skip` days). */
+function win(n,skip=0){const e=SD.length-skip,s=Math.max(0,e-n);if(e<=0)return {start:'9999-12-31',end:'0000-01-01'};return {start:SD[s],end:skip?addDays(SD[e],-1):END()}}
+function rangeFor(period){if(period==='w4')return win(20);if(period==='w2')return win(10);return {start:'',end:''}}
 const PERIOD_LABEL={ytd:'Whole report',w4:'Last 4 weeks',w2:'Last 2 weeks'};
 
 function buildAtt(parsed,fileName){
@@ -858,7 +1002,7 @@ function unify(){
    target.beh.push(...c.rows);target.cc.push({name:c.name,key:c.key,method:m?.method||'',why:m?.why||[]});for(const r of c.rows)r.pid=target.id}
  }else A.match=null;
  for(const p of pupils)p.beh.sort((a,b)=>(b.date||'').localeCompare(a.date||'')||b.id-a.id);
- A.pupils=pupils;A.byId=new Map(pupils.map(p=>[p.id,p]));ROWS=null;
+ A.pupils=pupils;A.byId=new Map(pupils.map(p=>[p.id,p]));ROWS=null;schoolDays();
 }
 
 /* ---------- Statistics ---------- */
@@ -868,34 +1012,119 @@ function periodStats(p,period){if(period==='ytd')return ytdStats(p);const r=rang
 function weekly(sessions,start='',end=''){const m=new Map();for(const q of sessions){if(start&&q.d<start||end&&q.d>end||!isPossible(q.k))continue;const w=weekStart(q.d);const x=m.get(w)||{possible:0,present:0,auth:0,unauth:0,late:0};x.possible++;if(isPresent(q.k))x.present++;if(q.k==='A')x.auth++;if(q.k==='U')x.unauth++;if(q.k==='L')x.late++;m.set(w,x)}return [...m].sort((a,b)=>a[0].localeCompare(b[0])).map(([w,x])=>({w,...x,att:x.possible?100*x.present/x.possible:null}))}
 function dayPattern(sessions){const out={};for(const d of DAYS)out[d]={AM:{possible:0,absent:0},PM:{possible:0,absent:0}};for(const q of sessions){if(!isPossible(q.k))continue;const wd=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][dt(q.d).getUTCDay()];if(!out[wd])continue;const c=out[wd][q.t];c.possible++;if(!isPresent(q.k))c.absent++}return out}
 function inRange(r,start,end){return (!start||r.date&&r.date>=start)&&(!end||r.date&&r.date<=end)}
+/* ---------- Deeper attendance detail: spells, broken weeks, first days back ---------- */
+const fmtDays=s=>{const d=s/2;return `${Number.isInteger(d)?d:d.toFixed(1)} day${d===1?'':'s'}`};
+function prevRange(period){return period==='w4'?win(20,20):period==='w2'?win(10,10):null}
+function attDetail(a){
+ if(a._d)return a._d;
+ const dayMap=new Map(),poss=[];
+ for(const q of a.sessions){
+  if(!isPossible(q.k))continue;poss.push(q);
+  let x=dayMap.get(q.d);if(!x){x={d:q.d,pos:0,abs:0,late:0};dayMap.set(q.d,x)}
+  x.pos++;if(!isPresent(q.k))x.abs++;if(q.k==='L')x.late++;
+ }
+ const days=[...dayMap.values()].sort((x,y)=>x.d.localeCompare(y.d));
+ let spells=0,longest=0,run=0;
+ for(const q of poss){if(!isPresent(q.k)){run++;if(run===1)spells++;if(run>longest)longest=run}else run=0}
+ const wk=new Map();for(const x of days){const w=weekStart(x.d);wk.set(w,(wk.get(w)||0)+x.abs)}
+ const ret=new Set(),fullAbs=new Set(),present=new Set();
+ days.forEach((x,i)=>{const full=x.abs===x.pos;if(full)fullAbs.add(x.d);else present.add(x.d);if(!full&&i>0&&days[i-1].abs===days[i-1].pos)ret.add(x.d)});
+ return a._d={days,dayMap,spells,longest,current:run,since:run?poss[poss.length-run].d:'',lastCode:run?(poss.at(-1).c||poss.at(-1).e||''):'',weeks:wk.size,broken:[...wk.values()].filter(v=>v>0).length,ret,fullAbs,present};
+}
+/* How attendance and behaviour relate, across the pupils in view. Rates are per 100 pupil-days in school. */
+function linkStats(rows){
+ const pr=rangeFor(S.period),inP=d=>(!pr.start||d>=pr.start)&&(!pr.end||d<=pr.end);
+ const o={ret:{days:0,conc:0},other:{days:0,conc:0},late:{days:0,conc:0},ontime:{days:0,conc:0},after:{pos:0,abs:0},base:{pos:0,abs:0},onAbsent:[],n:0};
+ for(const r of rows){
+  const a=r.p.att;if(!a)continue;const D=attDetail(a);o.n++;
+  const conc=new Map();
+  for(const b of r.p.beh){if(!b.date||!inP(b.date))continue;if(b.type!=='Reward')conc.set(b.date,(conc.get(b.date)||0)+1);if(D.fullAbs.has(b.date))o.onAbsent.push({r,b})}
+  D.days.forEach((x,i)=>{
+   if(!inP(x.d))return;const c=conc.get(x.d)||0;
+   if(D.present.has(x.d)){const g=D.ret.has(x.d)?o.ret:o.other;g.days++;g.conc+=c;const h=x.late?o.late:o.ontime;h.days++;h.conc+=c}
+   if(i>0){const pd=D.days[i-1].d,g=(conc.get(pd)||0)>0&&D.present.has(pd)?o.after:o.base;g.pos+=x.pos;g.abs+=x.abs}
+  });
+ }
+ return o;
+}
+const BANDS3=[['95% or more',a=>a>=95,'var(--b-ok)'],['90–95%',a=>a>90&&a<95,'var(--b-95)'],['90% or less',a=>a<=90,'var(--b-pa)']];
+function bandStats(rows){
+ return BANDS3.map(([l,f,c])=>{const rs=rows.filter(r=>r.ytd&&r.ytd.attendance!==null&&f(r.ytd.attendance)),n=rs.length;
+  return {l,c,n,conc:n?rs.reduce((s,r)=>s+r.b.concerns,0)/n:null,rew:n?rs.reduce((s,r)=>s+r.b.Reward,0)/n:null,any:n?100*rs.filter(r=>r.b.concerns>0).length/n:null}});
+}
+const hasRewardData=()=>!!A.beh&&A.beh.rows.some(r=>r.type==='Reward');
 function flagsFor(r){
  const f=[],add=(id,label,tone,detail,kind)=>f.push({id,label,tone,detail,kind});
- if(r.p.att){const y=r.ytd;
-  if(y.attendance!==null&&y.possible>=10){if(y.attendance<=50)add('severe','Severe absence','crit',`${pct(y.attendance)} attendance this year (50% or less).`,'att');else if(y.attendance<=90)add('pa','Persistent absence','crit',`${pct(y.attendance)} attendance this year (90% or less).`,'att');else if(y.attendance<95)add('b95','Below 95%','warn',`${pct(y.attendance)} attendance this year.`,'att')}
+ if(r.p.att){const y=r.ytd,D=r.d;
+  if(D.current>=4)add('absentnow','Absent now','crit',`Absent for the last ${fmtDays(D.current)} (since ${fmt(D.since,true)}).`,'att');
+  if(y.attendance!==null&&y.possible>=10){if(y.attendance<=50)add('severe','Severe absence','crit',`${pct(y.attendance)} attendance this year (50% or less).`,'att');else if(y.attendance<=90)add('pa','Persistent absence','crit',`${pct(y.attendance)} attendance this year (90% or less).`,'att');else if(y.attendance<=92)add('near','Close to 90%','warn',`${pct(y.attendance)} attendance this year – within 2 points of persistent absence.`,'att');else if(y.attendance<95)add('b95','Below 95%','warn',`${pct(y.attendance)} attendance this year.`,'att')}
   if(r.w2.possible>=6&&r.prev2.possible>=6&&r.w2.attendance!==null&&r.prev2.attendance!==null){const d=r.w2.attendance-r.prev2.attendance;if(d<=-10)add('drop','Attendance falling','warn',`${pct(r.w2.attendance)} in the last 2 weeks, down from ${pct(r.prev2.attendance)}.`,'att');if(d>=10)add('up','Attendance improving','good',`${pct(r.w2.attendance)} in the last 2 weeks, up from ${pct(r.prev2.attendance)}.`,'att')}
   if(r.w4.unauthorised>=2)add('unauth','Unauthorised absence','crit',`${r.w4.unauthorised} unauthorised sessions in the last 4 weeks.`,'att');
   if(r.w4.late>=3)add('late','Late','warn',`${r.w4.late} late marks in the last 4 weeks.`,'att');
-  let tot=0,best=null;for(const d of DAYS){const n=r.days[d].AM.absent+r.days[d].PM.absent;tot+=n;if(!best||n>best.n)best={d,n}}if(best&&tot>=4&&best.n>=3&&best.n/tot>=.45)add('day',`${best.d} absence pattern`,'info',`${best.n} of ${tot} absent sessions were on ${DAYNAMES[best.d]}.`,'att');
+  let tot=0,best=null;for(const d of DAYS){const n=r.days[d].AM.absent+r.days[d].PM.absent;tot+=n;if(!best||n>best.n)best={d,n}}
+  if(best&&tot>=4&&best.n>=3&&best.n/tot>=.45)add('day',`${best.d} absence pattern`,'info',`${best.n} of ${tot} absent sessions were on ${DAYNAMES[best.d]}.`,'att');
+  if(D.weeks>=4&&D.broken>=3&&D.broken/D.weeks>=.5&&D.longest<=4)add('odd','Odd-day absences','info',`Absence in ${D.broken} of ${D.weeks} weeks, a day or two at a time.`,'att');
  }
  if(r.p.beh.length){
   if(r.b4.concerns>=3)add('conc','Repeated concerns','warn',`${r.b4.concerns} behaviour/academic concerns in the last 4 weeks.`,'beh');
   if(r.b2.concerns>=2&&r.b2.concerns>=r.bp2.concerns+2)add('rising','Concerns rising','warn',`${r.b2.concerns} concerns in the last 2 weeks vs ${r.bp2.concerns} the 2 weeks before.`,'beh');
   if(r.b4.Academic>=3)add('acad','Academic concerns','info',`${r.b4.Academic} academic concerns in the last 4 weeks.`,'beh');
   if(r.b4.Reward>=3)add('rew','Being rewarded','good',`${r.b4.Reward} rewards in the last 4 weeks.`,'beh');
+  if(hasRewardData()&&r.ball.concerns>=3&&r.ball.Reward===0)add('norew','Concerns, no rewards','info',`${r.ball.concerns} concerns and no rewards recorded in this report.`,'beh');
  }
- if(f.some(x=>x.kind==='att'&&['severe','pa','drop','unauth'].includes(x.id))&&f.some(x=>['conc','rising'].includes(x.id)))f.unshift({id:'both',label:'Attendance + behaviour',tone:'crit',detail:'Both attendance and behaviour concerns at the same time.',kind:'both'});
+ if(f.some(x=>x.kind==='att'&&['severe','pa','drop','unauth','absentnow'].includes(x.id))&&f.some(x=>['conc','rising'].includes(x.id)))f.unshift({id:'both',label:'Attendance + behaviour',tone:'crit',detail:'Both attendance and behaviour concerns at the same time.',kind:'both'});
  return f;
 }
+const SCORE={both:60,severe:80,pa:45,absentnow:30,near:12,drop:20,unauth:20,late:8,day:8,odd:8,conc:25,rising:20,acad:8,norew:4};
 function allRows(){
  const key=`${S.period}|${A.pupils.length}|${A.match?.res?.size||0}`;if(ROWS&&ROWS_KEY===key)return ROWS;
- const e=END(),pr=rangeFor(S.period);
+ const pr=rangeFor(S.period),pv=prevRange(S.period),W4=win(20),W2=win(10),P2=win(10,10),inW=(x,w)=>inRange(x,w.start,w.end);
  ROWS=A.pupils.map(p=>{const r={p,id:p.id,name:p.name,year:p.year,reg:p.reg,house:p.house,status:p.status};
-  if(p.att){r.ytd=ytdStats(p.att);r.cur=periodStats(p.att,S.period);r.w4=statFromSessions(p.att.sessions,addDays(e,-27),e);r.w2=statFromSessions(p.att.sessions,addDays(e,-13),e);r.prev2=statFromSessions(p.att.sessions,addDays(e,-27),addDays(e,-14));r.weeks=weekly(p.att.sessions);r.days=dayPattern(p.att.sessions)}
-  r.b=tallyB(p.beh.filter(x=>inRange(x,pr.start,pr.end)));r.ball=tallyB(p.beh);r.b4=tallyB(p.beh.filter(x=>inRange(x,addDays(e,-27),e)));r.b2=tallyB(p.beh.filter(x=>inRange(x,addDays(e,-13),e)));r.bp2=tallyB(p.beh.filter(x=>inRange(x,addDays(e,-27),addDays(e,-14))));
+  if(p.att){const s=p.att.sessions;r.d=attDetail(p.att);r.ytd=ytdStats(p.att);r.cur=periodStats(p.att,S.period);r.w4=statFromSessions(s,W4.start,W4.end);r.w2=statFromSessions(s,W2.start,W2.end);r.prev2=statFromSessions(s,P2.start,P2.end);r.prev=pv?statFromSessions(s,pv.start,pv.end):null;r.weeks=weekly(s);r.days=dayPattern(s)}
+  r.b=tallyB(p.beh.filter(x=>inRange(x,pr.start,pr.end)));r.ball=tallyB(p.beh);r.b4=tallyB(p.beh.filter(x=>inW(x,W4)));r.b2=tallyB(p.beh.filter(x=>inW(x,W2)));r.bp2=tallyB(p.beh.filter(x=>inW(x,P2)));r.bprev=pv?tallyB(p.beh.filter(x=>inRange(x,pv.start,pv.end))):null;
   r.att=r.cur?.attendance??null;r.conc=r.b.concerns;r.flags=flagsFor(r);
-  r.score=r.flags.reduce((s,f)=>s+({both:60,severe:80,pa:45,drop:20,unauth:20,late:8,day:8,conc:25,rising:20,acad:8}[f.id]||0),0)+(r.att!==null?Math.max(0,95-r.att)/2:0)+r.conc;
+  r.score=r.flags.reduce((s,f)=>s+(SCORE[f.id]||0),0)+(r.att!==null?Math.max(0,95-r.att)/2:0)+r.conc;
   return r});
  ROWS_KEY=key;return ROWS;
+}
+/* ---------- Key findings: the handful of things worth knowing first, in plain English ---------- */
+function groupsOf(rows,kind){const m=new Map();for(const r of rows){const k=kind==='year'?(r.year?yearLabel(r.year):''):kind==='reg'?r.reg:r.house;if(!k)continue;if(!m.has(k))m.set(k,[]);m.get(k).push(r)}return m}
+function findings(rows){
+ const F=[],add=(tone,html,act,pri)=>F.push({tone,html,act,pri}),n=rows.length,pl=(k,s='pupil')=>`${k} ${s}${k===1?'':'s'}`;
+ if(!n)return F;
+ if(hasAtt()){
+  const w2=sumAtt(rows,'w2'),p2=sumAtt(rows,'prev2'),all=sumAtt(rows,'ytd');
+  if(w2.attendance!==null&&p2.attendance!==null&&p2.possible>=20){const d=w2.attendance-p2.attendance;
+   if(d<=-1)add(d<=-2?'crit':'warn',`Attendance has <strong>fallen ${Math.abs(d).toFixed(1)} points</strong> in the last 2 weeks: ${pct(w2.attendance)}, down from ${pct(p2.attendance)} in the 2 weeks before.`,{tab:'attendance',label:'See attendance'},d<=-2?92:70);
+   else if(d>=1)add('good',`Attendance has <strong>risen ${d.toFixed(1)} points</strong> in the last 2 weeks: ${pct(w2.attendance)}, up from ${pct(p2.attendance)}.`,{tab:'attendance',label:'See attendance'},45)}
+  const now=rows.filter(r=>has(r,'absentnow'));
+  if(now.length)add('crit',`<strong>${pl(now.length)}</strong> ${now.length===1?'has':'have'} been absent for the last 2 days or more.`,{chip:'absentnow',label:'List them'},95);
+  const pa=rows.filter(r=>has(r,'severe','pa')),near=rows.filter(r=>has(r,'near'));
+  if(pa.length)add('crit',`<strong>${pl(pa.length)}</strong> ${pa.length===1?'is':'are'} persistently absent (90% or less)${near.length?`, and <strong>${near.length} more</strong> ${near.length===1?'is':'are'} within 2 points of the line`:''}.`,{chip:'pa',label:'List them'},80);
+  else if(near.length)add('warn',`<strong>${pl(near.length)}</strong> ${near.length===1?'is':'are'} within 2 points of the 90% persistent-absence line.`,{chip:'near',label:'List them'},60);
+  const dp=dayPattern(cohortSessions(rows)),dr=DAYS.map(d=>{const pos=dp[d].AM.possible+dp[d].PM.possible;return {d,rate:pos?100*(dp[d].AM.absent+dp[d].PM.absent)/pos:null}}).filter(x=>x.rate!==null);
+  if(dr.length>=4){const worst=[...dr].sort((a,b)=>b.rate-a.rate)[0],rest=dr.filter(x=>x!==worst).reduce((s,x)=>s+x.rate,0)/(dr.length-1);
+   if(worst.rate-rest>=1.5&&worst.rate>=rest*1.25)add('info',`<strong>${DAYNAMES[worst.d]}</strong> have the most absence: ${worst.rate.toFixed(1)}% of sessions missed, against ${rest.toFixed(1)}% on other days.`,{tab:'attendance',label:'See patterns'},50)}
+  const kind=S.reg?'':'reg',gm=kind?groupsOf(rows,kind):new Map();
+  if(gm.size>=3&&all.attendance!==null){const gs=[...gm].map(([name,rs])=>({name,n:rs.filter(r=>r.p.att).length,a:sumAtt(rs,'ytd').attendance})).filter(g=>g.n>=3&&g.a!==null).sort((a,b)=>a.a-b.a),g=gs[0];
+   if(g&&all.attendance-g.a>=3)add('warn',`<strong>${esc(g.name)}</strong> has the lowest attendance in this view: ${pct(g.a)}, ${(all.attendance-g.a).toFixed(1)} points below the average of ${pct(all.attendance)}.`,{reg:g.name,label:`Look at ${g.name}`},55)}
+ }
+ if(hasBeh()){
+  const c2=rows.reduce((s,r)=>s+r.b2.concerns,0),cp=rows.reduce((s,r)=>s+r.bp2.concerns,0);
+  if(c2+cp>=10){if(c2>=cp*1.3&&c2-cp>=4)add('warn',`Behaviour and academic concerns are <strong>up</strong>: ${c2} in the last 2 weeks, against ${cp} in the 2 weeks before.`,{tab:'behaviour',label:'See behaviour'},65);
+   else if(cp>=c2*1.3&&cp-c2>=4)add('good',`Concerns are <strong>down</strong>: ${c2} in the last 2 weeks, against ${cp} in the 2 weeks before.`,{tab:'behaviour',label:'See behaviour'},40)}
+  const pr=rangeFor(S.period),conc=rows.flatMap(r=>r.p.beh.filter(x=>x.type!=='Reward'&&inRange(x,pr.start,pr.end))),cats=countBy(conc.filter(x=>x.category),'category');
+  if(conc.length>=12&&cats.length>1&&cats[0][1]/conc.length>=.25)add('info',`<strong>${esc(cats[0][0])}</strong> is the most common concern: ${cats[0][1]} of ${conc.length} (${Math.round(100*cats[0][1]/conc.length)}%).`,{cat:cats[0][0],label:'See these'},35);
+  if(hasAtt()&&hasRewardData()){const quiet=rows.filter(r=>r.p.att&&!r.p.beh.length);
+   if(quiet.length>=1&&quiet.length/n>=.1)add('info',`<strong>${pl(quiet.length)}</strong> ${quiet.length===1?'has':'have'} nothing recorded in Class Charts at all: no concerns and no rewards.`,{chip:'quiet',label:'List them'},30)}
+ }
+ if(hasAtt()&&hasBeh()){
+  const both=rows.filter(r=>has(r,'both'));
+  if(both.length)add('crit',`<strong>${pl(both.length)}</strong> ${both.length===1?'has':'have'} attendance and behaviour concerns at the same time.`,{chip:'both',label:'List them'},88);
+  const L=linkStats(rows),a=L.ret.days?100*L.ret.conc/L.ret.days:null,b=L.other.days?100*L.other.conc/L.other.days:null;
+  if(L.ret.days>=20&&L.ret.conc>=4&&b&&a/b>=1.5)add('info',`Concerns are <strong>${(a/b).toFixed(1)}× more likely on a pupil's first day back</strong> after an absence than on other days.`,{tab:'connections',label:'See connections'},58);
+ }
+ return F.sort((x,y)=>y.pri-x.pri).slice(0,7);
 }
 function cohortRows(){return allRows().filter(r=>(!S.year||r.year===S.year)&&(!S.reg||r.reg===S.reg)&&(!S.house||r.house===S.house))}
 function sumAtt(rows,key='cur'){const t={possible:0,present:0,authorised:0,unauthorised:0,late:0};for(const r of rows)if(r[key])for(const k in t)t[k]+=r[key][k]||0;t.attendance=t.possible?100*t.present/t.possible:null;return t}
@@ -1071,7 +1300,7 @@ function avatar(r,cls=''){return `<span class="av ${cls}" style="--t:${tone(r.yt
 function initials(n){const p=nameParts(n),a=(p.preferred||p.given||'').trim()[0]||'',b=(p.surname||'').trim()[0]||'';return esc((a+b).toUpperCase()||'?')}
 function attCell(a){return `<div class="att"><b class="num" style="color:${toneInk(a)}">${pct(a)}</b><span class="mini"><span style="width:${clamp(a??0,0,100)}%;background:${tone(a)}"></span></span></div>`}
 function bCount(n,t){return n?`<span class="tm ${typeClass(t)}">${n}</span>`:'<span class="zero">0</span>'}
-function needNote(kind){return `<div class="card pad need"><p>${kind==='att'?'Add the iSAMS <strong>Registration Certificate by Week</strong> export to see attendance here.':'Add the <strong>Class Charts</strong> behaviour export to see behaviour, academic concerns and rewards here.'}</p><button class="btn small primary" data-act="open">Add file</button></div>`}
+function needNote(kind){return `<div class="card pad need"><p>${kind==='att'?'Add the iSAMS <strong>Registration Certificate by Week</strong> export to see attendance here.':'Add the <strong>Class Charts</strong> behaviour export to see behaviour, academic concerns and rewards here.'}</p><button class="btn small primary" data-act="files">Link the file</button></div>`}
 function matchNote(){const n=needsReview();return n?`<div class="note"><strong>${n} Class Charts pupil${n===1?'':'s'} couldn't be matched to the attendance report automatically.</strong> Their behaviour records are shown separately until you confirm who they are. <button class="btn link small" data-goto="matching">Check names →</button></div>`:''}
 
 /* ---------- Shared week chart: attendance line (top) and behaviour columns (bottom), same weeks ---------- */
@@ -1079,17 +1308,17 @@ function dualWeekly(rows){
  const att=hasAtt()?weekly(cohortSessions(rows)):[],beh=hasBeh()?weeklySeries(rows.flatMap(r=>r.p.beh)):[];
  const weeks=uniq([...att.map(w=>w.w),...beh.map(w=>w.w)]).sort();if(!weeks.length)return '<p class="empty-s">No dated data yet.</p>';
  const aw=new Map(att.map(w=>[w.w,w])),bw=new Map(beh.map(w=>[w.w,w])),series=TYPES.filter(t=>beh.some(w=>w[t]));
- const W=1180,pad={l:46,r:50},top=hasAtt()?200:0,gap=hasAtt()&&hasBeh()?34:0,bot=hasBeh()?170:0,H=top+gap+bot+30,iw=W-pad.l-pad.r,slot=iw/weeks.length,x=i=>pad.l+(i+.5)*slot;
+ const W=1180,pad={l:46,r:50},top=hasAtt()?214:0,gap=hasAtt()&&hasBeh()?34:0,bot=hasBeh()?170:0,H=top+gap+bot+30,iw=W-pad.l-pad.r,slot=iw/weeks.length,x=i=>pad.l+(i+.5)*slot;
  let s=`<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="Attendance and behaviour week by week">`;
- if(hasAtt()){const pts=weeks.map(w=>aw.get(w)?.att??null),vals=pts.filter(v=>v!==null),mn=Math.min(...vals,100),lo=mn<60?0:Math.max(0,Math.min(80,Math.floor((mn-3)/5)*5)),t0=14,ih=top-t0-6,y=v=>t0+(100-clamp(v,lo,100))*ih/(100-lo);
-  s+=`<text class="ptitle" x="${pad.l}" y="10">Attendance</text>`;
+ if(hasAtt()){const pts=weeks.map(w=>aw.get(w)?.att??null),vals=pts.filter(v=>v!==null),mn=Math.min(...vals,100),lo=mn<60?0:Math.max(0,Math.min(80,Math.floor((mn-3)/5)*5)),t0=28,ih=top-t0-6,y=v=>t0+(100-clamp(v,lo,100))*ih/(100-lo);
+  s+=`<text class="ptitle" x="${pad.l}" y="12">Attendance</text>`;
   if(100-lo<=35){s+=`<rect class="zone crit" x="${pad.l}" y="${y(90)}" width="${iw}" height="${y(lo)-y(90)}"/><rect class="zone warn" x="${pad.l}" y="${y(95)}" width="${iw}" height="${y(90)-y(95)}"/>`}
   for(let v=lo;v<=100;v+=lo===0?25:lo<70?10:5)s+=`<line class="grid-l" x1="${pad.l}" x2="${W-pad.r}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${pad.l-10}" y="${y(v)+4}" text-anchor="end">${v}%</text>`;
   for(const v of [95,90])if(v>lo)s+=`<line class="ref r${v}" x1="${pad.l}" x2="${W-pad.r}" y1="${y(v)}" y2="${y(v)}"/><text class="reflab r${v}" x="${W-pad.r+6}" y="${y(v)+(v===95?-1:10)}">${v}%</text>`;
   let path='',started=false;pts.forEach((v,i)=>{if(v===null)return;path+=`${started?'L':'M'}${x(i).toFixed(1)},${y(v).toFixed(1)}`;started=true});s+=`<path class="line" d="${path}"/>`;
   pts.forEach((v,i)=>{if(v===null)return;const w=aw.get(weeks[i]);s+=`<g class="hov" data-tip="${esc(`Week of ${fmt(weeks[i])}\n${pct(v)} attendance\n${w.present} of ${w.possible} sessions`)}"><rect class="hit" x="${x(i)-slot/2}" y="${t0}" width="${slot}" height="${ih}"/><line class="guide" x1="${x(i)}" x2="${x(i)}" y1="${t0}" y2="${t0+ih}"/><circle class="dot${i===pts.length-1?' last':''}" cx="${x(i)}" cy="${y(v)}" r="3.5"/></g>`})}
  if(hasBeh()){const t0=top+gap+14,ih=bot-20,maxV=niceMax(Math.max(1,...weeks.map(w=>series.reduce((a,k)=>a+(bw.get(w)?.[k]||0),0)))),y=v=>t0+ih-v*ih/maxV,bwid=Math.max(3,Math.min(40,slot*.6));
-  s+=`<text class="ptitle" x="${pad.l}" y="${t0-4}">Behaviour records</text>`;
+  s+=`<text class="ptitle" x="${pad.l}" y="${t0-8}">Behaviour records</text>`;
   for(let i=0;i<=2;i++){const v=maxV*i/2;s+=`<line class="grid-l${i===0?' base':''}" x1="${pad.l}" x2="${W-pad.r}" y1="${y(v)}" y2="${y(v)}"/><text class="ax" x="${pad.l-10}" y="${y(v)+4}" text-anchor="end">${v}</text>`}
   weeks.forEach((w,i)=>{const d=bw.get(w);if(!d)return;let acc=0;const parts=series.filter(k=>d[k]);s+=`<g class="hovbar" data-tip="${esc(`Week of ${fmt(w)}\n${series.map(k=>`${TYPE_LABEL[k]}: ${d[k]}`).join('\n')}`)}"><rect class="hit" x="${x(i)-slot/2}" y="${t0}" width="${slot}" height="${ih}"/>`;
    parts.forEach((k,j)=>{const y1=y(acc+d[k]),y0=y(acc)-(j?2:0);s+=`<rect x="${x(i)-bwid/2}" y="${y1}" width="${bwid}" height="${Math.max(0,y0-y1)}" rx="${j===parts.length-1?3:0}" fill="var(${TYPE_VAR[k]})"/>`;acc+=d[k]});s+='</g>'})}
@@ -1115,40 +1344,9 @@ function scatter(rows){
 }
 
 /* ---------- Overview ---------- */
-function viewOverview(){
- const rows=cohortRows(),t=sumAtt(rows),pa=rows.filter(r=>has(r,'severe','pa')),both=rows.filter(r=>has(r,'both')),bt=tallyB(rows.flatMap(r=>r.p.beh.filter(x=>inRange(x,rangeFor(S.period).start,rangeFor(S.period).end)))),withB=rows.filter(r=>r.b.concerns).length,n=rows.length||1;
- const w2=sumAtt(rows,'w2'),p2=sumAtt(rows,'prev2');
- const k=[];
- if(hasAtt())k.push(`<div class="kpi hero"><div class="lab">${ico('att')}Attendance</div><div class="val num">${pct(t.attendance)}</div><div class="sub">${fmtN(t.present)} of ${fmtN(t.possible)} sessions · ${per()}</div><div class="kfoot">Last 2 weeks <strong class="num">${pct(w2.attendance)}</strong> ${delta(w2.attendance,p2.attendance)}</div></div>`,`<button class="kpi crit" data-chip="pa"><div class="lab">${ico('pa')}Persistent absence</div><div class="val num">${pa.length}</div><div class="sub">pupils at 90% or less this year</div><div class="kfoot"><span class="meter"><span style="width:${100*pa.length/n}%"></span></span><strong class="num">${(100*pa.length/n).toFixed(0)}%</strong></div></button>`);
- if(hasBeh())k.push(`<button class="kpi beh" data-chip="conc"><div class="lab">${ico('beh')}Behaviour</div><div class="val num">${fmtN(bt.Behaviour)}</div><div class="sub">records · ${per()}</div><div class="kfoot">${withB} pupils with concerns</div></button>`,`<div class="kpi aca"><div class="lab">${ico('aca')}Academic</div><div class="val num">${fmtN(bt.Academic)}</div><div class="sub">records · ${per()}</div><div class="kfoot">${(bt.concerns/n).toFixed(1)} concerns per pupil</div></div>`,...(bt.Reward||A.beh.rows.some(r=>r.type==='Reward')?[`<button class="kpi rew" data-chip="rew"><div class="lab">${ico('rew')}Rewards</div><div class="val num">${fmtN(bt.Reward)}</div><div class="sub">${per()}</div><div class="kfoot">${rows.filter(r=>r.b.Reward).length} pupils rewarded</div></button>`]:[]));
- if(hasAtt()&&hasBeh())k.push(`<button class="kpi crit both" data-chip="both"><div class="lab">${ico('both')}Attendance + behaviour</div><div class="val num">${both.length}</div><div class="sub">pupils with both kinds of concern</div><div class="kfoot">Click to list them</div></button>`);
- const look=[...rows].filter(r=>r.score>=15).sort((a,b)=>b.score-a.score).slice(0,10);
- return `${matchNote()}<div class="kpis kk${Math.min(k.length,6)}">${k.join('')}</div>
- <section class="card"><div class="card-h"><div><h2>Week by week</h2><p>${hasAtt()&&hasBeh()?'Attendance (top) and behaviour records (bottom) on the same weeks – look for weeks where one moves with the other.':hasAtt()?'Share of sessions attended each week.':'Behaviour records each week.'}</p></div></div><div class="card-b">${dualWeekly(rows)}</div></section>
- <div class="grid ${hasAtt()&&hasBeh()?'g2':''}" style="margin-top:16px">${hasAtt()&&hasBeh()?`<section class="card"><div class="card-h"><div><h2>Attendance and concerns, pupil by pupil</h2><p>Each dot is a pupil. Pupils in the shaded corner have both lower attendance and more concerns.</p></div></div><div class="card-b">${scatter(rows)}</div></section>`:''}
- <section class="card"><div class="card-h"><div><h2>Pupils to look at first</h2><p>Ranked by attendance and behaviour together.</p></div><button class="btn link small" data-goto="pupils">All pupils →</button></div><div class="card-b"><div class="plist">${look.map(prow).join('')||'<p class="empty-s">Nothing stands out in this view.</p>'}</div></div></section></div>
- ${hasAtt()?'':needNote('att')}${hasBeh()?'':needNote('beh')}`;
-}
-function prow(r){return `<button class="prow" data-pupil="${r.id}">${avatar(r)}<span class="who"><strong>${esc(r.name)}</strong><small>${esc(yearLabel(r.year))} · ${esc(r.reg||'—')}${r.flags[0]?` · ${esc(r.flags.slice(0,2).map(f=>f.label).join(', '))}`:''}</small></span><span class="pm">${r.p.att?`<b style="color:${toneInk(r.att)}">${pct(r.att,0)}</b>`:''}${hasBeh()?`<span class="mix">${bCount(r.b.Behaviour,'Behaviour')}${bCount(r.b.Academic,'Academic')}${r.b.Reward?bCount(r.b.Reward,'Reward'):''}</span>`:''}</span></button>`}
 
 /* ---------- Pupils ---------- */
-const CHIPS=[['all','All',()=>true],['look','To look at',r=>r.score>=15],['both','Attendance + behaviour',r=>has(r,'both')],['pa','Persistent absence',r=>has(r,'severe','pa')],['b95','Below 95%',r=>has(r,'b95')],['drop','Attendance falling',r=>has(r,'drop')],['conc','Repeated concerns',r=>has(r,'conc','rising')],['acad','Academic',r=>has(r,'acad')],['rew','Rewarded',r=>r.b.Reward>0],['unmatched','Not matched',r=>r.p.behOnly]];
-function pupilList(){
- let rows=cohortRows();const chip=CHIPS.find(c=>c[0]===S.chip)||CHIPS[0];rows=rows.filter(chip[2]);
- if(S.band!=null){const f=[x=>x.ytd?.attendance>=95,x=>x.ytd?.attendance>90&&x.ytd?.attendance<95,x=>x.ytd?.attendance>50&&x.ytd?.attendance<=90,x=>x.ytd&&x.ytd.attendance!==null&&x.ytd.attendance<=50][S.band];rows=rows.filter(x=>x.ytd&&f(x))}
- const q=normal(S.search);if(q)rows=rows.filter(r=>normal(`${r.name} ${r.reg} ${r.house} ${r.p.cc.map(c=>c.name).join(' ')}`).includes(q));
- const key={name:r=>r.name,year:r=>Number(r.year)||0,reg:r=>r.reg,att:r=>r.att??999,ytd:r=>r.ytd?.attendance??999,unauth:r=>r.cur?.unauthorised??-1,late:r=>r.cur?.late??-1,beh:r=>r.b.Behaviour,aca:r=>r.b.Academic,rew:r=>r.b.Reward,score:r=>r.score}[S.sort]||(r=>r.score);
- return rows.sort((a,b)=>{const x=key(a),y=key(b);const c=typeof x==='number'?x-y:String(x).localeCompare(String(y),'en-GB',{numeric:true});return c*S.dir||a.name.localeCompare(b.name)});
-}
 function th(k,label,cls=''){const on=S.sort===k;return `<th class="${cls}"${on?` aria-sort="${S.dir>0?'ascending':'descending'}"`:''}><button data-sort="${k}"${on?` data-dir="${S.dir>0?'▲':'▼'}"`:''}>${label}</button></th>`}
-function viewPupils(){
- const base=cohortRows(),rows=pupilList(),chips=CHIPS.filter(([id])=>(hasAtt()||!['pa','b95','drop','both'].includes(id))&&(hasBeh()||!['conc','acad','rew','both','unmatched'].includes(id)));
- return `${matchNote()}<section class="card"><div class="toolbar"><div class="chips">${chips.map(([id,l,f])=>`<button class="chip" data-chip="${id}" aria-pressed="${S.chip===id&&S.band==null}">${l}<span class="c">${base.filter(f).length}</span></button>`).join('')}${S.band!=null?`<button class="chip" aria-pressed="true" data-clearband>Attendance band ✕</button>`:''}</div>
- <div class="row"><input id="search" class="search" type="search" placeholder="Search name, tutor group or house" value="${esc(S.search)}"><button class="btn small" data-act="csv">Export CSV</button><button class="btn small" data-act="print">Print</button></div></div>
- ${rows.length?`<div class="tablewrap"><table><thead><tr>${th('name','Pupil')}${th('year','Year')}${th('reg','Tutor')}${hasAtt()?`${th('att','Attendance')}<th>Last 8 weeks</th>${th('unauth','Unauth.','r')}${th('late','Late','r')}`:''}${hasBeh()?`${th('beh','Behav.','r')}${th('aca','Acad.','r')}${th('rew','Rewards','r')}`:''}<th>Things to notice</th></tr></thead><tbody>
- ${rows.map(r=>`<tr><td><button class="name" data-pupil="${r.id}">${esc(r.name)}</button>${r.p.behOnly?' <span class="badge unc" data-tip="Only in the Class Charts report – not matched to an attendance record yet">not matched</span>':''}</td><td>${esc(r.year||'—')}</td><td>${esc(r.reg||'—')}</td>${hasAtt()?(r.p.att?`<td>${attCell(r.att)}</td><td>${spark(r.weeks)}</td><td class="r num">${r.cur.unauthorised}</td><td class="r num">${r.cur.late}</td>`:'<td colspan="4" class="hint">No attendance record</td>'):''}${hasBeh()?`<td class="r">${bCount(r.b.Behaviour,'Behaviour')}</td><td class="r">${bCount(r.b.Academic,'Academic')}</td><td class="r">${bCount(r.b.Reward,'Reward')}</td>`:''}<td>${pills(r.flags)}</td></tr>`).join('')}
- </tbody></table></div>`:'<div class="card-b"><p class="empty-s">No pupils match this view.</p></div>'}<div class="foot">${rows.length} pupil${rows.length===1?'':'s'} · attendance and behaviour counts are for ${per()} · hover a flag for the detail.</div></section>`;
-}
 
 /* ---------- Attendance patterns ---------- */
 function viewAttendance(){
@@ -1164,7 +1362,7 @@ function viewAttendance(){
  return `<div class="grid g2e"><section class="card"><div class="card-h"><div><h2>Absence by day and session</h2><p>Share of possible sessions missed · ${per()}.</p></div></div><div class="card-b">${heatmap(dp)}<div class="duo"><div><span>Mornings (AM)</span><strong class="num">${pct(am)}</strong><small>attendance · ${st.amAbsent} of ${st.amPossible} missed</small></div><div><span>Afternoons (PM)</span><strong class="num">${pct(pm)}</strong><small>attendance · ${st.pmAbsent} of ${st.pmPossible} missed</small></div></div></div></section>
  <section class="card"><div class="card-h"><div><h2>Where pupils are this year</h2><p>Pupils in each attendance band. Click a band to list them.</p></div></div><div class="card-b"><div class="strip">${counts.filter(c=>c.n).map(c=>`<span style="flex:${c.n};background:${c.c}" data-tip="${esc(`${c.l}: ${c.n} pupils`)}"></span>`).join('')}</div><div class="bands">${counts.map((c,i)=>`<button class="band" data-band="${i}"><span class="lbl"><i style="background:${c.c}"></i>${c.l}</span><span class="track"><span class="fill" style="width:${100*c.n/maxN}%;background:${c.c}"></span></span><span class="n num">${c.n}<small>${(100*c.n/tot).toFixed(0)}%</small></span></button>`).join('')}</div>
  <h3 class="h3s" style="margin-top:22px">Absence reasons</h3>${ca.length?`<div class="hbars">${ca.map(([c,x])=>`<div class="hb" data-tip="${esc(`${c}: ${codeLabel(c)}\n${x.n} sessions · ${x.k==='A'?'authorised':'unauthorised'}`)}"><span class="lbl"><b class="code-i">${esc(c)}</b> ${esc(codeLabel(c))}</span><span class="track"><span style="width:${100*x.n/cm}%;background:var(${x.k==='A'?'--k-auth':'--k-unauth'})"></span></span><strong class="num">${x.n}</strong></div>`).join('')}</div>`:'<p class="empty-s">No absences in this selection.</p>'}</div></section></div>
- ${dayBeh}<section class="card" style="margin-top:16px"><div class="card-h"><div><h2>Absence week by week</h2><p>Share of sessions missed each week, split by authorised and unauthorised.</p></div></div><div class="card-b">${stackChart(weekly(cohortSessions(rows)))}</div></section>`;
+ ${attendanceExtras(rows)}${dayBeh}<section class="card" style="margin-top:16px"><div class="card-h"><div><h2>Absence week by week</h2><p>Share of sessions missed each week, split by authorised and unauthorised.</p></div></div><div class="card-b">${stackChart(weekly(cohortSessions(rows)))}</div></section>`;
 }
 
 /* ---------- Behaviour analysis ---------- */
@@ -1191,22 +1389,140 @@ function bCats(rows){return `<div class="split">${typesIn(rows).map(k=>`<div><h3
 function bDays(rows){const dn=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],c=dn.map(()=>({total:0})),series=typesIn(rows);let v=0;for(const r of rows){const d=dateObject(r.date);if(!d)continue;const i=(d.getUTCDay()+6)%7;c[i].total++;c[i][r.type]=(c[i][r.type]||0)+1;v++}
  const show=c.map((x,i)=>i<5||x.total?i:-1).filter(i=>i>=0),max=Math.max(1,...c.map(x=>x.total)),peak=Math.max(...c.map(x=>x.total)),lessons=countBy(rows.filter(r=>text(r.lesson)),'lesson').sort((a,b)=>sortText(a[0],b[0]));
  return `<div class="days">${show.map(i=>`<div class="dcard${c[i].total===peak&&peak?' peak':''}" data-tip="${esc(`${dn[i]}: ${c[i].total} records`)}"><span class="dl">${dn[i]}</span><span class="col">${series.map(k=>`<span style="height:${100*(c[i][k]||0)/max}%;background:var(${TYPE_VAR[k]})"></span>`).join('')}</span><strong class="num">${c[i].total}</strong><small>${v?Math.round(100*c[i].total/v):0}%</small></div>`).join('')}</div><div class="legend">${series.map(k=>`<span><i style="background:var(${TYPE_VAR[k]})"></i>${TYPE_LABEL[k]}</span>`).join('')}</div>${lessons.length?`<h3 class="h3s">By lesson / period</h3>${bars(lessons,{limit:12,color:'var(--brand)'})}`:''}`}
-function bStaff(rows){return `<div class="split"><div><h3 class="h3s">Recorded by</h3>${bars(countBy(rows,'recordedBy'),{limit:12,color:'var(--brand)',click:'staffpick'})}</div><div><h3 class="h3s">Subject</h3>${bars(countBy(rows,'subject'),{limit:12,color:'var(--brand)',click:'subjpick'})}</div></div><p class="note-s">To understand the report, not to rank staff.</p>`}
+function mixBars(rows,key,click){const m=new Map();for(const r of rows){const k=text(r[key])||'Not recorded';const x=m.get(k)||{n:0,Behaviour:0,Academic:0,Reward:0};x.n++;x[r.type]++;m.set(k,x)}const e=[...m].sort((a,b)=>b[1].n-a[1].n).slice(0,12),mx=Math.max(1,...e.map(x=>x[1].n));return e.length?`<div class="hbars">${e.map(([l,x])=>`<button class="hb" data-${click}="${esc(l)}" data-tip="${esc(`${l}\n${TYPES.map(t=>`${TYPE_LABEL[t]}: ${x[t]}`).join('\n')}`)}"><span class="lbl">${esc(l)}</span><span class="track mixt"><span class="stackbar" style="width:${100*x.n/mx}%">${TYPES.filter(t=>x[t]).map(t=>`<span style="flex:${x[t]};background:var(${TYPE_VAR[t]})"></span>`).join('')}</span></span><strong class="num">${x.n}</strong></button>`).join('')}</div>`:'<p class="empty-s">Not recorded in this report.</p>'}
+function bStaff(rows){return `<div class="split"><div><h3 class="h3s">Recorded by</h3>${mixBars(rows,'recordedBy','staffpick')}</div><div><h3 class="h3s">Subject</h3>${mixBars(rows,'subject','subjpick')}</div></div><div class="legend">${typesIn(rows).map(k=>`<span><i style="background:var(${TYPE_VAR[k]})"></i>${TYPE_LABEL[k]}</span>`).join('')}</div><p class="note-s">To understand the report, not to rank staff.</p>`}
 function bRecords(rows){const sorted=[...rows].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||b.id-a.id),PS=50,pages=Math.max(1,Math.ceil(sorted.length/PS));S.recPage=Math.min(S.recPage,pages-1);const from=S.recPage*PS;
  return `<div class="sub-h"><span class="hint">${fmtN(sorted.length)} records · newest first</span><button class="btn small" data-act="export-beh">Export CSV</button></div><div class="tablewrap"><table class="rec"><thead><tr><th>Date</th><th>Pupil</th><th>Tutor</th><th>Type</th><th>Category / detail</th><th>Recorded by</th><th>Subject</th></tr></thead><tbody>${sorted.slice(from,from+PS).map(r=>{const p=A.byId.get(r.pid);return `<tr><td class="nw">${fmt(r.date)}</td><td><button class="name" data-pupil="${r.pid}">${esc(p?.name||r.student)}</button></td><td>${esc(p?.reg||r.tutor||'—')}</td><td><span class="badge ${typeClass(r.type)}">${TYPE_LABEL[r.type]}${showPts(r)}</span></td><td class="desc">${r.category?`<strong>${esc(r.category)}</strong>`:''}${r.concern?`<span>${esc(r.concern)}</span>`:''}</td><td>${esc(r.recordedBy||'—')}</td><td>${esc(r.subject||'—')}</td></tr>`}).join('')}</tbody></table></div><div class="pager"><span>${fmtN(from+1)}–${fmtN(Math.min(from+PS,sorted.length))} of ${fmtN(sorted.length)}</span><div class="row"><button class="btn small" data-pg="-1" ${S.recPage===0?'disabled':''}>Previous</button><button class="btn small" data-pg="1" ${S.recPage>=pages-1?'disabled':''}>Next</button></div></div>`}
 
 /* ---------- Groups ---------- */
+
+function staleNote(){const out=[];for(const [x,l,src] of [[A.att,'attendance','iSAMS'],[A.beh,'behaviour','Class Charts']]){if(!x?.modified||A.demo)continue;const n=staleDays(x.modified);if(n>=7)out.push(`<div class="note"><strong>The ${l} file was last updated ${n} days ago.</strong> If there's a newer ${src} export, save it over the old file in SharePoint, then click <button class="btn link small" data-act="files">Files → Open</button> to load it.</div>`)}return out.join('')}
+function datesNote(){
+ const st=staleNote();if(!hasAtt()||!hasBeh()||!A.att.end||!A.beh.max)return st;
+ const gap=daysBetween(A.beh.max,A.att.end);
+ if(Math.abs(gap)<=7)return st;
+ return st+`<div class="note info"><strong>The two reports end ${Math.abs(gap)} days apart.</strong> ${gap>0?`Behaviour stops on ${fmt(A.beh.max,true)} but attendance runs to ${fmt(A.att.end,true)}`:`Attendance stops on ${fmt(A.att.end,true)} but behaviour runs to ${fmt(A.beh.max,true)}`}, so “last 2 weeks” figures will under-count the older one. Export both on the same day for a fair comparison.</div>`;
+}
+function deltaN(now,before,goodUp=false){
+ if(before===null||before===undefined)return '';const d=now-before,good=d===0?'flat':(d>0)===goodUp?'up':'down';
+ return `<span class="delta ${good}">${d===0?'●':d>0?'▲':'▼'} ${Math.abs(d)}</span>`;
+}
+function findingRow(f){
+ const a=f.act||{},attr=a.chip?`data-chip="${a.chip}"`:a.tab?`data-tab="${a.tab}"`:a.reg?`data-setreg="${esc(a.reg)}"`:a.cat?`data-cat="${esc(a.cat)}"`:'';
+ return `<div class="finding ${f.tone}"><i class="fdot"></i><p>${f.html}</p>${attr?`<button class="btn link small" ${attr}>${esc(a.label||'Open')} →</button>`:''}</div>`;
+}
+/* ---------- Overview ---------- */
+function viewOverview(){
+ const rows=cohortRows(),n=rows.length||1,pr=rangeFor(S.period),t=sumAtt(rows),ytdMode=S.period==='ytd',wk=S.period==='w4'?'4':'2';
+ const pa=rows.filter(r=>has(r,'severe','pa')),both=rows.filter(r=>has(r,'both'));
+ const bt=tallyB(rows.flatMap(r=>r.p.beh.filter(x=>inRange(x,pr.start,pr.end)))),withB=rows.filter(r=>r.b.concerns).length;
+ const aNow=ytdMode?sumAtt(rows,'w2'):t,aPrev=ytdMode?sumAtt(rows,'prev2'):sumAtt(rows,'prev');
+ const bNow=k=>rows.reduce((s,r)=>s+(ytdMode?r.b2[k]:r.b[k]),0),bPrev=k=>rows.reduce((s,r)=>s+((ytdMode?r.bp2:r.bprev)?.[k]||0),0);
+ const bfoot=(k,goodUp)=>ytdMode?`Last 2 weeks <strong class="num">${bNow(k)}</strong> ${deltaN(bNow(k),bPrev(k),goodUp)}`:`${deltaN(bNow(k),bPrev(k),goodUp)} <span>vs ${bPrev(k)} in the ${wk} weeks before</span>`;
+ const k=[];
+ if(hasAtt())k.push(`<div class="kpi hero"><div class="lab">${ico('att')}Attendance</div><div class="val num">${pct(t.attendance)}</div><div class="sub">${fmtN(t.present)} of ${fmtN(t.possible)} sessions · ${per()}</div><div class="kfoot">${ytdMode?`Last 2 weeks <strong class="num">${pct(aNow.attendance)}</strong> ${delta(aNow.attendance,aPrev.attendance)}`:`${delta(aNow.attendance,aPrev.attendance)} <span>vs ${pct(aPrev.attendance)} in the ${wk} weeks before</span>`}</div></div>`,
+  `<button class="kpi crit" data-chip="pa"><div class="lab">${ico('pa')}Persistent absence</div><div class="val num">${pa.length}</div><div class="sub">pupils at 90% or less this year</div><div class="kfoot"><span class="meter"><span style="width:${100*pa.length/n}%"></span></span><strong class="num">${(100*pa.length/n).toFixed(0)}%</strong> of pupils</div></button>`);
+ if(hasBeh())k.push(`<button class="kpi beh" data-chip="conc"><div class="lab">${ico('beh')}Behaviour</div><div class="val num">${fmtN(bt.Behaviour)}</div><div class="sub">records · ${per()} · ${withB} pupils</div><div class="kfoot">${bfoot('Behaviour',false)}</div></button>`,
+  `<button class="kpi aca" data-chip="acad"><div class="lab">${ico('aca')}Academic</div><div class="val num">${fmtN(bt.Academic)}</div><div class="sub">records · ${per()}</div><div class="kfoot">${bfoot('Academic',false)}</div></button>`,
+  ...(hasRewardData()?[`<button class="kpi rew" data-chip="rew"><div class="lab">${ico('rew')}Rewards</div><div class="val num">${fmtN(bt.Reward)}</div><div class="sub">${per()} · ${rows.filter(r=>r.b.Reward).length} pupils</div><div class="kfoot">${bfoot('Reward',true)}</div></button>`]:[]));
+ if(hasAtt()&&hasBeh())k.push(`<button class="kpi crit both" data-chip="both"><div class="lab">${ico('both')}Attendance + behaviour</div><div class="val num">${both.length}</div><div class="sub">pupils with both kinds of concern</div><div class="kfoot">Click to list them</div></button>`);
+ const look=[...rows].filter(r=>r.score>=15).sort((a,b)=>b.score-a.score).slice(0,8),F=findings(rows);
+ return `${matchNote()}${datesNote()}<div class="kpis kk${Math.min(k.length,6)}">${k.join('')}</div>
+ <div class="grid g2f"><section class="card"><div class="card-h"><div><h2>Key findings</h2><p>What stands out for the pupils in this view, most important first.</p></div></div><div class="card-b"><div class="findings">${F.map(findingRow).join('')||'<p class="empty-s">Nothing unusual stands out in this view.</p>'}</div></div></section>
+ <section class="card"><div class="card-h"><div><h2>Pupils to look at first</h2><p>Ranked on attendance and behaviour together.</p></div><button class="btn link small" data-chip="look">See all →</button></div><div class="card-b"><div class="plist">${look.map(prow).join('')||'<p class="empty-s">Nobody stands out in this view.</p>'}</div></div></section></div>
+ <section class="card" style="margin-top:16px"><div class="card-h"><div><h2>Week by week</h2><p>${hasAtt()&&hasBeh()?'Attendance (top) and behaviour records (bottom) on the same weeks – look for weeks where one moves with the other.':hasAtt()?'Share of sessions attended each week.':'Behaviour records each week.'}</p></div></div><div class="card-b">${dualWeekly(rows)}</div></section>
+ ${hasAtt()?'':needNote('att')}${hasBeh()?'':needNote('beh')}`;
+}
+function prow(r){return `<button class="prow" data-pupil="${r.id}">${avatar(r)}<span class="who"><strong>${esc(r.name)}</strong><small>${esc(yearLabel(r.year))} · ${esc(r.reg||'—')}${r.flags[0]?` · ${esc(r.flags.slice(0,2).map(f=>f.label).join(', '))}`:''}</small></span><span class="pm">${r.p.att?`<b style="color:${toneInk(r.att)}">${pct(r.att,0)}</b>`:''}${hasBeh()?`<span class="mix">${bCount(r.b.Behaviour,'Behaviour')}${bCount(r.b.Academic,'Academic')}${r.b.Reward?bCount(r.b.Reward,'Reward'):''}</span>`:''}</span></button>`}
+
+/* ---------- Pupils ---------- */
+const CHIPS=[['all','All',()=>true,''],['look','To look at',r=>r.score>=15,''],
+ ['absentnow','Absent now',r=>has(r,'absentnow'),'Attendance'],['pa','Persistent absence',r=>has(r,'severe','pa'),'Attendance'],['near','Close to 90%',r=>has(r,'near'),'Attendance'],['b95','92–95%',r=>has(r,'b95'),'Attendance'],['drop','Falling',r=>has(r,'drop'),'Attendance'],['odd','Odd days',r=>has(r,'odd','day'),'Attendance'],['late','Late',r=>has(r,'late'),'Attendance'],
+ ['conc','Repeated concerns',r=>has(r,'conc','rising'),'Behaviour'],['acad','Academic',r=>has(r,'acad'),'Behaviour'],['rew','Rewarded',r=>r.b.Reward>0,'Behaviour'],['norew','Concerns, no rewards',r=>has(r,'norew'),'Behaviour'],
+ ['both','Attendance + behaviour',r=>has(r,'both'),'Both'],['quiet','Nothing in Class Charts',r=>!!r.p.att&&!r.p.beh.length,'Both'],['unsung','Attending well, no rewards',r=>!!r.ytd&&r.ytd.attendance>=96&&r.ball.Reward===0,'Both'],['unmatched','Not matched',r=>!!r.p.behOnly,'Both']];
+function chipsAvailable(){return CHIPS.filter(([id,,,g])=>g===''||(g==='Attendance'&&hasAtt())||(g==='Behaviour'&&hasBeh())||(g==='Both'&&hasAtt()&&hasBeh()&&(id!=='unsung'||hasRewardData())))}
+function pupilList(){
+ let rows=cohortRows();const chip=CHIPS.find(c=>c[0]===S.chip)||CHIPS[0];rows=rows.filter(chip[2]);
+ if(S.band!=null){const f=[x=>x.ytd?.attendance>=95,x=>x.ytd?.attendance>90&&x.ytd?.attendance<95,x=>x.ytd?.attendance>50&&x.ytd?.attendance<=90,x=>x.ytd&&x.ytd.attendance!==null&&x.ytd.attendance<=50][S.band];rows=rows.filter(x=>x.ytd&&f(x))}
+ const q=normal(S.search);if(q)rows=rows.filter(r=>normal(`${r.name} ${r.reg} ${r.house} ${r.p.cc.map(c=>c.name).join(' ')}`).includes(q));
+ const key={name:r=>r.name,year:r=>Number(r.year)||0,reg:r=>r.reg,att:r=>r.att??999,ytd:r=>r.ytd?.attendance??999,missed:r=>r.cur?(r.cur.authorised+r.cur.unauthorised):-1,unauth:r=>r.cur?.unauthorised??-1,late:r=>r.cur?.late??-1,beh:r=>r.b.Behaviour,aca:r=>r.b.Academic,rew:r=>r.b.Reward,score:r=>r.score}[S.sort]||(r=>r.score);
+ return rows.sort((a,b)=>{const x=key(a),y=key(b);const c=typeof x==='number'?x-y:String(x).localeCompare(String(y),'en-GB',{numeric:true});return c*S.dir||a.name.localeCompare(b.name)});
+}
+function viewPupils(){
+ const base=cohortRows(),rows=pupilList(),avail=chipsAvailable(),bandNames=['95% or more','90–95%','50–90%','50% or less'];
+ const chip=([id,l,f])=>{const c=base.filter(f).length,on=S.chip===id&&S.band==null;return c||on||id==='all'?`<button class="chip" data-chip="${id}" aria-pressed="${on}">${l}<span class="c">${c}</span></button>`:''};
+ const groups=['','Attendance','Behaviour','Both'].map(g=>{const cs=avail.filter(c=>c[3]===g).map(chip).join('');return cs?`<div class="cg">${g?`<span class="cgl">${g}</span>`:''}${cs}${g===''&&S.band!=null?`<button class="chip" aria-pressed="true" data-clearband>${bandNames[S.band]} this year ✕</button>`:''}</div>`:''}).join('');
+ return `${matchNote()}<section class="card"><div class="toolbar ptool"><div class="chipgroups">${groups}</div>
+ <div class="row"><input id="search" class="search" type="search" placeholder="Filter this list by name, tutor group or house" value="${esc(S.search)}"><button class="btn small" data-act="csv">Export CSV</button><button class="btn small" data-act="print">Print</button></div></div>
+ ${rows.length?`<div class="tablewrap"><table class="ptable"><thead><tr>${th('name','Pupil')}${th('reg','Tutor')}${hasAtt()?`${th('att','Attendance')}<th>Last 8 weeks</th>${th('missed','Days missed','r')}${th('unauth','Unauth.','r')}${th('late','Late','r')}`:''}${hasBeh()?`${th('beh','Behav.','r')}${th('aca','Acad.','r')}${th('rew','Rewards','r')}`:''}${th('score','Things to notice')}</tr></thead><tbody>
+ ${rows.map(r=>`<tr data-pupil="${r.id}"><td><button class="name" data-pupil="${r.id}">${esc(r.name)}</button>${r.p.behOnly?' <span class="badge unc" data-tip="Only in the Class Charts report – not matched to an attendance record yet">not matched</span>':''}</td><td>${esc(r.reg||(r.year?yearLabel(r.year):'—'))}</td>${hasAtt()?(r.p.att?`<td>${attCell(r.att)}</td><td>${spark(r.weeks)}</td><td class="r num">${((r.cur.authorised+r.cur.unauthorised)/2).toFixed(1).replace('.0','')}</td><td class="r num">${r.cur.unauthorised||'<span class="zero">0</span>'}</td><td class="r num">${r.cur.late||'<span class="zero">0</span>'}</td>`:'<td colspan="5" class="hint">No attendance record</td>'):''}${hasBeh()?`<td class="r">${bCount(r.b.Behaviour,'Behaviour')}</td><td class="r">${bCount(r.b.Academic,'Academic')}</td><td class="r">${bCount(r.b.Reward,'Reward')}</td>`:''}<td>${pills(r.flags,2)}</td></tr>`).join('')}
+ </tbody></table></div>`:'<div class="card-b"><p class="empty-s">No pupils match this view.</p></div>'}<div class="foot">${rows.length} pupil${rows.length===1?'':'s'} · figures are for ${per()} · click a row to open the pupil, then use ← → to step through this list.</div></section>`;
+}
+
+/* ---------- Attendance: who is off now, and who misses odd days ---------- */
+function attendanceExtras(rows){
+ const now=rows.filter(r=>r.d&&r.d.current>=4).sort((a,b)=>b.d.current-a.d.current),odd=rows.filter(r=>r.d&&r.d.broken>=3).sort((a,b)=>b.d.broken/b.d.weeks-a.d.broken/a.d.weeks||b.d.broken-a.d.broken).slice(0,8);
+ const item=(r,right,sub)=>`<button class="prow" data-pupil="${r.id}">${avatar(r)}<span class="who"><strong>${esc(r.name)}</strong><small>${esc(yearLabel(r.year))} · ${esc(r.reg||'—')} · ${sub}</small></span><span class="nb">${right}</span></button>`;
+ return `<div class="grid g2e" style="margin-top:16px"><section class="card"><div class="card-h"><div><h2>Absent right now ${now.length?`<span class="count-b">${now.length}</span>`:''}</h2><p>Pupils absent for every session of the last 2 days or more, as the report was run.</p></div></div><div class="card-b"><div class="plist">${now.slice(0,10).map(r=>item(r,`${fmtDays(r.d.current).replace(/ days?/,'')}<small>days</small>`,`since ${fmt(r.d.since,true)}${r.d.lastCode?` · latest code ${esc(r.d.lastCode)}`:''}`)).join('')||'<p class="empty-s">Nobody has been off for 2 days or more.</p>'}</div>${now.length>10?`<button class="btn link small" data-chip="absentnow">See all ${now.length} →</button>`:''}</div></section>
+ <section class="card"><div class="card-h"><div><h2>Odd-day absences</h2><p>Pupils whose absence is spread across many weeks (“broken weeks”) rather than one spell – easy to miss in the overall %.</p></div></div><div class="card-b"><div class="plist">${odd.map(r=>item(r,`${r.d.broken}<small>of ${r.d.weeks} weeks</small>`,`${pct(r.ytd.attendance)} · ${r.d.spells} separate absence${r.d.spells===1?'':'s'}`)).join('')||'<p class="empty-s">Nobody has absence in 3 or more separate weeks.</p>'}</div></div></section></div>`;
+}
+
+/* ---------- Connections: how attendance and behaviour relate ---------- */
+function effect(title,sub,aLab,a,bLab,b,fmtV,enough,more,basis){
+ const mx=Math.max(a||0,b||0)||1,ratio=a!==null&&b?a/b:null;
+ const head=!enough||ratio===null?'<div class="eh mute">Not enough data yet</div>':ratio>=1.2?`<div class="eh">${ratio.toFixed(1)}× <small>${more}</small></div>`:ratio<=.83?`<div class="eh">${(1/ratio).toFixed(1)}× <small>less ${more.replace(/^more /,'')}</small></div>`:'<div class="eh mute">About the same</div>';
+ const bar=(lab,v,hi)=>`<div class="erow"><span>${lab}</span><span class="track"><span style="width:${v===null?0:100*v/mx}%;background:${hi?'var(--b-pa)':'var(--k-nr)'}"></span></span><strong class="num">${v===null?'—':fmtV(v)}</strong></div>`;
+ return `<section class="card effect"><div class="card-h"><div><h2>${title}</h2><p>${sub}</p></div></div><div class="card-b">${head}${bar(aLab,a,true)}${bar(bLab,b,false)}<p class="note-s">${basis}</p></div></section>`;
+}
+function viewConnections(){
+ if(!hasAtt()||!hasBeh())return `<div class="card pad"><h2>Connections</h2><p class="hint" style="margin-top:6px">This page looks at how attendance and behaviour relate to each other, so it needs both reports.</p></div>${hasAtt()?'':needNote('att')}${hasBeh()?'':needNote('beh')}`;
+ const rows=cohortRows(),L=linkStats(rows),rate=g=>g.days?100*g.conc/g.days:null,ar=g=>g.pos?100*g.abs/g.pos:null,B=bandStats(rows),mxC=Math.max(.01,...B.map(b=>b.conc||0)),mxR=Math.max(.01,...B.map(b=>b.rew||0));
+ const per100=v=>`${v.toFixed(1)}`,quiet=rows.filter(r=>r.p.att&&!r.p.beh.length),norew=rows.filter(r=>has(r,'norew')),unsung=rows.filter(r=>r.ytd&&r.ytd.attendance>=96&&r.ball.Reward===0),rd=hasRewardData();
+ const tile=(n,title,txt,chip)=>`<button class="rtile" data-chip="${chip}"><strong class="num">${n}</strong><span><b>${title}</b>${txt}</span><i>List →</i></button>`;
+ const abs=[...L.onAbsent].sort((x,y)=>y.b.date.localeCompare(x.b.date));
+ return `${matchNote()}${datesNote()}<p class="pagelead">How attendance and behaviour move together for the ${rows.length} pupils in this view (${per()}). These are patterns worth a conversation, not proof that one causes the other.</p>
+ <div class="grid g3">${effect('First day back','Concerns logged per 100 pupils in school, on a pupil’s first day back after a full day off compared with other days.','First day back',rate(L.ret),'Other days',rate(L.other),per100,L.ret.days>=20&&L.ret.conc+L.other.conc>=10,'more likely on a first day back',`Based on ${fmtN(L.ret.days)} first days back and ${fmtN(L.other.days)} other pupil-days.`)}
+ ${effect('Days a pupil is late','Concerns logged per 100 pupils in school, on days a pupil was marked late compared with days they were on time.','Late that day',rate(L.late),'On time',rate(L.ontime),per100,L.late.days>=20&&L.late.conc+L.ontime.conc>=10,'more likely on a late day',`Based on ${fmtN(L.late.days)} late days and ${fmtN(L.ontime.days)} on-time pupil-days.`)}
+ ${effect('The day after a concern','Share of sessions missed on the school day after a pupil picked up a concern in school, compared with all other days.','Day after a concern',ar(L.after),'Other days',ar(L.base),v=>v.toFixed(1)+'%',L.after.pos>=40,'more absence the next day',`Based on ${fmtN(Math.round(L.after.pos/2))} days that followed a concern.`)}</div>
+ <div class="grid g2" style="margin-top:16px"><section class="card"><div class="card-h"><div><h2>Attendance and concerns, pupil by pupil</h2><p>Each dot is a pupil. Pupils in the shaded corner have both lower attendance and more concerns.</p></div></div><div class="card-b">${scatter(rows)}</div></section>
+ <section class="card"><div class="card-h"><div><h2>By attendance band</h2><p>Do pupils who attend less pick up more concerns, or fewer rewards? Averages per pupil, ${per()}.</p></div></div><div class="card-b"><table class="bandt"><thead><tr><th>This year</th><th class="r">Pupils</th><th>Concerns each</th>${rd?'<th>Rewards each</th>':''}</tr></thead><tbody>${B.map(b=>`<tr><td><i class="bsq" style="background:${b.c}"></i>${b.l}</td><td class="r num">${b.n}</td><td>${b.n?`<div class="att"><b class="num">${b.conc.toFixed(1)}</b><span class="mini"><span style="width:${100*b.conc/mxC}%;background:var(--t-beh)"></span></span></div>`:'—'}</td>${rd?`<td>${b.n?`<div class="att"><b class="num">${b.rew.toFixed(1)}</b><span class="mini"><span style="width:${100*b.rew/mxR}%;background:var(--t-rew)"></span></span></div>`:'—'}</td>`:''}</tr>`).join('')}</tbody></table>
+ <p class="note-s">${B[2].n&&B[0].n&&B[0].conc!==null?(B[2].conc>B[0].conc*1.3?`Pupils at 90% or less average <strong>${(B[2].conc/Math.max(B[0].conc,.01)).toFixed(1)}×</strong> the concerns of pupils at 95% or more.`:'Concerns are spread fairly evenly across attendance bands.'):'Not enough pupils in each band to compare.'}</p></div></section></div>
+ <section class="card" style="margin-top:16px"><div class="card-h"><div><h2>Under the radar</h2><p>Only visible with both reports together: pupils on roll who Class Charts says little or nothing about.</p></div></div><div class="card-b"><div class="rtiles">${tile(quiet.length,'Nothing recorded',`On the attendance roll but with no Class Charts entries at all${rd?' – no concerns, no rewards':''}.`,'quiet')}${rd?tile(unsung.length,'Attending well, never rewarded','96% attendance or better, with no rewards recorded.','unsung')+tile(norew.length,'Concerns but no rewards','3 or more concerns and no rewards recorded.','norew'):''}</div></div></section>
+ <details class="more card pad" style="margin-top:16px"><summary>Class Charts entries on days the pupil was marked absent all day (${abs.length})</summary><p class="hint" style="margin:8px 0">Often these are fine (for example a missed detention logged while the pupil was ill), but an entry from a lesson on a day marked absent may mean a register needs checking.</p>${abs.length?`<div class="tablewrap"><table class="rec"><thead><tr><th>Date</th><th>Pupil</th><th>Registers</th><th>Class Charts entry</th><th>Recorded by</th><th>Subject</th></tr></thead><tbody>${abs.slice(0,100).map(({r,b})=>`<tr data-pupil="${r.id}"><td class="nw">${fmt(b.date)}</td><td><button class="name" data-pupil="${r.id}">${esc(r.name)}</button></td><td class="nw">${dayAtt(r.p.att,b.date).replace(/^ · /,'')}</td><td><span class="badge ${typeClass(b.type)}">${TYPE_LABEL[b.type]}</span> ${esc(b.category||'')}</td><td>${esc(b.recordedBy||'—')}</td><td>${esc(b.subject||'—')}</td></tr>`).join('')}</tbody></table></div>${abs.length>100?`<p class="note-s">Showing the latest 100 of ${abs.length}.</p>`:''}`:'<p class="empty-s">None in this view.</p>'}</details>`;
+}
+
+/* ---------- Groups ---------- */
+function groupRows(rows){
+ const pr=rangeFor(S.period),m=groupsOf(rows,S.groupBy);
+ return [...m].map(([name,rs])=>{const ar=rs.filter(r=>r.p.att),n=ar.length||rs.length,t=sumAtt(rs),b=tallyB(rs.flatMap(r=>r.p.beh.filter(x=>inRange(x,pr.start,pr.end))));
+  return {name,rs,n,t,att:t.attendance,pa:rs.filter(r=>has(r,'severe','pa')).length,b,beh:b.Behaviour,aca:b.Academic,cpp:b.concerns/n,rpp:b.Reward/n,both:rs.filter(r=>has(r,'both')).length}});
+}
+function gth(k,label,cls=''){const on=S.gsort===k;return `<th class="${cls}"${on?` aria-sort="${S.gdir>0?'ascending':'descending'}"`:''}><button data-gsort="${k}"${on?` data-dir="${S.gdir>0?'▲':'▼'}"`:''}>${label}</button></th>`}
+function groupHeat(gs){
+ const metric=S.heat==='conc'&&hasBeh()?'conc':hasAtt()?'att':'conc',data=gs.map(g=>{const m=new Map();
+  if(metric==='att')for(const w of weekly(cohortSessions(g.rs)))m.set(w.w,{v:w.att,tip:`${pct(w.att)} · ${w.present} of ${w.possible} sessions`});
+  else for(const w of weeklySeries(g.rs.flatMap(r=>r.p.beh.filter(x=>x.type!=='Reward'))))m.set(w.w,{v:w.total/g.n,tip:`${w.total} concern${w.total===1?'':'s'} · ${(w.total/g.n).toFixed(2)} per pupil`});
+  return {g,m}});
+ const weeks=uniq(data.flatMap(d=>[...d.m.keys()])).sort();if(!weeks.length)return '<p class="empty-s">No dated data.</p>';
+ const mx=Math.max(.01,...data.flatMap(d=>[...d.m.values()].map(x=>x.v||0))),steps=['--s1','--s2','--s3','--s4','--s5','--s6','--s7'];
+ const cell=x=>{if(!x||x.v===null||x.v===undefined)return '<td class="hc none">·</td>';
+  if(metric==='att'){const a=x.v,bg=a>=97?'color-mix(in srgb,var(--b-ok) 34%,var(--surface))':a>=95?'color-mix(in srgb,var(--b-ok) 18%,var(--surface))':a>90?'color-mix(in srgb,var(--b-95) 30%,var(--surface))':a>85?'color-mix(in srgb,var(--b-pa) 34%,var(--surface))':'color-mix(in srgb,var(--b-sev) 42%,var(--surface))';return `<td class="hc num" style="background:${bg}" data-tip="${esc(x.tip)}">${a.toFixed(0)}</td>`}
+  const i=Math.min(6,Math.floor(6*x.v/mx+.0001));return x.v?`<td class="hc num" style="background:var(${steps[i]});color:var(${i>=3?'--heat-ink-hi':'--heat-ink-lo'})" data-tip="${esc(x.tip)}">${x.v.toFixed(1)}</td>`:`<td class="hc num zero" data-tip="${esc(x.tip)}">0</td>`};
+ return `<div class="tablewrap"><table class="heatT"><thead><tr><th>Week of</th>${weeks.map(w=>`<th>${esc(fmt(w,true))}</th>`).join('')}</tr></thead><tbody>${data.map(d=>`<tr><th><button class="name" data-gpick="${esc(d.g.name)}">${esc(d.g.name)}</button></th>${weeks.map(w=>cell(d.m.get(w))).join('')}</tr>`).join('')}</tbody></table></div>
+ <div class="heat-key">${metric==='att'?'<span style="background:color-mix(in srgb,var(--b-sev) 42%,var(--surface))"></span>85% or less<span style="background:color-mix(in srgb,var(--b-pa) 34%,var(--surface))"></span>85–90%<span style="background:color-mix(in srgb,var(--b-95) 30%,var(--surface))"></span>90–95%<span style="background:color-mix(in srgb,var(--b-ok) 18%,var(--surface))"></span>95–97%<span style="background:color-mix(in srgb,var(--b-ok) 34%,var(--surface))"></span>97% or more':`Fewer${steps.map(k=>`<span style="background:var(${k})"></span>`).join('')}More concerns per pupil`}</div>`;
+}
 function viewGroups(){
- const rows=cohortRows(),m=new Map(),key=r=>S.groupBy==='year'?(r.year?yearLabel(r.year):''):S.groupBy==='reg'?r.reg:r.house;
- for(const r of rows){const k=key(r);if(!k)continue;if(!m.has(k))m.set(k,[]);m.get(k).push(r)}
- const gs=[...m].map(([name,rs])=>{const ar=rs.filter(r=>r.p.att);return {name,rs,n:ar.length||rs.length,t:sumAtt(rs),pa:rs.filter(r=>has(r,'severe','pa')).length,b:tallyB(rs.flatMap(r=>r.p.beh.filter(x=>inRange(x,rangeFor(S.period).start,rangeFor(S.period).end)))),both:rs.filter(r=>has(r,'both')).length}}).sort((a,b)=>sortText(a.name,b.name));
- const all=sumAtt(rows),vals=gs.map(g=>g.t.attendance).filter(v=>v!==null),lo=Math.max(0,Math.min(85,Math.floor((Math.min(100,...vals)-2)/5)*5)),pos=v=>100*(clamp(v,lo,100)-lo)/(100-lo),maxC=Math.max(.1,...gs.map(g=>g.b.concerns/g.n));
+ const rows=cohortRows(),all=sumAtt(rows),gs=groupRows(rows),key=S.gsort,byNum=k=>(a,b)=>((a[k]??-1)-(b[k]??-1));
+ gs.sort(key==='name'||!gs.length||!(key in gs[0])?(a,b)=>sortText(a.name,b.name):byNum(key));if(S.gdir<0)gs.reverse();
+ const vals=gs.map(g=>g.att).filter(v=>v!==null),lo=Math.max(0,Math.min(85,Math.floor((Math.min(100,...vals)-2)/5)*5)),pos=v=>100*(clamp(v,lo,100)-lo)/(100-lo),maxC=Math.max(.1,...gs.map(g=>g.cpp)),maxR=Math.max(.1,...gs.map(g=>g.rpp));
  const strip=v=>v===null?'—':`<div class="dotstrip"><span class="axis"></span>${[90,95].filter(x=>x>lo).map(x=>`<span class="rf" style="left:${pos(x)}%"></span>`).join('')}${all.attendance!==null?`<span class="rf" style="left:${pos(all.attendance)}%;border-left:2px solid var(--ink-2);opacity:.5"></span>`:''}<span class="d" style="left:${pos(v)}%;background:${tone(v)}"></span></div>`;
+ const byAlpha=[...gs].sort((a,b)=>sortText(a.name,b.name));
  return `<div class="chips" style="margin-bottom:12px">${[['reg','Tutor groups'],['year','Year groups'],['house','Houses']].map(([k,l])=>`<button class="chip" data-groupby="${k}" aria-pressed="${S.groupBy===k}">${l}</button>`).join('')}</div>
- <section class="card"><div class="card-h"><div><h2>Groups side by side</h2><p>${PERIOD_LABEL[S.period]}. Per-pupil figures use everyone in the attendance report, so groups of different sizes compare fairly.</p></div></div>
- <div class="tablewrap"><table><thead><tr><th>Group</th><th class="r">Pupils</th>${hasAtt()?'<th class="r">Attendance</th><th style="min-width:180px">Compared</th><th class="r">Persistent absence</th>':''}${hasBeh()?'<th class="r">Behaviour</th><th class="r">Academic</th><th style="min-width:140px">Concerns per pupil</th><th class="r">Rewards per pupil</th>':''}${hasAtt()&&hasBeh()?'<th class="r">Both</th>':''}</tr></thead><tbody>
- ${gs.map(g=>`<tr><td><button class="name" data-gpick="${esc(g.name)}">${esc(g.name)}</button></td><td class="r num">${g.n}</td>${hasAtt()?`<td class="r num"><strong>${pct(g.t.attendance)}</strong></td><td>${strip(g.t.attendance)}</td><td class="r num">${g.pa}</td>`:''}${hasBeh()?`<td class="r num">${g.b.Behaviour}</td><td class="r num">${g.b.Academic}</td><td><div class="att"><b class="num">${(g.b.concerns/g.n).toFixed(1)}</b><span class="mini"><span style="width:${100*(g.b.concerns/g.n)/maxC}%;background:var(--t-beh)"></span></span></div></td><td class="r num">${(g.b.Reward/g.n).toFixed(1)}</td>`:''}${hasAtt()&&hasBeh()?`<td class="r num">${g.both||'—'}</td>`:''}</tr>`).join('')||'<tr><td colspan="9" class="empty-s">No groups.</td></tr>'}
- </tbody></table></div><div class="foot">Click a group name to filter the whole tool to it.</div></section>`;
+ <section class="card"><div class="card-h"><div><h2>Groups side by side</h2><p>${PERIOD_LABEL[S.period]}. Click a column heading to sort, or a group name to filter the whole tool to it. Per-pupil figures use everyone on the attendance roll, so groups of different sizes compare fairly.</p></div></div>
+ <div class="tablewrap"><table><thead><tr>${gth('name','Group')}${gth('n','Pupils','r')}${hasAtt()?`${gth('att','Attendance','r')}<th style="min-width:170px">Compared</th>${gth('pa','Persistent absence','r')}`:''}${hasBeh()?`${gth('beh','Behaviour','r')}${gth('aca','Academic','r')}${gth('cpp','Concerns per pupil')}${hasRewardData()?gth('rpp','Rewards per pupil'):''}`:''}${hasAtt()&&hasBeh()?gth('both','Both','r'):''}</tr></thead><tbody>
+ ${gs.map(g=>`<tr><td><button class="name" data-gpick="${esc(g.name)}">${esc(g.name)}</button></td><td class="r num">${g.n}</td>${hasAtt()?`<td class="r num"><strong style="color:${toneInk(g.att)}">${pct(g.att)}</strong></td><td>${strip(g.att)}</td><td class="r num">${g.pa||'<span class="zero">0</span>'}</td>`:''}${hasBeh()?`<td class="r num">${g.beh}</td><td class="r num">${g.aca}</td><td><div class="att"><b class="num">${g.cpp.toFixed(1)}</b><span class="mini"><span style="width:${100*g.cpp/maxC}%;background:var(--t-beh)"></span></span></div></td>${hasRewardData()?`<td><div class="att"><b class="num">${g.rpp.toFixed(1)}</b><span class="mini"><span style="width:${100*g.rpp/maxR}%;background:var(--t-rew)"></span></span></div></td>`:''}`:''}${hasAtt()&&hasBeh()?`<td class="r num">${g.both||'<span class="zero">0</span>'}</td>`:''}</tr>`).join('')||'<tr><td colspan="10" class="empty-s">No groups.</td></tr>'}
+ </tbody></table></div></section>
+ <section class="card" style="margin-top:16px"><div class="card-h"><div><h2>Week by week, group by group</h2><p>${S.heat==='conc'&&hasBeh()?'Concerns per pupil each week.':'Attendance % each week.'} Read across to follow one group; read down to compare groups in the same week.</p></div>${hasAtt()&&hasBeh()?`<div class="seg"><button data-heat="att" aria-pressed="${S.heat!=='conc'}">Attendance</button><button data-heat="conc" aria-pressed="${S.heat==='conc'}">Concerns</button></div>`:''}</div><div class="card-b">${groupHeat(byAlpha)}</div></section>`;
 }
 
 /* ---------- Name matching ---------- */
@@ -1232,8 +1548,13 @@ function setLink(ccKey,target){const c=A.match.people.find(x=>x.key===ccKey);if(
  const ok=saveLinks(A.links);unify();render();toast(ok?'Saved – this will be remembered next time on this computer.':'Saved for now (this browser won’t let it be remembered).')}
 
 /* ---------- Pupil profile: attendance + behaviour together ---------- */
-function openPupil(id){
- const r=allRows().find(x=>x.id===id);if(!r)return;const p=r.p,a=p.att;
+let NAV=[];
+function navList(id){const list=pupilList().map(r=>r.id);if(list.includes(id))return list;const c=[...cohortRows()].sort((a,b)=>b.score-a.score).map(r=>r.id);return c.includes(id)?c:[id]}
+function stepPupil(dir){const dlg=$('pupilDlg');if(!dlg.open||NAV.length<2)return;const i=NAV.indexOf(dlg.dataset.id),j=i+dir;if(i<0||j<0||j>=NAV.length)return;openPupil(NAV[j],true)}
+function openPupil(id,keepNav=false){
+ const r=allRows().find(x=>x.id===id);if(!r)return;const p=r.p,a=p.att,D=r.d;
+ if(!keepNav||!NAV.includes(id))NAV=navList(id);
+ const idx=NAV.indexOf(id),peers=allRows().filter(x=>r.reg?x.reg===r.reg&&x.year===r.year:x.year===r.year),pa=sumAtt(peers,'ytd').attendance,pn=peers.filter(x=>x.p.att).length||peers.length||1,pc=peers.reduce((s,x)=>s+x.ball.concerns,0)/pn,pw=peers.reduce((s,x)=>s+x.ball.Reward,0)/pn,grp=r.reg||yearLabel(r.year);
  const att=(lab,v,sub)=>`<div class="tile"><span>${lab}</span><strong class="num" style="color:${toneInk(v)}">${pct(v)}</strong><span class="meter"><span style="width:${clamp(v??0,0,100)}%;background:${tone(v)}"></span></span><small>${sub}</small></div>`;
  const cnt=(lab,v,sub,cls='')=>`<div class="tile ${cls}"><span>${lab}</span><strong class="num">${v}</strong><small>${sub}</small></div>`;
  const meta=[yearLabel(p.year),p.reg&&`Tutor ${p.reg}`,p.house,p.status].filter(Boolean);
@@ -1241,16 +1562,34 @@ function openPupil(id){
  const codes=new Map();if(a)for(const q of a.sessions){if(!isPossible(q.k)||q.k==='P')continue;const c=q.e||q.c;const x=codes.get(c)||{n:0,k:q.k};x.n++;codes.set(c,x)}
  const ca=[...codes].sort((x,y)=>y[1].n-x[1].n),cmax=Math.max(1,...ca.map(c=>c[1].n));
  const beh=p.beh,bt=tallyB(beh);let lastMonth='';
- $('pupilBody').innerHTML=`<div class="dlg-h"><div class="who-h">${avatar(r,'big')}<div><h2 id="pupilTitle">${esc(p.name)}</h2><div class="metas">${meta.map(m=>`<span>${esc(m)}</span>`).join('')}</div>${ccInfo?`<p class="hint" style="margin-top:5px;font-size:12px">${ccInfo}</p>`:''}</div></div><div class="row no-print"><button class="btn small" data-act="print-pupil">Print</button><button class="x" data-close aria-label="Close">×</button></div></div>
+ const fact=(v,l,tipTxt)=>`<div class="fact"${tipTxt?` data-tip="${esc(tipTxt)}"`:''}><strong class="num">${v}</strong><span>${l}</span></div>`;
+ const tags=x=>{if(!a||!x.date)return '';const t=[];if(D.ret.has(x.date))t.push('first day back');const dd=D.dayMap.get(x.date);if(dd?.late)t.push('late that day');if(D.fullAbs.has(x.date))t.push('marked absent all day');return t.map(v=>`<span class="ttag">${v}</span>`).join('')};
+ $('pupilBody').innerHTML=`<div class="dlg-h"><div class="who-h">${avatar(r,'big')}<div><h2 id="pupilTitle">${esc(p.name)}</h2><div class="metas">${meta.map(m=>`<span>${esc(m)}</span>`).join('')}</div>${ccInfo?`<p class="hint" style="margin-top:5px;font-size:12px">${ccInfo}</p>`:''}</div></div><div class="row no-print">${idx>=0&&NAV.length>1?`<div class="pnav" data-tip="Step through the current list (← → keys)"><button data-nav="-1" ${idx===0?'disabled':''} aria-label="Previous pupil">‹</button><span class="num">${idx+1} of ${NAV.length}</span><button data-nav="1" ${idx===NAV.length-1?'disabled':''} aria-label="Next pupil">›</button></div>`:''}<button class="btn small" data-act="print-pupil">Print</button><button class="x" data-close aria-label="Close">×</button></div></div>
  <div class="dlg-b">${p.behOnly?`<div class="note"><strong>This pupil is only in the Class Charts report.</strong> They haven't been matched to an attendance record. <button class="btn link small" data-close data-goto="matching">Check names →</button></div>`:''}${a?.mismatch?.length?`<div class="note">Session detail for this pupil doesn't exactly match iSAMS totals; the year-to-date figures are iSAMS's own.</div>`:''}
- <div class="tiles t7">${a?`${att('Attendance this year',r.ytd.attendance,`${r.ytd.present} of ${r.ytd.possible} sessions`)}${att('Last 4 weeks',r.w4.attendance,`${r.w4.possible} sessions`)}${cnt('Unauthorised',r.ytd.unauthorised,'sessions this year',r.ytd.unauthorised?'k-u':'')}${cnt('Late',r.ytd.late,'marks this year',r.ytd.late?'k-l':'')}`:''}${hasBeh()?`${cnt('Behaviour',bt.Behaviour,'records','beh')}${cnt('Academic',bt.Academic,'records','aca')}${cnt('Rewards',bt.Reward,'records','rew')}`:''}</div>
+ <div class="tiles t7">${a?`${att('Attendance this year',r.ytd.attendance,`${r.ytd.present} of ${r.ytd.possible} sessions${pa!==null?` · ${esc(grp)} average ${pct(pa)}`:''}`)}${att('Last 4 weeks',r.w4.attendance,`${r.w4.present} of ${r.w4.possible} sessions`)}${cnt('Unauthorised',r.ytd.unauthorised,'sessions this year',r.ytd.unauthorised?'k-u':'')}${cnt('Late',r.ytd.late,'marks this year',r.ytd.late?'k-l':'')}`:''}${hasBeh()?`${cnt('Behaviour',bt.Behaviour,'records','beh')}${cnt('Academic',bt.Academic,`records · ${esc(grp)} avg ${pc.toFixed(1)} concerns`,'aca')}${hasRewardData()?cnt('Rewards',bt.Reward,`records · ${esc(grp)} avg ${pw.toFixed(1)}`,'rew'):''}`:''}</div>
+ ${a?`<div class="facts">${fact(((r.ytd.authorised+r.ytd.unauthorised)/2).toFixed(1).replace('.0',''),'days of school missed')}${fact(D.spells,`separate absence${D.spells===1?'':'s'}`,'An absence is a run of missed sessions in a row.')}${fact(D.longest?fmtDays(D.longest).replace(/ days?/,''):'0',`day${D.longest===2?'':'s'} – longest absence`)}${fact(`${D.broken} of ${D.weeks}`,'weeks with some absence','Sometimes called broken weeks.')}${hasBeh()?fact(beh.filter(x=>x.type!=='Reward'&&D.ret.has(x.date)).length,'concerns on a first day back','Concerns logged on the first day in school after a full day off.'):''}</div>`:''}
  ${r.flags.length?`<section class="sec"><h3>Things to notice</h3><div class="signals">${r.flags.map(f=>`<div class="signal ${f.tone}"><strong>${esc(f.label)}</strong><span>${esc(f.detail)}</span></div>`).join('')}</div></section>`:`<div class="signal good solo"><strong>Nothing stands out</strong><span>No attendance or behaviour flags at the moment.</span></div>`}
  <section class="sec"><div class="panel-h"><h3>Week by week</h3><span>${a&&beh.length?'Attendance (top) and behaviour records (bottom)':''}</span></div>${dualWeekly([r])}</section>
  ${a?`<section class="sec"><div class="panel-h"><h3>Calendar</h3><span>Registers, with a coloured dot on any day something was recorded in Class Charts</span></div><div class="calkey">${[['P','/','Present'],['L','L','Late'],['A','I','Authorised'],['U','O','Unauthorised'],['N','NR','Not registered']].map(([k,c,l])=>`<span><span class="mk ${k}">${c}</span>${l}</span>`).join('')}${hasBeh()?TYPES.map(t=>`<span><i class="bd ${typeClass(t)}"></i>${TYPE_LABEL[t]}</span>`).join(''):''}</div><div class="scrollx">${calendar(a.sessions,r.weeks,beh)}</div></section>`:''}
- <div class="grid g2e" style="margin-top:6px">${hasBeh()?`<section class="sec"><h3>Behaviour timeline <span class="hint">newest first</span></h3>${beh.length?`<div class="timeline">${beh.map(x=>{const m=x.date?x.date.slice(0,7):'';const head=m!==lastMonth?`<div class="tl-month">${x.date?dt(x.date).toLocaleDateString('en-GB',{month:'long',year:'numeric',timeZone:'UTC'}):'Undated'}</div>`:'';lastMonth=m;return `${head}<article class="tl ${typeClass(x.type)}"><div class="tl-top"><strong>${esc(x.category||TYPE_LABEL[x.type])}</strong><span class="badge ${typeClass(x.type)}">${TYPE_LABEL[x.type]}${showPts(x)}</span></div>${x.concern?`<p>${esc(x.concern)}</p>`:''}<div class="tl-meta">${fmt(x.date)}${dayAtt(a,x.date)}${[x.recordedBy,x.subject,x.lesson].filter(Boolean).map(v=>` · ${esc(v)}`).join('')}</div></article>`}).join('')}</div>`:'<p class="empty-s">No Class Charts records for this pupil.</p>'}</section>`:''}
- ${a?`<section class="sec"><h3>Absence codes</h3>${ca.length?`<div class="codes">${ca.map(([c,x])=>`<div class="code-row"><span class="mk ${x.k}">${esc(c)}</span><span class="desc">${esc(c==='L'?'Late (counts as present)':codeLabel(c))}</span><span class="bar"><span style="width:${100*x.n/cmax}%;background:var(${{A:'--k-auth',U:'--k-unauth',L:'--k-late',E:'--k-act'}[x.k]||'--k-nr'})"></span></span><strong class="num">${x.n}</strong></div>`).join('')}</div>`:'<p class="empty-s">Present at every registered session.</p>'}</section>`:''}</div></div>`;
- const dlg=$('pupilDlg');if(!dlg.open)dlg.showModal();dlg.scrollTop=0;
+ <div class="grid g2e" style="margin-top:6px">${hasBeh()?`<section class="sec"><h3>Behaviour timeline <span class="hint">newest first</span></h3>${beh.length?`<div class="timeline">${beh.map(x=>{const m=x.date?x.date.slice(0,7):'';const head=m!==lastMonth?`<div class="tl-month">${x.date?dt(x.date).toLocaleDateString('en-GB',{month:'long',year:'numeric',timeZone:'UTC'}):'Undated'}</div>`:'';lastMonth=m;return `${head}<article class="tl ${typeClass(x.type)}"><div class="tl-top"><strong>${esc(x.category||TYPE_LABEL[x.type])}</strong><span class="badge ${typeClass(x.type)}">${TYPE_LABEL[x.type]}${showPts(x)}</span></div>${x.concern?`<p>${esc(x.concern)}</p>`:''}<div class="tl-meta">${fmt(x.date)}${dayAtt(a,x.date)}${[x.recordedBy,x.subject,x.lesson].filter(Boolean).map(v=>` · ${esc(v)}`).join('')} ${tags(x)}</div></article>`}).join('')}</div>`:'<p class="empty-s">No Class Charts records for this pupil.</p>'}</section>`:''}
+ ${a?`<section class="sec"><h3>Absence codes</h3>${ca.length?`<div class="codes">${ca.map(([c,x])=>`<div class="code-row"><span class="mk ${x.k}">${esc(c)}</span><span class="desc">${esc(c==='L'?'Late (counts as present)':codeLabel(c))}</span><span class="bar"><span style="width:${100*x.n/cmax}%;background:var(${{A:'--k-auth',U:'--k-unauth',L:'--k-late',E:'--k-act'}[x.k]||'--k-nr'})"></span></span><strong class="num">${x.n}</strong></div>`).join('')}</div>`:'<p class="empty-s">Present at every registered session.</p>'}
+ <h3 style="margin-top:18px">Absences by day</h3><div class="daycols" style="margin-top:8px">${(()=>{const mx=Math.max(...DAYS.map(d=>r.days[d].AM.absent+r.days[d].PM.absent));return DAYS.map(d=>{const y=r.days[d],n=y.AM.absent+y.PM.absent,hi=n>0&&n===mx&&mx>=2;return `<div class="dc${hi?' hi':''}" data-tip="${esc(`${DAYNAMES[d]}: ${n} sessions missed\nAM ${y.AM.absent} · PM ${y.PM.absent}`)}"><span class="dl">${d}</span><span class="col"><span style="height:${mx?100*n/mx:0}%"></span></span><strong class="num">${n}</strong><small>AM ${y.AM.absent} · PM ${y.PM.absent}</small></div>`}).join('')})()}</div></section>`:''}</div></div>`;
+ const dlg=$('pupilDlg');dlg.dataset.id=id;if(!dlg.open)dlg.showModal();dlg.scrollTop=0;
 }
+/* ---------- Find a pupil from anywhere ---------- */
+let GSEL=0,GHITS=[];
+function gsearch(q){
+ const box=$('gresults');q=normal(q);if(!q||!A.pupils.length){box.classList.add('hidden');GHITS=[];return}
+ GHITS=allRows().filter(r=>normal(`${r.name} ${r.p.cc.map(c=>c.name).join(' ')} ${r.reg}`).includes(q)).sort((a,b)=>a.name.localeCompare(b.name)).slice(0,8);GSEL=clamp(GSEL,0,Math.max(0,GHITS.length-1));
+ box.innerHTML=GHITS.length?GHITS.map((r,i)=>`<button class="gr${i===GSEL?' on':''}" data-pupil="${r.id}">${avatar(r,'sm')}<span class="who"><strong>${esc(r.name)}</strong><small>${esc(yearLabel(r.year))} · ${esc(r.reg||'—')}</small></span>${r.p.att?`<b class="num" style="color:${toneInk(r.ytd.attendance)}">${pct(r.ytd.attendance,0)}</b>`:''}</button>`).join(''):'<p class="empty-s" style="padding:10px 12px">No pupil found.</p>';
+ box.classList.remove('hidden');
+}
+function closeSearch(clear=true){$('gresults').classList.add('hidden');if(clear)$('gsearch').value='';GSEL=0}
+/* ---------- Remembered view (year / tutor group / house / period only – no pupil data) ---------- */
+const VIEW_KEY='pupilInsights.view.v1';
+function saveView(){if(A.demo)return;try{localStorage.setItem(VIEW_KEY,JSON.stringify({year:S.year,reg:S.reg,house:S.house,period:S.period}))}catch{}}
+function restoreView(){if(A.demo)return false;try{const v=JSON.parse(localStorage.getItem(VIEW_KEY)||'null');if(!v)return false;S.year=v.year||'';S.reg=v.reg||'';S.house=v.house||'';S.period=PERIOD_LABEL[v.period]?v.period:'ytd';return !!(S.year||S.reg||S.house)}catch{return false}}
+function viewLabel(){return [S.year&&yearLabel(S.year),S.reg,S.house].filter(Boolean).join(' · ')}
 function dayAtt(a,d){if(!a||!d)return '';const am=a.sessions.find(q=>q.d===d&&q.t==='AM'),pm=a.sessions.find(q=>q.d===d&&q.t==='PM');if(!am&&!pm)return '';const s=q=>!q?'–':q.k==='N'?'NR':q.c||q.e;return ` · <span class="dayatt" data-tip="Registers that day (AM / PM)">AM ${esc(s(am))} · PM ${esc(s(pm))}</span>`}
 function calendar(sessions,weeks=[],beh=[]){
  const v=sessions.filter(q=>dateOk(q.d));if(!v.length)return '<p class="empty-s">No session detail.</p>';
@@ -1273,13 +1612,15 @@ function calendar(sessions,weeks=[],beh=[]){
 
 /* ---------- Loading files ---------- */
 const IMP={pending:null,map:{}};
-async function openFiles(files){
- files=[...files].filter(Boolean);if(!files.length)return;setBusy(true,`Reading ${files.length===1?files[0].name:files.length+' files'}…`);const done=[];
- try{for(const f of files){await new Promise(r=>setTimeout(r,20));const kind=await loadOne(f);if(kind)done.push(kind)}}
+async function openFiles(items){
+ items=[...items].filter(Boolean).map(x=>x&&x.file?x:{file:x});if(!items.length)return;setBusy(true,`Reading ${items.length===1?items[0].file.name:items.length+' files'}…`);const done=[],moved=[];let linked=0;
+ try{for(const it of items){await new Promise(r=>setTimeout(r,20));const kind=await loadOne(it.file);if(!kind)continue;done.push(kind);const k=kind==='Attendance'?'att':'beh';
+  (k==='att'?A.att:A.beh).modified=it.file.lastModified;
+  if(it.handle){const was=FILES[k].handle;await remember(k,it.handle,it.file);if(!it.quiet&&!(was&&was.isSameEntry&&await was.isSameEntry(it.handle).catch(()=>false)))linked++;if(it.want&&it.want!==k)moved.push(kind)}}}
  catch(e){console.error(e);setBusy(false);message('This file could not be read',`<p>${esc(e.message||e)}</p><p class="hint" style="margin-top:8px">Use the iSAMS <strong>Registration Certificate by Week</strong> export for attendance, and the Class Charts behaviour export (Excel or CSV) for behaviour.</p>`);return}
- setBusy(false);if(!done.length)return;unify();
- if(S.page==='start')S.page='overview';showApp();
- const n=needsReview();toast(`${done.join(' and ')} loaded.${n?` ${n} name${n===1?'':'s'} need checking.`:''}`);
+ setBusy(false);if(!done.length)return;const first=!A.loaded||A.demo;A.demo=false;A.loaded=true;unify();
+ let remembered=false;if(first){S.page='overview';S.chip='all';remembered=restoreView()}showApp();remembered=remembered&&!!viewLabel();
+ const n=needsReview();toast(`${done.join(' and ')} loaded.${moved.length?` (That was the ${moved[0].toLowerCase()} export, so it's been linked as your ${moved[0].toLowerCase()} file.)`:''}${linked?' Linked – next time just click Open on the Files page.':''}${n?` ${n} name${n===1?'':'s'} need checking.`:''}${remembered?` Showing ${viewLabel()}, as last time.`:''}`);
 }
 async function loadOne(file){
  const ext=file.name.split('.').pop().toLowerCase();if(!['xls','xlsx','csv'].includes(ext))throw new Error(`“${file.name}” isn't an Excel or CSV file.`);
@@ -1319,17 +1660,17 @@ function mappedRows(){const p=IMP.pending;let skipped=0;const rows=[],hints=labe
  return {rows,skipped}}
 let CODE_LABELS_READY=false;
 function collectCodeLabels(){for(const k in CODE_LABELS)delete CODE_LABELS[k];for(const s of A.att?.parsed?.sections||[])for(const [c,v] of Object.entries(s.legend?.code||{}))CODE_LABELS[c]=v.label}
-function setBusy(on,txt){$('busy').classList.toggle('hidden',!on);if(txt)$('busyText').textContent=txt}
+function setBusy(on,txt){$('busy').classList.toggle('hidden',!on);if(txt)$('busyText').textContent=txt;if(on&&txt&&!$('app').classList.contains('hidden'))toast(txt)}
 
 /* ---------- About / settings ---------- */
 function about(){
  const tb=A.beh?tallyB(A.beh.rows):null;
  $('aboutBody').innerHTML=`<div class="dlg-h"><div><h2 style="font-size:20px">About this data</h2><p class="hint">Everything here stays in this browser tab and disappears when you close it.</p></div><button class="x" data-close aria-label="Close">×</button></div><div class="dlg-b">
  <div class="grid g2e"><div class="card pad"><h3>Attendance (iSAMS)</h3>${A.att?`<dl class="kv" style="margin-top:8px"><dt>File</dt><dd>${esc(A.att.fileName)}</dd><dt>Dates</dt><dd>${fmt(A.att.start)} – ${fmt(A.att.end)}</dd><dt>Pupils</dt><dd>${A.att.pupils.length}</dd><dt>Match iSAMS totals</dt><dd>${A.att.pupils.filter(p=>!p.mismatch.length).length} of ${A.att.pupils.length}</dd></dl>`:'<p class="hint">Not loaded.</p>'}</div>
- <div class="card pad"><h3>Behaviour (Class Charts)</h3>${A.beh?`<dl class="kv" style="margin-top:8px"><dt>File</dt><dd>${esc(A.beh.source)}</dd><dt>Dates</dt><dd>${fmt(A.beh.min)} – ${fmt(A.beh.max)}</dd><dt>Records</dt><dd>${fmtN(tb.total)} (${fmtN(tb.Behaviour)} behaviour, ${fmtN(tb.Academic)} academic, ${fmtN(tb.Reward)} rewards)</dd><dt>Pupils</dt><dd>${A.match?.people.length||0}</dd></dl><button class="btn small" style="margin-top:10px" data-act="settings">Column settings</button>`:'<p class="hint">Not loaded.</p>'}</div></div>
+ <div class="card pad"><h3>Behaviour (Class Charts)</h3>${A.beh?`<dl class="kv" style="margin-top:8px"><dt>File</dt><dd>${esc(A.beh.source)}</dd><dt>Dates</dt><dd>${fmt(A.beh.min)} – ${fmt(A.beh.max)}</dd><dt>Records</dt><dd>${fmtN(tb.total)} (${fmtN(tb.Behaviour)} behaviour, ${fmtN(tb.Academic)} academic, ${fmtN(tb.Reward)} rewards)</dd><dt>Pupils</dt><dd>${A.match?.people.length||0}</dd></dl>${A.beh.pending?'<button class="btn small" style="margin-top:10px" data-act="settings">Column settings</button>':''}`:'<p class="hint">Not loaded.</p>'}</div></div>
  <h3 class="h3s">How the two reports are joined</h3><p class="hint">Each Class Charts pupil is matched to one iSAMS pupil. Names are compared after removing accents, apostrophes and hyphens, allowing for preferred names (in brackets in iSAMS), common short names (Tom/Thomas, Sam/Samuel) and double-barrelled or multi-part surnames. The year group must agree, and the tutor group is used to tell similar pupils apart. Anything uncertain goes to <button class="btn link small" data-close data-goto="matching">Name matching</button> for you to confirm, and your choices are remembered on this computer as codes rather than names.</p>
- <h3 class="h3s">Figures</h3><p class="hint">Year-to-date attendance comes straight from iSAMS's Registration Statistics; shorter periods, patterns and the calendar come from the AM/PM grid. In Class Charts records, anything labelled academic counts as Academic, positive entries or positive points count as Rewards, and everything else counts as Behaviour.</p>
- <div class="row" style="margin-top:14px"><button class="btn small" data-act="forget-links">Forget my name-matching choices</button></div></div>`;
+ <h3 class="h3s">Figures</h3><p class="hint">“Last 2 weeks” and “last 4 weeks” mean the last 10 and 20 school days, so a half-term in the middle doesn't distort comparisons. Year-to-date attendance comes straight from iSAMS's Registration Statistics; shorter periods, patterns and the calendar come from the AM/PM grid. In Class Charts records, anything labelled academic counts as Academic, positive entries or positive points count as Rewards, and everything else counts as Behaviour.</p>
+ <h3 class="h3s">What this computer remembers</h3><p class="hint">No pupil data. Just the links to your two export files (where they are, not what's in them), your name-matching choices (as codes) and the year / tutor group / house you last looked at.</p><div class="row" style="margin-top:10px"><button class="btn small" data-act="forget-links">Forget my name-matching choices</button><button class="btn small" data-act="forget-view">Forget my last view</button></div></div>`;
  $('aboutDlg').showModal();
 }
 function openSettings(){
@@ -1343,7 +1684,7 @@ function openSettings(){
 function updReview(){const prob=mappingProblem();const r=prob?null:mappedRows();$('mapReview').textContent=prob||`${fmtN(r.rows.length)} records · ${fmtN(r.skipped)} rows without a name skipped`}
 
 /* ---------- Shell & filters ---------- */
-function showApp(){$('start').classList.add('hidden');$('app').classList.remove('hidden');['tabs','aboutBtn','openBtn'].forEach(id=>$(id).classList.remove('hidden'));render();window.scrollTo(0,0)}
+function showApp(){S.onFiles=false;$('start').classList.add('hidden');$('app').classList.remove('hidden');['tabs','aboutBtn','openBtn','gsearchWrap','namesBtn'].forEach(id=>$(id).classList.remove('hidden'));render();window.scrollTo(0,0)}
 function syncFilters(){
  const all=allRows(),years=uniq(all.map(r=>r.year));if(S.year&&!years.includes(S.year))S.year='';
  $('fYear').innerHTML=`<option value="">All year groups</option>${years.map(y=>`<option value="${esc(y)}" ${y===S.year?'selected':''}>${esc(yearLabel(y))}</option>`).join('')}`;
@@ -1352,16 +1693,17 @@ function syncFilters(){
  const houses=uniq(byY.filter(r=>!S.reg||r.reg===S.reg).map(r=>r.house));if(S.house&&!houses.includes(S.house))S.house='';
  $('fHouse').innerHTML=`<option value="">All houses</option>${houses.map(v=>`<option ${v===S.house?'selected':''}>${esc(v)}</option>`).join('')}`;
  document.querySelectorAll('[data-period]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.period===S.period)));
- const n=cohortRows().length,r=rangeFor(S.period);$('fSummary').textContent=`${n} pupil${n===1?'':'s'} · ${PERIOD_LABEL[S.period]}${S.period==='ytd'?'':` (${fmt(r.start,true)} – ${fmt(r.end,true)})`}`;
+ const n=cohortRows().length,r=rangeFor(S.period),act=S.year||S.reg||S.house;$('fSummary').innerHTML=`<strong>${n}</strong> pupil${n===1?'':'s'}${S.period==='ytd'?'':` · ${esc(fmt(r.start,true))} – ${esc(fmt(r.end,true))}`}${act?' · <button class="btn link small" data-act="reset">Show everyone</button>':''}`;saveView();
 }
 function render(){
  if(!A.att&&!A.beh)return;syncFilters();
  document.querySelectorAll('[data-tab]').forEach(b=>{if(b.dataset.tab===S.page)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});
- const n=needsReview();$('matchBadge').textContent=n||'';$('matchBadge').classList.toggle('hidden',!n);
- $('srcAtt').innerHTML=A.att?`<i class="sd sd-att"></i>${esc(A.att.fileName)}`:'<i class="sd"></i>No attendance file';$('srcBeh').innerHTML=A.beh?`<i class="sd sd-beh"></i>${esc(A.beh.source)}`:'<i class="sd"></i>No behaviour file';
+ const n=needsReview();$('matchBadge').textContent=n||'';$('matchBadge').classList.toggle('hidden',!n);$('namesBtn').classList.toggle('attn',!!n);$('namesBtn').classList.toggle('hidden',!A.match);
+ const src=(el,on,label,file,a,b,add,mod)=>{el.classList.toggle('missing',!on);const old=mod&&staleDays(mod)>=7;el.innerHTML=on?`<i class="sd ${label==='Attendance'?'sd-att':'sd-beh'}"></i><b>${label}</b><span>${esc(file)}</span><span class="sdates">${esc(fmt(a,true))} – ${esc(fmt(b,true))}</span>${mod&&!A.demo?`<span class="fresh ${old?'old':''}">· updated ${esc(ago(mod))}</span>`:''}`:`<i class="sd"></i><b>${label}</b><span>not open – <u>${add}</u></span>`};
+ src($('srcAtt'),!!A.att,'Attendance',A.att?.fileName,A.att?.start,A.att?.end,FILES.att.handle?'open it':'link the iSAMS export',A.att?.modified);src($('srcBeh'),!!A.beh,'Behaviour',A.beh?.source,A.beh?.min,A.beh?.max,FILES.beh.handle?'open it':'link the Class Charts export',A.beh?.modified);
  $('footRange').textContent=[A.att&&`Attendance ${fmt(A.att.start,true)} – ${fmt(A.att.end)}`,A.beh&&`Behaviour ${fmt(A.beh.min,true)} – ${fmt(A.beh.max)}`].filter(Boolean).join(' · ');
  $('filters').classList.toggle('hidden',S.page==='matching');
- $('content').innerHTML=({overview:viewOverview,pupils:viewPupils,attendance:viewAttendance,behaviour:viewBehaviour,groups:viewGroups,matching:viewMatching}[S.page]||viewOverview)();
+ $('content').innerHTML=({overview:viewOverview,pupils:viewPupils,attendance:viewAttendance,behaviour:viewBehaviour,connections:viewConnections,groups:viewGroups,matching:viewMatching}[S.page]||viewOverview)();
  if(S._focus){const s=$(S._focus);if(s){s.focus();s.setSelectionRange(s.value.length,s.value.length)}S._focus=null}
 }
 function csvCell(v){let s=String(v??'');if(/^[\s\u0000-\u001f]*[=+@-]/.test(s))s="'"+s;return '"'+s.replace(/"/g,'""')+'"'}
@@ -1379,47 +1721,65 @@ function demoBoth(){
  const att=demoData();A.att=buildAtt(att,'Example attendance (fictional)');
  let seed=5;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647,pick=a=>a[Math.floor(rnd()*a.length)];
  const staff=[['Mr Okafor','Maths'],['Ms Lund','English'],['Dr Reyes','Science'],['Mrs Hale','History'],['Mr Byrne','Geography']],rows=[];let id=1;
- for(const p of A.att.pupils){const np=nameParts(p.name);const given=np.given.split(' ')[0];const first=id%7===0&&NICK_GROUPS.find(g=>g[0]===low(given))?.[1]||given;const ccName=`${first[0].toUpperCase()+first.slice(1)} ${np.surname}`;
-  const risk=A.att.pupils.indexOf(p)%9===1?3:1;
-  for(const q of p.sessions){if(q.t!=='AM'||!isPossible(q.k))continue;const r=rnd(),absentish=!isPresent(q.k);let type='';if(r<.03*risk+(absentish?.05:0))type='Behaviour';else if(r<.045*risk)type='Academic';else if(r>.955)type='Reward';if(!type)continue;const [t,sub]=pick(staff);
-   rows.push({id:id++,student:ccName,firstName:'',surname:'',studentId:'',year:p.year,tutor:p.reg,house:p.house,date:q.d,type,typeSource:'demo',typeLabel:type,category:type==='Reward'?pick(['Excellent work','Great effort','Kindness']):type==='Academic'?pick(['Homework not completed','Equipment']):pick(['Low level disruption','Missed Lunchtime Reflection','Lack of respect','Late to lesson']),concern:'Fictional example record.',points:type==='Reward'?1:-1,recordedBy:t,subject:sub,lesson:`P${1+Math.floor(rnd()*5)}`,department:sub})}}
+ A.att.pupils.forEach((p,pi)=>{
+  if(pi%6===5)return;                                   // a few pupils have nothing in Class Charts at all
+  const np=nameParts(p.name),given=np.given.split(' ')[0],alt=pi%7===3?NICK_GROUPS.find(g=>g[0]===low(given))?.[1]:null,first=alt||given,ccName=`${first[0].toUpperCase()+first.slice(1)} ${np.surname}`;
+  const risk=pi%9===1?3:1,D=attDetail(p);
+  for(const x of D.days){
+   if(!D.present.has(x.d))continue;                     // concerns are likelier on a first day back and on late days
+   const r=rnd(),pb=.02*risk*(D.ret.has(x.d)?3:1)*(x.late?2:1);let type='';
+   if(r<pb)type='Behaviour';else if(r<pb+.012*risk)type='Academic';else if(r>(pi%4===0?.99:.94))type='Reward';if(!type)continue;
+   const [t,sub]=pick(staff);
+   rows.push({id:id++,student:ccName,firstName:'',surname:'',studentId:'',year:p.year,tutor:p.reg,house:p.house,date:x.d,type,typeSource:'demo',typeLabel:type,category:type==='Reward'?pick(['Excellent work','Great effort','Kindness']):type==='Academic'?pick(['Homework not completed','Equipment']):pick(['Low level disruption','Missed Lunchtime Reflection','Lack of respect','Late to lesson']),concern:'Fictional example record.',points:type==='Reward'?1:-1,recordedBy:t,subject:sub,lesson:`${p.reg}/${sub.slice(0,2)}`,department:sub});
+  }});
  const ds=rows.map(r=>r.date).sort();A.beh={rows,source:'Example behaviour (fictional)',pending:null,map:{},min:ds[0],max:ds.at(-1),demo:true};A.demo=true;
 }
 
 /* ---------- Events ---------- */
 document.addEventListener('click',e=>{
+ if(!e.target.closest('.gsearch'))closeSearch(false);
  const b=e.target.closest('button,[data-close],[data-pupil]');if(!b||b.disabled)return;const d=b.dataset;
  if('close' in d){b.closest('dialog')?.close();if(!d.goto)return}
- if(d.tab){S.page=d.tab;S.band=null;render();window.scrollTo(0,0);return}
+ if(d.tab){if(!A.att&&!A.beh)return;hideFiles();S.page=d.tab;S.band=null;render();window.scrollTo(0,0);return}
  if(d.goto){$('pupilDlg').close();S.page=d.goto;render();window.scrollTo(0,0);return}
  if(d.period){S.period=d.period;ROWS=null;render();return}
- if(d.chip){S.chip=d.chip;S.band=null;S.page='pupils';render();return}
- if(d.band!==undefined){S.band=Number(d.band);S.chip='all';S.page='pupils';render();return}
+ if(d.chip){const was=S.page;S.chip=d.chip;S.band=null;S.page='pupils';if(d.chip==='look'){S.sort='score';S.dir=-1}render();if(was!=='pupils')window.scrollTo(0,0);return}
+ if(d.band!==undefined){S.band=Number(d.band);S.chip='all';S.page='pupils';render();window.scrollTo(0,0);return}
  if('clearband' in d){S.band=null;render();return}
  if(d.sort){if(S.sort===d.sort)S.dir*=-1;else{S.sort=d.sort;S.dir=['name','year','reg','att','ytd'].includes(d.sort)?1:-1}render();return}
- if(d.pupil){openPupil(d.pupil);return}
+ if(d.nav){stepPupil(Number(d.nav));return}
+ if(d.pupil){const inSearch=!!b.closest('#gresults');openPupil(d.pupil);if(inSearch)closeSearch();return}
+ if(d.gsort){if(S.gsort===d.gsort)S.gdir*=-1;else{S.gsort=d.gsort;S.gdir=d.gsort==='name'||d.gsort==='att'?1:-1}render();return}
+ if(d.heat){S.heat=d.heat;render();return}
+ if(d.setreg){S.reg=d.setreg;S.house='';S.page='overview';render();window.scrollTo(0,0);return}
  if(d.groupby){S.groupBy=d.groupby;render();return}
  if(d.gpick){const g=d.gpick;if(S.groupBy==='year')S.year=yearKey(g);else if(S.groupBy==='reg')S.reg=g;else S.house=g;S.page='overview';render();window.scrollTo(0,0);return}
  if('btype' in d){S.btype=d.btype;S.bcat='';S.recPage=0;render();return}
  if(d.btab){S.btab=d.btab;render();return}
- if(d.cat){if(d.cat!=='Not recorded'){S.bcat=d.cat;S.page='behaviour';S.btab='summary';render()}return}
+ if(d.cat){if(d.cat!=='Not recorded'){const was=S.page;S.bcat=d.cat;S.page='behaviour';S.btab='summary';render();if(was!=='behaviour')window.scrollTo(0,0)}return}
  if(d.staffpick){if(d.staffpick!=='Not recorded'){S.bstaff=d.staffpick;render()}return}
  if(d.subjpick){if(d.subjpick!=='Not recorded'){S.bsubj=d.subjpick;render()}return}
  if(d.pg){S.recPage+=Number(d.pg);render();return}
  if(d.unlink){setLink(d.unlink,'__unlink__');return}
  switch(d.act){
-  case 'open':$('fileInput').click();break;
-  case 'home':$('start').classList.remove('hidden');$('app').classList.add('hidden');break;
-  case 'demo':demoBoth();unify();S.page='overview';showApp();toast('Example data loaded – fictional pupils, named iSAMS-style in one report and Class Charts-style in the other.');break;
+  case 'open':case 'pick':pickFiles(d.k||'').catch(err=>message('Couldn\u2019t open the file picker',`<p>${esc(err.message||err)}</p>`));break;
+  case 'files':showFiles();break;
+  case 'back':hideFiles();render();window.scrollTo(0,0);break;
+  case 'open-selected':openSelected().catch(err=>{setBusy(false);message('Couldn\u2019t open the files',`<p>${esc(err.message||err)}</p>`)});break;
+  case 'allow':probe(d.k,true).then(f=>{renderFiles();if(f)openSelected()});break;
+  case 'forget':if(confirm(`Forget the link to the ${KINDS[d.k].label.toLowerCase()} file on this computer? (The file itself isn't touched.)`))forget(d.k);break;
+  case 'home':if(A.att||A.beh){hideFiles();S.page='overview';render();window.scrollTo(0,0)}break;
+  case 'demo':S.onFiles=false;demoBoth();A.loaded=true;S.year=S.reg=S.house='';S.period='ytd';S.chip='all';unify();S.page='overview';showApp();toast('Example data loaded – fictional pupils, named iSAMS-style in one report and Class Charts-style in the other.');break;
   case 'about':about();break;
   case 'settings':openSettings();break;
   case 'apply-settings':{const prob=mappingProblem();if(prob){$('mapReview').textContent=prob;break}const r=mappedRows();if(!r.rows.length)break;setBeh(r.rows,IMP.pending);unify();$('aboutDlg').close();render();toast('Column settings applied.');break}
   case 'forget-links':if(confirm('Forget every name-matching choice saved on this computer?')){A.links={};saveLinks(A.links);unify();render();$('aboutDlg').close();toast('Name-matching choices cleared.')}break;
   case 'csv':exportPupils();break;
   case 'export-beh':exportBeh();break;
-  case 'print':printHTML(({overview:'Overview',pupils:'Pupils',attendance:'Attendance patterns',behaviour:'Behaviour',groups:'Groups',matching:'Name matching'})[S.page],$('content').innerHTML);break;
+  case 'print':printHTML(({overview:'Overview',pupils:'Pupils',attendance:'Attendance patterns',behaviour:'Behaviour',connections:'Connections',groups:'Groups',matching:'Name matching'})[S.page],$('content').innerHTML);break;
   case 'print-pupil':printHTML('Pupil summary',$('pupilBody').innerHTML);break;
-  case 'reset':S.year=S.reg=S.house='';S.chip='all';S.band=null;render();break;
+  case 'reset':S.year=S.reg=S.house='';render();break;
+  case 'forget-view':try{localStorage.removeItem(VIEW_KEY)}catch{}toast('Remembered view cleared.');break;
  }
 });
 document.addEventListener('change',e=>{const t=e.target,d=t.dataset;
@@ -1431,20 +1791,130 @@ document.addEventListener('change',e=>{const t=e.target,d=t.dataset;
  if(d.map){IMP.map[d.map]=t.value;updReview();return}
  if(t.id==='setSheet'){prepareSheet(t.value);openSettings2();return}
  if(t.id==='setHeader'){prepareSheet(IMP.pending.sheet,Number(t.value));openSettings2();return}
- if(t.id==='fileInput'){const f=[...t.files];t.value='';openFiles(f)}
+ if(t.id==='fileInput'){const f=[...t.files];t.value='';openFiles(f);return}
+ if(d.use){FILES.prefs.use[d.use]=t.checked;savePrefs();renderFiles();return}
+ if(t.id==='autoOpen'){FILES.prefs.auto=t.checked;savePrefs();toast(t.checked?'Your ticked files will open as soon as you open the tool (if the browser already allows it).':'Files will wait for you to click Open.');return}
 });
 function openSettings2(){const p=IMP.pending,m=IMP.map;A.beh.pending={...p};A.beh.map={...m};openSettings()}
-document.addEventListener('input',e=>{if(e.target.id==='search'){S.search=e.target.value;S._focus='search';render()}});
+document.addEventListener('input',e=>{if(e.target.id==='search'){S.search=e.target.value;S._focus='search';render()}else if(e.target.id==='gsearch'){GSEL=0;gsearch(e.target.value)}});
+document.addEventListener('keydown',e=>{const t=e.target,typing=/^(INPUT|SELECT|TEXTAREA)$/.test(t.tagName);
+ if(t.id==='gsearch'){if(e.key==='ArrowDown'||e.key==='ArrowUp'){e.preventDefault();GSEL=clamp(GSEL+(e.key==='ArrowDown'?1:-1),0,Math.max(0,GHITS.length-1));gsearch(t.value)}else if(e.key==='Enter'&&GHITS[GSEL]){e.preventDefault();const id=GHITS[GSEL].id;closeSearch();t.blur();openPupil(id)}else if(e.key==='Escape'){closeSearch();t.blur()}return}
+ if(typing||e.ctrlKey||e.metaKey||e.altKey)return;
+ if($('pupilDlg').open&&(e.key==='ArrowLeft'||e.key==='ArrowRight')){e.preventDefault();stepPupil(e.key==='ArrowRight'?1:-1);return}
+ if(e.key==='/'&&!$('app').classList.contains('hidden')&&!document.querySelector('dialog[open]')){e.preventDefault();$('gsearch').focus()}});
+document.addEventListener('focusin',e=>{if(e.target.id==='gsearch'&&e.target.value)gsearch(e.target.value)});
 const drop=$('drop');
 ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
 ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
-drop.addEventListener('drop',e=>openFiles(e.dataTransfer.files));
-window.addEventListener('dragover',e=>e.preventDefault());window.addEventListener('drop',e=>{e.preventDefault();if(!e.target.closest('#drop')&&e.dataTransfer?.files?.length)openFiles(e.dataTransfer.files)});
+drop.addEventListener('drop',handleDrop);
+window.addEventListener('dragover',e=>e.preventDefault());window.addEventListener('drop',e=>{if(e.target.closest('#drop'))return;handleDrop(e)});
 const tip=$('tip');
 document.addEventListener('pointermove',e=>{const t=e.target.closest?.('[data-tip]');if(!t){tip.classList.add('hidden');return}tip.textContent=t.dataset.tip;tip.classList.remove('hidden');const w=tip.offsetWidth,h=tip.offsetHeight;let x=e.clientX+14,y=e.clientY+14;if(x+w>innerWidth-8)x=e.clientX-w-14;if(y+h>innerHeight-8)y=e.clientY-h-14;tip.style.left=x+'px';tip.style.top=y+'px'});
 document.addEventListener('scroll',()=>tip.classList.add('hidden'),true);
 window.addEventListener('afterprint',()=>{$('printRoot').innerHTML=''});
 
+
+/* ================= YOUR FILES =================
+   The two exports live in a SharePoint folder that is synced / shortcut into OneDrive, so they appear in
+   File Explorer. The browser's File System Access API lets the tool keep a *link* to each file (a file handle,
+   stored in this browser's IndexedDB). Next time, one click re-reads the latest version of the same file.
+   Nothing is copied: the handle is only a pointer, and pupil data is never stored. */
+const FS_OK=typeof window.showOpenFilePicker==='function'&&(()=>{try{return window.self===window.top}catch{return false}})();
+const KINDS={att:{label:'Attendance',source:'iSAMS',what:'Registration Certificate by Week export (.xls / .xlsx)',dot:'sd-att',loaded:'Attendance'},beh:{label:'Behaviour',source:'Class Charts',what:'behaviour export (.xlsx / .csv)',dot:'sd-beh',loaded:'Behaviour'}};
+const FILES={att:{},beh:{},prefs:{use:{att:true,beh:true},auto:false},ready:false};
+/* --- tiny IndexedDB key/value store (file handles can't go in localStorage) --- */
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('pupilInsights',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function idbGet(k){try{const d=await idb();return await new Promise((res,rej)=>{const q=d.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}catch{return undefined}}
+async function idbSet(k,v){try{const d=await idb();await new Promise((res,rej)=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=res;t.onerror=()=>rej(t.error)});return true}catch{return false}}
+async function idbDel(k){try{const d=await idb();await new Promise(res=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').delete(k);t.oncomplete=res;t.onerror=res})}catch{}}
+const savePrefs=()=>idbSet('prefs',FILES.prefs);
+function ago(ms){if(!ms)return '';const d=new Date(ms),now=new Date(),days=Math.floor((new Date(now.toDateString())-new Date(d.toDateString()))/864e5),t=d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+ return days<=0?`today at ${t}`:days===1?`yesterday at ${t}`:days<7?`${days} days ago (${d.toLocaleDateString('en-GB',{weekday:'short'})} ${t})`:d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}
+const staleDays=ms=>ms?Math.floor((Date.now()-ms)/864e5):0;
+/* Check (and if asked, request) read access, then read the file's current details. Returns the File or null. */
+async function probe(k,ask){
+ const f=FILES[k],h=f.handle;if(!h)return null;
+ let p='prompt';try{p=await h.queryPermission({mode:'read'})}catch{}
+ if(p!=='granted'&&ask){try{p=await h.requestPermission({mode:'read'})}catch(e){f.status='needclick';return null}}
+ f.perm=p;
+ if(p!=='granted'){if(!ask&&['missing','error'].includes(f.status))return null;f.status=p==='denied'?'denied':'ask';return null}
+ try{const file=await h.getFile();f.modified=file.lastModified;f.size=file.size;f.status='ok';f.name=h.name;return file}
+ catch(e){f.status=e.name==='NotFoundError'?'missing':'error';f.err=e.message;return null}
+}
+async function initFiles(){
+ if(FS_OK){const [ha,hb,pr]=await Promise.all([idbGet('h-att'),idbGet('h-beh'),idbGet('prefs')]);
+  if(pr)FILES.prefs={...FILES.prefs,...pr,use:{...FILES.prefs.use,...(pr.use||{})}};
+  if(ha){FILES.att.handle=ha;FILES.att.name=ha.name}if(hb){FILES.beh.handle=hb;FILES.beh.name=hb.name}
+  await Promise.all(['att','beh'].map(k=>probe(k,false)));}
+ FILES.ready=true;renderFiles();
+ const sel=selectedKinds();
+ if(FS_OK&&FILES.prefs.auto&&sel.length&&sel.every(k=>FILES[k].status==='ok'))openSelected(true);
+}
+function selectedKinds(){return ['att','beh'].filter(k=>FILES.prefs.use[k]&&FILES[k].handle)}
+async function remember(k,handle,file){
+ const f=FILES[k];f.handle=handle;f.name=handle.name;f.status='ok';f.perm='granted';if(file){f.modified=file.lastModified;f.size=file.size}
+ FILES.prefs.use[k]=true;await idbSet('h-'+k,handle);await savePrefs();
+}
+async function forget(k){FILES[k]={};FILES.prefs.use[k]=false;await idbDel('h-'+k);await savePrefs();renderFiles()}
+/* Choose a file with the system picker. The picker remembers the folder (id), so after the first time it
+   opens straight into the synced SharePoint folder. */
+async function pickFiles(k){
+ if(!FS_OK){$('fileInput').click();return}
+ const opts={id:'pupil-insights-exports',multiple:!k,types:[{description:'iSAMS or Class Charts export',accept:{'application/vnd.ms-excel':['.xls'],'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':['.xlsx'],'text/csv':['.csv']}}]};
+ if(k&&FILES[k].handle&&FILES[k].status!=='missing')opts.startIn=FILES[k].handle;
+ let hs;try{hs=await window.showOpenFilePicker(opts)}catch(e){if(e.name==='AbortError')return;if(opts.startIn){delete opts.startIn;try{hs=await window.showOpenFilePicker(opts)}catch(e2){if(e2.name==='AbortError')return;throw e2}}else throw e}
+ const items=[];for(const h of hs)items.push({file:await h.getFile(),handle:h,want:k});
+ await openFiles(items);
+}
+/* The main "Open" button: re-read the latest version of each ticked file. */
+async function openSelected(auto=false){
+ const ks=selectedKinds();if(!ks.length)return;
+ const got=[];for(const k of ks){const file=await probe(k,!auto);if(file)got.push({file,handle:FILES[k].handle,k})}
+ const need=ks.filter(k=>['ask','needclick'].includes(FILES[k].status));
+ if(need.length&&!auto){renderFiles();if(!got.length&&need.length===ks.length&&FILES[need[0]].status==='needclick')return;if(need.some(k=>FILES[k].status==='needclick'))return}
+ if(auto&&got.length<ks.length){renderFiles();return}
+ const bad=ks.filter(k=>['missing','denied','error'].includes(FILES[k].status));
+ if(!got.length){renderFiles();return}
+ if(!FILES.prefs.use.att||bad.includes('att'))A.att=null;if(!FILES.prefs.use.beh||bad.includes('beh'))A.beh=null;
+ await openFiles(got.map(g=>({file:g.file,handle:g.handle,want:g.k,quiet:true})));
+ if(bad.length)setTimeout(()=>toast(`${bad.map(k=>KINDS[k].label).join(' and ')} file couldn't be opened – see Files.`),600);
+}
+function fileCard(k){
+ const K=KINDS[k],f=FILES[k],on=!!(FILES.prefs.use[k]&&f.handle),old=f.status==='ok'&&staleDays(f.modified)>=7;
+ let body,act='';
+ if(!f.handle){body=`<p class="fc-st muted">Not set up yet. Find the ${K.source} ${K.what} in your synced SharePoint folder.</p>`;act=`<button class="btn primary small" data-act="pick" data-k="${k}">Find the file…</button>`}
+ else{
+  const name=`<p class="fc-name" title="${esc(f.name)}">${esc(f.name)}</p>`;
+  if(f.status==='ok')body=`${name}<p class="fc-st ${old?'warn':''}">${old?'⚠ ':''}Last updated ${esc(ago(f.modified))}${old?' – is there a newer export?':''}</p>`;
+  else if(f.status==='missing')body=`${name}<p class="fc-st bad">Can't find this file any more – it may have been moved, renamed or deleted in SharePoint.</p>`,act=`<button class="btn primary small" data-act="pick" data-k="${k}">Find it again…</button>`;
+  else if(f.status==='needclick')body=`${name}<p class="fc-st warn">Your browser needs one more click to let the tool read this file.</p>`,act=`<button class="btn primary small" data-act="allow" data-k="${k}">Allow access</button>`;
+  else if(f.status==='denied')body=`${name}<p class="fc-st bad">Access was refused. Click Open and choose <b>Allow</b> when the browser asks.</p>`;
+  else if(f.status==='error')body=`${name}<p class="fc-st bad">Couldn't read this file (${esc(f.err||'unknown error')}). If it's open in Excel, close it and try again.</p>`;
+  else body=`${name}<p class="fc-st muted">Linked. Your browser may ask once to allow access when you open it.</p>`;
+ }
+ return `<div class="fcard2 ${on?'on':''} ${f.handle?'':'empty'}"><label class="fc-top"><input type="checkbox" data-use="${k}" ${on?'checked':''} ${f.handle?'':'disabled'} aria-label="Include ${K.label.toLowerCase()}"><i class="sd ${K.dot}"></i><span><b>${K.label}</b><small>${K.source}</small></span></label>
+ <div class="fc-body">${body}</div><div class="fc-act">${act}${f.handle&&f.status!=='missing'?`<button class="btn link small" data-act="pick" data-k="${k}">Change file</button><button class="btn link small muted" data-act="forget" data-k="${k}">Forget</button>`:''}</div></div>`;
+}
+function renderFiles(){
+ const box=$('fsBox');if(!box)return;const loaded=!!(A.att||A.beh)&&!A.demo;
+ $('backBtn').classList.toggle('hidden',!(A.att||A.beh));
+ if(!FS_OK){box.innerHTML=`<div class="note"><strong>This browser can't keep links to your files.</strong> To open your SharePoint files with one click, open this tool as a file in <b>Microsoft Edge</b> or <b>Google Chrome</b> on a Windows or Mac computer – not inside SharePoint's preview, Teams, Safari, Firefox or a phone. You can still choose or drop the files below each time.</div>`;$('drop').classList.remove('minor');return}
+ if(!FILES.ready){box.innerHTML='<p class="hint">Checking your files…</p>';return}
+ const sel=selectedKinds(),any=FILES.att.handle||FILES.beh.handle,label=sel.length===2?'Open both':sel[0]==='att'?'Open attendance':sel[0]==='beh'?'Open behaviour':'Open';
+ $('drop').classList.toggle('minor',!!any);$('setup').open=!any&&!loaded;
+ box.innerHTML=`<div class="fsgrid">${fileCard('att')}${fileCard('beh')}</div>
+ ${any?`<div class="openrow"><button class="btn primary big" data-act="open-selected" ${sel.length?'':'disabled'}>${label}${loaded?' (reload latest)':''}</button><label class="check"><input type="checkbox" id="autoOpen" ${FILES.prefs.auto?'checked':''}>Open them straight away next time</label><span class="hint">${sel.length?'Tick one or both – untick a file to focus on just attendance or just behaviour.':'Tick at least one file.'}</span></div>`:''}`;
+}
+function showFiles(){$('app').classList.add('hidden');$('start').classList.remove('hidden');S.onFiles=true;document.querySelectorAll('[data-tab]').forEach(b=>b.removeAttribute('aria-current'));renderFiles();window.scrollTo(0,0);if(FS_OK)Promise.all(['att','beh'].map(k=>probe(k,false))).then(renderFiles)}
+function hideFiles(){S.onFiles=false;if(A.att||A.beh){$('start').classList.add('hidden');$('app').classList.remove('hidden')}}
+/* Dropped files: in Edge/Chrome a drop can also give us a link (handle) to remember. */
+function handleDrop(e){
+ e.preventDefault();const files=[...(e.dataTransfer?.files||[])];if(!files.length)return;
+ const items=[...e.dataTransfer.items].filter(i=>i.kind==='file');
+ const hp=FS_OK&&items.length&&items[0].getAsFileSystemHandle?items.map(i=>i.getAsFileSystemHandle().catch(()=>null)):null;
+ if(!hp){openFiles(files);return}
+ Promise.all(hp).then(hs=>openFiles(files.map((f,i)=>hs[i]&&hs[i].kind==='file'?{file:f,handle:hs[i]}:f)));
+}
 /* ================= NAME MATCHING =================
    iSAMS and Class Charts write names differently ("Fitzgerald, Alexander (Alex)" vs "Alex Fitzgerald").
    Each name is broken into surname / given / preferred tokens (accents, apostrophes and hyphens removed),
@@ -1558,7 +2028,7 @@ function demoData(){
  return {sections,reportStart:start,reportEnd:end,sheets:0};
 }
 
-A.links=loadLinks();render();
+A.links=loadLinks();render();initFiles();
 
 </script>
 </body>
