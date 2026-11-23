@@ -358,10 +358,94 @@
     .rep-table td { font-size: 8pt; }
     .rep, .rep * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
   }
+
+  /* ---------- Tutor group workspace ---------- */
+  .ws-grid { display: grid; grid-template-columns: 264px minmax(0, 1fr); min-height: calc(100vh - 62px); }
+  .roster { background: var(--surface); border-right: 1px solid var(--line); }
+  .roster-inner { position: sticky; top: 62px; max-height: calc(100vh - 62px); display: flex; flex-direction: column; }
+  .roster-head { padding: 18px 18px 12px; border-bottom: 1px solid var(--line-2); }
+  .roster-name { font-family: var(--serif); font-size: 24px; font-weight: 600; line-height: 1.1; margin: 0 0 4px; }
+  .roster-meta { font-size: 12.5px; color: var(--ink-3); display: flex; flex-wrap: wrap; gap: 2px 12px; }
+  .roster-search { padding: 10px 12px 6px; }
+  .roster-search input { height: 36px; font-size: 13.5px; }
+  .roster-list { list-style: none; margin: 0; padding: 4px 8px 8px; overflow-y: auto; flex: 1; }
+  .stu-btn { width: 100%; text-align: left; background: none; border: 0; border-radius: 6px; padding: 8px 10px; display: grid; gap: 1px; color: var(--ink); }
+  .stu-btn:hover { background: var(--sunk); }
+  .stu-btn[aria-current="true"] { background: var(--teal-soft); box-shadow: inset 3px 0 0 var(--teal); }
+  .stu-line { display: flex; align-items: center; gap: 6px; justify-content: space-between; }
+  .stu-name { font-weight: 600; font-size: 13.5px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .stu-sub { font-size: 12px; color: var(--ink-3); }
+  .stu-sub.late { color: var(--part); font-weight: 600; }
+  .stu-btn.left .stu-name { color: var(--ink-3); font-weight: 500; }
+  .roster-sep { font-size: 12px; color: var(--ink-3); padding: 12px 10px 4px; }
+  .roster-foot { border-top: 1px solid var(--line-2); padding: 10px 12px 14px; display: grid; gap: 6px; }
+  .roster-foot .btn { width: 100%; min-height: 34px; font-size: 13px; }
+  .roster-links { display: flex; flex-wrap: wrap; gap: 2px 6px; }
+  .student-area { min-width: 0; }
+  .student-area .work { grid-template-columns: minmax(0, 1fr) 380px; max-width: 1280px; margin: 0; }
+  .student-area .work-single { grid-template-columns: minmax(0, 1fr); }
+  .lu-flag { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--ink-2); cursor: pointer; }
+  .lu-flag input { accent-color: var(--gold); width: 16px; height: 16px; margin: 0; }
+  .empty-group { padding: 60px 32px; max-width: 520px; }
+  .empty-group h2 { font-family: var(--serif); font-weight: 600; font-size: 26px; margin: 0 0 8px; }
+  .empty-group p { color: var(--ink-2); margin: 0 0 18px; }
+
+  /* Dialog forms */
+  .modal textarea.names { min-height: 180px; font-size: 13.5px; }
+
+  /* ---------- Overview ---------- */
+  .ov { max-width: 1280px; margin: 0 auto; padding: 0 clamp(14px, 3vw, 36px) 48px; }
+  .ov-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; padding: 26px 0 18px; border-bottom: 1px solid var(--line); margin-bottom: 18px; }
+  .ov-head h1 { font-family: var(--serif); font-weight: 600; font-size: clamp(28px, 3.4vw, 38px); margin: 0 0 6px; line-height: 1.1; }
+  .ov-head p { margin: 0; color: var(--ink-2); }
+  .ov-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+  .ov-filters { display: flex; flex-wrap: wrap; gap: 14px 24px; align-items: center; margin-bottom: 18px; }
+  .ov-filters .legend { margin-right: 8px; }
+  .ov-filters select { width: auto; height: 34px; padding: 4px 10px; font-size: 13px; }
+  .ov-filter { display: flex; align-items: center; gap: 6px; }
+  .ov .sheet { margin-bottom: 18px; }
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); padding: 0 16px; flex-wrap: wrap; }
+  .tab { background: none; border: 0; padding: 14px 10px 11px; font-weight: 650; color: var(--ink-3); border-bottom: 3px solid transparent; margin-bottom: -1px; }
+  .tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--teal); }
+  .tab .count { display: inline-block; min-width: 20px; padding: 0 6px; margin-left: 4px; border-radius: 999px; background: var(--sunk); color: var(--ink-2); font-size: 12px; text-align: center; }
+  .rowlink { cursor: pointer; }
+  .rowlink:hover td { background: var(--sunk); }
+  .rowlink td:first-child { font-weight: 600; }
+  .bar-meter { display: inline-flex; align-items: center; gap: 8px; }
+  .bar-meter span.track { width: 64px; height: 6px; border-radius: 3px; background: var(--sunk); overflow: hidden; display: inline-block; }
+  .bar-meter span.fill { display: block; height: 100%; background: var(--gold); }
+  .ov-note { font-size: 12.5px; color: var(--ink-3); margin: 0 0 18px; }
+
+  /* Drawer */
+  .drawer-wrap { position: fixed; inset: 0; z-index: 65; background: rgba(8, 20, 32, .55); display: flex; justify-content: flex-end; }
+  .drawer { background: var(--surface); width: min(760px, 100%); height: 100%; display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,.25); }
+  .drawer-head { padding: 18px 22px; border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+  .drawer-head h2 { font-family: var(--serif); font-weight: 600; font-size: 26px; margin: 0 0 4px; line-height: 1.1; }
+  .drawer-body { overflow-y: auto; padding: 8px 22px 40px; }
+  .dmeet { padding: 16px 0; border-bottom: 1px solid var(--line-2); }
+  .dmeet:last-child { border-bottom: 0; }
+  .dmeet-h { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; font-weight: 650; }
+  .dmeet-h .muted { font-weight: 400; color: var(--ink-3); font-size: 13px; }
+  .dmeet h4 { font-size: 12.5px; color: var(--ink-3); margin: 10px 0 4px; font-weight: 600; }
+  .dmeet ol, .dmeet ul { margin: 0; padding-left: 20px; }
+  .dmeet li { margin: 2px 0; }
+  .dmeet .rv { display: flex; justify-content: space-between; gap: 12px; padding: 3px 0; }
+  .dmeet p { margin: 0; white-space: pre-wrap; color: var(--ink-2); }
+  .staffnote { background: var(--sunk); padding: 8px 10px; border-radius: 6px; }
+
+  @media (max-width: 1320px) {
+    .student-area .work { grid-template-columns: 1fr; }
+    .share { position: static; }
+  }
+  @media (max-width: 860px) {
+    .ws-grid { grid-template-columns: 1fr; }
+    .roster { border-right: 0; border-bottom: 1px solid var(--line); }
+    .roster-inner { position: static; max-height: none; }
+    .roster-list { max-height: 260px; }
+  }
 </style>
 </head>
 <body>
-
 <header class="bar">
   <div class="brand">
     <div class="mark" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -373,12 +457,11 @@
     <label class="autosave" id="autosaveWrap" hidden><input type="checkbox" id="autosave" checked> Autosave</label>
   </div>
   <div class="bar-actions">
-    <button type="button" class="btn btn-ghost" id="homeBtn" hidden>All records</button>
+    <button type="button" class="btn btn-ghost" id="homeBtn" hidden>Home</button>
     <button type="button" class="btn btn-ghost" id="helpBtn">Help</button>
     <button type="button" class="btn btn-ghost" id="settingsBtn">Sharing settings</button>
-    <button type="button" class="btn btn-ghost" id="openBtn">Open record</button>
     <button type="button" class="btn btn-ghost" id="previewBtn" hidden>Print</button>
-    <button type="button" class="btn btn-gold" id="saveBtn" hidden>Save record</button>
+    <button type="button" class="btn btn-gold" id="saveBtn" hidden>Save</button>
   </div>
 </header>
 
@@ -386,10 +469,10 @@
 <main class="home" id="home">
   <section>
     <h1>Every meeting picks up where the last one left off.</h1>
-    <p class="home-lede">Each student has one record file for all their 6AM and Level Up meetings. Open it, review last time’s targets, set new ones, then share them on Teams or by email home.</p>
+    <p class="home-lede">Each tutor group has one file in the sixth form SharePoint folder. Open it, pick a student, review last time’s targets and set new ones, then share them on Teams or by email home.</p>
     <div class="home-actions">
-      <button type="button" class="btn btn-teal btn-big" id="homeOpenBtn">Open a student record</button>
-      <button type="button" class="btn btn-line btn-big" id="homeNewBtn">New student record</button>
+      <button type="button" class="btn btn-teal btn-big" id="homeOpenBtn">Open a tutor group</button>
+      <button type="button" class="btn btn-line btn-big" id="homeNewBtn">New tutor group</button>
     </div>
     <p class="help" style="margin:-18px 0 28px;font-size:13.5px">New to the tool? <button type="button" class="help-link" data-help="start">Read the quick guide</button> before your first meeting.</p>
     <div class="kinds">
@@ -399,141 +482,238 @@
   </section>
   <section>
     <div class="recent" id="recentBox">
-      <h2>Recent records on this computer</h2>
+      <h2>Recent tutor groups on this computer</h2>
       <ul class="recent-list" id="recentList"></ul>
-      <p class="recent-empty" id="recentEmpty">Records you open or save here will be listed, so you can reopen them in one click.</p>
+      <p class="recent-empty" id="recentEmpty">Tutor groups you open or save here will be listed, so you can reopen them in one click.</p>
+    </div>
+    <div class="recent" style="margin-top:16px">
+      <h2>Sixth form overview</h2>
+      <p class="recent-empty" style="padding-bottom:12px">For pastoral leads. Reads every tutor group file in the SharePoint folder, without changing them.</p>
+      <div style="padding:0 20px 18px;display:flex;gap:8px;flex-wrap:wrap">
+        <button type="button" class="btn btn-line" id="ovOpenBtn">Open the sixth form folder</button>
+        <button type="button" class="btn btn-line" id="ovRecentBtn" hidden></button>
+      </div>
     </div>
     <p class="note warn" id="fallbackNote" hidden></p>
-    <p class="note"><strong>Where records live.</strong> Files are saved only where you choose, such as a secure school drive. Nothing is sent over the internet. Each file includes staff-only notes, so share targets using the Teams message or email rather than sending the file.</p>
+    <p class="note"><strong>Where files live.</strong> Save tutor group files in the sixth form SharePoint folder, added to your computer with <strong>Add shortcut to My files</strong>. Nothing is sent anywhere else. Files include staff-only notes, so share targets with the Teams message or email home, not by sending the file.</p>
   </section>
 </main>
 
-<!-- Workspace -->
+<!-- Tutor group workspace -->
 <div id="workspace" hidden>
-  <section class="band" aria-label="Student">
-    <div>
-      <h2 class="band-name" id="bandName">New student</h2>
-      <div class="band-meta" id="bandMeta"></div>
-    </div>
-    <div class="trail" id="trail"></div>
-  </section>
-
-  <div class="work">
-    <form class="sheet" id="meetingForm" autocomplete="off" novalidate>
-      <div class="sheet-title"><h1 id="meetingTitle">This meeting</h1><span class="status" id="meetingStatus"></span></div>
-
-      <div class="group">
-        <div class="row3">
-          <div class="field seg-wrap"><span class="legend" id="typeLegend">Meeting type</span>
-            <div class="seg seg-type" role="radiogroup" aria-labelledby="typeLegend">
-              <input type="radio" name="meetingType" id="type6" value="6AM"><label for="type6">6AM</label>
-              <input type="radio" name="meetingType" id="typeLU" value="Level Up"><label for="typeLU">Level Up</label>
-            </div>
-          </div>
-          <label class="field"><span>Date</span><input type="date" id="meetingDate"></label>
-          <label class="field"><span>Tutor</span><input type="text" id="tutorName" placeholder="Your name"></label>
+  <div class="ws-grid">
+    <aside class="roster" aria-label="Students">
+      <div class="roster-inner">
+        <div class="roster-head">
+          <h2 class="roster-name" id="groupName">Tutor group</h2>
+          <div class="roster-meta" id="groupMeta"></div>
         </div>
-      </div>
-
-      <div class="group" id="studentGroup">
-        <details class="more" id="studentDetails">
-          <summary>Student and parent/carer details</summary>
-          <div class="inner">
-            <div class="grid2">
-              <label class="field"><span>Student name</span><input type="text" id="studentName" placeholder="Full name"></label>
-              <label class="field"><span>Year group</span><select id="yearGroup"><option value="">Choose year</option><option>Year 12</option><option>Year 13</option></select></label>
-              <label class="field"><span>Parent/carer name <span class="help" style="display:inline">for “Dear…”</span></span><input type="text" id="parentName" placeholder="For example, Mrs Okafor"></label>
-              <label class="field"><span>Parent/carer email</span><input type="email" id="parentEmail" placeholder="name@example.com"></label>
-            </div>
-            <p class="help">Saved once in the record and used for every meeting.</p>
+        <div class="roster-search"><input type="text" id="rosterSearch" placeholder="Find a student" aria-label="Find a student"></div>
+        <ul class="roster-list" id="rosterList"></ul>
+        <div class="roster-foot">
+          <button type="button" class="btn btn-line" id="addStudentsBtn">Add students</button>
+          <div class="roster-links">
+            <button type="button" class="link-btn" id="groupSettingsBtn">Group details</button>
+            <button type="button" class="link-btn" id="importBtn">Import student files</button>
+            <button type="button" class="link-btn" id="showLeftBtn" hidden></button>
           </div>
-        </details>
-      </div>
-
-      <div class="group" id="reviewGroup" hidden>
-        <h2 id="reviewTitle">Last time’s targets</h2>
-        <p class="sub">How did they go? Carry forward anything that needs another week.</p>
-        <div id="reviewList"></div>
-      </div>
-
-      <div class="group">
-        <h2 id="targetsTitle">Targets</h2>
-        <p class="sub"><button type="button" class="link-btn" data-examples="0" style="padding-left:0">Browse example targets</button> <span class="help" style="display:inline">if the student is stuck. Words in [brackets] are for you to fill in.</span></p>
-        <p class="sub" id="targetsSub">Specific actions the student can complete and show evidence of by the next meeting.</p>
-        <div class="target"><span class="target-n">1</span><div><textarea id="t1" data-slot placeholder="For example, complete and self-mark two 30-minute organic chemistry question sets before Friday"></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="1">Choose an example</button></div></div></div>
-        <div class="target"><span class="target-n">2</span><div><textarea id="t2" data-slot></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="2">Choose an example</button></div></div></div>
-        <div class="target"><span class="target-n">3</span><div><textarea id="t3" data-slot></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="3">Choose an example</button></div></div></div>
-      </div>
-
-      <div class="group">
-        <label class="field"><span>Notes <span class="help" style="display:inline">(if applicable)</span></span><textarea id="notes" placeholder="Anything worth recording from the conversation"></textarea></label>
-      </div>
-
-      <div class="group">
-        <details class="more" id="moreDetails">
-          <summary>Staff-only notes and next meeting date</summary>
-          <div class="inner">
-            <label class="field"><span>Staff-only notes</span><textarea id="staffNotes" placeholder="Never included in Teams messages, emails home or the student summary"></textarea></label>
-            <label class="field" style="max-width:220px"><span>Next meeting</span><input type="date" id="nextMeeting"></label>
-            <p class="help">Record safeguarding concerns through the school’s safeguarding system, not here.</p>
-          </div>
-        </details>
-      </div>
-
-      <div class="sheet-foot">
-        <button type="button" class="btn btn-line" id="newMeetingBtn">Start another meeting</button>
-        <button type="button" class="btn btn-gold" id="saveBtn2">Save record</button>
-      </div>
-    </form>
-
-    <aside class="sheet share" aria-label="Share this meeting">
-      <div class="share-tabs" role="tablist">
-        <button type="button" class="share-tab" role="tab" id="tabTeams" aria-selected="true" data-share="teams">Teams message</button>
-        <button type="button" class="share-tab" role="tab" id="tabEmail" aria-selected="false" data-share="email">Email home</button>
-      </div>
-      <div class="share-body" id="sharePanelTeams" role="tabpanel" aria-labelledby="tabTeams">
-        <div class="share-to" id="teamsTo"></div>
-        <pre class="msg" id="teamsMsg"></pre>
-        <label class="check"><input type="checkbox" id="teamsNotes" checked> Include notes</label>
-        <p class="warn-line" id="teamsWarn" hidden></p>
-        <div class="share-actions">
-          <button type="button" class="btn btn-line" id="copyTeams">Copy message</button>
-          <button type="button" class="btn btn-teal" id="openTeams">Open in Teams</button>
-        </div>
-      </div>
-      <div class="share-body" id="sharePanelEmail" role="tabpanel" aria-labelledby="tabEmail" hidden>
-        <div class="share-to" id="emailTo"></div>
-        <pre class="msg" id="emailMsg"></pre>
-        <label class="check"><input type="checkbox" id="emailNotes"> Include notes</label>
-        <p class="warn-line" id="emailWarn" hidden></p>
-        <div class="share-actions">
-          <button type="button" class="btn btn-line" id="copyEmail">Copy email</button>
-          <button type="button" class="btn btn-teal" id="openEmail">Open in email</button>
         </div>
       </div>
     </aside>
+
+    <div class="student-area">
+      <div class="empty-group" id="emptyGroup" hidden>
+        <h2>Add your students</h2>
+        <p>Paste or type the names of the students in this tutor group, one per line. You can add more at any time.</p>
+        <button type="button" class="btn btn-teal btn-big" data-action="add-students">Add students</button>
+      </div>
+
+      <div id="studentView">
+        <section class="band" aria-label="Student">
+          <div>
+            <h2 class="band-name" id="bandName"></h2>
+            <div class="band-meta" id="bandMeta"></div>
+          </div>
+          <div class="trail" id="trail"></div>
+        </section>
+
+        <div class="work">
+          <form class="sheet" id="meetingForm" autocomplete="off" novalidate>
+            <div class="sheet-title"><h1 id="meetingTitle">This meeting</h1><span class="status" id="meetingStatus"></span></div>
+
+            <div class="group">
+              <div class="row3">
+                <div class="field seg-wrap"><span class="legend" id="typeLegend">Meeting type</span>
+                  <div class="seg seg-type" role="radiogroup" aria-labelledby="typeLegend">
+                    <input type="radio" name="meetingType" id="type6" value="6AM"><label for="type6">6AM</label>
+                    <input type="radio" name="meetingType" id="typeLU" value="Level Up"><label for="typeLU">Level Up</label>
+                  </div>
+                </div>
+                <label class="field"><span>Date</span><input type="date" id="meetingDate"></label>
+                <label class="field"><span>Tutor</span><input type="text" id="tutorName" placeholder="Your name"></label>
+              </div>
+            </div>
+
+            <div class="group" id="studentGroup">
+              <details class="more" id="studentDetails">
+                <summary>Student and parent/carer details</summary>
+                <div class="inner" data-student-fields>
+                  <div class="grid2">
+                    <label class="field"><span>Student name</span><input type="text" id="studentName"></label>
+                    <div class="field" style="justify-content:flex-end"><label class="lu-flag"><input type="checkbox" id="levelUpFlag"> Level Up student</label></div>
+                    <label class="field"><span>Parent/carer name <span class="help" style="display:inline">for “Dear…”</span></span><input type="text" id="parentName" placeholder="For example, Mrs Okafor or Mr and Mrs Okafor"></label>
+                    <label class="field"><span>Parent/carer emails <span class="help" style="display:inline">separate more than one with commas</span></span><input type="text" inputmode="email" id="parentEmail" placeholder="name@example.com, name2@example.com" autocomplete="off" spellcheck="false"></label>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+                    <p class="help">Saved once for this student and used for every meeting.</p>
+                    <button type="button" class="link-btn danger" id="leftBtn">Mark as left the group</button>
+                  </div>
+                </div>
+              </details>
+            </div>
+
+            <div class="group" id="reviewGroup" hidden>
+              <h2 id="reviewTitle">Last time’s targets</h2>
+              <p class="sub">How did they go? Carry forward anything that needs another week.</p>
+              <div id="reviewList"></div>
+            </div>
+
+            <div class="group">
+              <h2 id="targetsTitle">Targets</h2>
+              <p class="sub"><button type="button" class="link-btn" data-examples="0" style="padding-left:0">Browse example targets</button> <span class="help" style="display:inline">if the student is stuck. Words in [brackets] are for you to fill in.</span></p>
+              <p class="sub" id="targetsSub"></p>
+              <div class="target"><span class="target-n">1</span><div><textarea id="t1" data-slot placeholder="For example, complete and self-mark two 30-minute organic chemistry question sets before Friday"></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="1">Choose an example</button></div></div></div>
+              <div class="target"><span class="target-n">2</span><div><textarea id="t2" data-slot></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="2">Choose an example</button></div></div></div>
+              <div class="target"><span class="target-n">3</span><div><textarea id="t3" data-slot></textarea><div class="slot-tools"><button type="button" class="link-btn" data-examples="3">Choose an example</button></div></div></div>
+            </div>
+
+            <div class="group">
+              <label class="field"><span>Notes <span class="help" style="display:inline">(if applicable)</span></span><textarea id="notes" placeholder="Anything worth recording from the conversation"></textarea></label>
+            </div>
+
+            <div class="group">
+              <details class="more" id="moreDetails">
+                <summary>Staff-only notes and next meeting date</summary>
+                <div class="inner">
+                  <label class="field"><span>Staff-only notes</span><textarea id="staffNotes" placeholder="Never included in Teams messages, emails home or the student summary"></textarea></label>
+                  <label class="field" style="max-width:220px"><span>Next meeting</span><input type="date" id="nextMeeting"></label>
+                  <p class="help">Record safeguarding concerns through the school’s safeguarding system, not here.</p>
+                </div>
+              </details>
+            </div>
+
+            <div class="sheet-foot">
+              <button type="button" class="btn btn-line" id="newMeetingBtn">Start another meeting</button>
+              <button type="button" class="btn btn-gold" id="saveBtn2">Save</button>
+            </div>
+          </form>
+
+          <aside class="sheet share" aria-label="Share this meeting">
+            <div class="share-tabs" role="tablist">
+              <button type="button" class="share-tab" role="tab" id="tabTeams" aria-selected="true" data-share="teams">Teams message</button>
+              <button type="button" class="share-tab" role="tab" id="tabEmail" aria-selected="false" data-share="email">Email home</button>
+            </div>
+            <div class="share-body" id="sharePanelTeams" role="tabpanel" aria-labelledby="tabTeams">
+              <div class="share-to" id="teamsTo"></div>
+              <pre class="msg" id="teamsMsg"></pre>
+              <label class="check"><input type="checkbox" id="teamsNotes" checked> Include notes</label>
+              <p class="warn-line" id="teamsWarn" hidden></p>
+              <div class="share-actions">
+                <button type="button" class="btn btn-line" id="copyTeams">Copy message</button>
+                <button type="button" class="btn btn-teal" id="openTeams">Open in Teams</button>
+              </div>
+            </div>
+            <div class="share-body" id="sharePanelEmail" role="tabpanel" aria-labelledby="tabEmail" hidden>
+              <div class="share-to" id="emailTo"></div>
+              <pre class="msg" id="emailMsg"></pre>
+              <label class="check"><input type="checkbox" id="emailNotes"> Include notes</label>
+              <p class="warn-line" id="emailWarn" hidden></p>
+              <div class="share-actions">
+                <button type="button" class="btn btn-line" id="copyEmail">Copy email</button>
+                <button type="button" class="btn btn-teal" id="openEmail">Open in email</button>
+              </div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="work work-single">
+          <section class="sheet history" aria-label="History">
+            <div class="group">
+              <div class="hist-head">
+                <h2>Meetings and targets</h2>
+                <div class="filter-row" role="group" aria-label="Show meetings">
+                  <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
+                  <button type="button" class="chip" data-filter="6AM" aria-pressed="false">6AM</button>
+                  <button type="button" class="chip" data-filter="Level Up" aria-pressed="false">Level Up</button>
+                </div>
+              </div>
+              <p class="lede" id="historyLede"></p>
+              <div class="table-wrap" id="meetingsTable"></div>
+            </div>
+            <div class="group">
+              <h2>Target tracker</h2>
+              <p class="sub">Every target set, with the outcome recorded at the following meeting.</p>
+              <div class="table-wrap" id="trackerTable"></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Sixth form overview -->
+<main class="ov" id="overview" hidden>
+  <div class="ov-head">
+    <div><h1>Sixth form overview</h1><p id="ovSummary"></p></div>
+    <div class="ov-actions">
+      <button type="button" class="btn btn-line" id="ovRefresh">Refresh</button>
+      <button type="button" class="btn btn-teal" id="ovPrint">Print summary</button>
+    </div>
+  </div>
+  <div class="ov-filters">
+    <div class="ov-filter"><span class="legend">Year</span>
+      <div class="filter-row" role="group" aria-label="Year group">
+        <button type="button" class="chip" data-ov-year="all" aria-pressed="true">All</button>
+        <button type="button" class="chip" data-ov-year="Year 12" aria-pressed="false">Year 12</button>
+        <button type="button" class="chip" data-ov-year="Year 13" aria-pressed="false">Year 13</button>
+      </div>
+    </div>
+    <label class="ov-filter"><span class="legend">Tutor group</span><select id="ovGroup"><option value="">All groups</option></select></label>
+    <label class="ov-filter"><span class="legend">Not met for</span><select id="ovDays"><option value="14">2 weeks</option><option value="21" selected>3 weeks</option><option value="28">4 weeks</option></select></label>
+  </div>
+  <p class="ov-note" id="ovNote" hidden></p>
+
+  <div class="sheet">
+    <div class="group">
+      <div class="hist-head"><h2>Tutor groups</h2></div>
+      <p class="sub">Click a group to show only its students below.</p>
+      <div class="table-wrap" id="ovGroups"></div>
+    </div>
   </div>
 
-  <div class="work work-single">
-    <section class="sheet history" aria-label="History">
-      <div class="group">
-        <div class="hist-head">
-          <h2>Meetings and targets</h2>
-          <div class="filter-row" role="group" aria-label="Show meetings">
-            <button type="button" class="chip" data-filter="all" aria-pressed="true">All</button>
-            <button type="button" class="chip" data-filter="6AM" aria-pressed="false">6AM</button>
-            <button type="button" class="chip" data-filter="Level Up" aria-pressed="false">Level Up</button>
-          </div>
-        </div>
-        <p class="lede" id="historyLede"></p>
-        <div class="table-wrap" id="meetingsTable"></div>
-      </div>
-      <div class="group">
-        <h2>Target tracker</h2>
-        <p class="sub">Every target set, with the outcome recorded at the following meeting.</p>
-        <div class="table-wrap" id="trackerTable"></div>
-      </div>
-    </section>
+  <div class="sheet">
+    <div class="tabs" role="tablist" id="ovTabs">
+      <button type="button" class="tab" role="tab" data-ov-tab="lu" aria-selected="true">Level Up students<span class="count" id="cLu">0</span></button>
+      <button type="button" class="tab" role="tab" data-ov-tab="notmet" aria-selected="false">Not met recently<span class="count" id="cNot">0</span></button>
+      <button type="button" class="tab" role="tab" data-ov-tab="targets" aria-selected="false">Struggling with targets<span class="count" id="cTar">0</span></button>
+      <button type="button" class="tab" role="tab" data-ov-tab="all" aria-selected="false">All students<span class="count" id="cAll">0</span></button>
+    </div>
+    <div class="group">
+      <p class="sub" id="ovListNote"></p>
+      <div class="table-wrap" id="ovList"></div>
+    </div>
+  </div>
+</main>
+
+<!-- Student history drawer (overview) -->
+<div class="drawer-wrap" id="drawer" role="dialog" aria-modal="true" aria-labelledby="drawerTitle" hidden>
+  <div class="drawer">
+    <div class="drawer-head">
+      <div><h2 id="drawerTitle"></h2><div class="band-meta" id="drawerMeta"></div></div>
+      <div style="display:flex;gap:8px"><button type="button" class="btn btn-line" id="drawerPrint">Print history</button><button type="button" class="btn btn-line" id="drawerClose">Close</button></div>
+    </div>
+    <div class="drawer-body" id="drawerBody"></div>
   </div>
 </div>
 
@@ -555,12 +735,45 @@
   <div class="overlay-scroll" id="overlayScroll"><div class="paper" id="paper"></div></div>
 </div>
 
+<!-- Group details / new group -->
+<div class="modal-wrap" id="groupDialog" role="dialog" aria-modal="true" aria-labelledby="groupDialogTitle" hidden>
+  <div class="modal">
+    <div class="group">
+      <div><h2 id="groupDialogTitle">New tutor group</h2><p class="help" id="groupDialogHelp"></p></div>
+      <label class="field"><span>Group name</span><input type="text" id="gName" placeholder="For example, 12AB"></label>
+      <div class="grid2">
+        <label class="field"><span>Tutor</span><input type="text" id="gTutor" placeholder="Your name"></label>
+        <label class="field"><span>Year group</span><select id="gYear"><option>Year 12</option><option>Year 13</option></select></label>
+      </div>
+      <label class="field" id="gStudentsWrap"><span>Students <span class="help" style="display:inline">one name per line, or paste a list</span></span><textarea id="gStudents" class="names" placeholder="Amara Okafor&#10;Sam Lee&#10;…"></textarea></label>
+    </div>
+    <div class="sheet-foot" style="justify-content:flex-end">
+      <button type="button" class="btn btn-line" id="groupCancel">Cancel</button>
+      <button type="button" class="btn btn-teal" id="groupOk">Create and save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add students -->
+<div class="modal-wrap" id="addDialog" role="dialog" aria-modal="true" aria-labelledby="addTitle" hidden>
+  <div class="modal">
+    <div class="group">
+      <div><h2 id="addTitle">Add students</h2><p class="help">One name per line. You can paste a list from a spreadsheet or SIMS export.</p></div>
+      <textarea id="addNames" class="names"></textarea>
+    </div>
+    <div class="sheet-foot" style="justify-content:flex-end">
+      <button type="button" class="btn btn-line" id="addCancel">Cancel</button>
+      <button type="button" class="btn btn-teal" id="addOk">Add students</button>
+    </div>
+  </div>
+</div>
+
 <!-- Sharing settings -->
 <div class="modal-wrap" id="settings" role="dialog" aria-modal="true" aria-labelledby="settingsTitle" hidden>
   <div class="modal">
     <div class="group">
-      <div><h2 id="settingsTitle">Sharing settings</h2><p class="help">Saved on this computer for every student record.</p></div>
-      <label class="field"><span>Teams: who gets the message</span><input type="text" id="setTeams" placeholder="dink@school.org.uk, head.sixthform@school.org.uk"><span class="help">School email addresses, separated by commas. The tutor adds the student in Teams if they want them in the chat.</span></label>
+      <div><h2 id="settingsTitle">Sharing settings</h2><p class="help">Saved on this computer for every tutor group.</p></div>
+      <label class="field"><span>Teams: who gets the message</span><input type="text" id="setTeams" placeholder="dink@school.org.uk, head.sixthform@school.org.uk"><span class="help">School email addresses, separated by commas.</span></label>
       <label class="field"><span>Email sign-off: your name</span><input type="text" id="setName" placeholder="Leave blank to use the tutor name on the meeting"></label>
       <label class="field"><span>Email sign-off: your role</span><input type="text" id="setRole" placeholder="Sixth Form Tutor"></label>
       <label class="field"><span>School name</span><input type="text" id="setSchool" placeholder="Optional"></label>
@@ -571,8 +784,6 @@
     </div>
   </div>
 </div>
-
-
 
 <!-- Example targets -->
 <div class="modal-wrap" id="picker" role="dialog" aria-modal="true" aria-labelledby="pickerTitle" hidden>
@@ -598,121 +809,103 @@
     <nav class="help-nav" aria-label="Help topics">
       <a href="#h-about" data-hnav="about">What the tool does</a>
       <a href="#h-start" data-hnav="start">Before you start</a>
-      <a href="#h-new" data-hnav="new">New student record</a>
+      <a href="#h-group" data-hnav="group">Setting up your group</a>
       <a href="#h-meeting" data-hnav="meeting">Running a meeting</a>
       <a href="#h-examples" data-hnav="examples">Example targets</a>
       <a href="#h-save" data-hnav="save">Saving</a>
       <a href="#h-share" data-hnav="share">Teams and email home</a>
       <a href="#h-next" data-hnav="next">The next meeting</a>
       <a href="#h-print" data-hnav="print">Printing and corrections</a>
+      <a href="#h-overview" data-hnav="overview">Sixth form overview</a>
       <a href="#h-data" data-hnav="data">Data protection</a>
       <a href="#h-trouble" data-hnav="trouble">Troubleshooting</a>
     </nav>
     <div class="help-body" id="helpBody">
       <section id="h-about"><h3>What the tool does</h3>
-        <p>The meeting log records 6AM and Level Up meetings in one file per student, so each meeting starts from the targets set last time. It runs in your browser and sends nothing over the internet.</p>
+        <p>The meeting log records 6AM and Level Up meetings for a whole tutor group in one file, so each meeting starts from the targets set last time. Pastoral leads can view every group together in the sixth form overview.</p>
         <div class="table-wrap"><table class="table"><thead><tr><th>Meeting type</th><th>Who</th><th>Targets</th></tr></thead><tbody>
           <tr><td><span class="type t-6am">6AM</span></td><td>Every sixth form student, in routine tutor meetings</td><td>Up to three</td></tr>
           <tr><td><span class="type t-lu">Level Up</span></td><td>Priority students needing extended intervention, weekly</td><td>Three each week</td></tr>
         </tbody></table></div>
-        <p>Both use the same form: date, last time’s targets, Target 1 to 3, and notes if applicable. Targets from either type are reviewed at the next meeting, whichever type it is.</p>
       </section>
       <section id="h-start"><h3>Before you start</h3>
         <ol>
-          <li><strong>Use Chrome or Edge on a school computer.</strong> Other browsers download a new copy on every save instead of updating the file.</li>
-          <li><strong>Keep records in the agreed staff-only folder</strong>, such as a shared sixth form drive with a folder per tutor group.</li>
+          <li><strong>Use Chrome or Edge.</strong> Open the tool file by double-clicking it.</li>
+          <li><strong>Add the sixth form SharePoint folder to your computer.</strong> Open the folder in SharePoint or Teams, click <strong>Add shortcut to My files</strong>, and it appears under OneDrive in File Explorer. Tutor group files are saved there.</li>
           <li><strong>Set up sharing once per computer.</strong> Click <button type="button" class="help-link" data-action="settings">Sharing settings</button> and add the pastoral leads’ email addresses for Teams, plus your name and role for signing emails home.</li>
         </ol>
       </section>
-      <section id="h-new"><h3>Creating a new student record</h3>
-        <p>Do this once per student, at their first meeting. Check they don’t already have a record first.</p>
+      <section id="h-group"><h3>Setting up your tutor group</h3>
         <ol>
-          <li>Click <strong>New student record</strong> on the home screen.</li>
-          <li>In <strong>Student and parent/carer details</strong>, enter the student’s name and year, the parent/carer name as you’d write it after “Dear”, and their email.</li>
-          <li>Record the meeting, then click <strong>Save record</strong> and choose the student’s folder. Keep the suggested file name.</li>
+          <li>Click <strong>New tutor group</strong> on the home screen.</li>
+          <li>Enter the group name (for example 12AB), your name and the year group, then paste the students’ names, one per line.</li>
+          <li>Click <strong>Create and save</strong> and choose the sixth form SharePoint folder. The file is named after the group, for example <code>12AB.json</code>.</li>
         </ol>
+        <p>Your students are listed down the left. Click a name to switch to that student. Use <strong>Add students</strong> for anyone who joins, and <strong>Mark as left the group</strong> in a student’s details for anyone who leaves; their records are kept.</p>
+        <p>If you used the earlier one-file-per-student version, click <strong>Import student files</strong> and select those files to bring them into the group.</p>
       </section>
       <section id="h-meeting"><h3>Running a meeting</h3>
-        <p>Everything is on one page. Work from top to bottom.</p>
         <ol>
-          <li><strong>Choose 6AM or Level Up.</strong> It starts with the same type as the last meeting, so check it.</li>
-          <li><strong>Check the date and tutor.</strong> Both fill in automatically.</li>
-          <li><strong>Review last time’s targets.</strong> Click <strong>Achieved</strong>, <strong>Partly</strong> or <strong>Not yet</strong> for each. Click <strong>Carry forward</strong> to copy a target into this meeting’s targets.</li>
+          <li><strong>Click the student’s name</strong> on the left.</li>
+          <li><strong>Choose 6AM or Level Up.</strong> Students marked as Level Up students start with Level Up.</li>
+          <li><strong>Review last time’s targets.</strong> Click <strong>Achieved</strong>, <strong>Partly</strong> or <strong>Not yet</strong> for each. <strong>Carry forward</strong> copies a target into this meeting’s targets.</li>
           <li><strong>Write Target 1, 2 and 3.</strong> Level Up sets three each week; 6AM can use fewer.</li>
           <li><strong>Add notes if applicable.</strong> Notes can be shared, so keep them suitable for the student and family.</li>
-          <li><strong>Optional:</strong> open <strong>Staff-only notes and next meeting date</strong> for notes that never leave the record.</li>
+          <li><strong>Optional:</strong> open <strong>Staff-only notes and next meeting date</strong>.</li>
         </ol>
         <p class="help-tip"><strong>A good target</strong> names the action, the evidence and when it’s due. Instead of “revise Chemistry more”, write “complete and self-mark two 30-minute organic chemistry question sets before Friday, and bring corrections to the next meeting”.</p>
       </section>
       <section id="h-examples"><h3>Example targets</h3>
-        <p>If a student is stuck, click <strong>Choose an example</strong> under a target box, or <strong>Browse example targets</strong> above them.</p>
-        <ol>
-          <li>Pick an area, such as revision, deadlines or careers, or type a word in the search box.</li>
-          <li>Click a target. It goes into the box, with the first word in [brackets] selected.</li>
-          <li>Type over each [bracketed] part with the student’s details, such as the subject, topic or day, then adjust the wording together.</li>
-        </ol>
-        <p>The share panel warns you if a target still has [brackets] in it. To keep a target you use often, type it into <strong>Add your own example</strong> at the bottom of the list; it’s saved on that computer.</p>
-        <p class="help-tip">Give students the <strong>Setting your targets</strong> guide before their meetings. It explains how to write a target and has the same examples, so they can arrive with ideas ready.</p>
+        <p>If a student is stuck, click <strong>Choose an example</strong> under a target box, or <strong>Browse example targets</strong>. Pick an area or search, click a target, then type over each [bracketed] part. The share panel warns you if any [brackets] are left. Add targets you use often under <strong>Add your own example</strong>.</p>
+        <p class="help-tip">Give students the <strong>Setting your targets</strong> guide before their meetings. It has the same examples, so they arrive with ideas ready.</p>
       </section>
-      <section id="h-save"><h3>Saving the record</h3>
+      <section id="h-save"><h3>Saving</h3>
         <ul>
-          <li>Click <strong>Save record</strong> or press <strong>Ctrl+S</strong>. The first save asks where to put the file; after that it updates the same file.</li>
-          <li>With <strong>Autosave</strong> ticked, changes save automatically every few seconds once the file has been saved or opened.</li>
+          <li>Click <strong>Save</strong> or press <strong>Ctrl+S</strong>. With <strong>Autosave</strong> ticked, changes save every few seconds.</li>
           <li>The top bar shows <strong>Unsaved changes</strong>, <strong>Saving…</strong> or <strong>Saved</strong> with the time.</li>
           <li>If the browser asks whether the page can edit the file, click <strong>Allow</strong>.</li>
+          <li><strong>Working with a colleague.</strong> If someone else saves the same group file while you have it open (for example a co-tutor), the tool combines their changes with yours when you save, so neither of you loses work.</li>
         </ul>
       </section>
       <section id="h-share"><h3>Sharing on Teams and by email home</h3>
-        <p>The <strong>Share this meeting</strong> panel writes both messages as you type. Nothing is sent until you press Send yourself. Staff-only notes are never included.</p>
-        <h4>Teams message</h4>
-        <ol>
-          <li>Open the <strong>Teams message</strong> tab. Untick <strong>Include notes</strong> if needed.</li>
-          <li>Click <strong>Open in Teams</strong>: a chat opens with the pastoral leads, message already typed. Check it and press Send.</li>
-          <li>Or click <strong>Copy message</strong> and paste it into any chat.</li>
-        </ol>
-        <h4>Email home</h4>
-        <ol>
-          <li>Open the <strong>Email home</strong> tab and read the draft. It starts “Dear…, Today I met with…” and lists the targets.</li>
-          <li>Tick <strong>Include notes</strong> only if they’re suitable for home.</li>
-          <li>Click <strong>Open in email</strong> to start the email in Outlook, or <strong>Copy email</strong> to paste it yourself. Check the address before sending.</li>
-        </ol>
+        <p>The share panel writes both messages as you type. Nothing is sent until you press Send yourself. Staff-only notes are never included.</p>
+        <ul>
+          <li><strong>Open in Teams</strong> starts a chat with the pastoral leads, with the message typed. <strong>Copy message</strong> lets you paste it anywhere.</li>
+          <li><strong>Open in email</strong> starts an email to the parent/carer. Tick <strong>Include notes</strong> only if they’re suitable for home. If a student has more than one parent or carer, put all their email addresses in student details, separated by commas, and the email goes to all of them. Check the addresses before sending.</li>
+        </ul>
       </section>
       <section id="h-next"><h3>The next meeting</h3>
-        <ol>
-          <li>Click the student’s name under <strong>Recent records</strong>, or <strong>Open a student record</strong> to find their file.</li>
-          <li>Click <strong>Allow</strong> if the browser asks for permission.</li>
-          <li>A new meeting is ready, with last time’s targets listed for review.</li>
-        </ol>
-        <p>The bar chart has one bar per meeting: teal for 6AM, gold for Level Up. Taller means more targets achieved; a dashed outline means not yet reviewed. Click a bar to open that meeting. The meetings list and target tracker are at the bottom of the page.</p>
+        <p>Open your tutor group from <strong>Recent tutor groups</strong> on the home screen, or with <strong>Open a tutor group</strong>. Click a student: a new meeting is ready with last time’s targets listed for review. The student list shows when you last met each student, highlighted if it’s been more than three weeks.</p>
+        <p>The bar chart has one bar per meeting: teal for 6AM, gold for Level Up. Taller means more targets achieved; a dashed outline means not yet reviewed.</p>
       </section>
       <section id="h-print"><h3>Printing and corrections</h3>
-        <p>Click <strong>Print</strong>, choose a version, then <strong>Print or save as PDF</strong>.</p>
-        <div class="table-wrap"><table class="table"><thead><tr><th>Version</th><th>Staff-only notes</th><th>Use it for</th></tr></thead><tbody>
-          <tr><td>Student and family summary</td><td>Left out</td><td>Giving to the student or sending home</td></tr>
-          <tr><td>Staff record</td><td>Included</td><td>A single meeting for staff files</td></tr>
-          <tr><td>Complete history</td><td>Included</td><td>Every meeting and target, for reviews and referrals</td></tr>
-        </tbody></table></div>
-        <p><strong>To correct a meeting</strong>, click <strong>Open</strong> beside it in the meetings list, change it and save. <strong>Delete</strong> is only for meetings recorded by mistake; once saved, it can’t be undone.</p>
+        <p>Click <strong>Print</strong>, choose the student summary, the staff record or the complete history, then <strong>Print or save as PDF</strong>. To correct a meeting, click <strong>Open</strong> beside it in the meetings list, change it and save. <strong>Delete</strong> is only for meetings recorded by mistake.</p>
+      </section>
+      <section id="h-overview"><h3>Sixth form overview (pastoral leads)</h3>
+        <ol>
+          <li>On the home screen, click <strong>Open the sixth form folder</strong> and choose the SharePoint folder that holds the tutor group files. Next time, use the button with the folder’s name.</li>
+          <li>The overview reads every group file without changing anything. Filter by year or tutor group.</li>
+          <li>The tabs list <strong>Level Up students</strong>, students <strong>not met recently</strong>, students <strong>struggling with targets</strong> (under half achieved at two reviews running) and <strong>all students</strong>.</li>
+          <li>Click a student to see their full history, and print it if needed. <strong>Print summary</strong> prints the whole overview.</li>
+        </ol>
+        <p>Click <strong>Refresh</strong> to pick up meetings tutors have saved since you opened the folder.</p>
       </section>
       <section id="h-data"><h3>Data protection and safeguarding</h3>
         <ul>
-          <li>Keep record files in the agreed staff-only folder. Never on USB sticks or personal devices.</li>
-          <li>Never email or attach the record file. Share targets with the Teams message, the email home or a printed summary.</li>
+          <li>Keep tutor group files only in the sixth form SharePoint folder.</li>
+          <li>Never email or attach a group file. Share targets with the Teams message, the email home or a printed summary.</li>
           <li>Write shared notes as if the student might read them.</li>
           <li><strong>Safeguarding concerns don’t belong in this tool.</strong> Report them through the school’s safeguarding system straight away.</li>
-          <li>On shared computers, save and close the tool when you’ve finished.</li>
         </ul>
       </section>
       <section id="h-trouble"><h3>Troubleshooting</h3>
         <div class="table-wrap"><table class="table"><thead><tr><th>Problem</th><th>What to do</th></tr></thead><tbody>
-          <tr><td>Save downloads a new file each time</td><td>Open the tool in Chrome or Edge.</td></tr>
-          <tr><td>“Add the student’s name before saving”</td><td>Open <strong>Student and parent/carer details</strong> and enter the name.</td></tr>
-          <tr><td>“Click Save record to allow saving”</td><td>Click <strong>Save record</strong> and choose <strong>Allow</strong>.</td></tr>
-          <tr><td>Student missing from Recent records</td><td>Recent records are kept per computer. Use <strong>Open a student record</strong>.</td></tr>
-          <tr><td>“That file couldn’t be found”</td><td>It was moved or renamed. Find it with <strong>Open a student record</strong>.</td></tr>
+          <tr><td>The SharePoint folder isn’t in the save window</td><td>Add it with <strong>Add shortcut to My files</strong> in SharePoint, then look under OneDrive in the save window.</td></tr>
+          <tr><td>“Click Save to allow saving”</td><td>Click <strong>Save</strong> and choose <strong>Allow</strong>.</td></tr>
+          <tr><td>A group is missing from Recent tutor groups</td><td>Recent groups are kept per computer. Use <strong>Open a tutor group</strong>.</td></tr>
+          <tr><td>The overview doesn’t show a recent meeting</td><td>The tutor may not have saved yet, or OneDrive is still syncing. Wait a minute and click <strong>Refresh</strong>.</td></tr>
           <tr><td>Open in Teams is greyed out</td><td>Add email addresses in <strong>Sharing settings</strong>, and write at least one target.</td></tr>
           <tr><td>Open in email does nothing</td><td>Use <strong>Copy email</strong> and paste into Outlook.</td></tr>
-          <tr><td>Teams message lost its line breaks</td><td>Use <strong>Copy message</strong> and paste instead.</td></tr>
         </tbody></table></div>
       </section>
     </div>
@@ -722,17 +915,21 @@
 <div id="printRoot" aria-hidden="true"></div>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 <input type="file" id="fileInput" accept=".json,application/json" hidden>
+<input type="file" id="importInput" accept=".json,application/json" multiple hidden>
 
 <script>
 (() => {
   'use strict';
 
-  const FORMAT = 'level-up-student-record';
-  const VERSION = 3;
-  const FILE_TYPES = [{ description: 'Sixth form student record', accept: { 'application/json': ['.json'] } }];
+  const GROUP_FORMAT = 'sixth-form-group-record';
+  const OLD_FORMAT = 'level-up-student-record';
+  const VERSION = 4;
+  const FILE_TYPES = [{ description: 'Tutor group file', accept: { 'application/json': ['.json'] } }];
   const STATUSES = ['Achieved', 'Partly achieved', 'Not achieved'];
   const WEIGHT = { 'Achieved': 1, 'Partly achieved': .5, 'Not achieved': 0 };
   const SETTINGS_KEY = 'sixth-form-meetings-settings';
+  const OWN_KEY = 'sixth-form-meetings-own-targets';
+  const LATE_DAYS = 21;
 
   const $ = (id) => document.getElementById(id);
   const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -741,6 +938,9 @@
   const plural = (n, w, many) => `${n} ${n === 1 ? w : (many || w + 's')}`;
   const typeClass = (t) => (t === '6AM' ? 't-6am' : 't-lu');
   const typeBadge = (t) => `<span class="type ${typeClass(t)}">${esc(t)}</span>`;
+  const EMAIL_RE = /^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]+$/;
+  const parseEmails = (v) => [...new Set(String(v || '').split(/[,;\s]+/).map((x) => x.trim()).filter(Boolean))];
+  const byName = (a, b) => (a.name || '').localeCompare(b.name || '', 'en-GB', { sensitivity: 'base' });
 
   function today() {
     const d = new Date();
@@ -749,22 +949,31 @@
   function parseDate(v) { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; }
   function humanDate(v) { const d = parseDate(v); return d ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : (v || ''); }
   function shortDate(v) { const d = parseDate(v); return d ? d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }) : '—'; }
+  function daysSince(v) { const d = parseDate(v); return d ? Math.floor((parseDate(today()) - d) / 86400000) : Infinity; }
 
   const canUseFS = (() => {
     try { return 'showOpenFilePicker' in window && 'showSaveFilePicker' in window && window.self === window.top; }
     catch { return false; }
   })();
+  const canReadFolder = canUseFS && 'showDirectoryPicker' in window;
 
   // ---------- State ----------
-  let record = null, current = null, fileHandle = null, fileName = '';
+  let data = null;            // the open tutor group file
+  let currentSid = null;      // selected student id
+  let current = null;         // { id } of meeting in the form
+  let fileHandle = null, fileName = '', fileStamp = null;
   let dirty = false, touched = false, saving = false, lastSaved = null, saveError = '';
-  let filter = 'all', shareTab = 'teams', previewId = null;
+  let changes = newChanges();
+  let filter = 'all', previewId = null, showLeft = false, groupDialogMode = 'new';
   let commitTimer = null, autosaveTimer = null, toastTimer = null;
+  let ov = null, ovYear = 'all', ovTab = 'lu', drawerRef = null;
 
-  // ---------- Settings (this computer) ----------
+  function newChanges() { return { group: false, students: new Set(), meetings: new Map(), deleted: new Set() }; }
+
+  // ---------- Settings ----------
   function loadSettings() {
-    try { return Object.assign({ teams: '', name: '', role: 'Sixth Form Tutor', school: '' }, JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}')); }
-    catch { return { teams: '', name: '', role: 'Sixth Form Tutor', school: '' }; }
+    const d = { teams: '', name: '', role: 'Sixth Form Tutor', school: '' };
+    try { return Object.assign(d, JSON.parse(localStorage.getItem(SETTINGS_KEY) || '{}')); } catch { return d; }
   }
   let settings = loadSettings();
   function openSettings() {
@@ -776,80 +985,192 @@
     settings = { teams: $('setTeams').value.trim(), name: $('setName').value.trim(), role: $('setRole').value.trim(), school: $('setSchool').value.trim() };
     try { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); } catch { showToast('Settings will last until this page is closed.'); }
     $('settings').hidden = true;
-    if (record) renderShare();
+    if (data && currentSid) renderShare();
     showToast('Sharing settings saved.');
   }
   const teamsRecipients = () => settings.teams.split(/[,;\s]+/).map((s) => s.trim()).filter((s) => s.includes('@'));
 
   // ---------- Model ----------
-  function blankRecord() {
-    return { format: FORMAT, version: VERSION, student: { name: '', year: '', tutor: '', parentName: '', parentEmail: '' }, meetings: [], createdAt: new Date().toISOString(), updatedAt: '' };
+  function blankData(g) {
+    return { format: GROUP_FORMAT, version: VERSION, group: { name: g.name || '', tutor: g.tutor || '', year: g.year || 'Year 12' }, students: [], createdAt: new Date().toISOString() };
+  }
+  function blankStudent(name) {
+    return { id: uid(), name, parentName: '', parentEmail: '', levelUp: false, left: false, meetings: [] };
   }
   function blankMeeting(type) {
     return { id: uid(), type: type || '6AM', date: today(), tutor: '', review: [], targets: [], notes: '', staffNotes: '', nextMeeting: '' };
   }
-  const sortMeetings = () => record.meetings.sort((a, b) => (a.date || '').localeCompare(b.date || ''));
-  const latestMeeting = () => record.meetings[record.meetings.length - 1] || null;
-
-  // Accepts this version and records saved by the earlier Level Up version.
-  function normalise(data) {
-    if (!data || data.format !== FORMAT) throw new Error('This file isn’t a sixth form student record.');
-    const r = blankRecord();
-    Object.assign(r.student, data.student || {});
-    r.createdAt = data.createdAt || r.createdAt;
-    const oldStatus = { 'Achieved': 'Achieved', 'Partially achieved': 'Partly achieved', 'Revised / carried forward': 'Partly achieved', 'In progress': 'Partly achieved', 'Not started': 'Not achieved' };
-    r.meetings = (Array.isArray(data.meetings) ? data.meetings : []).map((m) => {
-      if ((data.version || 2) < 3) {
-        return {
-          id: m.id || uid(), type: 'Level Up', date: m.date || '', tutor: m.tutor || '',
-          targets: (m.targets || []).filter((t) => t.task).slice(0, 3).map((t) => ({ id: t.id || uid(), text: t.task })),
-          review: (m.previous || []).filter((p) => p.task).map((p) => ({ targetId: p.targetId || '', text: p.task, setOn: p.setOn || '', status: oldStatus[p.status] || '' })),
-          notes: [m.comments, m.previousSummary].filter(Boolean).join('\n\n'), staffNotes: m.internal || '', nextMeeting: m.nextMeeting || ''
-        };
-      }
-      const b = Object.assign(blankMeeting(), m);
-      b.targets = (m.targets || []).map((t) => ({ ...t, id: t.id || uid() }));
-      b.review = m.review || [];
-      return b;
-    });
-    record = r;
-    sortMeetings();
+  const oldStatus = { 'Achieved': 'Achieved', 'Partially achieved': 'Partly achieved', 'Revised / carried forward': 'Partly achieved', 'In progress': 'Partly achieved', 'Not started': 'Not achieved' };
+  function normaliseMeeting(m, version) {
+    if (version < 3) {
+      return {
+        id: m.id || uid(), type: 'Level Up', date: m.date || '', tutor: m.tutor || '',
+        targets: (m.targets || []).filter((t) => t.task).slice(0, 3).map((t) => ({ id: t.id || uid(), text: t.task })),
+        review: (m.previous || []).filter((p) => p.task).map((p) => ({ targetId: p.targetId || '', text: p.task, setOn: p.setOn || '', status: oldStatus[p.status] || '' })),
+        notes: [m.comments, m.previousSummary].filter(Boolean).join('\n\n'), staffNotes: m.internal || '', nextMeeting: m.nextMeeting || ''
+      };
+    }
+    const b = Object.assign(blankMeeting(), m);
+    b.targets = (m.targets || []).map((t) => ({ ...t, id: t.id || uid() }));
+    b.review = m.review || [];
+    return b;
   }
-  function buildNextMeeting() {
-    const last = latestMeeting();
-    const m = blankMeeting(last?.type);
-    m.tutor = record.student.tutor || '';
+  function sortMeetings(s) { s.meetings.sort((a, b) => (a.date || '').localeCompare(b.date || '')); }
+  function normaliseStudent(s, version) {
+    const out = Object.assign(blankStudent(''), s);
+    out.id = s.id || uid();
+    out.meetings = (s.meetings || []).map((m) => normaliseMeeting(m, version));
+    sortMeetings(out);
+    return out;
+  }
+  function normaliseGroup(j) {
+    if (!j || j.format !== GROUP_FORMAT) throw new Error('This file isn’t a tutor group file.');
+    const d = blankData(j.group || {});
+    d.createdAt = j.createdAt || d.createdAt;
+    d.students = (j.students || []).map((s) => normaliseStudent(s, VERSION));
+    return d;
+  }
+  function studentFromOld(j) {
+    if (!j || j.format !== OLD_FORMAT) throw new Error('Not a student file.');
+    const v = j.version || 2;
+    const s = blankStudent((j.student && j.student.name) || 'Unnamed student');
+    s.parentName = j.student?.parentName || '';
+    s.parentEmail = j.student?.parentEmail || '';
+    s.meetings = (j.meetings || []).map((m) => normaliseMeeting(m, v));
+    sortMeetings(s);
+    s.levelUp = s.meetings.some((m) => m.type === 'Level Up');
+    return { student: s, year: j.student?.year || '', tutor: j.student?.tutor || '' };
+  }
+
+  const stu = () => data && data.students.find((s) => s.id === currentSid);
+  const latest = (s) => s.meetings[s.meetings.length - 1] || null;
+  function buildNextMeeting(s) {
+    const last = latest(s);
+    const m = blankMeeting(s.levelUp ? 'Level Up' : (last?.type || '6AM'));
+    m.tutor = data.group.tutor || settings.name || '';
     if (last) m.review = last.targets.map((t) => ({ targetId: t.id, text: t.text, setOn: last.date, setType: last.type, status: '' }));
     return m;
   }
 
   // ---------- Outcomes ----------
-  function outcomes() {
+  function outcomes(s) {
     const map = {};
-    for (const m of record.meetings) for (const r of m.review) if (r.targetId && r.status) map[r.targetId] = { status: r.status, date: m.date };
+    for (const m of s.meetings) for (const r of m.review) if (r.targetId && r.status) map[r.targetId] = { status: r.status, date: m.date };
     return map;
   }
-  const statusClass = (s) => ({ 'Achieved': 'ok', 'Partly achieved': 'part', 'Not achieved': 'no' })[s] || 'await';
-  const pill = (s) => `<span class="pill ${statusClass(s)}">${esc(s || 'Awaiting review')}</span>`;
+  const statusClass = (x) => ({ 'Achieved': 'ok', 'Partly achieved': 'part', 'Not achieved': 'no' })[x] || 'await';
+  const pill = (x) => `<span class="pill ${statusClass(x)}">${esc(x || 'Awaiting review')}</span>`;
   function meetingScore(m, out) {
     if (!m.targets.length) return { kind: 'none', score: 0, text: 'No targets set' };
     const reviewed = m.targets.filter((t) => out[t.id]);
     if (!reviewed.length) return { kind: 'pending', score: 0, text: `${plural(m.targets.length, 'target')}, awaiting review` };
-    const score = m.targets.reduce((s, t) => s + (out[t.id] ? WEIGHT[out[t.id].status] ?? 0 : 0), 0) / m.targets.length;
+    const score = m.targets.reduce((a, t) => a + (out[t.id] ? WEIGHT[out[t.id].status] ?? 0 : 0), 0) / m.targets.length;
     const ach = m.targets.filter((t) => out[t.id]?.status === 'Achieved').length;
     return { kind: 'scored', score, text: `${ach} of ${plural(m.targets.length, 'target')} achieved` };
   }
   function reviewSummary(review) {
     const done = review.filter((r) => r.status);
     if (!done.length) return '';
-    const parts = STATUSES.map((s) => [s, done.filter((r) => r.status === s).length]).filter(([, n]) => n);
-    return parts.map(([s, n]) => `${n} ${s.toLowerCase()}`).join(', ');
+    return STATUSES.map((st) => [st, done.filter((r) => r.status === st).length]).filter(([, n]) => n).map(([st, n]) => `${n} ${st.toLowerCase()}`).join(', ');
+  }
+  function achievedRate(s) {
+    const out = outcomes(s);
+    const ids = s.meetings.flatMap((m) => m.targets.map((t) => t.id)).filter((id) => out[id]);
+    if (!ids.length) return null;
+    return ids.filter((id) => out[id].status === 'Achieved').length / ids.length;
+  }
+
+  // ---------- Roster ----------
+  function renderRoster() {
+    const g = data.group;
+    $('groupName').textContent = g.name || 'Unnamed group';
+    const active = data.students.filter((s) => !s.left);
+    const lu = active.filter((s) => s.levelUp).length;
+    $('groupMeta').innerHTML = [g.year, g.tutor, plural(active.length, 'student'), lu ? `${lu} Level Up` : ''].filter(Boolean).map((x) => `<span>${esc(x)}</span>`).join('');
+    const q = $('rosterSearch').value.trim().toLowerCase();
+    const match = (s) => !q || s.name.toLowerCase().includes(q);
+    const item = (s) => {
+      const last = latest(s);
+      const days = last ? daysSince(last.date) : Infinity;
+      const sub = last ? `Last met ${shortDate(last.date)}${days > LATE_DAYS ? `, ${Math.floor(days / 7)} weeks ago` : ''}` : 'No meetings yet';
+      return `<li><button type="button" class="stu-btn${s.left ? ' left' : ''}" data-student="${esc(s.id)}" aria-current="${s.id === currentSid}">
+        <span class="stu-line"><span class="stu-name">${esc(s.name || 'Unnamed')}</span>${s.levelUp ? typeBadge('Level Up') : ''}</span>
+        <span class="stu-sub${!s.left && last && days > LATE_DAYS ? ' late' : ''}">${s.left ? 'Left the group' : esc(sub)}</span></button></li>`;
+    };
+    let html = active.filter(match).sort(byName).map(item).join('');
+    const left = data.students.filter((s) => s.left);
+    if (showLeft && left.length) html += `<li class="roster-sep">Left the group</li>` + left.filter(match).sort(byName).map(item).join('');
+    $('rosterList').innerHTML = html || `<li class="roster-sep">${q ? 'No students match.' : 'No students yet.'}</li>`;
+    $('showLeftBtn').hidden = !left.length;
+    $('showLeftBtn').textContent = showLeft ? 'Hide students who left' : `Show students who left (${left.length})`;
+    $('emptyGroup').hidden = data.students.length > 0;
+    $('studentView').hidden = !currentSid;
+  }
+  function selectStudent(sid) {
+    if (currentSid) commit();
+    currentSid = sid;
+    const s = stu();
+    if (!s) { currentSid = null; renderRoster(); return; }
+    const last = latest(s);
+    openMeeting(last && last.date === today() ? clone(last) : buildNextMeeting(s));
+    renderRoster();
+    window.scrollTo({ top: 0 });
+  }
+  function parseNames(text) {
+    const seen = new Set();
+    return text.split(/\r?\n/).map((l) => l.split('\t')[0].trim().replace(/\s+/g, ' ')).filter((n) => n && !seen.has(n.toLowerCase()) && seen.add(n.toLowerCase()));
+  }
+  function addStudents(names) {
+    const existing = new Set(data.students.map((s) => s.name.toLowerCase()));
+    let added = 0, first = null;
+    for (const n of names) {
+      if (existing.has(n.toLowerCase())) continue;
+      const s = blankStudent(n);
+      data.students.push(s); changes.students.add(s.id); added++;
+      first = first || s.id;
+    }
+    if (added) { markDirty(); scheduleAutosave(); }
+    return { added, first };
+  }
+
+  // ---------- Group dialog ----------
+  function openGroupDialog(mode) {
+    groupDialogMode = mode;
+    const isNew = mode === 'new';
+    $('groupDialogTitle').textContent = isNew ? 'New tutor group' : 'Group details';
+    $('groupDialogHelp').textContent = isNew ? 'You’ll choose where to save the file next. Pick the sixth form SharePoint folder.' : 'Changes apply to the whole group file.';
+    $('gName').value = isNew ? '' : data.group.name;
+    $('gTutor').value = isNew ? settings.name : data.group.tutor;
+    $('gYear').value = isNew ? 'Year 12' : (data.group.year || 'Year 12');
+    $('gStudents').value = '';
+    $('gStudentsWrap').hidden = !isNew;
+    $('groupOk').textContent = isNew ? 'Create and save' : 'Save details';
+    $('groupDialog').hidden = false;
+    $('gName').focus();
+  }
+  async function groupDialogOk() {
+    const name = $('gName').value.trim();
+    if (!name) { $('gName').focus(); showToast('Give the group a name, for example 12AB.'); return; }
+    const g = { name, tutor: $('gTutor').value.trim(), year: $('gYear').value };
+    $('groupDialog').hidden = true;
+    if (groupDialogMode === 'edit') {
+      Object.assign(data.group, g); changes.group = true; markDirty(); renderRoster(); scheduleAutosave();
+      return;
+    }
+    data = blankData(g);
+    fileHandle = null; fileName = ''; fileStamp = null; changes = newChanges(); dirty = false; lastSaved = null; saveError = '';
+    currentSid = null; current = null;
+    const { first } = addStudents(parseNames($('gStudents').value));
+    showView('workspace');
+    if (first) selectStudent(data.students.slice().sort(byName)[0].id); else renderRoster();
+    renderSaveState();
+    await save();
   }
 
   // ---------- Form ----------
   const slots = () => [$('t1'), $('t2'), $('t3')];
-  function getType() { return document.querySelector('input[name="meetingType"]:checked')?.value || '6AM'; }
-  function setType(t) { (t === 'Level Up' ? $('typeLU') : $('type6')).checked = true; }
+  const getType = () => document.querySelector('input[name="meetingType"]:checked')?.value || '6AM';
+  const setType = (t) => { (t === 'Level Up' ? $('typeLU') : $('type6')).checked = true; };
 
   function renderReview(review) {
     $('reviewGroup').hidden = !review.length;
@@ -860,9 +1181,9 @@
       <div class="review-text">${esc(r.text)}</div>
       <div class="review-tools">
         <div class="seg seg-status" role="radiogroup" aria-label="Outcome for: ${esc(r.text)}">
-          ${STATUSES.map((s, j) => `<input type="radio" name="rv${i}" id="rv${i}-${j}" value="${esc(s)}"${r.status === s ? ' checked' : ''}><label for="rv${i}-${j}">${s === 'Not achieved' ? 'Not yet' : s === 'Partly achieved' ? 'Partly' : 'Achieved'}</label>`).join('')}
+          ${STATUSES.map((st, j) => `<input type="radio" name="rv${i}" id="rv${i}-${j}" value="${esc(st)}"${r.status === st ? ' checked' : ''}><label for="rv${i}-${j}">${st === 'Not achieved' ? 'Not yet' : st === 'Partly achieved' ? 'Partly' : 'Achieved'}</label>`).join('')}
         </div>
-        <button type="button" class="link-btn" data-carry="${i}" title="Copy into this meeting’s targets">Carry forward</button>
+        <button type="button" class="link-btn" data-carry="${i}">Carry forward</button>
       </div></div>`).join('');
   }
   function collectReview() {
@@ -874,13 +1195,15 @@
   }
   function fillForm(m) {
     $('meetingForm').reset();
+    const s = stu();
     setType(m.type);
     $('meetingDate').value = m.date || '';
     $('tutorName').value = m.tutor || '';
-    const s = record.student;
-    $('studentName').value = s.name || ''; $('yearGroup').value = s.year || '';
-    $('parentName').value = s.parentName || ''; $('parentEmail').value = s.parentEmail || '';
-    $('studentDetails').open = !s.name;
+    $('studentName').value = s.name || '';
+    $('levelUpFlag').checked = !!s.levelUp;
+    $('parentName').value = s.parentName || '';
+    $('parentEmail').value = s.parentEmail || '';
+    $('leftBtn').textContent = s.left ? 'Return to the group' : 'Mark as left the group';
     renderReview(m.review || []);
     slots().forEach((el, i) => {
       const t = m.targets[i];
@@ -903,28 +1226,30 @@
     };
   }
   function readStudent() {
-    Object.assign(record.student, {
-      name: $('studentName').value.trim(), year: $('yearGroup').value,
-      parentName: $('parentName').value.trim(), parentEmail: $('parentEmail').value.trim()
-    });
+    const s = stu();
+    if (!s) return;
+    s.name = $('studentName').value.trim() || s.name;
+    s.levelUp = $('levelUpFlag').checked;
+    s.parentName = $('parentName').value.trim();
+    s.parentEmail = $('parentEmail').value.trim();
+    if (document.activeElement !== $('parentEmail')) s.parentEmail = parseEmails(s.parentEmail).join(', ');
   }
   function commit() {
     clearTimeout(commitTimer);
-    if (!record || !current) return;
-    readStudent();
+    const s = stu();
+    if (!data || !s || !current) return;
     const m = snapshot();
-    if (m.tutor) record.student.tutor = m.tutor;
-    const i = record.meetings.findIndex((x) => x.id === m.id);
-    if (i >= 0) record.meetings[i] = m;
-    else if (touched) record.meetings.push(m);
-    sortMeetings();
-    record.updatedAt = new Date().toISOString();
+    const i = s.meetings.findIndex((x) => x.id === m.id);
+    if (i >= 0) s.meetings[i] = m;
+    else if (touched) s.meetings.push(m);
+    if (touched) changes.meetings.set(`${s.id}|${m.id}`, { sid: s.id, mid: m.id });
+    sortMeetings(s);
   }
   function openMeeting(m) {
     current = { id: m.id };
     touched = false;
     fillForm(m);
-    renderAll();
+    renderStudent();
   }
   function renderTypeText() {
     const lu = getType() === 'Level Up';
@@ -935,39 +1260,48 @@
   }
 
   // ---------- Changes ----------
-  function changed() {
-    touched = true; dirty = true; saveError = '';
-    renderTypeText();
-    renderShare();
-    renderSaveState();
-    renderBand();
-    clearTimeout(commitTimer);
-    commitTimer = setTimeout(() => { commit(); renderAll(); }, 300);
+  function markDirty() { dirty = true; saveError = ''; renderSaveState(); }
+  function scheduleAutosave() {
     clearTimeout(autosaveTimer);
     if (canUseFS && fileHandle && $('autosave').checked) autosaveTimer = setTimeout(() => save({ silent: true }), 1800);
   }
+  function changed(e) {
+    const s = stu();
+    if (!s) return;
+    if (e && e.target.closest('[data-student-fields]')) {
+      readStudent(); changes.students.add(s.id);
+      renderRoster();
+    } else {
+      touched = true;
+      if (e && e.target.name === 'meetingType' && getType() === 'Level Up' && !s.levelUp) {
+        s.levelUp = true; $('levelUpFlag').checked = true; changes.students.add(s.id); renderRoster();
+      }
+    }
+    markDirty();
+    renderTypeText();
+    renderShare();
+    renderBand();
+    clearTimeout(commitTimer);
+    commitTimer = setTimeout(() => { commit(); renderStudent(); renderRoster(); }, 300);
+    scheduleAutosave();
+  }
 
-  // ---------- Rendering ----------
-  function renderAll() { renderBand(); renderMeetingHead(); renderHistory(); renderShare(); renderSaveState(); }
+  // ---------- Student rendering ----------
+  function renderStudent() { if (!stu()) return; renderBand(); renderMeetingHead(); renderHistory(); renderShare(); renderSaveState(); }
   function renderBand() {
-    const s = record.student;
-    const name = $('studentName').value.trim() || s.name;
-    $('bandName').textContent = name || 'New student';
-    $('bandName').classList.toggle('placeholder', !name);
-    const meta = [];
-    const year = $('yearGroup').value || s.year;
-    if (year) meta.push(esc(year));
-    if (s.tutor) meta.push(`Tutor: ${esc(s.tutor)}`);
-    const n6 = record.meetings.filter((m) => m.type === '6AM').length;
-    const nLU = record.meetings.filter((m) => m.type === 'Level Up').length;
-    if (nLU) meta.push(`${typeBadge('Level Up')} ${plural(nLU, 'meeting')}`);
-    if (n6) meta.push(`${typeBadge('6AM')} ${plural(n6, 'meeting')}`);
-    if (!record.meetings.length) meta.push('No meetings saved yet');
+    const s = stu();
+    $('bandName').textContent = s.name || 'Unnamed student';
+    const meta = data.group.name ? [esc(data.group.name)] : [];
+    const n6 = s.meetings.filter((m) => m.type === '6AM').length;
+    const nLU = s.meetings.filter((m) => m.type === 'Level Up').length;
+    if (s.levelUp) meta.push(typeBadge('Level Up') + ' student');
+    if (nLU || n6) meta.push(`${plural(n6 + nLU, 'meeting')}${nLU && n6 ? ` (${n6} 6AM, ${nLU} Level Up)` : ''}`);
+    else meta.push('No meetings saved yet');
+    if (s.left) meta.push('Left the group');
     $('bandMeta').innerHTML = meta.map((x) => `<span>${x}</span>`).join('');
-
-    const out = outcomes();
-    const shown = record.meetings.slice(-14);
-    const inRecord = record.meetings.some((m) => m.id === current.id);
+    const out = outcomes(s);
+    const shown = s.meetings.slice(-14);
+    const inRecord = s.meetings.some((m) => m.id === current.id);
     if (!shown.length) { $('trail').innerHTML = ''; return; }
     let bars = shown.map((m) => {
       const sc = meetingScore(m, out);
@@ -979,29 +1313,27 @@
     $('trail').innerHTML = `<div class="trail-bars">${bars}</div><div class="trail-caption"><span>Targets achieved, by meeting</span><span class="key k-6am">6AM</span><span class="key">Level Up</span></div>`;
   }
   function renderMeetingHead() {
-    const inRecord = record.meetings.some((m) => m.id === current.id);
-    const isToday = $('meetingDate').value === today();
-    $('meetingTitle').textContent = isToday ? 'Today’s meeting' : `Meeting on ${humanDate($('meetingDate').value) || 'no date'}`;
-    $('meetingStatus').textContent = inRecord ? 'In the record' : 'New';
+    const inRecord = stu().meetings.some((m) => m.id === current.id);
+    $('meetingTitle').textContent = $('meetingDate').value === today() ? 'Today’s meeting' : `Meeting on ${humanDate($('meetingDate').value) || 'no date'}`;
+    $('meetingStatus').textContent = inRecord ? 'In the group file' : 'New';
   }
   function renderHistory() {
-    const out = outcomes();
-    const ms = record.meetings.filter((m) => filter === 'all' || m.type === filter);
-    const all = record.meetings;
+    const s = stu();
+    const out = outcomes(s);
+    const all = s.meetings;
+    const ms = all.filter((m) => filter === 'all' || m.type === filter);
     const targets = all.flatMap((m) => m.targets.map((t) => ({ ...t, setOn: m.date, type: m.type })));
     const ach = targets.filter((t) => out[t.id]?.status === 'Achieved').length;
     const reviewed = targets.filter((t) => out[t.id]).length;
     $('historyLede').textContent = all.length
       ? `${plural(all.length, 'meeting')} since ${humanDate(all[0].date)}. ${plural(targets.length, 'target')} set; of the ${reviewed} reviewed so far, ${ach} ${ach === 1 ? 'was' : 'were'} achieved.`
-      : 'Meetings appear here once you start typing. Save to keep them in the student’s file.';
+      : 'Meetings appear here once you start typing. They’re saved in the tutor group file.';
     document.querySelectorAll('[data-filter]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.filter === filter)));
-
     $('meetingsTable').innerHTML = ms.length
       ? `<table class="table"><thead><tr><th>Date</th><th>Type</th><th>Tutor</th><th>Targets</th><th></th></tr></thead><tbody>${
         ms.slice().reverse().map((m) => `<tr class="${m.id === current.id ? 'is-current' : ''}"><td class="date">${esc(humanDate(m.date))}</td><td>${typeBadge(m.type)}</td><td class="muted">${esc(m.tutor || '—')}</td><td class="muted">${esc(meetingScore(m, out).text)}</td>
           <td class="actions"><button type="button" class="link-btn" data-open="${esc(m.id)}">Open</button><button type="button" class="link-btn" data-preview="${esc(m.id)}">Print</button><button type="button" class="link-btn danger" data-delete="${esc(m.id)}">Delete</button></td></tr>`).join('')}</tbody></table>`
       : `<p class="empty-list">${all.length ? 'No meetings of this type yet.' : ''}</p>`;
-
     const ts = targets.filter((t) => filter === 'all' || t.type === filter).reverse();
     $('trackerTable').innerHTML = ts.length
       ? `<table class="table"><thead><tr><th>Set on</th><th>Type</th><th>Target</th><th>Outcome</th></tr></thead><tbody>${
@@ -1023,22 +1355,18 @@
 
   // ---------- Sharing ----------
   function shareData() {
+    const s = stu();
     const m = snapshot();
-    const name = $('studentName').value.trim();
-    return {
-      m, name, first: name.split(/\s+/)[0] || 'your child', year: $('yearGroup').value,
-      parentName: $('parentName').value.trim(), parentEmail: $('parentEmail').value.trim(),
-      tutor: m.tutor || settings.name
-    };
+    const name = $('studentName').value.trim() || s.name;
+    return { m, name, first: name.split(/\s+/)[0] || 'your child', year: data.group.year, parentName: $('parentName').value.trim(), parentEmails: parseEmails($('parentEmail').value), tutor: m.tutor || settings.name };
   }
   function teamsText(d, withNotes) {
     const { m } = d;
-    const lines = [`${m.type} meeting: ${d.name || 'Student'}${d.year ? ` (${d.year})` : ''}, ${humanDate(m.date)}`];
+    const lines = [`${m.type} meeting: ${d.name}${data.group.name ? ` (${data.group.name})` : ''}, ${humanDate(m.date)}`];
     const rs = reviewSummary(m.review);
     if (rs) lines.push(`Last targets: ${rs}`);
     lines.push('', m.type === 'Level Up' ? 'Targets for this week:' : 'Targets:');
-    if (m.targets.length) m.targets.forEach((t, i) => lines.push(`${i + 1}. ${t.text}`));
-    else lines.push('(none set yet)');
+    if (m.targets.length) m.targets.forEach((t, i) => lines.push(`${i + 1}. ${t.text}`)); else lines.push('(none set yet)');
     if (withNotes && m.notes) lines.push('', `Notes: ${m.notes}`);
     if (m.nextMeeting) lines.push('', `Next meeting: ${humanDate(m.nextMeeting)}`);
     if (d.tutor) lines.push('', `Tutor: ${d.tutor}`);
@@ -1060,21 +1388,20 @@
     return lines.join('\n');
   }
   const emailSubject = (d) => `${d.first}: ${d.m.type} targets, ${humanDate(d.m.date)}`;
-
   function renderShare() {
-    if (!record || !current) return;
+    if (!stu() || !current) return;
     const d = shareData();
     const hasTargets = d.m.targets.length > 0;
+    const unfilled = d.m.targets.some((t) => /\[[^\]]+\]/.test(t.text));
     const rec = teamsRecipients();
     $('teamsTo').innerHTML = rec.length ? `To: <b>${esc(rec.join(', '))}</b>` : 'No Teams recipients yet. <button type="button" class="link-btn" data-action="settings">Add them in sharing settings</button>';
     $('teamsMsg').textContent = teamsText(d, $('teamsNotes').checked);
-    const unfilled = d.m.targets.some((t) => /\[[^\]]+\]/.test(t.text));
     $('teamsWarn').hidden = hasTargets && !unfilled;
     $('teamsWarn').textContent = hasTargets ? 'A target still has words in [brackets] to fill in.' : 'Add at least one target to share.';
     $('copyTeams').disabled = !hasTargets;
     $('openTeams').disabled = !hasTargets || !rec.length;
-
-    $('emailTo').innerHTML = d.parentEmail ? `To: <b>${esc(d.parentEmail)}</b><br>Subject: ${esc(emailSubject(d))}` : `Subject: ${esc(emailSubject(d))}<br>No parent/carer email saved. <button type="button" class="link-btn" data-action="student">Add it in student details</button>`;
+    const bad = d.parentEmails.filter((x) => !EMAIL_RE.test(x));
+    $('emailTo').innerHTML = d.parentEmails.length ? `To: <b>${esc(d.parentEmails.join(', '))}</b><br>Subject: ${esc(emailSubject(d))}${bad.length ? `<br><span class="warn-line">Check ${bad.length === 1 ? 'this address' : 'these addresses'}: ${esc(bad.join(', '))}</span>` : ''}` : `Subject: ${esc(emailSubject(d))}<br>No parent/carer email saved. <button type="button" class="link-btn" data-action="student">Add it in student details</button>`;
     $('emailMsg').textContent = hasTargets ? emailText(d, $('emailNotes').checked) : '';
     $('emailWarn').hidden = hasTargets && !unfilled;
     $('emailWarn').textContent = hasTargets ? 'A target still has words in [brackets] to fill in.' : 'Add at least one target to write the email.';
@@ -1082,7 +1409,6 @@
     $('openEmail').disabled = !hasTargets;
   }
   function setShareTab(tab) {
-    shareTab = tab;
     $('tabTeams').setAttribute('aria-selected', String(tab === 'teams'));
     $('tabEmail').setAttribute('aria-selected', String(tab === 'email'));
     $('sharePanelTeams').hidden = tab !== 'teams';
@@ -1101,43 +1427,64 @@
     const d = shareData();
     const users = teamsRecipients();
     const params = new URLSearchParams({ users: users.join(','), message: teamsText(d, $('teamsNotes').checked) });
-    if (users.length > 1) params.set('topicName', `${d.m.type}: ${d.name || 'Student'}`);
+    if (users.length > 1) params.set('topicName', `${d.m.type}: ${d.name}`);
     window.open(`https://teams.microsoft.com/l/chat/0/0?${params.toString().replace(/\+/g, '%20')}`, '_blank', 'noopener');
     showToast('Teams opens with the message ready. Check it, then press Send.');
   }
   function openEmail() {
     const d = shareData();
     const body = emailText(d, $('emailNotes').checked).replace(/\n/g, '\r\n');
-    const href = `mailto:${encodeURIComponent(d.parentEmail)}?subject=${encodeURIComponent(emailSubject(d))}&body=${encodeURIComponent(body)}`;
-    const a = Object.assign(document.createElement('a'), { href });
+    const a = Object.assign(document.createElement('a'), { href: `mailto:${d.parentEmails.map(encodeURIComponent).join(',')}?subject=${encodeURIComponent(emailSubject(d))}&body=${encodeURIComponent(body)}` });
     document.body.appendChild(a); a.click(); a.remove();
     showToast('Your email app opens with the message ready. Check it, then send.');
   }
 
   // ---------- Views ----------
   function showView(view) {
+    $('home').hidden = view !== 'home';
+    $('workspace').hidden = view !== 'workspace';
+    $('overview').hidden = view !== 'overview';
     const ws = view === 'workspace';
-    $('home').hidden = ws; $('workspace').hidden = !ws;
-    $('fileState').hidden = !ws; $('homeBtn').hidden = !ws;
-    $('saveBtn').hidden = !ws; $('previewBtn').hidden = !ws;
+    $('fileState').hidden = !ws; $('saveBtn').hidden = !ws; $('previewBtn').hidden = !ws;
+    $('homeBtn').hidden = view === 'home';
     $('autosaveWrap').hidden = !(ws && canUseFS);
-    if (!ws) renderRecent();
+    if (view === 'home') renderRecent();
     window.scrollTo({ top: 0 });
   }
-  const confirmDiscard = () => !dirty || window.confirm('This record has unsaved changes. Continue without saving them?');
+  const confirmDiscard = () => !dirty || window.confirm('This tutor group has unsaved changes. Continue without saving them?');
+  function goHome() { if (!confirmDiscard()) return; dirty = false; data = null; currentSid = null; showView('home'); }
 
-  // ---------- Open ----------
-  function loadRecord(data, handle, name) {
-    normalise(data);
-    fileHandle = handle; fileName = name || '';
-    dirty = false; saveError = ''; lastSaved = null;
-    const last = latestMeeting();
-    openMeeting(last && last.date === today() ? clone(last) : buildNextMeeting());
+  // ---------- Opening ----------
+  async function stampOf(handle) { try { const f = await handle.getFile(); return { lastModified: f.lastModified, size: f.size }; } catch { return null; } }
+  function loadData(d, handle, name, stamp) {
+    data = d;
+    fileHandle = handle; fileName = name || ''; fileStamp = stamp || null;
+    changes = newChanges(); dirty = false; saveError = ''; lastSaved = null; showLeft = false;
+    currentSid = null; current = null;
+    $('rosterSearch').value = '';
     showView('workspace');
-    const n = record.meetings.length;
-    showToast(n ? `Opened ${record.student.name || 'record'}. ${last.targets.length ? `Targets from ${humanDate(last.date)} are ready to review.` : ''}` : 'Opened an empty record.');
+    const first = data.students.filter((s) => !s.left).sort(byName)[0];
+    if (first) selectStudent(first.id); else renderRoster();
+    renderSaveState();
   }
-  async function openRecord() {
+  async function readJSON(file) { return JSON.parse(await file.text()); }
+  async function openFromJSON(j, handle, name, stamp) {
+    if (j && j.format === OLD_FORMAT) {
+      const { student, year, tutor } = studentFromOld(j);
+      const d = blankData({ name: '', tutor, year: year || 'Year 12' });
+      d.students.push(student);
+      loadData(d, null, '', null);
+      changes.students.add(student.id); markDirty();
+      selectStudent(student.id);
+      openGroupDialog('edit');
+      showToast('That’s a single-student file from the earlier version. Name the new group, then save it as a new file.');
+      return;
+    }
+    loadData(normaliseGroup(j), handle, name, stamp);
+    const n = data.students.filter((s) => !s.left).length;
+    showToast(`Opened ${data.group.name}: ${plural(n, 'student')}.`);
+  }
+  async function openGroup() {
     if (!confirmDiscard()) return;
     if (!canUseFS) { $('fileInput').value = ''; $('fileInput').click(); return; }
     let handle;
@@ -1148,69 +1495,120 @@
   }
   async function readHandle(handle) {
     try {
-      const file = await handle.getFile();
-      loadRecord(JSON.parse(await file.text()), handle, handle.name);
-      remember(handle);
+      const f = await handle.getFile();
+      const j = await readJSON(f);
+      await openFromJSON(j, handle, handle.name, { lastModified: f.lastModified, size: f.size });
+      if (j.format === GROUP_FORMAT) remember(handle);
     } catch (e) {
-      showToast(e instanceof SyntaxError ? 'That file couldn’t be read as a student record.' : (e.message || 'Couldn’t open the file.'));
+      showToast(e instanceof SyntaxError ? 'That file couldn’t be read as a tutor group file.' : (e.message || 'Couldn’t open the file.'));
     }
   }
   $('fileInput').addEventListener('change', async () => {
     const f = $('fileInput').files[0];
     if (!f) return;
-    try { loadRecord(JSON.parse(await f.text()), null, f.name); }
-    catch (e) { showToast(e instanceof SyntaxError ? 'That file couldn’t be read as a student record.' : e.message); }
+    try { await openFromJSON(await readJSON(f), null, f.name, null); }
+    catch (e) { showToast(e instanceof SyntaxError ? 'That file couldn’t be read as a tutor group file.' : e.message); }
   });
-  function newStudent() {
-    if (!confirmDiscard()) return;
-    record = blankRecord();
-    fileHandle = null; fileName = ''; dirty = false; saveError = ''; lastSaved = null;
-    const m = blankMeeting('6AM');
-    m.tutor = settings.name;
-    openMeeting(m);
-    showView('workspace');
-    $('studentName').focus();
+
+  // Import earlier single-student files into this group
+  async function importStudents() {
+    let files = [];
+    if (canUseFS) {
+      try { const hs = await window.showOpenFilePicker({ types: FILE_TYPES, multiple: true }); files = await Promise.all(hs.map((h) => h.getFile())); }
+      catch (e) { if (e.name !== 'AbortError') showToast(e.message); return; }
+    } else { $('importInput').value = ''; $('importInput').click(); return; }
+    await importFiles(files);
   }
+  async function importFiles(files) {
+    let added = 0, skipped = 0, firstId = null;
+    for (const f of files) {
+      try {
+        const { student } = studentFromOld(await readJSON(f));
+        const same = data.students.find((s) => s.name.toLowerCase() === student.name.toLowerCase() && !s.meetings.length);
+        if (same) { same.meetings = student.meetings; same.parentName ||= student.parentName; same.parentEmail ||= student.parentEmail; same.levelUp ||= student.levelUp; changes.students.add(same.id); firstId ||= same.id; }
+        else { data.students.push(student); changes.students.add(student.id); firstId ||= student.id; }
+        added++;
+      } catch { skipped++; }
+    }
+    if (added) { markDirty(); scheduleAutosave(); renderRoster(); if (firstId) selectStudent(firstId); }
+    showToast(`${plural(added, 'student file')} imported.${skipped ? ` ${plural(skipped, 'file')} skipped because ${skipped === 1 ? 'it isn’t' : 'they aren’t'} a student file from the earlier version.` : ''}`);
+  }
+  $('importInput').addEventListener('change', () => importFiles([...$('importInput').files]));
+
   function newMeeting() {
     commit();
-    openMeeting(buildNextMeeting());
+    const s = stu();
+    openMeeting(buildNextMeeting(s));
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    showToast(latestMeeting()?.targets.length ? 'New meeting started. Last time’s targets are ready to review.' : 'New meeting started.');
+    showToast(latest(s)?.targets.length ? 'New meeting started. Last time’s targets are ready to review.' : 'New meeting started.');
   }
 
-  // ---------- Save ----------
-  function suggestedName() {
-    const n = (record.student.name || 'Student').replace(/[\\/:*?"<>|]+/g, '').trim() || 'Student';
-    return `Sixth form record - ${n}.json`;
+  // ---------- Saving (combines changes if someone else saved first) ----------
+  function mergeInto(theirs) {
+    const mine = data;
+    if (changes.group) theirs.group = clone(mine.group);
+    const ensure = (sid) => {
+      let ts = theirs.students.find((x) => x.id === sid);
+      if (!ts) { const ms = mine.students.find((x) => x.id === sid); if (!ms) return null; ts = clone(ms); ts.meetings = []; theirs.students.push(ts); }
+      return ts;
+    };
+    for (const sid of changes.students) {
+      const ms = mine.students.find((x) => x.id === sid);
+      const ts = ensure(sid);
+      if (ms && ts) for (const k of ['name', 'parentName', 'parentEmail', 'levelUp', 'left']) ts[k] = ms[k];
+    }
+    for (const { sid, mid } of changes.meetings.values()) {
+      const ms = mine.students.find((x) => x.id === sid);
+      const mm = ms && ms.meetings.find((x) => x.id === mid);
+      const ts = ensure(sid);
+      if (!mm || !ts) continue;
+      const i = ts.meetings.findIndex((x) => x.id === mid);
+      if (i >= 0) ts.meetings[i] = clone(mm); else ts.meetings.push(clone(mm));
+      sortMeetings(ts);
+    }
+    for (const key of changes.deleted) {
+      const [sid, mid] = key.split('|');
+      const ts = theirs.students.find((x) => x.id === sid);
+      if (ts) ts.meetings = ts.meetings.filter((x) => x.id !== mid);
+    }
+    data = theirs;
   }
-  const serialise = () => JSON.stringify({ ...record, format: FORMAT, version: VERSION, savedAt: new Date().toISOString() }, null, 2);
+  function suggestedName() { return `${(data.group.name || 'Tutor group').replace(/[\\/:*?"<>|]+/g, '').trim() || 'Tutor group'}.json`; }
+  const serialise = () => JSON.stringify({ format: GROUP_FORMAT, version: VERSION, group: data.group, students: data.students, createdAt: data.createdAt, savedAt: new Date().toISOString() }, null, 2);
   async function ensurePermission(h, ask) {
     const o = { mode: 'readwrite' };
     if ((await h.queryPermission(o)) === 'granted') return true;
     return ask ? (await h.requestPermission(o)) === 'granted' : false;
   }
   async function save({ silent = false } = {}) {
-    if (!record || saving) return;
+    if (!data || saving) return;
     commit();
     clearTimeout(autosaveTimer);
-    if (!record.student.name) {
-      if (silent) return;
-      $('studentDetails').open = true; $('studentName').focus();
-      showToast('Add the student’s name before saving.');
-      return;
-    }
+    if (!data.group.name) { if (!silent) { openGroupDialog('edit'); showToast('Name the group before saving.'); } return; }
     if (silent) {
       if (!canUseFS || !fileHandle) return;
-      if (!(await ensurePermission(fileHandle, false))) { saveError = 'Click Save record to allow saving'; renderSaveState(); return; }
+      if (!(await ensurePermission(fileHandle, false))) { saveError = 'Click Save to allow saving'; renderSaveState(); return; }
     }
-    const json = serialise();
+    let merged = false;
     if (canUseFS) {
       try {
-        if (!fileHandle) { fileHandle = await window.showSaveFilePicker({ suggestedName: suggestedName(), types: FILE_TYPES }); fileName = fileHandle.name; }
+        if (!fileHandle) {
+          fileHandle = await window.showSaveFilePicker({ suggestedName: suggestedName(), types: FILE_TYPES });
+          fileName = fileHandle.name; fileStamp = null;
+          showToast('Saving… if you chose the SharePoint folder, colleagues will see it once OneDrive syncs.');
+        }
         if (!(await ensurePermission(fileHandle, true))) { showToast('Saving needs permission to edit the file.'); return; }
         saving = true; renderSaveState();
+        if (fileStamp) {
+          const f = await fileHandle.getFile();
+          if (f.lastModified !== fileStamp.lastModified || f.size !== fileStamp.size) {
+            try { const theirs = normaliseGroup(await readJSON(f)); mergeInto(theirs); merged = true; }
+            catch { /* unreadable on disk: keep ours */ }
+          }
+        }
         const w = await fileHandle.createWritable();
-        await w.write(json); await w.close();
+        await w.write(serialise()); await w.close();
+        fileStamp = await stampOf(fileHandle);
         remember(fileHandle);
       } catch (e) {
         saving = false;
@@ -1222,20 +1620,24 @@
       saving = false;
     } else {
       fileName = fileName || suggestedName();
-      const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+      const url = URL.createObjectURL(new Blob([serialise()], { type: 'application/json' }));
       const a = Object.assign(document.createElement('a'), { href: url, download: fileName });
       document.body.appendChild(a); a.click(); a.remove();
       setTimeout(() => URL.revokeObjectURL(url), 2000);
     }
-    dirty = false; saveError = ''; lastSaved = new Date();
-    renderAll();
-    if (!silent) showToast(canUseFS ? `Saved to ${fileName}.` : `Downloaded ${fileName}. Keep it in place of the old copy and open it next meeting.`);
+    changes = newChanges(); dirty = false; saveError = ''; lastSaved = new Date();
+    if (!stu()) currentSid = null;
+    renderRoster();
+    if (stu()) { renderBand(); renderHistory(); renderMeetingHead(); }
+    renderSaveState();
+    if (merged) showToast('A colleague saved this group while you had it open. Their changes and yours have been combined.');
+    else if (!silent) showToast(canUseFS ? `Saved to ${fileName}.` : `Downloaded ${fileName}. Keep it in place of the old copy.`);
   }
 
-  // ---------- Recent records ----------
+  // ---------- Recent files and folders ----------
   function db() {
     return new Promise((res, rej) => {
-      const r = indexedDB.open('level-up-meeting-log', 1);
+      const r = indexedDB.open('sixth-form-meetings', 1);
       r.onupgradeneeded = () => r.result.createObjectStore('recent', { keyPath: 'key' });
       r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
     });
@@ -1249,179 +1651,245 @@
     });
   }
   async function remember(handle) {
-    if (!canUseFS || !handle) return;
+    if (!canUseFS || !handle || !data) return;
     try {
       const all = (await dbRun('readonly', (s) => s.getAll())) || [];
-      for (const r of all) { try { if (await r.handle.isSameEntry(handle)) await dbRun('readwrite', (s) => s.delete(r.key)); } catch {} }
-      const last = latestMeeting();
-      await dbRun('readwrite', (s) => s.put({ key: uid(), handle, fileName: handle.name, student: record.student.name, year: record.student.year, levelUp: record.meetings.some((m) => m.type === 'Level Up'), meetings: record.meetings.length, lastMeeting: last?.date || '', opened: Date.now() }));
+      for (const r of all) { if (r.kind !== 'group') continue; try { if (await r.handle.isSameEntry(handle)) await dbRun('readwrite', (s) => s.delete(r.key)); } catch {} }
+      await dbRun('readwrite', (s) => s.put({ key: uid(), kind: 'group', handle, fileName: handle.name, label: data.group.name, tutor: data.group.tutor, year: data.group.year, students: data.students.filter((x) => !x.left).length, opened: Date.now() }));
     } catch {}
   }
   async function renderRecent() {
     if (!canUseFS) {
       $('recentBox').hidden = true; $('fallbackNote').hidden = false;
-      $('fallbackNote').innerHTML = '<strong>Saving downloads a copy in this browser.</strong> Each save downloads an updated record file, which you keep in place of the old one. For one-click saving straight back to the same file, open this page in Chrome or Edge on a computer.';
+      $('fallbackNote').innerHTML = '<strong>Open this page in Chrome or Edge.</strong> This browser can’t save straight to the SharePoint folder, so each save downloads a copy instead, and the sixth form overview isn’t available.';
+      $('ovOpenBtn').disabled = true;
       return;
     }
+    $('ovOpenBtn').disabled = !canReadFolder;
     let items = [];
-    try { items = ((await dbRun('readonly', (s) => s.getAll())) || []).sort((a, b) => b.opened - a.opened).slice(0, 20); } catch {}
-    $('recentEmpty').hidden = items.length > 0;
-    $('recentList').innerHTML = items.map((r) => `<li class="recent-item">
-      <button type="button" class="recent-open" data-recent="${esc(r.key)}"><span class="recent-name">${esc(r.student || r.fileName)} ${r.levelUp ? typeBadge('Level Up') : ''}</span>
-      <span class="recent-meta">${esc([r.year, plural(r.meetings || 0, 'meeting'), r.lastMeeting ? `last on ${humanDate(r.lastMeeting)}` : ''].filter(Boolean).join(', '))}</span></button>
-      <button type="button" class="link-btn danger recent-forget" data-forget="${esc(r.key)}" aria-label="Remove ${esc(r.student || r.fileName)} from this list">Remove</button></li>`).join('');
+    try { items = ((await dbRun('readonly', (s) => s.getAll())) || []); } catch {}
+    const groups = items.filter((r) => r.kind === 'group').sort((a, b) => b.opened - a.opened).slice(0, 20);
+    const folder = items.find((r) => r.kind === 'folder');
+    $('ovRecentBtn').hidden = !folder;
+    if (folder) $('ovRecentBtn').textContent = `Reopen “${folder.name}”`;
+    $('recentEmpty').hidden = groups.length > 0;
+    $('recentList').innerHTML = groups.map((r) => `<li class="recent-item">
+      <button type="button" class="recent-open" data-recent="${esc(r.key)}"><span class="recent-name">${esc(r.label || r.fileName)}</span>
+      <span class="recent-meta">${esc([r.year, r.tutor, plural(r.students || 0, 'student'), r.fileName].filter(Boolean).join(', '))}</span></button>
+      <button type="button" class="link-btn danger recent-forget" data-forget="${esc(r.key)}" aria-label="Remove ${esc(r.label || r.fileName)} from this list">Remove</button></li>`).join('');
   }
   async function openRecent(key) {
     if (!confirmDiscard()) return;
     try {
       const r = await dbRun('readonly', (s) => s.get(key));
       if (!r) return;
-      if (!(await ensurePermission(r.handle, true))) { showToast('Permission is needed to open this record.'); return; }
+      if (!(await ensurePermission(r.handle, true))) { showToast('Permission is needed to open this file.'); return; }
       await readHandle(r.handle);
-    } catch { showToast('That file couldn’t be found. It may have been moved or renamed; use Open record to find it.'); }
+    } catch { showToast('That file couldn’t be found. It may have been moved or renamed; use Open a tutor group to find it.'); }
   }
 
-  // ---------- Print ----------
+  // ---------- Sixth form overview ----------
+  async function openOverview(useRecent) {
+    let dir;
+    try {
+      if (useRecent) {
+        const r = await dbRun('readonly', (s) => s.get('folder'));
+        if (!r) return;
+        if ((await r.handle.queryPermission({ mode: 'read' })) !== 'granted' && (await r.handle.requestPermission({ mode: 'read' })) !== 'granted') { showToast('Permission is needed to read the folder.'); return; }
+        dir = r.handle;
+      } else {
+        dir = await window.showDirectoryPicker({ mode: 'read' });
+        try { await dbRun('readwrite', (s) => s.put({ key: 'folder', kind: 'folder', handle: dir, name: dir.name, opened: Date.now() })); } catch {}
+      }
+    } catch (e) { if (e.name !== 'AbortError') showToast(`Couldn’t open the folder: ${e.message}`); return; }
+    await loadOverview(dir);
+  }
+  async function loadOverview(dir) {
+    const groups = [], unreadable = [];
+    async function scan(d, depth) {
+      for await (const [name, h] of d.entries()) {
+        if (h.kind === 'directory' && depth < 1) { await scan(h, depth + 1); continue; }
+        if (h.kind !== 'file' || !name.toLowerCase().endsWith('.json')) continue;
+        try {
+          const f = await h.getFile();
+          const j = await readJSON(f);
+          if (j.format !== GROUP_FORMAT) continue;
+          const g = normaliseGroup(j);
+          g.fileName = name; g.modified = f.lastModified;
+          groups.push(g);
+        } catch { unreadable.push(name); }
+      }
+    }
+    try { await scan(dir, 0); } catch (e) { showToast(`Couldn’t read the folder: ${e.message}`); return; }
+    groups.sort((a, b) => (a.group.name || '').localeCompare(b.group.name || '', 'en-GB', { numeric: true }));
+    ov = { dir, groups, unreadable, loadedAt: new Date() };
+    const sel = $('ovGroup'), keep = sel.value;
+    sel.innerHTML = '<option value="">All groups</option>' + groups.map((g, i) => `<option value="${i}">${esc(g.group.name || g.fileName)}</option>`).join('');
+    sel.value = groups[keep] ? keep : '';
+    showView('overview');
+    renderOverview();
+  }
+  function ovRows() {
+    const gi = $('ovGroup').value;
+    return ov.groups.flatMap((g, i) => (gi !== '' && +gi !== i) || (ovYear !== 'all' && g.group.year !== ovYear) ? [] :
+      g.students.filter((s) => !s.left).map((s) => ({ s, g, gi: i })));
+  }
+  function struggling(s) {
+    const reviewed = s.meetings.filter((m) => m.review.some((r) => r.status)).slice(-2);
+    if (reviewed.length < 2) return false;
+    return reviewed.every((m) => { const r = m.review.filter((x) => x.status); return r.filter((x) => x.status === 'Achieved').length / r.length < .5; });
+  }
+  const meter = (rate) => rate == null ? '<span class="muted">No reviews yet</span>' : `<span class="bar-meter"><span class="track"><span class="fill" style="width:${Math.round(rate * 100)}%"></span></span>${Math.round(rate * 100)}%</span>`;
+  function lastMet(s) { const l = latest(s); return l ? `${esc(shortDate(l.date))} ${typeBadge(l.type)}` : '<span class="muted">Never</span>'; }
+  function renderOverview() {
+    const days = +$('ovDays').value;
+    const groups = ov.groups.filter((g) => ovYear === 'all' || g.group.year === ovYear);
+    const rows = ovRows();
+    const allStudents = ov.groups.reduce((n, g) => n + g.students.filter((s) => !s.left).length, 0);
+    $('ovSummary').textContent = `${plural(ov.groups.length, 'tutor group')}, ${plural(allStudents, 'student')}, read from “${ov.dir.name}” at ${ov.loadedAt.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}.`;
+    $('ovNote').hidden = !ov.unreadable.length && ov.groups.length > 0;
+    $('ovNote').textContent = !ov.groups.length ? 'No tutor group files were found in this folder. Check you chose the folder tutors save their group files in.' : `Couldn’t read: ${ov.unreadable.join(', ')}.`;
+    document.querySelectorAll('[data-ov-year]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.ovYear === ovYear)));
+
+    $('ovGroups').innerHTML = groups.length ? `<table class="table"><thead><tr><th>Group</th><th>Tutor</th><th>Students</th><th>Level Up</th><th>Met in last ${days / 7} weeks</th><th>Targets achieved</th><th>Last saved</th></tr></thead><tbody>${
+      groups.map((g) => {
+        const i = ov.groups.indexOf(g);
+        const st = g.students.filter((s) => !s.left);
+        const met = st.filter((s) => latest(s) && daysSince(latest(s).date) < days).length;
+        const out = st.flatMap((s) => { const o = outcomes(s); return s.meetings.flatMap((m) => m.targets.map((t) => o[t.id])).filter(Boolean); });
+        const rate = out.length ? out.filter((o) => o.status === 'Achieved').length / out.length : null;
+        return `<tr class="rowlink${$('ovGroup').value === String(i) ? ' is-current' : ''}" data-ov-group="${i}" tabindex="0"><td>${esc(g.group.name || g.fileName)}</td><td class="muted">${esc(g.group.tutor || '—')}</td><td>${st.length}</td><td>${st.filter((s) => s.levelUp).length}</td><td>${met} of ${st.length}</td><td>${meter(rate)}</td><td class="muted">${esc(new Date(g.modified).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }))}</td></tr>`;
+      }).join('')}</tbody></table>` : '<p class="empty-list">No tutor groups for this year.</p>';
+
+    const lu = rows.filter((r) => r.s.levelUp);
+    const notmet = rows.filter((r) => { const l = latest(r.s); return !l || daysSince(l.date) >= days; }).sort((a, b) => daysSince(latest(b.s)?.date) - daysSince(latest(a.s)?.date));
+    const tar = rows.filter((r) => struggling(r.s));
+    $('cLu').textContent = lu.length; $('cNot').textContent = notmet.length; $('cTar').textContent = tar.length; $('cAll').textContent = rows.length;
+    document.querySelectorAll('[data-ov-tab]').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.ovTab === ovTab)));
+    const link = (r) => `class="rowlink" data-ov-student="${r.gi}|${esc(r.s.id)}" tabindex="0"`;
+    let note = '', table = '';
+    if (ovTab === 'lu') {
+      note = 'Students marked as Level Up students, with their most recent Level Up meeting.';
+      table = `<thead><tr><th>Student</th><th>Group</th><th>Last Level Up meeting</th><th>Last review</th><th>Targets achieved</th></tr></thead><tbody>${lu.sort((a, b) => byName(a.s, b.s)).map((r) => {
+        const l = r.s.meetings.filter((m) => m.type === 'Level Up').pop();
+        return `<tr ${link(r)}><td>${esc(r.s.name)}</td><td class="muted">${esc(r.g.group.name)}</td><td>${l ? esc(shortDate(l.date)) : '<span class="muted">None yet</span>'}</td><td class="muted">${esc(l ? reviewSummary(l.review) || '—' : '—')}</td><td>${meter(achievedRate(r.s))}</td></tr>`;
+      }).join('')}</tbody>`;
+      if (!lu.length) table = '';
+    } else if (ovTab === 'notmet') {
+      note = `Students with no meeting of either type in the last ${days / 7} weeks, longest first.`;
+      table = notmet.length ? `<thead><tr><th>Student</th><th>Group</th><th>Last meeting</th><th>Weeks since</th></tr></thead><tbody>${notmet.map((r) => {
+        const l = latest(r.s);
+        return `<tr ${link(r)}><td>${esc(r.s.name)}${r.s.levelUp ? ' ' + typeBadge('Level Up') : ''}</td><td class="muted">${esc(r.g.group.name)}</td><td>${lastMet(r.s)}</td><td>${l ? Math.floor(daysSince(l.date) / 7) : '—'}</td></tr>`;
+      }).join('')}</tbody>` : '';
+    } else if (ovTab === 'targets') {
+      note = 'Students who achieved under half of their reviewed targets at each of their last two reviews.';
+      table = tar.length ? `<thead><tr><th>Student</th><th>Group</th><th>Last two reviews</th><th>Targets achieved overall</th></tr></thead><tbody>${tar.map((r) => {
+        const rv = r.s.meetings.filter((m) => m.review.some((x) => x.status)).slice(-2);
+        return `<tr ${link(r)}><td>${esc(r.s.name)}${r.s.levelUp ? ' ' + typeBadge('Level Up') : ''}</td><td class="muted">${esc(r.g.group.name)}</td><td class="muted">${rv.map((m) => `${esc(shortDate(m.date))}: ${esc(reviewSummary(m.review))}`).join('<br>')}</td><td>${meter(achievedRate(r.s))}</td></tr>`;
+      }).join('')}</tbody>` : '';
+    } else {
+      note = 'Every student in the selected groups.';
+      table = rows.length ? `<thead><tr><th>Student</th><th>Group</th><th>Last meeting</th><th>Meetings</th><th>Targets achieved</th></tr></thead><tbody>${rows.slice().sort((a, b) => byName(a.s, b.s)).map((r) =>
+        `<tr ${link(r)}><td>${esc(r.s.name)}${r.s.levelUp ? ' ' + typeBadge('Level Up') : ''}</td><td class="muted">${esc(r.g.group.name)}</td><td>${lastMet(r.s)}</td><td>${r.s.meetings.length}</td><td>${meter(achievedRate(r.s))}</td></tr>`).join('')}</tbody>` : '';
+    }
+    $('ovListNote').textContent = note + ' Click a student to see their history.';
+    $('ovList').innerHTML = table ? `<table class="table">${table}</table>` : '<p class="empty-list">No students in this list.</p>';
+  }
+  function openDrawer(gi, sid) {
+    const g = ov.groups[gi], s = g && g.students.find((x) => x.id === sid);
+    if (!s) return;
+    drawerRef = { g, s };
+    $('drawerTitle').textContent = s.name;
+    $('drawerMeta').innerHTML = [esc(g.group.name), g.group.tutor ? esc(g.group.tutor) : '', s.levelUp ? typeBadge('Level Up') + ' student' : '', plural(s.meetings.length, 'meeting')].filter(Boolean).map((x) => `<span>${x}</span>`).join('');
+    const out = outcomes(s);
+    $('drawerBody').innerHTML = s.meetings.length ? s.meetings.slice().reverse().map((m) => `<div class="dmeet">
+      <div class="dmeet-h">${typeBadge(m.type)} ${esc(humanDate(m.date))}<span class="muted">${esc(m.tutor || '')}</span></div>
+      ${m.review.length ? `<h4>Review of previous targets</h4>${m.review.map((r) => `<div class="rv"><span>${esc(r.text)}</span>${pill(r.status || 'Not reviewed')}</div>`).join('')}` : ''}
+      <h4>Targets set</h4>${m.targets.length ? `<ol>${m.targets.map((t) => `<li>${esc(t.text)} ${out[t.id] ? pill(out[t.id].status) : ''}</li>`).join('')}</ol>` : '<p>None</p>'}
+      ${m.notes ? `<h4>Notes</h4><p>${esc(m.notes)}</p>` : ''}
+      ${m.staffNotes ? `<h4>Staff-only notes</h4><p class="staffnote">${esc(m.staffNotes)}</p>` : ''}
+    </div>`).join('') : '<p class="empty-list" style="padding-top:18px">No meetings recorded yet.</p>';
+    $('drawer').hidden = false;
+    $('drawerClose').focus();
+  }
+  function overviewReport() {
+    const days = +$('ovDays').value;
+    const rows = ovRows();
+    const groups = ov.groups.filter((g) => ovYear === 'all' || g.group.year === ovYear);
+    const lu = rows.filter((r) => r.s.levelUp).sort((a, b) => byName(a.s, b.s));
+    const notmet = rows.filter((r) => { const l = latest(r.s); return !l || daysSince(l.date) >= days; });
+    const tar = rows.filter((r) => struggling(r.s));
+    const rate = (s) => { const x = achievedRate(s); return x == null ? '—' : `${Math.round(x * 100)}%`; };
+    const tbl = (head, body) => body.length ? `<table class="rep-table"><thead><tr>${head.map((h) => `<th>${esc(h)}</th>`).join('')}</tr></thead><tbody>${body.join('')}</tbody></table>` : '<p class="rep-empty">None.</p>';
+    return `<article class="rep"><header class="rep-head"><div>${repBrand}<div class="rep-title">Sixth form overview</div></div><div class="rep-kind"><strong>Pastoral leads</strong>${esc(humanDate(today()))}${ovYear !== 'all' ? `<br>${esc(ovYear)}` : ''}</div></header>
+      <section class="rep-sec"><h3>Tutor groups</h3>${tbl(['Group', 'Tutor', 'Students', 'Level Up', `Met in last ${days / 7} weeks`], groups.map((g) => { const st = g.students.filter((s) => !s.left); return `<tr><td>${esc(g.group.name)}</td><td>${esc(g.group.tutor || '—')}</td><td>${st.length}</td><td>${st.filter((s) => s.levelUp).length}</td><td>${st.filter((s) => latest(s) && daysSince(latest(s).date) < days).length}</td></tr>`; }))}</section>
+      <section class="rep-sec"><h3>Level Up students</h3>${tbl(['Student', 'Group', 'Last Level Up meeting', 'Targets achieved'], lu.map((r) => { const l = r.s.meetings.filter((m) => m.type === 'Level Up').pop(); return `<tr><td>${esc(r.s.name)}</td><td>${esc(r.g.group.name)}</td><td>${l ? esc(humanDate(l.date)) : 'None yet'}</td><td>${rate(r.s)}</td></tr>`; }))}</section>
+      <section class="rep-sec"><h3>Not met in the last ${days / 7} weeks</h3>${tbl(['Student', 'Group', 'Last meeting'], notmet.map((r) => { const l = latest(r.s); return `<tr><td>${esc(r.s.name)}</td><td>${esc(r.g.group.name)}</td><td>${l ? `${esc(humanDate(l.date))} (${esc(l.type)})` : 'Never'}</td></tr>`; }))}</section>
+      <section class="rep-sec"><h3>Struggling with targets</h3>${tbl(['Student', 'Group', 'Targets achieved overall'], tar.map((r) => `<tr><td>${esc(r.s.name)}</td><td>${esc(r.g.group.name)}</td><td>${rate(r.s)}</td></tr>`))}</section>
+      <footer class="rep-foot"><span>Sixth form meetings: 6AM and Level Up</span><span>Confidential: authorised staff only</span></footer></article>`;
+  }
+  function printHTML(html, title) {
+    $('printRoot').innerHTML = html;
+    const old = document.title;
+    document.title = title;
+    window.print();
+    setTimeout(() => { document.title = old; }, 1500);
+  }
+
+  // ---------- Reports ----------
   const repBrand = '<div class="rep-brand"><span class="mark" aria-hidden="true"><i></i><i></i><i></i></span>Sixth form</div>';
   function meetingBody(m, audience) {
-    let s = '';
-    if (m.review.length) {
-      s += `<section class="rep-sec"><h3>Review of previous targets</h3><table class="rep-table"><thead><tr><th style="width:72%">Target</th><th>Outcome</th></tr></thead><tbody>${
-        m.review.map((r) => `<tr><td>${esc(r.text)}</td><td>${pill(r.status || 'Not reviewed')}</td></tr>`).join('')}</tbody></table></section>`;
-    }
-    s += `<section class="rep-sec"><h3>${m.type === 'Level Up' ? 'Targets for the week' : 'Targets'}</h3>${
-      m.targets.length ? m.targets.map((t, i) => `<div class="rep-target">${i + 1}. ${esc(t.text)}</div>`).join('') : '<p class="rep-empty">No targets set.</p>'}</section>`;
-    if (m.notes) s += `<section class="rep-sec"><h3>Notes</h3><p class="rep-text">${esc(m.notes)}</p></section>`;
-    if (audience !== 'share' && m.staffNotes) s += `<section class="rep-sec"><h3>Staff-only notes</h3><p class="rep-text">${esc(m.staffNotes)}</p></section>`;
-    return s;
+    let h = '';
+    if (m.review.length) h += `<section class="rep-sec"><h3>Review of previous targets</h3><table class="rep-table"><thead><tr><th style="width:72%">Target</th><th>Outcome</th></tr></thead><tbody>${m.review.map((r) => `<tr><td>${esc(r.text)}</td><td>${pill(r.status || 'Not reviewed')}</td></tr>`).join('')}</tbody></table></section>`;
+    h += `<section class="rep-sec"><h3>${m.type === 'Level Up' ? 'Targets for the week' : 'Targets'}</h3>${m.targets.length ? m.targets.map((t, i) => `<div class="rep-target">${i + 1}. ${esc(t.text)}</div>`).join('') : '<p class="rep-empty">No targets set.</p>'}</section>`;
+    if (m.notes) h += `<section class="rep-sec"><h3>Notes</h3><p class="rep-text">${esc(m.notes)}</p></section>`;
+    if (audience !== 'share' && m.staffNotes) h += `<section class="rep-sec"><h3>Staff-only notes</h3><p class="rep-text">${esc(m.staffNotes)}</p></section>`;
+    return h;
   }
-  function meta(m) {
-    const st = record.student;
-    return [['Student', st.name || '—'], ['Year group', st.year || '—'], ['Date', humanDate(m.date) || '—'], ['Meeting', m.type], ['Tutor', m.tutor || '—'], ['Next meeting', humanDate(m.nextMeeting) || 'To be confirmed']]
-      .map(([k, v]) => `<div><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
-  }
-  function reportHTML(m, audience) {
-    if (audience === 'history') {
-      const out = outcomes();
-      const ts = record.meetings.flatMap((x) => x.targets.map((t) => ({ ...t, setOn: x.date, type: x.type })));
-      return `<article class="rep"><header class="rep-head"><div>${repBrand}<div class="rep-title">${esc(record.student.name || 'Student')}: meeting history</div></div><div class="rep-kind"><strong>Staff record</strong>Printed ${esc(humanDate(today()))}</div></header>
-        <section class="rep-sec"><h3>Target tracker</h3>${ts.length ? `<table class="rep-table"><thead><tr><th style="width:15%">Set on</th><th style="width:13%">Meeting</th><th>Target</th><th style="width:20%">Outcome</th></tr></thead><tbody>${
-          ts.map((t) => `<tr><td>${esc(shortDate(t.setOn))}</td><td>${typeBadge(t.type)}</td><td>${esc(t.text)}</td><td>${pill(out[t.id]?.status)}</td></tr>`).join('')}</tbody></table>` : '<p class="rep-empty">No targets yet.</p>'}</section>
-        ${record.meetings.map((x) => `<section class="rep-meeting"><h2 class="rep-meeting-h">${esc(humanDate(x.date))}: ${esc(x.type)}${x.tutor ? ` with ${esc(x.tutor)}` : ''}</h2>${meetingBody(x, 'staff')}</section>`).join('')}
-        <footer class="rep-foot"><span>Sixth form meetings: 6AM and Level Up</span><span>Confidential: authorised staff only</span></footer></article>`;
-    }
+  function meetingReport(m, audience, s, g) {
+    const meta = [['Student', s.name], ['Tutor group', g.name || '—'], ['Date', humanDate(m.date) || '—'], ['Meeting', m.type], ['Tutor', m.tutor || '—'], ['Next meeting', humanDate(m.nextMeeting) || 'To be confirmed']].map(([k, v]) => `<div><span>${esc(k)}</span><b>${esc(v)}</b></div>`).join('');
     return `<article class="rep"><header class="rep-head"><div>${repBrand}<div class="rep-title">${esc(m.type)} meeting</div></div><div class="rep-kind"><strong>${audience === 'staff' ? 'Staff record' : 'Student and family summary'}</strong>${esc(humanDate(m.date))}</div></header>
-      <div class="rep-meta">${meta(m)}</div>${meetingBody(m, audience)}
+      <div class="rep-meta">${meta}</div>${meetingBody(m, audience)}
       <footer class="rep-foot"><span>Sixth form meetings: 6AM and Level Up</span><span>${audience === 'staff' ? 'Confidential: authorised staff only' : 'Agreed meeting summary'}</span></footer></article>`;
   }
-  const previewMeeting = () => (previewId && record.meetings.find((m) => m.id === previewId)) || snapshot();
+  function historyReport(s, g) {
+    const out = outcomes(s);
+    const ts = s.meetings.flatMap((x) => x.targets.map((t) => ({ ...t, setOn: x.date, type: x.type })));
+    return `<article class="rep"><header class="rep-head"><div>${repBrand}<div class="rep-title">${esc(s.name)}: meeting history</div></div><div class="rep-kind"><strong>Staff record</strong>${esc(g.name || '')}<br>Printed ${esc(humanDate(today()))}</div></header>
+      <section class="rep-sec"><h3>Target tracker</h3>${ts.length ? `<table class="rep-table"><thead><tr><th style="width:15%">Set on</th><th style="width:13%">Meeting</th><th>Target</th><th style="width:20%">Outcome</th></tr></thead><tbody>${
+        ts.map((t) => `<tr><td>${esc(shortDate(t.setOn))}</td><td>${typeBadge(t.type)}</td><td>${esc(t.text)}</td><td>${pill(out[t.id]?.status)}</td></tr>`).join('')}</tbody></table>` : '<p class="rep-empty">No targets yet.</p>'}</section>
+      ${s.meetings.map((x) => `<section class="rep-meeting"><h2 class="rep-meeting-h">${esc(humanDate(x.date))}: ${esc(x.type)}${x.tutor ? ` with ${esc(x.tutor)}` : ''}</h2>${meetingBody(x, 'staff')}</section>`).join('')}
+      <footer class="rep-foot"><span>Sixth form meetings: 6AM and Level Up</span><span>Confidential: authorised staff only</span></footer></article>`;
+  }
+  const previewMeeting = () => (previewId && stu().meetings.find((m) => m.id === previewId)) || snapshot();
   function syncPreview() {
-    const a = $('audience').value, m = previewMeeting(), html = reportHTML(m, a);
+    const a = $('audience').value, m = previewMeeting(), s = stu();
+    const html = a === 'history' ? historyReport(s, data.group) : meetingReport(m, a, s, data.group);
     $('paper').innerHTML = html; $('printRoot').innerHTML = html;
-    $('overlayTitle').textContent = a === 'history' ? 'Meeting history' : `${m.type} meeting, ${humanDate(m.date)}`;
+    $('overlayTitle').textContent = a === 'history' ? `${s.name}: meeting history` : `${m.type} meeting, ${humanDate(m.date)}`;
     $('overlaySub').textContent = a === 'share' ? 'Staff-only notes are left out.' : 'Includes staff-only notes. Share only with authorised staff.';
   }
   function showPreview(id = null) {
-    commit(); renderAll(); previewId = id; syncPreview();
+    if (!stu()) { showToast('Choose a student first.'); return; }
+    commit(); renderStudent(); previewId = id; syncPreview();
     $('overlay').hidden = false; $('overlayScroll').scrollTop = 0; $('closePreviewBtn').focus();
   }
   function printNow() {
     syncPreview();
     const a = $('audience').value, m = previewMeeting();
-    const n = (record.student.name || 'Student').replace(/[\\/:*?"<>|]+/g, '').trim().split(/\s+/).join('-');
+    const n = (stu().name || 'Student').replace(/[\\/:*?"<>|]+/g, '').trim().split(/\s+/).join('-');
     const old = document.title;
     document.title = a === 'history' ? `${n}_meeting-history` : `${n}_${m.type.replace(' ', '-')}_${m.date || today()}${a === 'staff' ? '_staff' : ''}`;
     window.print();
     setTimeout(() => { document.title = old; }, 1500);
   }
 
-  function showToast(msg) {
-    const t = $('toast'); t.textContent = msg; t.hidden = false;
-    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 4200);
-  }
-
-  // ---------- Events ----------
-  const form = $('meetingForm');
-  form.addEventListener('submit', (e) => e.preventDefault());
-  form.addEventListener('input', changed);
-  form.addEventListener('change', changed);
-  $('teamsNotes').addEventListener('change', renderShare);
-  $('emailNotes').addEventListener('change', renderShare);
-
-  document.addEventListener('click', (e) => {
-    const t = e.target.closest('button');
-    if (!t) return;
-    if (t.dataset.carry != null && t.dataset.carry !== '') {
-      const row = t.closest('[data-review]');
-      const x = JSON.parse(row.dataset.extra);
-      const empty = slots().find((s) => !s.value.trim());
-      if (!empty) { showToast('All three target boxes are full. Clear one first.'); return; }
-      empty.value = x.text; empty.dataset.carried = x.targetId || '';
-      if (!row.querySelector('input:checked')) row.querySelector('input[value="Not achieved"]').checked = true;
-      changed();
-      showToast('Carried forward into this meeting’s targets.');
-      return;
-    }
-    if (t.dataset.share) { setShareTab(t.dataset.share); return; }
-    if (t.dataset.open) {
-      commit();
-      const m = record.meetings.find((x) => x.id === t.dataset.open);
-      if (m) { openMeeting(clone(m)); window.scrollTo({ top: 0, behavior: 'smooth' }); }
-      return;
-    }
-    if (t.dataset.preview) { showPreview(t.dataset.preview); return; }
-    if (t.dataset.delete) {
-      const m = record.meetings.find((x) => x.id === t.dataset.delete);
-      if (!m || !window.confirm(`Delete the ${m.type} meeting on ${humanDate(m.date)}? This can’t be undone once the record is saved.`)) return;
-      record.meetings = record.meetings.filter((x) => x.id !== m.id);
-      dirty = true;
-      if (current.id === m.id) openMeeting(buildNextMeeting()); else renderAll();
-      if (canUseFS && fileHandle && $('autosave').checked) autosaveTimer = setTimeout(() => save({ silent: true }), 800);
-      showToast('Meeting deleted.');
-      return;
-    }
-    if (t.dataset.filter) { filter = t.dataset.filter; renderHistory(); return; }
-    if (t.dataset.action === 'settings') { openSettings(); return; }
-    if (t.dataset.action === 'student') { $('studentDetails').open = true; $('parentEmail').focus(); return; }
-    if (t.dataset.recent) { openRecent(t.dataset.recent); return; }
-    if (t.dataset.forget) { dbRun('readwrite', (s) => s.delete(t.dataset.forget)).then(renderRecent).catch(() => {}); }
-  });
-
-  $('homeOpenBtn').addEventListener('click', openRecord);
-  $('openBtn').addEventListener('click', openRecord);
-  $('homeNewBtn').addEventListener('click', newStudent);
-  $('homeBtn').addEventListener('click', () => { if (!confirmDiscard()) return; dirty = false; showView('home'); });
-  $('saveBtn').addEventListener('click', () => save());
-  $('saveBtn2').addEventListener('click', () => save());
-  $('previewBtn').addEventListener('click', () => showPreview());
-  $('newMeetingBtn').addEventListener('click', newMeeting);
-  $('copyTeams').addEventListener('click', () => copyText($('teamsMsg').textContent, 'Teams message copied. Paste it into the chat.'));
-  $('copyEmail').addEventListener('click', () => copyText(`Subject: ${emailSubject(shareData())}\n\n${$('emailMsg').textContent}`, 'Email copied, including the subject line.'));
-  $('openTeams').addEventListener('click', openTeams);
-  $('openEmail').addEventListener('click', openEmail);
-  $('settingsBtn').addEventListener('click', openSettings);
-  $('settingsSave').addEventListener('click', saveSettings);
-  $('settingsCancel').addEventListener('click', () => { $('settings').hidden = true; });
-  $('closePreviewBtn').addEventListener('click', () => { $('overlay').hidden = true; });
-  $('printBtn').addEventListener('click', printNow);
-  $('audience').addEventListener('change', syncPreview);
-  $('overlay').addEventListener('click', (e) => { if (e.target === $('overlay')) $('overlay').hidden = true; });
-  $('settings').addEventListener('click', (e) => { if (e.target === $('settings')) $('settings').hidden = true; });
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') { $('overlay').hidden = true; $('settings').hidden = true; $('helpPanel').hidden = true; $('picker').hidden = true; }
-    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); if (!$('workspace').hidden) save(); }
-  });
-  window.addEventListener('beforeprint', () => { if ($('overlay').hidden && record) { previewId = null; commit(); syncPreview(); } });
-  window.addEventListener('beforeunload', (e) => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
-
-
-
   // ---------- Example targets ----------
   const PRESETS = {
     'Independent study and revision': [
       'Complete two 30-minute past-paper questions in [subject] on [topic], self-mark them in a different colour, and bring them to my next meeting.',
       'Make flashcards for [topic] in [subject] and test myself three times this week, noting my score each time.',
-      'Use my free periods on [days] to study in the study area, and keep a log of what I did in each session.',
+      'Use my study periods on [days] to study in the study area, and keep a log of what I did in each session.',
       'Make a revision timetable for the next two weeks covering all my subjects, and show it to my tutor by [day].',
       'Turn my notes on [topic] into a one-page summary or mind map by [day].'
     ],
@@ -1468,16 +1936,12 @@
       'Shortlist [number] options on the school’s careers platform and bring the list to my next meeting.'
     ]
   };
-  const OWN_KEY = 'sixth-form-meetings-own-targets';
   const OWN_CAT = 'Your examples';
   let pickerSlot = 0, pickerCat = 'All';
   function ownPresets() { try { return JSON.parse(localStorage.getItem(OWN_KEY) || '[]'); } catch { return []; } }
   function setOwnPresets(list) { try { localStorage.setItem(OWN_KEY, JSON.stringify(list)); } catch { showToast('Your examples can’t be saved in this browser.'); } }
   const highlight = (t) => esc(t).replace(/\[([^\]]+)\]/g, '<mark>[$1]</mark>');
-  function allPresets() {
-    const own = ownPresets();
-    return own.length ? { [OWN_CAT]: own, ...PRESETS } : PRESETS;
-  }
+  function allPresets() { const own = ownPresets(); return own.length ? { [OWN_CAT]: own, ...PRESETS } : PRESETS; }
   function renderPicker() {
     const groups = allPresets();
     const cats = ['All', ...Object.keys(groups)];
@@ -1496,13 +1960,10 @@
   function openPicker(slot) {
     const empty = slots().findIndex((el) => !el.value.trim());
     pickerSlot = slot || (empty >= 0 ? empty + 1 : 0);
-    $('pickerFor').textContent = pickerSlot
-      ? `Choosing for Target ${pickerSlot}. Pick one, then replace the words in [brackets].`
-      : 'All three target boxes are full. Clear one, or choose “Choose an example” under a target to replace it.';
+    $('pickerFor').textContent = pickerSlot ? `Choosing for Target ${pickerSlot}. Pick one, then replace the words in [brackets].` : 'All three target boxes are full. Clear one, or use “Choose an example” under a target to replace it.';
     $('pickerSearch').value = '';
     renderPicker();
-    $('picker').hidden = false;
-    $('pickerSearch').focus();
+    $('picker').hidden = false; $('pickerSearch').focus();
   }
   function usePreset(text) {
     if (!pickerSlot) { showToast('Clear a target box first.'); return; }
@@ -1510,42 +1971,18 @@
     if (el.value.trim() && !window.confirm(`Replace what’s in Target ${pickerSlot}?`)) return;
     el.value = text; el.dataset.carried = '';
     $('picker').hidden = true;
-    changed();
+    changed({ target: el });
     el.focus();
     const a = text.indexOf('['), b = text.indexOf(']', a);
     if (a >= 0 && b > a) el.setSelectionRange(a, b + 1);
   }
-  document.addEventListener('click', (e) => {
-    const t = e.target.closest('button');
-    if (!t) return;
-    if (t.dataset.examples != null) { openPicker(+t.dataset.examples); return; }
-    if (t.dataset.preset) { usePreset(t.dataset.preset); return; }
-    if (t.dataset.pcat) { pickerCat = t.dataset.pcat; renderPicker(); return; }
-    if (t.dataset.ownRemove != null) {
-      const list = ownPresets(); list.splice(+t.dataset.ownRemove, 1); setOwnPresets(list); renderPicker();
-    }
-  });
-  $('pickerSearch').addEventListener('input', renderPicker);
-  $('pickerClose').addEventListener('click', () => { $('picker').hidden = true; });
-  $('picker').addEventListener('click', (e) => { if (e.target === $('picker')) $('picker').hidden = true; });
-  $('ownAdd').addEventListener('click', () => {
-    const v = $('ownPreset').value.trim();
-    if (!v) return;
-    const list = ownPresets();
-    if (!list.includes(v)) list.unshift(v);
-    setOwnPresets(list);
-    $('ownPreset').value = '';
-    pickerCat = OWN_CAT; renderPicker();
-    showToast('Example saved on this computer.');
-  });
 
   // ---------- Help ----------
   function openHelp(topic) {
     $('helpPanel').hidden = false;
-    const target = topic ? $('h-' + topic) : null;
-    $('helpBody').scrollTop = target ? target.offsetTop - 8 : 0;
-    markHelpNav();
-    $('helpClose').focus();
+    const t = topic ? $('h-' + topic) : null;
+    $('helpBody').scrollTop = t ? t.offsetTop - 8 : 0;
+    markHelpNav(); $('helpClose').focus();
   }
   function markHelpNav() {
     const body = $('helpBody');
@@ -1553,22 +1990,157 @@
     body.querySelectorAll('section').forEach((sec) => { if (sec.offsetTop - 40 <= body.scrollTop) on = sec.id.slice(2); });
     document.querySelectorAll('[data-hnav]').forEach((a) => a.classList.toggle('on', a.dataset.hnav === on));
   }
-  $('helpBtn').addEventListener('click', () => openHelp());
-  $('helpClose').addEventListener('click', () => { $('helpPanel').hidden = true; $('helpBtn').focus(); });
-  $('helpPanel').addEventListener('click', (e) => { if (e.target === $('helpPanel')) $('helpPanel').hidden = true; });
-  $('helpBody').addEventListener('scroll', markHelpNav);
-  document.querySelectorAll('[data-hnav]').forEach((a) => a.addEventListener('click', (e) => {
-    e.preventDefault();
-    $('helpBody').scrollTop = $('h-' + a.dataset.hnav).offsetTop - 8;
-  }));
+
+  function showToast(msg) {
+    const t = $('toast'); t.textContent = msg; t.hidden = false;
+    clearTimeout(toastTimer); toastTimer = setTimeout(() => { t.hidden = true; }, 5000);
+  }
+
+  // ---------- Events ----------
+  const form = $('meetingForm');
+  form.addEventListener('submit', (e) => e.preventDefault());
+  form.addEventListener('input', changed);
+  form.addEventListener('change', changed);
+  $('teamsNotes').addEventListener('change', renderShare);
+  $('emailNotes').addEventListener('change', renderShare);
+  $('rosterSearch').addEventListener('input', renderRoster);
+  $('parentEmail').addEventListener('blur', () => { const v = parseEmails($('parentEmail').value).join(', '); if (v !== $('parentEmail').value) { $('parentEmail').value = v; changed({ target: $('parentEmail') }); } });
+
   document.addEventListener('click', (e) => {
-    const t = e.target.closest('[data-help]');
-    if (t) openHelp(t.dataset.help);
-    if (e.target.closest('#helpPanel [data-action="settings"]')) $('helpPanel').hidden = true;
+    const h = e.target.closest('[data-help]');
+    if (h) { openHelp(h.dataset.help); return; }
+    const tr = e.target.closest('tr[data-ov-student], tr[data-ov-group]');
+    if (tr) {
+      if (tr.dataset.ovStudent) { const [gi, sid] = tr.dataset.ovStudent.split('|'); openDrawer(+gi, sid); }
+      else { $('ovGroup').value = $('ovGroup').value === tr.dataset.ovGroup ? '' : tr.dataset.ovGroup; renderOverview(); }
+      return;
+    }
+    const t = e.target.closest('button');
+    if (!t) return;
+    const d = t.dataset;
+    if (d.student) { selectStudent(d.student); return; }
+    if (d.carry != null && d.carry !== '') {
+      const row = t.closest('[data-review]');
+      const x = JSON.parse(row.dataset.extra);
+      const empty = slots().find((el) => !el.value.trim());
+      if (!empty) { showToast('All three target boxes are full. Clear one first.'); return; }
+      empty.value = x.text; empty.dataset.carried = x.targetId || '';
+      if (!row.querySelector('input:checked')) row.querySelector('input[value="Not achieved"]').checked = true;
+      changed({ target: empty });
+      showToast('Carried forward into this meeting’s targets.');
+      return;
+    }
+    if (d.share) { setShareTab(d.share); return; }
+    if (d.open) {
+      commit();
+      const m = stu().meetings.find((x) => x.id === d.open);
+      if (m) { openMeeting(clone(m)); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+      return;
+    }
+    if (d.preview) { showPreview(d.preview); return; }
+    if (d.delete) {
+      const s = stu(), m = s.meetings.find((x) => x.id === d.delete);
+      if (!m || !window.confirm(`Delete the ${m.type} meeting on ${humanDate(m.date)} for ${s.name}? This can’t be undone once saved.`)) return;
+      s.meetings = s.meetings.filter((x) => x.id !== m.id);
+      const key = `${s.id}|${m.id}`;
+      changes.meetings.delete(key); changes.deleted.add(key);
+      markDirty();
+      if (current.id === m.id) openMeeting(buildNextMeeting(s)); else renderStudent();
+      renderRoster(); scheduleAutosave();
+      showToast('Meeting deleted.');
+      return;
+    }
+    if (d.filter) { filter = d.filter; renderHistory(); return; }
+    if (d.action === 'settings') { $('helpPanel').hidden = true; openSettings(); return; }
+    if (d.action === 'student') { $('studentDetails').open = true; $('parentEmail').focus(); return; }
+    if (d.action === 'add-students') { openAdd(); return; }
+    if (d.recent) { openRecent(d.recent); return; }
+    if (d.forget) { dbRun('readwrite', (s) => s.delete(d.forget)).then(renderRecent).catch(() => {}); return; }
+    if (d.examples != null && d.examples !== '') { openPicker(+d.examples); return; }
+    if (d.preset) { usePreset(d.preset); return; }
+    if (d.pcat) { pickerCat = d.pcat; renderPicker(); return; }
+    if (d.ownRemove != null && d.ownRemove !== '') { const list = ownPresets(); list.splice(+d.ownRemove, 1); setOwnPresets(list); renderPicker(); return; }
+    if (d.ovYear) { ovYear = d.ovYear; renderOverview(); return; }
+    if (d.ovTab) { ovTab = d.ovTab; renderOverview(); }
   });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && e.target.matches('tr[data-ov-student], tr[data-ov-group]')) e.target.click();
+  });
+
+  function openAdd() { $('addNames').value = ''; $('addDialog').hidden = false; $('addNames').focus(); }
+  $('addStudentsBtn').addEventListener('click', openAdd);
+  $('addCancel').addEventListener('click', () => { $('addDialog').hidden = true; });
+  $('addOk').addEventListener('click', () => {
+    const { added, first } = addStudents(parseNames($('addNames').value));
+    $('addDialog').hidden = true;
+    renderRoster();
+    if (first && !currentSid) selectStudent(first);
+    showToast(added ? `${plural(added, 'student')} added.` : 'No new names to add.');
+  });
+  $('groupSettingsBtn').addEventListener('click', () => openGroupDialog('edit'));
+  $('groupCancel').addEventListener('click', () => { $('groupDialog').hidden = true; });
+  $('groupOk').addEventListener('click', groupDialogOk);
+  $('importBtn').addEventListener('click', importStudents);
+  $('showLeftBtn').addEventListener('click', () => { showLeft = !showLeft; renderRoster(); });
+  $('leftBtn').addEventListener('click', () => {
+    const s = stu(); if (!s) return;
+    if (!s.left && !window.confirm(`Mark ${s.name} as having left ${data.group.name}? Their records are kept and they can be returned to the group later.`)) return;
+    s.left = !s.left; changes.students.add(s.id); markDirty(); scheduleAutosave();
+    $('leftBtn').textContent = s.left ? 'Return to the group' : 'Mark as left the group';
+    if (s.left) showLeft = true;
+    renderRoster(); renderBand();
+  });
+
+  $('homeOpenBtn').addEventListener('click', openGroup);
+  $('homeNewBtn').addEventListener('click', () => { if (confirmDiscard()) { dirty = false; openGroupDialog('new'); } });
+  $('homeBtn').addEventListener('click', goHome);
+  $('ovOpenBtn').addEventListener('click', () => openOverview(false));
+  $('ovRecentBtn').addEventListener('click', () => openOverview(true));
+  $('ovRefresh').addEventListener('click', () => ov && loadOverview(ov.dir).then(() => showToast('Overview refreshed.')));
+  $('ovPrint').addEventListener('click', () => ov && printHTML(overviewReport(), `Sixth-form-overview_${today()}`));
+  $('ovGroup').addEventListener('change', renderOverview);
+  $('ovDays').addEventListener('change', renderOverview);
+  $('drawerClose').addEventListener('click', () => { $('drawer').hidden = true; });
+  $('drawer').addEventListener('click', (e) => { if (e.target === $('drawer')) $('drawer').hidden = true; });
+  $('drawerPrint').addEventListener('click', () => drawerRef && printHTML(historyReport(drawerRef.s, drawerRef.g.group), `${drawerRef.s.name.split(/\s+/).join('-')}_meeting-history`));
+
+  $('saveBtn').addEventListener('click', () => save());
+  $('saveBtn2').addEventListener('click', () => save());
+  $('previewBtn').addEventListener('click', () => showPreview());
+  $('newMeetingBtn').addEventListener('click', newMeeting);
+  $('copyTeams').addEventListener('click', () => copyText($('teamsMsg').textContent, 'Teams message copied. Paste it into the chat.'));
+  $('copyEmail').addEventListener('click', () => copyText(`Subject: ${emailSubject(shareData())}\n\n${$('emailMsg').textContent}`, 'Email copied, including the subject line.'));
+  $('openTeams').addEventListener('click', openTeams);
+  $('openEmail').addEventListener('click', openEmail);
+  $('settingsBtn').addEventListener('click', openSettings);
+  $('settingsSave').addEventListener('click', saveSettings);
+  $('settingsCancel').addEventListener('click', () => { $('settings').hidden = true; });
+  $('closePreviewBtn').addEventListener('click', () => { $('overlay').hidden = true; });
+  $('printBtn').addEventListener('click', printNow);
+  $('audience').addEventListener('change', syncPreview);
+  $('pickerSearch').addEventListener('input', renderPicker);
+  $('pickerClose').addEventListener('click', () => { $('picker').hidden = true; });
+  $('ownAdd').addEventListener('click', () => {
+    const v = $('ownPreset').value.trim(); if (!v) return;
+    const list = ownPresets(); if (!list.includes(v)) list.unshift(v);
+    setOwnPresets(list); $('ownPreset').value = ''; pickerCat = OWN_CAT; renderPicker();
+    showToast('Example saved on this computer.');
+  });
+  $('helpBtn').addEventListener('click', () => openHelp());
+  $('helpClose').addEventListener('click', () => { $('helpPanel').hidden = true; });
+  $('helpBody').addEventListener('scroll', markHelpNav);
+  document.querySelectorAll('[data-hnav]').forEach((a) => a.addEventListener('click', (e) => { e.preventDefault(); $('helpBody').scrollTop = $('h-' + a.dataset.hnav).offsetTop - 8; }));
+  ['overlay', 'settings', 'picker', 'helpPanel', 'groupDialog', 'addDialog'].forEach((id) => $(id).addEventListener('click', (e) => { if (e.target === $(id)) $(id).hidden = true; }));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') ['overlay', 'settings', 'picker', 'helpPanel', 'groupDialog', 'addDialog', 'drawer'].forEach((id) => { $(id).hidden = true; });
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 's') { e.preventDefault(); if (!$('workspace').hidden) save(); }
+  });
+  window.addEventListener('beforeprint', () => { if ($('overlay').hidden && !$('workspace').hidden && stu()) { previewId = null; commit(); syncPreview(); } });
+  window.addEventListener('beforeunload', (e) => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
 
   showView('home');
 })();
+
 </script>
 </body>
 </html>
